@@ -1,0 +1,55 @@
+// ============================================================================
+// Enterprise Tabs Component (Adaptive Semantic Theming & High Contrast)
+// ============================================================================
+
+import React from 'react';
+import { clsx } from 'clsx';
+
+export interface TabItem {
+  id: string;
+  label: string;
+  icon?: React.ReactNode;
+  badge?: string | number;
+}
+
+export interface TabsProps {
+  tabs: TabItem[];
+  activeTab: string;
+  onChange: (tabId: string) => void;
+  className?: string;
+}
+
+export const Tabs: React.FC<TabsProps> = ({ tabs, activeTab, onChange, className }) => {
+  return (
+    <div className={clsx('border-b border-border flex gap-1 overflow-x-auto select-none', className)}>
+      {tabs.map((tab) => {
+        const isActive = tab.id === activeTab;
+        return (
+          <button
+            key={tab.id}
+            onClick={() => onChange(tab.id)}
+            className={clsx(
+              'flex items-center gap-2 px-4 py-2.5 text-xs font-semibold border-b-2 transition-colors whitespace-nowrap cursor-pointer',
+              isActive
+                ? 'border-primary text-primary bg-primary/10 font-bold'
+                : 'border-transparent text-muted-foreground hover:text-foreground hover:border-border'
+            )}
+          >
+            {tab.icon && <span className="shrink-0">{tab.icon}</span>}
+            <span>{tab.label}</span>
+            {tab.badge !== undefined && (
+              <span
+                className={clsx(
+                  'px-1.5 py-0.5 text-[10px] font-bold rounded-full',
+                  isActive ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'
+                )}
+              >
+                {tab.badge}
+              </span>
+            )}
+          </button>
+        );
+      })}
+    </div>
+  );
+};

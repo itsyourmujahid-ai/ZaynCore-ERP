@@ -1,0 +1,222 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* ==========================================================================
+     LIGHT THEME (Default / :root / [data-theme="light"])
+     WCAG AAA High Contrast Design Tokens
+     ========================================================================== */
+  :root, [data-mode="light"], .light {
+    --background: #f8fafc;
+    --foreground: #0f172a;
+
+    --card: #ffffff;
+    --card-foreground: #0f172a;
+
+    --muted: #f1f5f9;
+    --muted-foreground: #475569;
+
+    --primary: #059669;
+    --primary-foreground: #ffffff;
+
+    --secondary: #e2e8f0;
+    --secondary-foreground: #0f172a;
+
+    --border: #cbd5e1;
+    --input: #ffffff;
+    --input-border: #94a3b8;
+    --ring: #059669;
+
+    --destructive: #dc2626;
+    --destructive-foreground: #ffffff;
+
+    /* Theme Accents (Light) */
+    --theme-accent-primary: #059669;
+    --theme-accent-hover: #047857;
+    --theme-accent-light: #ecfdf5;
+    --theme-accent-border: #a7f3d0;
+    --theme-accent-text: #047857;
+    --theme-chart-stroke: #059669;
+    --theme-chart-fill: rgba(5, 150, 105, 0.15);
+    --theme-chart-dot: #047857;
+    --theme-nav-active: rgba(5, 150, 105, 0.15);
+    --theme-nav-ring: rgba(5, 150, 105, 0.3);
+    --theme-nav-dot: #059669;
+
+    --brand-50: #ecfdf5;
+    --brand-100: #d1fae5;
+    --brand-200: #a7f3d0;
+    --brand-300: #6ee7b7;
+    --brand-400: #34d399;
+    --brand-500: #10b981;
+    --brand-600: #059669;
+    --brand-700: #047857;
+    --brand-800: #065f46;
+    --brand-900: #064e3b;
+    --brand-950: #022c22;
+  }
+
+  /* ==========================================================================
+     DARK THEME (.dark / [data-mode="dark"])
+     WCAG AAA High Contrast Design Tokens
+     ========================================================================== */
+  .dark, [data-mode="dark"] {
+    --background: #090d16;
+    --foreground: #f8fafc;
+
+    --card: #111827;
+    --card-foreground: #f8fafc;
+
+    --muted: #1e293b;
+    --muted-foreground: #94a3b8;
+
+    --primary: #10b981;
+    --primary-foreground: #ffffff;
+
+    --secondary: #1e293b;
+    --secondary-foreground: #f8fafc;
+
+    --border: #334155;
+    --input: #0f172a;
+    --input-border: #475569;
+    --ring: #34d399;
+
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+
+    /* Theme Accents (Dark) */
+    --theme-accent-primary: #10b981;
+    --theme-accent-hover: #34d399;
+    --theme-accent-light: rgba(16, 185, 129, 0.15);
+    --theme-accent-border: #047857;
+    --theme-accent-text: #34d399;
+    --theme-chart-stroke: #10b981;
+    --theme-chart-fill: rgba(16, 185, 129, 0.15);
+    --theme-chart-dot: #34d399;
+    --theme-nav-active: rgba(16, 185, 129, 0.22);
+    --theme-nav-ring: rgba(52, 211, 153, 0.4);
+    --theme-nav-dot: #34d399;
+
+    --brand-50: #022c22;
+    --brand-100: #064e3b;
+    --brand-200: #065f46;
+    --brand-300: #047857;
+    --brand-400: #059669;
+    --brand-500: #10b981;
+    --brand-600: #34d399;
+    --brand-700: #6ee7b7;
+    --brand-800: #a7f3d0;
+    --brand-900: #d1fae5;
+    --brand-950: #ecfdf5;
+  }
+
+  /* Palette Overrides: Blue */
+  .theme-blue, [data-palette="blue"] {
+    --primary: #0284c7;
+    --brand-500: #0284c7;
+    --brand-600: #0369a1;
+    --theme-accent-primary: #0284c7;
+    --theme-accent-hover: #0369a1;
+    --theme-accent-light: #f0f9ff;
+    --theme-accent-border: #bae6fd;
+    --theme-accent-text: #0284c7;
+    --theme-chart-stroke: #0284c7;
+    --theme-chart-fill: rgba(2, 132, 199, 0.15);
+    --theme-chart-dot: #0284c7;
+    --theme-nav-active: rgba(2, 132, 199, 0.22);
+    --theme-nav-ring: rgba(56, 189, 248, 0.4);
+    --theme-nav-dot: #38bdf8;
+  }
+
+  /* Palette Overrides: Black / Obsidian */
+  .theme-black, [data-palette="black"] {
+    --primary: #334155;
+    --brand-500: #334155;
+    --brand-600: #1e293b;
+    --theme-accent-primary: #334155;
+    --theme-accent-hover: #1e293b;
+    --theme-accent-light: #f1f5f9;
+    --theme-accent-border: #cbd5e1;
+    --theme-accent-text: #0f172a;
+    --theme-chart-stroke: #475569;
+    --theme-chart-fill: rgba(51, 65, 85, 0.15);
+    --theme-chart-dot: #0f172a;
+    --theme-nav-active: rgba(255, 255, 255, 0.15);
+    --theme-nav-ring: rgba(255, 255, 255, 0.3);
+    --theme-nav-dot: #f8fafc;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Custom high-contrast scrollbars */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--muted);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--muted-foreground);
+    border-radius: 9999px;
+    opacity: 0.7;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+  }
+}
+
+/* Subtle Enterprise Dot Grid Background (Adaptive) */
+.bg-dot-grid {
+  background-color: var(--background);
+  background-image: radial-gradient(var(--border) 1.2px, transparent 1.2px);
+  background-size: 24px 24px;
+}
+
+/* High Contrast Glass Panels */
+.glass-panel-light {
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.06);
+}
+
+.glass-card-light {
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 10px -1px rgba(0, 0, 0, 0.04);
+}
+
+.glass-card-light:hover {
+  border-color: var(--primary);
+  box-shadow: 0 6px 20px -2px rgba(0, 0, 0, 0.08);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.15s ease-out forwards;
+}
+
+.animate-scaleUp {
+  animation: scaleUp 0.15s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

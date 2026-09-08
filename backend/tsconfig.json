@@ -1,0 +1,25 @@
+﻿{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "noEmit": true,
+    "strict": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@/core/types/*": ["../shared/src/types/*"],
+      "@/core/types/common": ["../shared/src/types/common.ts"],
+      "@/core/utils/*": ["../shared/src/utils/*"],
+      "@/core/utils/money": ["../shared/src/utils/money.ts"],
+      "@/core/errors/*": ["../shared/src/errors/*"],
+      "@/core/errors/DomainErrors": ["../shared/src/errors/DomainErrors.ts"]
+    }
+  },
+  "include": ["src/**/*"]
+}

@@ -1,0 +1,60 @@
+{
+  "name": "enterprise-erp-monorepo",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "workspaces": [
+    "shared",
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "dev:backend": "npm run dev --workspace=@enterprise/backend",
+    "dev:frontend": "npm run dev --workspace=@enterprise/frontend",
+    "start:backend": "npm run start --workspace=@enterprise/backend",
+    "build": "tsc && vite build",
+    "build:all": "npm run build --workspaces --if-present",
+    "build:shared": "npm run build --workspace=@enterprise/shared",
+    "build:backend": "npm run build --workspace=@enterprise/backend",
+    "build:frontend": "npm run build --workspace=@enterprise/frontend",
+    "preview": "vite preview",
+    "lint": "tsc --noEmit",
+    "test": "tsx --test tests/accounting/*.test.ts tests/modules/*.test.ts tests/onboarding/*.test.ts tests/security/*.test.ts tests/uat/*.test.ts tests/api/*.test.ts tests/database/*.test.ts",
+    "test:accounting": "tsx --test tests/accounting/*.test.ts",
+    "test:modules": "tsx --test tests/modules/*.test.ts",
+    "test:onboarding": "tsx --test tests/onboarding/*.test.ts",
+    "test:security": "tsx --test tests/security/*.test.ts",
+    "test:uat": "tsx --test tests/uat/*.test.ts",
+    "test:api": "tsx --test tests/api/*.test.ts",
+    "test:db": "tsx --test tests/database/*.test.ts",
+    "db:migrate": "tsx backend/src/database/migrate.ts"
+  },
+  "dependencies": {
+    "@types/pg": "^8.23.1",
+    "clsx": "^2.1.1",
+    "cors": "^2.8.5",
+    "date-fns": "^4.1.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "lucide-react": "^1.16.0",
+    "pg": "^8.23.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwind-merge": "^3.0.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.13.5",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^3.4.17",
+    "tsx": "^4.23.13",
+    "typescript": "^5.7.3",
+    "vite": "^6.2.0"
+  }
+}

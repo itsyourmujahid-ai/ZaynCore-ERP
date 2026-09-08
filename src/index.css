@@ -1,0 +1,170 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-slate-950 text-slate-900 font-sans antialiased selection:bg-emerald-500 selection:text-white min-h-screen overflow-hidden;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  }
+
+  /* Custom scrollbar for dense enterprise tables and menus */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(241, 245, 249, 0.6);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.5);
+    border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(100, 116, 139, 0.7);
+  }
+}
+
+/* Subtle Enterprise Dot Grid Background */
+.bg-dot-grid {
+  background-color: #f8fafc;
+  background-image: radial-gradient(#cbd5e1 1.1px, transparent 1.1px);
+  background-size: 24px 24px;
+}
+
+/* Light Frosted Glass Classes (Dashboard Panels, KPI Cards, Tables, Charts) */
+.glass-panel-light {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+}
+
+.glass-card-light {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid rgba(226, 232, 240, 0.85);
+  box-shadow: 0 2px 12px -1px rgba(15, 23, 42, 0.04);
+}
+
+.glass-card-light:hover {
+  border-color: rgba(203, 213, 225, 0.95);
+  box-shadow: 0 6px 20px -2px rgba(15, 23, 42, 0.07);
+}
+
+/* Dark Frosted Glass Classes (Sidebar & Top Navigation) */
+.glass-header-dark {
+  background: rgba(15, 23, 42, 0.78);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.25);
+}
+
+.glass-sidebar-dark {
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-right: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: 4px 0 24px -2px rgba(0, 0, 0, 0.3);
+}
+
+/* Theme Accents & Global Brand Palette */
+.theme-black, [data-theme="black"] {
+  --brand-50: #f8fafc;
+  --brand-100: #f1f5f9;
+  --brand-200: #e2e8f0;
+  --brand-300: #cbd5e1;
+  --brand-400: #94a3b8;
+  --brand-500: #475569;
+  --brand-600: #0f172a;
+  --brand-700: #020617;
+  --brand-800: #000000;
+  --brand-900: #000000;
+  --brand-950: #000000;
+  --theme-accent-primary: #0f172a;
+  --theme-accent-hover: #1e293b;
+  --theme-accent-light: #f1f5f9;
+  --theme-accent-border: #cbd5e1;
+  --theme-accent-text: #0f172a;
+  --theme-chart-stroke: #334155;
+  --theme-chart-fill: rgba(51, 65, 85, 0.12);
+  --theme-chart-dot: #0f172a;
+  --theme-nav-active: rgba(255, 255, 255, 0.15);
+  --theme-nav-ring: rgba(255, 255, 255, 0.3);
+  --theme-nav-dot: #f8fafc;
+}
+
+.theme-blue, [data-theme="blue"] {
+  --brand-50: #f0f9ff;
+  --brand-100: #e0f2fe;
+  --brand-200: #bae6fd;
+  --brand-300: #7dd3fc;
+  --brand-400: #38bdf8;
+  --brand-500: #0ea5e9;
+  --brand-600: #0284c7;
+  --brand-700: #0369a1;
+  --brand-800: #075985;
+  --brand-900: #0c4a6e;
+  --brand-950: #082f49;
+  --theme-accent-primary: #0284c7;
+  --theme-accent-hover: #0369a1;
+  --theme-accent-light: #f0f9ff;
+  --theme-accent-border: #bae6fd;
+  --theme-accent-text: #0284c7;
+  --theme-chart-stroke: #0284c7;
+  --theme-chart-fill: rgba(2, 132, 199, 0.14);
+  --theme-chart-dot: #0284c7;
+  --theme-nav-active: rgba(2, 132, 199, 0.25);
+  --theme-nav-ring: rgba(56, 189, 248, 0.4);
+  --theme-nav-dot: #38bdf8;
+}
+
+.theme-green, [data-theme="green"], :root {
+  --brand-50: #ecfdf5;
+  --brand-100: #d1fae5;
+  --brand-200: #a7f3d0;
+  --brand-300: #6ee7b7;
+  --brand-400: #34d399;
+  --brand-500: #10b981;
+  --brand-600: #059669;
+  --brand-700: #047857;
+  --brand-800: #065f46;
+  --brand-900: #064e3b;
+  --brand-950: #022c22;
+  --theme-accent-primary: #059669;
+  --theme-accent-hover: #047857;
+  --theme-accent-light: #ecfdf5;
+  --theme-accent-border: #a7f3d0;
+  --theme-accent-text: #059669;
+  --theme-chart-stroke: #059669;
+  --theme-chart-fill: rgba(5, 150, 105, 0.14);
+  --theme-chart-dot: #059669;
+  --theme-nav-active: rgba(5, 150, 105, 0.25);
+  --theme-nav-ring: rgba(52, 211, 153, 0.4);
+  --theme-nav-dot: #34d399;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.15s ease-out forwards;
+}
+
+.animate-scaleUp {
+  animation: scaleUp 0.15s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

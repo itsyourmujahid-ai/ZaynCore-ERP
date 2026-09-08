@@ -1,0 +1,416 @@
+// ============================================================================
+// Master Enterprise ERP Module Registry
+// ============================================================================
+
+import { ErpModuleDefinition } from './types';
+
+export const ERP_MODULE_REGISTRY: ErpModuleDefinition[] = [
+  // 1. FINANCIAL ACCOUNTING
+  {
+    key: 'financial_accounting',
+    name: 'Financial Accounting & GL',
+    code: 'GL',
+    category: 'finance',
+    description: 'Double-entry general ledger, chart of accounts, automated journal engine, trial balance, and financial statements.',
+    iconName: 'BookOpen',
+    minTier: 'small',
+    defaultEnabledTiers: ['small', 'medium', 'enterprise'],
+    isCore: true,
+    isPhase1Foundation: true,
+    route: '/accounting',
+    affectsGeneralLedger: true,
+    dependencies: [],
+    subFeatures: [
+      { key: 'coa_multilevel', name: 'Multi-Level Chart of Accounts', description: 'Deep hierarchical account tree', minTier: 'medium', defaultEnabledTiers: ['medium', 'enterprise'] },
+      { key: 'period_locks', name: 'Fiscal Period Locking', description: 'Hard and soft period closing locks', minTier: 'small', defaultEnabledTiers: ['small', 'medium', 'enterprise'] },
+      { key: 'reversing_journals', name: 'Reversing & Accrual Journals', description: 'Automated beginning-of-period reversals', minTier: 'medium', defaultEnabledTiers: ['medium', 'enterprise'] },
+      { key: 'year_end_closing', name: 'Automated Year-End Closing', description: 'Retained earnings transfer workflow', minTier: 'small', defaultEnabledTiers: ['small', 'medium', 'enterprise'] },
+    ],
+    permissions: [
+      { code: 'accounting.view', name: 'View General Ledger', description: 'View accounts, journals, and trial balance' },
+      { code: 'accounting.create', name: 'Draft Journals', description: 'Create draft journal entries' },
+      { code: 'accounting.edit', name: 'Edit Draft Journals', description: 'Modify unposted journal entries' },
+      { code: 'accounting.post', name: 'Post Journals', description: 'Post and lock journal entries in the GL' },
+      { code: 'accounting.reverse', name: 'Reverse Journals', description: 'Generate reversing journal entries' },
+      { code: 'accounting.lock_period', name: 'Lock Accounting Periods', description: 'Open, lock, and close fiscal periods' },
+      { code: 'accounting.manage_coa', name: 'Manage Chart of Accounts', description: 'Create and modify ledger accounts' },
+    ],
+  },
+
+  // 2. ACCOUNTS RECEIVABLE
+  {
+    key: 'accounts_receivable',
+    name: 'Accounts Receivable (AR)',
+    code: 'AR',
+    category: 'finance',
+    description: 'Customer master, sales invoicing, receipts, payment allocation, aging analysis, and credit limits.',
+    iconName: 'TrendingUp',
+    minTier: 'small',
+    defaultEnabledTiers: ['small', 'medium', 'enterprise'],
+    isCore: false,
+    isPhase1Foundation: false,
+    route: '/receivables',
+    affectsGeneralLedger: true,
+    subLedgerName: 'AR Sub-Ledger',
+    dependencies: ['financial_accounting'],
+    subFeatures: [
+      { key: 'credit_limit_enforcement', name: 'Credit Limit Enforcement', description: 'Hard stop on orders exceeding credit limit', minTier: 'medium', defaultEnabledTiers: ['medium', 'enterprise'] },
+      { key: 'ar_aging_buckets', name: 'Dynamic Aging Buckets', description: 'Customizable 30/60/90+ day aging brackets', minTier: 'small', defaultEnabledTiers: ['small', 'medium', 'enterprise'] },
+      { key: 'customer_statements', name: 'Automated Customer Statements', description: 'Monthly statement dispatch', minTier: 'small', defaultEnabledTiers: ['small', 'medium', 'enterprise'] },
+      { key: 'dunning_management', name: 'Dunning & Collections', description: 'Automated multi-stage collection letters', minTier: 'enterprise', defaultEnabledTiers: ['enterprise'] },
+    ],
+    permissions: [
+      { code: 'ar.view', name: 'View AR & Invoices', description: 'View customer invoices and balances' },
+      { code: 'ar.create', name: 'Create Invoices', description: 'Draft sales invoices' },
+      { code: 'ar.post', name: 'Post Invoices', description: 'Post invoices to AR Sub-ledger and GL' },
+      { code: 'ar.record_receipt', name: 'Record Receipts', description: 'Receive customer payments and allocate' },
+      { code: 'ar.credit_note', name: 'Issue Credit Notes', description: 'Create and apply credit adjustments' },
+    ],
+  },
+
+  // 3. ACCOUNTS PAYABLE
+  {
+    key: 'accounts_payable',
+    name: 'Accounts Payable (AP)',
+    code: 'AP',
+    category: 'finance',
+    description: 'Supplier directory, vendor bills, debit notes, 3-way matching, payment batches, and AP aging.',
+    iconName: 'CreditCard',
+    minTier: 'small',
+    defaultEnabledTiers: ['small', 'medium', 'enterprise'],
+    isCore: false,
+    isPhase1Foundation: false,
+    route: '/payables',
+    affectsGeneralLedger: true,
+    subLedgerName: 'AP Sub-Ledger',
+    dependencies: ['financial_accounting'],
+    subFeatures: [
+      { key: 'three_way_matching', name: '3-Way Matching', description: 'PO vs Goods Receipt vs Supplier Bill verification', minTier: 'enterprise', defaultEnabledTiers: ['enterprise'] },
+      { key: 'payment_approval_workflow', name: 'Payment Approval Gate', description: 'Multi-level approval before disbursement', minTier: 'medium', defaultEnabledTiers: ['medium', 'enterprise'] },
+      { key: 'vendor_portal', name: 'Vendor Self-Service Portal', description: 'External vendor invoice submission', minTier: 'enterprise', defaultEnabledTiers: ['enterprise'] },
+    ],
+    permissions: [
+      { code: 'ap.view', name: 'View AP & Bills', description: 'View supplier bills and payment status' },
+      { code: 'ap.create', name: 'Create Supplier Bills', description: 'Record incoming vendor bills' },
+      { code: 'ap.post', name: 'Post Bills', description: 'Commit vendor liabilities to AP Sub-ledger' },
+      { code: 'ap.disburse_payment', name: 'Disburse Payments', description: 'Execute supplier payments' },
+    ],
+  },
+
+  // 4. SALES MANAGEMENT
+  {
+    key: 'sales',
+    name: 'Sales Management',
+    code: 'SALES',
+    category: 'operations',
+    description: 'Quotations, price lists, customer discounts, sales orders, delivery dispatch, and sales commission.',
+    iconName: 'ShoppingBag',
+    minTier: 'small',
+    defaultEnabledTiers: ['small', 'medium', 'enterprise'],
+    isCore: false,
+    isPhase1Foundation: false,
+    route: '/sales',
+    affectsGeneralLedger: true,
+    dependencies: ['accounts_receivable'],
+    subFeatures: [
+      { key: 'price_lists', name: 'Tiered Price Lists', description: 'Custom customer group and currency pricing', minTier: 'medium', defaultEnabledTiers: ['medium', 'enterprise'] },
+      { key: 'sales_commission', name: 'Sales Commission Tracking', description: 'Rep commission calculation on paid invoices', minTier: 'medium', defaultEnabledTiers: ['medium', 'enterprise'] },
+    ],
+    permissions: [
+      { code: 'sales.view', name: 'View Sales Documents', description: 'View quotes and orders' },
+      { code: 'sales.create_quote', name: 'Create Quotes', description: 'Draft customer quotations' },
+      { code: 'sales.confirm_order', name: 'Confirm Orders', description: 'Convert quotes into sales orders' },
+    ],
+  },
+
+  // 5. PROCUREMENT MANAGEMENT
+  {
+    key: 'procurement',
+    name: 'Procurement & Purchasing',
+    code: 'PROC',
+    category: 'supply_chain',
+    description: 'Purchase requisitions, RFQ, vendor bid comparisons, purchase orders, and receiving dock management.',
+    iconName: 'Truck',
+    minTier: 'medium',
+    defaultEnabledTiers: ['medium', 'enterprise'],
+    isCore: false,
+    isPhase1Foundation: false,
+    route: '/procurement',
+    affectsGeneralLedger: true,
+    dependencies: ['accounts_payable'],
+    subFeatures: [
+      { key: 'rfq_comparison', name: 'RFQ Matrix Comparison', description: 'Side-by-side vendor quotation analysis', minTier: 'enterprise', defaultEnabledTiers: ['enterprise'] },
+      { key: 'requisition_approval', name: 'Departmental Requisition Approvals', description: 'Spend limits by department head', minTier: 'medium', defaultEnabledTiers: ['medium', 'enterprise'] },
+    ],
+    permissions: [
+      { code: 'procurement.create_req', name: 'Create Requisitions', description: 'Submit purchase requests' },
+      { code: 'procurement.approve_po', name: 'Approve Purchase Orders', description: 'Authorize company purchase orders' },
+    ],
+  },
+
+  // 6. INVENTORY & WAREHOUSE
+  {
+    key: 'inventory',
+    name: 'Inventory & Warehouses',
+    code: 'INV',
+    category: 'supply_chain',
+    description: 'Item master, multi-warehouse stock levels, bin locations, batch & serial tracking, FIFO valuation, and stock counts.',
+    iconName: 'Boxes',
+    minTier: 'medium',
+    defaultEnabledTiers: ['medium', 'enterprise'],
+    isCore: false,
+    isPhase1Foundation: false,
+    route: '/inventory',
+    affectsGeneralLedger: true,
+    subLedgerName: 'Inventory Sub-Ledger',
+    dependencies: ['financial_accounting'],
+    subFeatures: [
+      { key: 'multi_warehouse', name: 'Multi-Warehouse', description: 'Manage stock across multiple physical warehouses', minTier: 'medium', defaultEnabledTiers: ['medium', 'enterprise'] },
+      { key: 'batch_serial', name: 'Batch & Serial Number Tracking', description: 'Lot tracking, expiry dates, and serialized units', minTier: 'enterprise', defaultEnabledTiers: ['enterprise'] },
+      { key: 'fifo_valuation', name: 'Perpetual FIFO Valuation', description: 'Automated COGS calculation on dispatch', minTier: 'medium', defaultEnabledTiers: ['medium', 'enterprise'] },
+      { key: 'stock_transfer_transit', name: 'In-Transit Stock Transfers', description: 'Two-step inter-warehouse stock transfer', minTier: 'enterprise', defaultEnabledTiers: ['enterprise'] },
+    ],
+    permissions: [
+      { code: 'inventory.view', name: 'View Stock Levels', description: 'Check stock on hand and valuation' },
+      { code: 'inventory.adjust', name: 'Perform Stock Adjustments', description: 'Post inventory write-offs and counts' },
+      { code: 'inventory.transfer', name: 'Execute Transfers', description: 'Move inventory between warehouses' },
+    ],
+  },
+
+  // 7. BANKING & CASH MANAGEMENT
+  {
+    key: 'banking_cash',
+    name: 'Banking & Treasury',
+    code: 'BANK',
+    category: 'finance',
+    description: 'Bank and cash accounts, petty cash drawers, bank transfers, bank reconciliation, and cash flow forecasting.',
+    iconName: 'Landmark',
+    minTier: 'small',
+    defaultEnabledTiers: ['small', 'medium', 'enterprise'],
+    isCore: false,
+    isPhase1Foundation: false,
+    route: '/banking',
+    affectsGeneralLedger: true,
+    subLedgerName: 'Bank Sub-Ledger',
+    dependencies: ['financial_accounting'],
+    subFeatures: [
+      { key: 'bank_reconciliation', name: 'Bank Statement Reconciliation', description: 'Match bank statements against GL bank accounts', minTier: 'small', defaultEnabledTiers: ['small', 'medium', 'enterprise'] },
+      { key: 'petty_cash_float', name: 'Petty Cash Float Controls', description: 'Imprest petty cash management', minTier: 'medium', defaultEnabledTiers: ['medium', 'enterprise'] },
+      { key: 'direct_bank_feed', name: 'Direct Bank Statement Feeds', description: 'OFX/CSV and live bank API feeds', minTier: 'enterprise', defaultEnabledTiers: ['enterprise'] },
+    ],
+    permissions: [
+      { code: 'banking.view', name: 'View Bank Balances', description: 'Access bank and cash accounts' },
+      { code: 'banking.reconcile', name: 'Perform Bank Reconciliation', description: 'Reconcile cleared transactions' },
+      { code: 'banking.transfer', name: 'Execute Funds Transfer', description: 'Move money between bank accounts' },
+    ],
+  },
+
+  // 8. FIXED ASSETS MANAGEMENT
+  {
+    key: 'fixed_assets',
+    name: 'Fixed Assets Management',
+    code: 'ASSET',
+    category: 'finance',
+    description: 'Asset register, capitalization, straight-line & declining depreciation, asset transfers, revaluation, and disposal.',
+    iconName: 'Building2',
+    minTier: 'medium',
+    defaultEnabledTiers: ['medium', 'enterprise'],
+    isCore: false,
+    isPhase1Foundation: false,
+    route: '/assets',
+    affectsGeneralLedger: true,
+    subLedgerName: 'Fixed Asset Sub-Ledger',
+    dependencies: ['financial_accounting'],
+    subFeatures: [
+      { key: 'automated_depreciation_run', name: 'Monthly Depreciation Engine', description: 'One-click automated depreciation posting to GL', minTier: 'medium', defaultEnabledTiers: ['medium', 'enterprise'] },
+      { key: 'asset_impairment', name: 'Impairment & Revaluation', description: 'IFRS/GAAP fair value adjustments', minTier: 'enterprise', defaultEnabledTiers: ['enterprise'] },
+    ],
+    permissions: [
+      { code: 'assets.view', name: 'View Asset Register', description: 'View fixed assets and net book value' },
+      { code: 'assets.run_depreciation', name: 'Run Depreciation', description: 'Execute and post monthly depreciation journals' },
+    ],
+  },
+
+  // 9. PAYROLL & HUMAN RESOURCES
+  {
+    key: 'payroll_hr',
+    name: 'Payroll & HR Accounting',
+    code: 'HR',
+    category: 'human_resources',
+    description: 'Employee directory, salary structures, deductions, social security, monthly payroll run, and GL payroll journal posting.',
+    iconName: 'Users',
+    minTier: 'medium',
+    defaultEnabledTiers: ['medium', 'enterprise'],
+    isCore: false,
+    isPhase1Foundation: false,
+    route: '/payroll',
+    affectsGeneralLedger: true,
+    subLedgerName: 'Payroll Sub-Ledger',
+    dependencies: ['financial_accounting'],
+    subFeatures: [
+      { key: 'custom_salary_structures', name: 'Custom Salary Structures', description: 'Dynamic allowances, bonuses, and tax deductions', minTier: 'medium', defaultEnabledTiers: ['medium', 'enterprise'] },
+      { key: 'end_of_service_gratuity', name: 'End of Service Gratuity Accrual', description: 'Automated statutory severance accruals', minTier: 'enterprise', defaultEnabledTiers: ['enterprise'] },
+    ],
+    permissions: [
+      { code: 'payroll.view', name: 'View Payroll Data', description: 'View employee salaries and payslips' },
+      { code: 'payroll.process', name: 'Process Monthly Payroll', description: 'Execute payroll runs and post GL journals' },
+    ],
+  },
+
+  // 10. TAXATION & VAT
+  {
+    key: 'tax_vat',
+    name: 'Taxation & VAT Engine',
+    code: 'TAX',
+    category: 'compliance',
+    description: 'Configurable tax codes, input/output VAT calculation, tax exemption handling, and statutory tax return reporting.',
+    iconName: 'Receipt',
+    minTier: 'small',
+    defaultEnabledTiers: ['small', 'medium', 'enterprise'],
+    isCore: false,
+    isPhase1Foundation: false,
+    route: '/tax',
+    affectsGeneralLedger: true,
+    dependencies: ['financial_accounting'],
+    subFeatures: [
+      { key: 'multi_tax_rates', name: 'Multi-Jurisdiction Tax Rates', description: 'Support for multiple VAT/Sales tax rates per invoice line', minTier: 'small', defaultEnabledTiers: ['small', 'medium', 'enterprise'] },
+      { key: 'withholding_tax', name: 'Withholding Tax (WHT)', description: 'Vendor withholding tax deductions at source', minTier: 'enterprise', defaultEnabledTiers: ['enterprise'] },
+    ],
+    permissions: [
+      { code: 'tax.manage_codes', name: 'Manage Tax Codes', description: 'Configure tax rates and liability accounts' },
+      { code: 'tax.generate_return', name: 'Generate Tax Return', description: 'Compile VAT audit files' },
+    ],
+  },
+
+  // 11. COST & MANAGEMENT ACCOUNTING
+  {
+    key: 'cost_management',
+    name: 'Cost & Management Accounting',
+    code: 'COST',
+    category: 'management',
+    description: 'Cost centers, departmental allocations, business units, annual budgeting, and budget vs actual variance analysis.',
+    iconName: 'PieChart',
+    minTier: 'medium',
+    defaultEnabledTiers: ['medium', 'enterprise'],
+    isCore: false,
+    isPhase1Foundation: false,
+    route: '/cost-management',
+    affectsGeneralLedger: true,
+    dependencies: ['financial_accounting'],
+    subFeatures: [
+      { key: 'cost_allocation_rules', name: 'Indirect Cost Allocation Rules', description: 'Distribute overhead expenses across cost centers', minTier: 'enterprise', defaultEnabledTiers: ['enterprise'] },
+      { key: 'budget_vs_actual', name: 'Budget vs Actual Real-Time Tracking', description: 'Enforce budget warning limits on purchase orders', minTier: 'medium', defaultEnabledTiers: ['medium', 'enterprise'] },
+    ],
+    permissions: [
+      { code: 'cost.manage_budgets', name: 'Manage Budgets', description: 'Define departmental budgets' },
+      { code: 'cost.view_variance', name: 'View Variance Analysis', description: 'Inspect budget vs actual performance' },
+    ],
+  },
+
+  // 12. PROJECT ACCOUNTING
+  {
+    key: 'project_accounting',
+    name: 'Project Accounting',
+    code: 'PROJ',
+    category: 'management',
+    description: 'Project costing, milestone billing, work in progress (WIP), retention tracking, and project profitability reporting.',
+    iconName: 'Briefcase',
+    minTier: 'enterprise',
+    defaultEnabledTiers: ['enterprise'],
+    isCore: false,
+    isPhase1Foundation: false,
+    route: '/projects',
+    affectsGeneralLedger: true,
+    dependencies: ['financial_accounting', 'sales', 'procurement'],
+    subFeatures: [
+      { key: 'wip_capitalization', name: 'Work in Progress (WIP) Posting', description: 'Capitalize costs until project milestone sign-off', minTier: 'enterprise', defaultEnabledTiers: ['enterprise'] },
+      { key: 'retention_billing', name: 'Retention Money Tracking', description: 'Withhold contractor retention balances', minTier: 'enterprise', defaultEnabledTiers: ['enterprise'] },
+    ],
+    permissions: [
+      { code: 'project.manage', name: 'Manage Projects', description: 'Create and configure projects and milestones' },
+      { code: 'project.view_profitability', name: 'View Project Profitability', description: 'Access project P&L reports' },
+    ],
+  },
+
+  // 13. MULTI-COMPANY & GROUP CONSOLIDATION
+  {
+    key: 'consolidation',
+    name: 'Group Consolidation & Inter-Company',
+    code: 'GROUP',
+    category: 'management',
+    description: 'Multi-entity corporate groups, inter-company billing, automated elimination journal entries, and group consolidated reporting.',
+    iconName: 'Globe',
+    minTier: 'enterprise',
+    defaultEnabledTiers: ['enterprise'],
+    isCore: false,
+    isPhase1Foundation: false,
+    route: '/consolidation',
+    affectsGeneralLedger: true,
+    dependencies: ['financial_accounting'],
+    subFeatures: [
+      { key: 'intercompany_eliminations', name: 'Automated Elimination Journals', description: 'Eliminate internal cross-company transactions on consolidation', minTier: 'enterprise', defaultEnabledTiers: ['enterprise'] },
+      { key: 'group_reporting_currency', name: 'Group Reporting Currency Translation', description: 'Convert subsidiary ledgers to parent reporting currency', minTier: 'enterprise', defaultEnabledTiers: ['enterprise'] },
+    ],
+    permissions: [
+      { code: 'consolidation.run', name: 'Run Group Consolidation', description: 'Generate consolidated financial statements' },
+      { code: 'consolidation.elimination_rules', name: 'Manage Elimination Rules', description: 'Configure inter-company accounts' },
+    ],
+  },
+
+  // 14. ADVANCED REPORTING & AUDIT
+  {
+    key: 'advanced_reporting',
+    name: 'Advanced Reporting & Analytics',
+    code: 'REP',
+    category: 'compliance',
+    description: 'Financial statements (P&L, Balance Sheet, Cash Flow), sub-ledger reconciliation reports, and immutable audit logs.',
+    iconName: 'BarChart3',
+    minTier: 'small',
+    defaultEnabledTiers: ['small', 'medium', 'enterprise'],
+    isCore: true,
+    isPhase1Foundation: true,
+    route: '/reports',
+    affectsGeneralLedger: false,
+    dependencies: ['financial_accounting'],
+    subFeatures: [
+      { key: 'custom_report_builder', name: 'Custom Financial Report Builder', description: 'Drag-and-drop financial statement layout designer', minTier: 'enterprise', defaultEnabledTiers: ['enterprise'] },
+      { key: 'audit_trail_export', name: 'Cryptographic Audit Trail Export', description: 'Export tamper-evident audit logs for external auditors', minTier: 'medium', defaultEnabledTiers: ['medium', 'enterprise'] },
+    ],
+    permissions: [
+      { code: 'reports.view_financial', name: 'View Financial Statements', description: 'View P&L, Balance Sheet, and Trial Balance' },
+      { code: 'reports.view_audit', name: 'View System Audit Trail', description: 'Inspect tamper-evident change logs' },
+    ],
+  },
+
+  // 15. ADVANCED COST & MANAGEMENT ACCOUNTING (PHASE 13)
+  {
+    key: 'cost_management_accounting',
+    name: 'Advanced Cost & Management Accounting',
+    code: 'CMA',
+    category: 'management',
+    description: 'Multi-dimensional cost accounting, cost center hierarchies, department accounting, business unit analytics, multi-basis cost allocation engine, multi-version budgeting with BvA, and management P&L margins.',
+    iconName: 'Layers',
+    minTier: 'small',
+    defaultEnabledTiers: ['small', 'medium', 'enterprise'],
+    isCore: false,
+    isPhase1Foundation: false,
+    route: '/accounting/management',
+    affectsGeneralLedger: true,
+    dependencies: ['financial_accounting'],
+    subFeatures: [
+      { key: 'cost_centers_tree', name: 'Hierarchical Cost Centers', description: 'Parent-child cost center trees with budget controls', minTier: 'small', defaultEnabledTiers: ['small', 'medium', 'enterprise'] },
+      { key: 'department_unit_accounting', name: 'Department & Unit Accounting', description: 'Segmented P&L and contribution margins', minTier: 'medium', defaultEnabledTiers: ['medium', 'enterprise'] },
+      { key: 'cost_allocation_engine', name: 'Multi-Basis Cost Allocation Engine', description: 'Percentage, headcount, usage, and custom allocations with double-entry GL postings', minTier: 'medium', defaultEnabledTiers: ['medium', 'enterprise'] },
+      { key: 'management_budgeting_bva', name: 'Multi-Version Budgeting & BvA', description: 'Controlled revision history and variance analytics', minTier: 'small', defaultEnabledTiers: ['small', 'medium', 'enterprise'] },
+      { key: 'multi_perspective_profitability', name: 'Multi-Perspective Profitability', description: 'Customer, product, branch, and project margin matrices', minTier: 'enterprise', defaultEnabledTiers: ['enterprise'] },
+    ],
+    permissions: [
+      { code: 'cost_accounting.view', name: 'View Management Accounting', description: 'View cost centers, budgets, and management P&L' },
+      { code: 'cost_accounting.manage_dimensions', name: 'Manage Dimensions & Cost Centers', description: 'Create and edit cost centers and dimension rules' },
+      { code: 'cost_accounting.manage_budgets', name: 'Manage Management Budgets', description: 'Draft, submit, and revise management budgets' },
+      { code: 'cost_accounting.approve_budgets', name: 'Approve Management Budgets', description: 'Authorize budget versions' },
+      { code: 'cost_accounting.manage_allocations', name: 'Configure Cost Allocations', description: 'Create allocation rules and execute runs' },
+      { code: 'cost_accounting.post_allocations', name: 'Post Cost Allocations to GL', description: 'Authorize and post allocation journals to General Ledger' },
+    ],
+  },
+];
