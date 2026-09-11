@@ -119,7 +119,7 @@ export const BankReconciliationView: React.FC = () => {
           <select
             value={selectedAccountId}
             onChange={(e) => setSelectedAccountId(e.target.value)}
-            className="bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-slate-100 font-bold focus:outline-none focus:border-brand-500"
+            className="bg-card border border-border rounded-lg px-3 py-1.5 text-xs text-foreground font-bold focus:outline-none focus:border-brand-500"
           >
             {bankAccounts.map((b) => (
               <option key={b.id} value={b.id}>
@@ -177,36 +177,36 @@ export const BankReconciliationView: React.FC = () => {
 
       {/* Reconciliation Summary Dashboard */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-        <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800">
-          <div className="text-[10px] text-slate-400 uppercase font-semibold">Statement Ending Balance</div>
-          <div className="text-base font-bold font-mono text-slate-100 mt-0.5">
+        <div className="p-3 rounded-xl bg-card/60 border border-border">
+          <div className="text-[10px] text-muted-foreground uppercase font-semibold">Statement Ending Balance</div>
+          <div className="text-base font-bold font-mono text-foreground mt-0.5">
             ${stmtEnd.toLocaleString(undefined, { minimumFractionDigits: 2 })}
           </div>
-          <div className="text-[10px] text-slate-500">{latestStatement ? latestStatement.statementNumber : 'No statement'}</div>
+          <div className="text-[10px] text-muted-foreground">{latestStatement ? latestStatement.statementNumber : 'No statement'}</div>
         </div>
 
-        <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800">
-          <div className="text-[10px] text-slate-400 uppercase font-semibold">ERP Book Balance</div>
-          <div className="text-base font-bold font-mono text-slate-100 mt-0.5">
+        <div className="p-3 rounded-xl bg-card/60 border border-border">
+          <div className="text-[10px] text-muted-foreground uppercase font-semibold">ERP Book Balance</div>
+          <div className="text-base font-bold font-mono text-foreground mt-0.5">
             ${erpEnd.toLocaleString(undefined, { minimumFractionDigits: 2 })}
           </div>
-          <div className="text-[10px] text-slate-500">GL Account: #1010</div>
+          <div className="text-[10px] text-muted-foreground">GL Account: #1010</div>
         </div>
 
-        <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800">
-          <div className="text-[10px] text-slate-400 uppercase font-semibold">Outstanding Receipts (+)</div>
+        <div className="p-3 rounded-xl bg-card/60 border border-border">
+          <div className="text-[10px] text-muted-foreground uppercase font-semibold">Outstanding Receipts (+)</div>
           <div className="text-base font-bold font-mono text-emerald-400 mt-0.5">
             +${parseFloat(activeSession?.outstandingReceiptsTotal || '0.00').toFixed(2)}
           </div>
-          <div className="text-[10px] text-slate-500">In-transit deposits</div>
+          <div className="text-[10px] text-muted-foreground">In-transit deposits</div>
         </div>
 
-        <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800">
-          <div className="text-[10px] text-slate-400 uppercase font-semibold">Outstanding Payments (-)</div>
+        <div className="p-3 rounded-xl bg-card/60 border border-border">
+          <div className="text-[10px] text-muted-foreground uppercase font-semibold">Outstanding Payments (-)</div>
           <div className="text-base font-bold font-mono text-rose-400 mt-0.5">
             -${parseFloat(activeSession?.outstandingPaymentsTotal || '0.00').toFixed(2)}
           </div>
-          <div className="text-[10px] text-slate-500">Uncleared disbursements</div>
+          <div className="text-[10px] text-muted-foreground">Uncleared disbursements</div>
         </div>
 
         <div className={`p-3 rounded-xl border ${
@@ -214,7 +214,7 @@ export const BankReconciliationView: React.FC = () => {
             ? 'bg-emerald-500/10 border-emerald-500/30'
             : 'bg-rose-500/10 border-rose-500/30'
         }`}>
-          <div className="text-[10px] uppercase font-bold text-slate-300">Variance / Difference</div>
+          <div className="text-[10px] uppercase font-bold text-foreground/90">Variance / Difference</div>
           <div className={`text-base font-bold font-mono mt-0.5 ${
             isBalanced ? 'text-emerald-400' : 'text-rose-400'
           }`}>
@@ -254,8 +254,8 @@ export const BankReconciliationView: React.FC = () => {
         >
           {statementLines.length === 0 ? (
             <div className="p-8 text-center space-y-2">
-              <FileUp className="w-8 h-8 text-slate-600 mx-auto" />
-              <p className="text-xs text-slate-400">No statement lines uploaded for this bank account.</p>
+              <FileUp className="w-8 h-8 text-muted-foreground mx-auto" />
+              <p className="text-xs text-muted-foreground">No statement lines uploaded for this bank account.</p>
               <Button
                 variant="outline"
                 size="sm"
@@ -265,9 +265,9 @@ export const BankReconciliationView: React.FC = () => {
               </Button>
             </div>
           ) : (
-            <div className="overflow-x-auto rounded-xl border border-slate-800">
+            <div className="overflow-x-auto rounded-xl border border-border">
               <table className="w-full text-left text-xs">
-                <thead className="bg-slate-950 text-slate-400 border-b border-slate-800">
+                <thead className="bg-card text-muted-foreground border-b border-border">
                   <tr>
                     <th className="p-2.5">Date</th>
                     <th className="p-2.5">Description / Ref</th>
@@ -276,7 +276,7 @@ export const BankReconciliationView: React.FC = () => {
                     <th className="p-2.5 text-center">Action</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800 bg-slate-900/30 font-mono text-[11px]">
+                <tbody className="divide-y divide-border bg-card/30 font-mono text-[11px]">
                   {statementLines.map((l) => {
                     const isSelected = selectedStatementLineId === l.id;
                     const isMatched = l.matchStatus === 'matched';
@@ -290,16 +290,16 @@ export const BankReconciliationView: React.FC = () => {
                             ? 'bg-brand-500/20 ring-1 ring-brand-500'
                             : isMatched
                             ? 'bg-emerald-500/5'
-                            : 'hover:bg-slate-800/40 cursor-pointer'
+                            : 'hover:bg-muted/40 cursor-pointer'
                         }`}
                       >
-                        <td className="p-2.5 text-slate-400">{l.lineDate}</td>
+                        <td className="p-2.5 text-muted-foreground">{l.lineDate}</td>
                         <td className="p-2.5 font-sans">
-                          <div className="text-slate-100 font-medium truncate max-w-[140px]">{l.description}</div>
-                          {l.reference && <div className="text-[10px] text-slate-500">{l.reference}</div>}
+                          <div className="text-foreground font-medium truncate max-w-[140px]">{l.description}</div>
+                          {l.reference && <div className="text-[10px] text-muted-foreground">{l.reference}</div>}
                         </td>
                         <td className={`p-2.5 text-right font-bold ${
-                          l.debitCredit === 'debit' ? 'text-emerald-400' : 'text-slate-200'
+                          l.debitCredit === 'debit' ? 'text-emerald-400' : 'text-foreground'
                         }`}>
                           {l.debitCredit === 'debit' ? `+$${l.amount}` : `-$${l.amount}`}
                         </td>
@@ -320,7 +320,7 @@ export const BankReconciliationView: React.FC = () => {
                                 e.stopPropagation();
                                 handleUnmatch(l.id);
                               }}
-                              className="text-slate-500 hover:text-rose-400 p-1"
+                              className="text-muted-foreground hover:text-rose-400 p-1"
                               title="Unmatch line"
                             >
                               <Unlink className="w-3.5 h-3.5" />
@@ -333,7 +333,7 @@ export const BankReconciliationView: React.FC = () => {
                                   e.stopPropagation();
                                   handleCreateAdjustment(l.id, 'bank_charge');
                                 }}
-                                className="px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-[9px] text-slate-300 font-sans"
+                                className="px-1.5 py-0.5 rounded bg-muted hover:bg-muted text-[9px] text-foreground/90 font-sans"
                                 title="Record as bank charge"
                               >
                                 Fee
@@ -344,7 +344,7 @@ export const BankReconciliationView: React.FC = () => {
                                   e.stopPropagation();
                                   handleCreateAdjustment(l.id, 'interest');
                                 }}
-                                className="px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-[9px] text-slate-300 font-sans"
+                                className="px-1.5 py-0.5 rounded bg-muted hover:bg-muted text-[9px] text-foreground/90 font-sans"
                                 title="Record as interest"
                               >
                                 Int
@@ -367,13 +367,13 @@ export const BankReconciliationView: React.FC = () => {
           subtitle="Customer receipts, supplier payments, transfers & journals"
         >
           {erpTransactions.length === 0 ? (
-            <div className="p-8 text-center text-xs text-slate-500">
+            <div className="p-8 text-center text-xs text-muted-foreground">
               No transactions recorded in ERP for this bank account.
             </div>
           ) : (
-            <div className="overflow-x-auto rounded-xl border border-slate-800">
+            <div className="overflow-x-auto rounded-xl border border-border">
               <table className="w-full text-left text-xs">
-                <thead className="bg-slate-950 text-slate-400 border-b border-slate-800">
+                <thead className="bg-card text-muted-foreground border-b border-border">
                   <tr>
                     <th className="p-2.5">Date</th>
                     <th className="p-2.5">Tx Ref / Memo</th>
@@ -381,7 +381,7 @@ export const BankReconciliationView: React.FC = () => {
                     <th className="p-2.5 text-center">Status</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800 bg-slate-900/30 font-mono text-[11px]">
+                <tbody className="divide-y divide-border bg-card/30 font-mono text-[11px]">
                   {erpTransactions.map((tx) => {
                     const isSelected = selectedTxId === tx.id;
                     const isMatched = tx.reconciliationStatus === 'matched' || tx.reconciliationStatus === 'reconciled';
@@ -395,18 +395,18 @@ export const BankReconciliationView: React.FC = () => {
                             ? 'bg-brand-500/20 ring-1 ring-brand-500'
                             : isMatched
                             ? 'bg-emerald-500/5'
-                            : 'hover:bg-slate-800/40 cursor-pointer'
+                            : 'hover:bg-muted/40 cursor-pointer'
                         }`}
                       >
-                        <td className="p-2.5 text-slate-400">{tx.transactionDate}</td>
+                        <td className="p-2.5 text-muted-foreground">{tx.transactionDate}</td>
                         <td className="p-2.5 font-sans">
-                          <div className="text-slate-100 font-bold truncate max-w-[140px]">
+                          <div className="text-foreground font-bold truncate max-w-[140px]">
                             {tx.reference || tx.transactionNumber}
                           </div>
-                          <div className="text-[10px] text-slate-400 truncate max-w-[140px]">{tx.description}</div>
+                          <div className="text-[10px] text-muted-foreground truncate max-w-[140px]">{tx.description}</div>
                         </td>
                         <td className={`p-2.5 text-right font-bold ${
-                          tx.debitCredit === 'debit' ? 'text-emerald-400' : 'text-slate-200'
+                          tx.debitCredit === 'debit' ? 'text-emerald-400' : 'text-foreground'
                         }`}>
                           {tx.debitCredit === 'debit' ? `+$${tx.amount}` : `-$${tx.amount}`}
                         </td>

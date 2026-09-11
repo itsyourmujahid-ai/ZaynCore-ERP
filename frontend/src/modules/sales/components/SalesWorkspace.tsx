@@ -77,7 +77,7 @@ export const SalesWorkspace: React.FC<{ onNavigateAccounting?: () => void }> = (
     },
     {
       label: 'Sales Accounting Settings',
-      icon: <SettingsIcon className="w-3.5 h-3.5 text-slate-400" />,
+      icon: <SettingsIcon className="w-3.5 h-3.5 text-muted-foreground" />,
       onClick: () => onNavigateAccounting?.(),
     },
   ];
@@ -97,11 +97,11 @@ export const SalesWorkspace: React.FC<{ onNavigateAccounting?: () => void }> = (
         <div>
           <div className="flex items-center gap-2">
             <span className="text-xs font-bold uppercase tracking-wider text-brand-600">Commercial Revenue & AR</span>
-            <span className="text-slate-300">•</span>
+            <span className="text-foreground/90">•</span>
             <StatusBadge status={tenant.companyTier} />
           </div>
-          <h1 className="text-2xl font-bold text-slate-900 mt-1">Sales & Accounts Receivable</h1>
-          <p className="text-xs text-slate-600 mt-0.5">
+          <h1 className="text-2xl font-bold text-foreground mt-1">Sales & Accounts Receivable</h1>
+          <p className="text-xs text-muted-foreground mt-0.5">
             Customer directory, price quotes, sales orders, tax invoicing, customer payments, and automatic double-entry General Ledger postings.
           </p>
         </div>
@@ -125,7 +125,7 @@ export const SalesWorkspace: React.FC<{ onNavigateAccounting?: () => void }> = (
       </div>
 
       {/* 5-7 Tab Secondary Navigation Bar */}
-      <div className="flex items-center justify-between border-b border-slate-200 pb-px gap-2 overflow-x-auto">
+      <div className="flex items-center justify-between border-b border-border pb-px gap-2 overflow-x-auto">
         <div className="flex items-center gap-1">
           {primaryTabs.map((tab) => {
             const isActive = activeTab === tab.id;
@@ -135,15 +135,15 @@ export const SalesWorkspace: React.FC<{ onNavigateAccounting?: () => void }> = (
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center gap-2 px-3.5 py-2 rounded-t-lg text-xs font-medium border-b-2 transition-all select-none whitespace-nowrap ${
                   isActive
-                    ? 'border-brand-600 text-brand-600 bg-white font-bold shadow-sm'
-                    : 'border-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-100/60'
+                    ? 'border-brand-600 text-brand-600 bg-card font-bold shadow-sm'
+                    : 'border-transparent text-muted-foreground hover:text-foreground hover:bg-muted/60'
                 }`}
               >
                 {tab.icon}
                 <span>{tab.label}</span>
                 {tab.badge !== undefined && tab.badge > 0 && (
                   <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-bold ${
-                    isActive ? 'bg-brand-50 text-brand-700 border border-brand-200' : 'bg-slate-100 text-slate-600'
+                    isActive ? 'bg-brand-50 text-brand-700 border border-brand-200' : 'bg-muted text-muted-foreground'
                   }`}>
                     {tab.badge}
                   </span>
@@ -207,14 +207,14 @@ export const SalesWorkspace: React.FC<{ onNavigateAccounting?: () => void }> = (
                 {postedInvoices.slice(0, 5).map((inv) => {
                   const customer = customers.find((c) => c.id === inv.customerId);
                   return (
-                    <div key={inv.id} className="p-3.5 rounded-lg bg-slate-950/60 border border-slate-800 flex items-center justify-between">
+                    <div key={inv.id} className="p-3.5 rounded-lg bg-card/60 border border-border flex items-center justify-between">
                       <div>
                         <div className="flex items-center gap-2">
                           <span className="font-mono text-xs font-bold text-brand-400">{inv.invoiceNumber}</span>
                           <StatusBadge status="posted" size="xs" />
-                          <span className="text-xs font-semibold text-slate-200">• {customer?.name || 'Customer'}</span>
+                          <span className="text-xs font-semibold text-foreground">• {customer?.name || 'Customer'}</span>
                         </div>
-                        <div className="text-[11px] text-slate-400 mt-0.5 font-mono">Due: {inv.dueDate} • Ref: {inv.reference || 'N/A'}</div>
+                        <div className="text-[11px] text-muted-foreground mt-0.5 font-mono">Due: {inv.dueDate} • Ref: {inv.reference || 'N/A'}</div>
                       </div>
                       <div className="text-right">
                         <span className="font-mono font-bold text-emerald-400 text-sm">${parseFloat(inv.total).toFixed(2)} {inv.currency}</span>
@@ -225,13 +225,13 @@ export const SalesWorkspace: React.FC<{ onNavigateAccounting?: () => void }> = (
                 })}
               </div>
             ) : (
-              <div className="p-8 text-center rounded-xl bg-slate-950/40 border border-slate-800/80 space-y-3">
-                <div className="w-10 h-10 rounded-full bg-slate-800 text-slate-400 mx-auto flex items-center justify-center">
+              <div className="p-8 text-center rounded-xl bg-card/40 border border-border/80 space-y-3">
+                <div className="w-10 h-10 rounded-full bg-muted text-muted-foreground mx-auto flex items-center justify-center">
                   <CreditCard className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-xs font-semibold text-slate-200">No Sales Invoices Recorded Yet</h3>
-                  <p className="text-[11px] text-slate-400 mt-0.5 max-w-sm mx-auto">
+                  <h3 className="text-xs font-semibold text-foreground">No Sales Invoices Recorded Yet</h3>
+                  <p className="text-[11px] text-muted-foreground mt-0.5 max-w-sm mx-auto">
                     Create your first sales invoice to issue customer billings and trigger automated Accounts Receivable postings.
                   </p>
                 </div>

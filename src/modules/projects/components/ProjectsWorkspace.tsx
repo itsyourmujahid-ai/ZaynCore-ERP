@@ -90,11 +90,11 @@ export const ProjectsWorkspace: React.FC = () => {
         <div>
           <div className="flex items-center gap-2">
             <span className="text-xs font-bold uppercase tracking-wider text-cyan-600">Enterprise Dimension</span>
-            <span className="text-slate-400">•</span>
+            <span className="text-muted-foreground">•</span>
             <StatusBadge status={tenant.companyTier} />
           </div>
-          <h1 className="text-2xl font-bold text-slate-900 mt-1">Project Management & Accounting</h1>
-          <p className="text-xs text-slate-600 mt-0.5">
+          <h1 className="text-2xl font-bold text-foreground mt-1">Project Management & Accounting</h1>
+          <p className="text-xs text-muted-foreground mt-0.5">
             Contract budgets, itemized operational costing, milestone billing, WIP capitalization, and profitability analytics.
           </p>
         </div>
@@ -121,7 +121,7 @@ export const ProjectsWorkspace: React.FC = () => {
       </div>
 
       {/* Tab Navigation Bar */}
-      <div className="flex items-center justify-between border-b border-slate-200 pb-px gap-2 overflow-x-auto">
+      <div className="flex items-center justify-between border-b border-border pb-px gap-2 overflow-x-auto">
         <div className="flex items-center gap-1">
           {primaryTabs.map((tab) => {
             const isActive = activeTab === tab.id;
@@ -131,8 +131,8 @@ export const ProjectsWorkspace: React.FC = () => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center gap-2 px-3.5 py-2 rounded-t-lg text-xs font-medium border-b-2 transition-all select-none whitespace-nowrap ${
                   isActive
-                    ? 'border-brand-600 text-brand-600 bg-white font-bold shadow-sm'
-                    : 'border-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-100/60'
+                    ? 'border-brand-600 text-brand-600 bg-card font-bold shadow-sm'
+                    : 'border-transparent text-muted-foreground hover:text-foreground hover:bg-muted/60'
                 }`}
               >
                 {tab.icon}

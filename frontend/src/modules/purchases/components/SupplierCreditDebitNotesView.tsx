@@ -111,12 +111,12 @@ export const SupplierCreditDebitNotesView: React.FC = () => {
   return (
     <div className="space-y-4">
       {/* Filter Bar */}
-      <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-3">
+      <div className="p-4 rounded-xl bg-card border border-border flex flex-col md:flex-row items-center justify-between gap-3">
         <div className="flex items-center gap-2">
           <button
             onClick={() => setNoteType('credit')}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
-              noteType === 'credit' ? 'bg-brand-600 text-white shadow-sm' : 'bg-slate-800 text-slate-400'
+              noteType === 'credit' ? 'bg-brand-600 text-white shadow-sm' : 'bg-muted text-muted-foreground'
             }`}
           >
             Credit Notes (Returns/Rebates)
@@ -124,7 +124,7 @@ export const SupplierCreditDebitNotesView: React.FC = () => {
           <button
             onClick={() => setNoteType('debit')}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
-              noteType === 'debit' ? 'bg-brand-600 text-white shadow-sm' : 'bg-slate-800 text-slate-400'
+              noteType === 'debit' ? 'bg-brand-600 text-white shadow-sm' : 'bg-muted text-muted-foreground'
             }`}
           >
             Debit Notes (Price Corrections)
@@ -133,13 +133,13 @@ export const SupplierCreditDebitNotesView: React.FC = () => {
 
         <div className="flex items-center gap-2 w-full md:w-auto">
           <div className="relative w-full md:w-72">
-            <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-500" />
+            <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-muted-foreground" />
             <input
               type="text"
               placeholder="Search reference # or reason..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-3 py-1.5 text-xs bg-slate-950/80 border border-slate-800 rounded-lg text-slate-200 placeholder-slate-500 focus:outline-none focus:border-brand-500"
+              className="w-full pl-9 pr-3 py-1.5 text-xs bg-card/80 border border-border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-brand-500"
             />
           </div>
 
@@ -171,7 +171,7 @@ export const SupplierCreditDebitNotesView: React.FC = () => {
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-slate-800 bg-slate-900/90 text-slate-400 font-semibold uppercase tracking-wider">
+              <tr className="border-b border-border bg-card/90 text-muted-foreground font-semibold uppercase tracking-wider">
                 <th className="px-5 py-3.5">Document #</th>
                 <th className="px-5 py-3.5">Supplier</th>
                 <th className="px-5 py-3.5">Date</th>
@@ -181,22 +181,22 @@ export const SupplierCreditDebitNotesView: React.FC = () => {
                 <th className="px-5 py-3.5 text-center">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-slate-200">
+            <tbody className="divide-y divide-border text-foreground">
               {filteredList.map((n) => {
                 const sup = suppliers.find((s) => s.id === n.supplierId);
                 const docNum = 'creditNoteNumber' in n ? n.creditNoteNumber : n.debitNoteNumber;
                 return (
-                  <tr key={n.id} className="hover:bg-slate-800/40 transition-colors">
+                  <tr key={n.id} className="hover:bg-muted/40 transition-colors">
                     <td className="px-5 py-3.5 font-mono font-bold text-sky-400">{docNum}</td>
                     <td className="px-5 py-3.5">
-                      <div className="font-semibold text-slate-100 flex items-center gap-1.5">
-                        <Building2 className="w-3.5 h-3.5 text-slate-400" />
+                      <div className="font-semibold text-foreground flex items-center gap-1.5">
+                        <Building2 className="w-3.5 h-3.5 text-muted-foreground" />
                         <span>{sup?.name || 'Vendor'}</span>
                       </div>
                     </td>
-                    <td className="px-5 py-3.5 font-mono text-slate-400">{n.date}</td>
-                    <td className="px-5 py-3.5 text-slate-300 max-w-xs truncate">{n.reason}</td>
-                    <td className="px-5 py-3.5 text-right font-mono text-slate-400">
+                    <td className="px-5 py-3.5 font-mono text-muted-foreground">{n.date}</td>
+                    <td className="px-5 py-3.5 text-foreground/90 max-w-xs truncate">{n.reason}</td>
+                    <td className="px-5 py-3.5 text-right font-mono text-muted-foreground">
                       ${parseFloat(n.taxAmount).toFixed(2)}
                     </td>
                     <td className="px-5 py-3.5 text-right font-mono font-bold text-rose-400">
@@ -212,7 +212,7 @@ export const SupplierCreditDebitNotesView: React.FC = () => {
               })}
               {filteredList.length === 0 && (
                 <tr>
-                  <td colSpan={7} className="px-5 py-12 text-center text-slate-500">
+                  <td colSpan={7} className="px-5 py-12 text-center text-muted-foreground">
                     No adjustments recorded.
                   </td>
                 </tr>

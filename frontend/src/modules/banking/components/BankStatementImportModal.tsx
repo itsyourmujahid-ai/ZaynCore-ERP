@@ -183,18 +183,18 @@ export const BankStatementImportModal: React.FC<BankStatementImportModalProps> =
         </div>
 
         <div className="space-y-1">
-          <label className="text-xs font-semibold text-slate-300">
+          <label className="text-xs font-semibold text-foreground/90">
             Statement Data (CSV Format: Date, Description, Reference, Amount, Type [debit/credit], ExternalID)
           </label>
           <textarea
             rows={5}
             value={csvContent}
             onChange={(e) => setCsvContent(e.target.value)}
-            className="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs font-mono text-slate-200 focus:outline-none focus:border-brand-500"
+            className="w-full bg-card border border-border rounded-lg p-2.5 text-xs font-mono text-foreground focus:outline-none focus:border-brand-500"
           />
         </div>
 
-        <div className="flex justify-end gap-2 pt-2 border-t border-slate-800">
+        <div className="flex justify-end gap-2 pt-2 border-t border-border">
           <Button
             type="button"
             variant="outline"

@@ -126,13 +126,13 @@ export const StockTransfersView: React.FC = () => {
       {/* Controls Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="relative min-w-[240px] max-w-sm">
-          <Search className="w-4 h-4 text-slate-500 absolute left-3 top-2.5" />
+          <Search className="w-4 h-4 text-muted-foreground absolute left-3 top-2.5" />
           <input
             type="text"
             placeholder="Search transfers..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-slate-900/60 border border-slate-800 rounded-lg pl-9 pr-3 py-1.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand-500"
+            className="w-full bg-card/60 border border-border rounded-lg pl-9 pr-3 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-brand-500"
           />
         </div>
 
@@ -153,9 +153,9 @@ export const StockTransfersView: React.FC = () => {
       <Card noPadding>
         {filteredTransfers.length === 0 ? (
           <div className="p-12 text-center space-y-3">
-            <RotateCcw className="w-10 h-10 text-slate-600 mx-auto" />
-            <h4 className="text-sm font-semibold text-slate-300">No Stock Transfers Recorded</h4>
-            <p className="text-xs text-slate-500 max-w-sm mx-auto">
+            <RotateCcw className="w-10 h-10 text-muted-foreground mx-auto" />
+            <h4 className="text-sm font-semibold text-foreground/90">No Stock Transfers Recorded</h4>
+            <p className="text-xs text-muted-foreground max-w-sm mx-auto">
               Initiate inter-warehouse inventory movements between central hubs and distribution staging centers.
             </p>
             <Button
@@ -170,7 +170,7 @@ export const StockTransfersView: React.FC = () => {
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-950/80 text-slate-400 border-b border-slate-800">
+              <thead className="bg-card/80 text-muted-foreground border-b border-border">
                 <tr>
                   <th className="p-3">Transfer #</th>
                   <th className="p-3">Date</th>
@@ -181,18 +181,18 @@ export const StockTransfersView: React.FC = () => {
                   <th className="p-3 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/50 bg-slate-900/20">
+              <tbody className="divide-y divide-border/50 bg-card/20">
                 {filteredTransfers.map((t) => {
                   const fromWh = warehouses.find((w) => w.id === t.fromWarehouseId);
                   const toWh = warehouses.find((w) => w.id === t.toWarehouseId);
 
                   return (
-                    <tr key={t.id} className="hover:bg-slate-800/30">
+                    <tr key={t.id} className="hover:bg-muted/30">
                       <td className="p-3 font-mono font-bold text-brand-400">{t.transferNumber}</td>
-                      <td className="p-3 text-slate-300">{t.transferDate}</td>
-                      <td className="p-3 font-medium text-slate-200">{fromWh?.name || t.fromWarehouseId}</td>
-                      <td className="p-3 font-medium text-slate-200">{toWh?.name || t.toWarehouseId}</td>
-                      <td className="p-3 font-mono text-slate-400">{t.items.length} SKUs</td>
+                      <td className="p-3 text-foreground/90">{t.transferDate}</td>
+                      <td className="p-3 font-medium text-foreground">{fromWh?.name || t.fromWarehouseId}</td>
+                      <td className="p-3 font-medium text-foreground">{toWh?.name || t.toWarehouseId}</td>
+                      <td className="p-3 font-mono text-muted-foreground">{t.items.length} SKUs</td>
                       <td className="p-3">
                         <StatusBadge status={t.status} />
                       </td>
@@ -262,7 +262,7 @@ export const StockTransfersView: React.FC = () => {
           {/* Line Items Table */}
           <div className="space-y-2 pt-2">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase text-slate-300">Transfer Line Items</span>
+              <span className="text-xs font-bold uppercase text-foreground/90">Transfer Line Items</span>
               <Button
                 type="button"
                 variant="ghost"
@@ -274,9 +274,9 @@ export const StockTransfersView: React.FC = () => {
               </Button>
             </div>
 
-            <div className="overflow-x-auto rounded-xl border border-slate-800">
+            <div className="overflow-x-auto rounded-xl border border-border">
               <table className="w-full text-left text-xs">
-                <thead className="bg-slate-950 text-slate-400 border-b border-slate-800">
+                <thead className="bg-card text-muted-foreground border-b border-border">
                   <tr>
                     <th className="p-2.5">Item SKU</th>
                     <th className="p-2.5 text-right w-28">Quantity</th>
@@ -285,14 +285,14 @@ export const StockTransfersView: React.FC = () => {
                     <th className="p-2.5 text-center w-12"></th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800 bg-slate-900/30">
+                <tbody className="divide-y divide-border bg-card/30">
                   {transferItems.map((row, idx) => (
                     <tr key={row.id}>
                       <td className="p-2">
                         <select
                           value={row.itemId}
                           onChange={(e) => handleItemChange(idx, 'itemId', e.target.value)}
-                          className="w-full bg-slate-950 border border-slate-800 rounded px-2 py-1 text-xs text-slate-200"
+                          className="w-full bg-card border border-border rounded px-2 py-1 text-xs text-foreground"
                         >
                           {items.map((i) => (
                             <option key={i.id} value={i.id}>
@@ -307,10 +307,10 @@ export const StockTransfersView: React.FC = () => {
                           step="0.01"
                           value={row.quantity}
                           onChange={(e) => handleItemChange(idx, 'quantity', e.target.value)}
-                          className="w-full bg-slate-950 border border-slate-800 rounded px-2 py-1 text-xs text-right font-mono text-slate-100"
+                          className="w-full bg-card border border-border rounded px-2 py-1 text-xs text-right font-mono text-foreground"
                         />
                       </td>
-                      <td className="p-2 text-right font-mono text-slate-300">
+                      <td className="p-2 text-right font-mono text-foreground/90">
                         ${parseFloat(row.unitCost).toFixed(2)}
                       </td>
                       <td className="p-2 text-right font-mono text-emerald-400 font-bold">
@@ -320,7 +320,7 @@ export const StockTransfersView: React.FC = () => {
                         <button
                           type="button"
                           onClick={() => handleRemoveItemRow(idx)}
-                          className="text-slate-500 hover:text-rose-400 p-1"
+                          className="text-muted-foreground hover:text-rose-400 p-1"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
@@ -339,7 +339,7 @@ export const StockTransfersView: React.FC = () => {
             placeholder="e.g. Dispatched via Logistics Fleet Truck #90"
           />
 
-          <div className="flex justify-end gap-2 pt-2 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-2 border-t border-border">
             <Button
               type="button"
               variant="outline"

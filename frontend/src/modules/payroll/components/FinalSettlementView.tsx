@@ -95,8 +95,8 @@ export const FinalSettlementView: React.FC = () => {
       {/* Header & Metrics */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-base font-bold text-slate-100">Final Settlement & End of Service (EOSB)</h2>
-          <p className="text-xs text-slate-400">
+          <h2 className="text-base font-bold text-foreground">Final Settlement & End of Service (EOSB)</h2>
+          <p className="text-xs text-muted-foreground">
             Calculate severance, statutory gratuity, leave encashment, and settle remaining staff loans.
           </p>
         </div>
@@ -141,14 +141,14 @@ export const FinalSettlementView: React.FC = () => {
         subtitle="Full audit trail of end of service severance calculations and GL entries"
       >
         {settlements.length === 0 ? (
-          <div className="py-12 text-center text-slate-400 text-xs">
-            <Calculator className="w-8 h-8 text-slate-600 mx-auto mb-2" />
+          <div className="py-12 text-center text-muted-foreground text-xs">
+            <Calculator className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
             No final settlement calculations recorded. Click 'Calculate Settlement' to begin.
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-900/50 text-slate-400 border-b border-slate-800">
+              <thead className="bg-muted/50 text-muted-foreground border-b border-border">
                 <tr>
                   <th className="p-3">Settlement #</th>
                   <th className="p-3">Employee</th>
@@ -161,21 +161,21 @@ export const FinalSettlementView: React.FC = () => {
                   <th className="p-3 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60">
+              <tbody className="divide-y divide-border">
                 {settlements.map((set) => {
                   const emp = employees.find((e) => e.id === set.employeeId);
                   return (
-                    <tr key={set.id} className="hover:bg-slate-800/20 transition-colors">
-                      <td className="p-3 font-semibold text-slate-200">{set.settlementNumber}</td>
+                    <tr key={set.id} className="hover:bg-muted/20 transition-colors">
+                      <td className="p-3 font-semibold text-foreground">{set.settlementNumber}</td>
                       <td className="p-3">
-                        <div className="font-semibold text-slate-200">{emp?.fullName || set.employeeId}</div>
-                        <div className="text-[10px] text-slate-500">{emp?.employeeCode}</div>
+                        <div className="font-semibold text-foreground">{emp?.fullName || set.employeeId}</div>
+                        <div className="text-[10px] text-muted-foreground">{emp?.employeeCode}</div>
                       </td>
-                      <td className="p-3 text-slate-400">{set.terminationDate}</td>
+                      <td className="p-3 text-muted-foreground">{set.terminationDate}</td>
                       <td className="p-3 text-cyan-400 font-mono">
                         ${parseFloat(set.gratuityOrSeveranceAmount).toLocaleString('en-US', { minimumFractionDigits: 2 })}
                       </td>
-                      <td className="p-3 text-slate-300 font-mono">
+                      <td className="p-3 text-foreground/90 font-mono">
                         ${parseFloat(set.leaveEncashmentAmount).toFixed(2)} ({set.leaveBalanceDays} days)
                       </td>
                       <td className="p-3 text-rose-400 font-mono">
@@ -210,7 +210,7 @@ export const FinalSettlementView: React.FC = () => {
                             </Button>
                           )}
                           {set.status === 'posted' && (
-                            <span className="text-[10px] text-slate-500">Posted to GL</span>
+                            <span className="text-[10px] text-muted-foreground">Posted to GL</span>
                           )}
                         </div>
                       </td>
@@ -225,23 +225,23 @@ export const FinalSettlementView: React.FC = () => {
 
       {/* Calculate Settlement Modal */}
       {isCalcModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-fadeIn">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden">
-            <div className="p-5 border-b border-slate-800 flex items-center justify-between">
-              <h2 className="text-base font-bold text-slate-100">Calculate Employee Final Settlement</h2>
-              <button onClick={() => setIsCalcModalOpen(false)} className="text-slate-400 hover:text-slate-100">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-card/80 backdrop-blur-sm animate-fadeIn">
+          <div className="bg-card border border-border rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden">
+            <div className="p-5 border-b border-border flex items-center justify-between">
+              <h2 className="text-base font-bold text-foreground">Calculate Employee Final Settlement</h2>
+              <button onClick={() => setIsCalcModalOpen(false)} className="text-muted-foreground hover:text-foreground">
                 ✕
               </button>
             </div>
 
             <form onSubmit={handleCalculate} className="p-6 space-y-4 text-xs">
               <div>
-                <label className="block text-slate-400 mb-1">Employee for Separation *</label>
+                <label className="block text-muted-foreground mb-1">Employee for Separation *</label>
                 <select
                   required
                   value={formEmployeeId}
                   onChange={(e) => setFormEmployeeId(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 focus:outline-none focus:border-brand-500"
+                  className="w-full px-3 py-2 bg-card border border-border rounded-lg text-foreground focus:outline-none focus:border-brand-500"
                 >
                   {employees.map((emp) => (
                     <option key={emp.id} value={emp.id}>
@@ -253,63 +253,63 @@ export const FinalSettlementView: React.FC = () => {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-slate-400 mb-1">Termination / Exit Date *</label>
+                  <label className="block text-muted-foreground mb-1">Termination / Exit Date *</label>
                   <input
                     type="date"
                     required
                     value={formTerminationDate}
                     onChange={(e) => setFormTerminationDate(e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 focus:outline-none focus:border-brand-500"
+                    className="w-full px-3 py-2 bg-card border border-border rounded-lg text-foreground focus:outline-none focus:border-brand-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-400 mb-1">Unpaid Days in Exit Month</label>
+                  <label className="block text-muted-foreground mb-1">Unpaid Days in Exit Month</label>
                   <input
                     type="number"
                     min="0"
                     max="31"
                     value={formUnpaidDays}
                     onChange={(e) => setFormUnpaidDays(parseInt(e.target.value) || 0)}
-                    className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 focus:outline-none focus:border-brand-500"
+                    className="w-full px-3 py-2 bg-card border border-border rounded-lg text-foreground focus:outline-none focus:border-brand-500"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-slate-400 mb-1">Severance Bonus ($)</label>
+                  <label className="block text-muted-foreground mb-1">Severance Bonus ($)</label>
                   <input
                     type="number"
                     step="50"
                     value={formBonus}
                     onChange={(e) => setFormBonus(e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 font-mono focus:outline-none focus:border-brand-500"
+                    className="w-full px-3 py-2 bg-card border border-border rounded-lg text-foreground font-mono focus:outline-none focus:border-brand-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-400 mb-1">Notice Period Deduction ($)</label>
+                  <label className="block text-muted-foreground mb-1">Notice Period Deduction ($)</label>
                   <input
                     type="number"
                     step="50"
                     value={formNoticeDed}
                     onChange={(e) => setFormNoticeDed(e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 font-mono focus:outline-none focus:border-brand-500"
+                    className="w-full px-3 py-2 bg-card border border-border rounded-lg text-foreground font-mono focus:outline-none focus:border-brand-500"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-slate-400 mb-1">Separation Reason & Notes</label>
+                <label className="block text-muted-foreground mb-1">Separation Reason & Notes</label>
                 <textarea
                   rows={2}
                   value={formNotes}
                   onChange={(e) => setFormNotes(e.target.value)}
                   placeholder="e.g. Resignation with full statutory gratuity compliance..."
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 focus:outline-none focus:border-brand-500"
+                  className="w-full px-3 py-2 bg-card border border-border rounded-lg text-foreground focus:outline-none focus:border-brand-500"
                 />
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-800">
+              <div className="flex items-center justify-end gap-3 pt-4 border-t border-border">
                 <Button variant="secondary" size="sm" type="button" onClick={() => setIsCalcModalOpen(false)}>
                   Cancel
                 </Button>

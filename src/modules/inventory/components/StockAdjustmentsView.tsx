@@ -151,13 +151,13 @@ export const StockAdjustmentsView: React.FC = () => {
       {/* Controls Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="relative min-w-[240px] max-w-sm">
-          <Search className="w-4 h-4 text-slate-500 absolute left-3 top-2.5" />
+          <Search className="w-4 h-4 text-muted-foreground absolute left-3 top-2.5" />
           <input
             type="text"
             placeholder="Search adjustments by # or reason..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-slate-900/60 border border-slate-800 rounded-lg pl-9 pr-3 py-1.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand-500"
+            className="w-full bg-card/60 border border-border rounded-lg pl-9 pr-3 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-brand-500"
           />
         </div>
 
@@ -178,9 +178,9 @@ export const StockAdjustmentsView: React.FC = () => {
       <Card noPadding>
         {filteredAdjustments.length === 0 ? (
           <div className="p-12 text-center space-y-3">
-            <Scale className="w-10 h-10 text-slate-600 mx-auto" />
-            <h4 className="text-sm font-semibold text-slate-300">No Stock Adjustments Recorded</h4>
-            <p className="text-xs text-slate-500 max-w-sm mx-auto">
+            <Scale className="w-10 h-10 text-muted-foreground mx-auto" />
+            <h4 className="text-sm font-semibold text-foreground/90">No Stock Adjustments Recorded</h4>
+            <p className="text-xs text-muted-foreground max-w-sm mx-auto">
               Record controlled quantity variances for shrinkage, found stock, damage, or cycle counts with automatic GL variance postings.
             </p>
             <Button
@@ -195,7 +195,7 @@ export const StockAdjustmentsView: React.FC = () => {
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-950/80 text-slate-400 border-b border-slate-800">
+              <thead className="bg-card/80 text-muted-foreground border-b border-border">
                 <tr>
                   <th className="p-3">Adjustment #</th>
                   <th className="p-3">Date</th>
@@ -206,18 +206,18 @@ export const StockAdjustmentsView: React.FC = () => {
                   <th className="p-3 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/50 bg-slate-900/20">
+              <tbody className="divide-y divide-border/50 bg-card/20">
                 {filteredAdjustments.map((a) => {
                   const wh = warehouses.find((w) => w.id === a.warehouseId);
                   const netVal = a.items.reduce((sum, it) => sum + parseFloat(it.totalVarianceCost || '0'), 0);
 
                   return (
-                    <tr key={a.id} className="hover:bg-slate-800/30">
+                    <tr key={a.id} className="hover:bg-muted/30">
                       <td className="p-3 font-mono font-bold text-brand-400">{a.adjustmentNumber}</td>
-                      <td className="p-3 text-slate-300">{a.adjustmentDate}</td>
-                      <td className="p-3 font-medium text-slate-200">{wh?.name || a.warehouseId}</td>
+                      <td className="p-3 text-foreground/90">{a.adjustmentDate}</td>
+                      <td className="p-3 font-medium text-foreground">{wh?.name || a.warehouseId}</td>
                       <td className="p-3">
-                        <span className="px-2 py-0.5 rounded bg-slate-800 text-slate-300 uppercase font-semibold text-[10px]">
+                        <span className="px-2 py-0.5 rounded bg-muted text-foreground/90 uppercase font-semibold text-[10px]">
                           {a.reason.replace('_', ' ')}
                         </span>
                       </td>
@@ -240,7 +240,7 @@ export const StockAdjustmentsView: React.FC = () => {
                             Approve & Post GL
                           </Button>
                         ) : (
-                          <span className="text-[11px] font-mono text-slate-500">
+                          <span className="text-[11px] font-mono text-muted-foreground">
                             JV Posted ({a.journalEntryId || 'Locked'})
                           </span>
                         )}
@@ -306,7 +306,7 @@ export const StockAdjustmentsView: React.FC = () => {
           {/* Lines Table */}
           <div className="space-y-2 pt-2">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase text-slate-300">Adjustment Items</span>
+              <span className="text-xs font-bold uppercase text-foreground/90">Adjustment Items</span>
               <Button
                 type="button"
                 variant="ghost"
@@ -318,9 +318,9 @@ export const StockAdjustmentsView: React.FC = () => {
               </Button>
             </div>
 
-            <div className="overflow-x-auto rounded-xl border border-slate-800">
+            <div className="overflow-x-auto rounded-xl border border-border">
               <table className="w-full text-left text-xs">
-                <thead className="bg-slate-950 text-slate-400 border-b border-slate-800">
+                <thead className="bg-card text-muted-foreground border-b border-border">
                   <tr>
                     <th className="p-2.5">Item SKU</th>
                     <th className="p-2.5 text-right w-24">System Qty</th>
@@ -330,14 +330,14 @@ export const StockAdjustmentsView: React.FC = () => {
                     <th className="p-2.5 text-center w-10"></th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800 bg-slate-900/30 font-mono">
+                <tbody className="divide-y divide-border bg-card/30 font-mono">
                   {adjustmentItems.map((row, idx) => (
                     <tr key={row.id}>
                       <td className="p-2 font-sans">
                         <select
                           value={row.itemId}
                           onChange={(e) => handleItemChange(idx, 'itemId', e.target.value)}
-                          className="w-full bg-slate-950 border border-slate-800 rounded px-2 py-1 text-xs text-slate-200"
+                          className="w-full bg-card border border-border rounded px-2 py-1 text-xs text-foreground"
                         >
                           {items.map((i) => (
                             <option key={i.id} value={i.id}>
@@ -351,7 +351,7 @@ export const StockAdjustmentsView: React.FC = () => {
                           type="number"
                           value={row.systemQuantity}
                           onChange={(e) => handleItemChange(idx, 'systemQuantity', e.target.value)}
-                          className="w-full bg-slate-950 border border-slate-800 rounded px-2 py-1 text-xs text-right text-slate-400"
+                          className="w-full bg-card border border-border rounded px-2 py-1 text-xs text-right text-muted-foreground"
                         />
                       </td>
                       <td className="p-2">
@@ -359,7 +359,7 @@ export const StockAdjustmentsView: React.FC = () => {
                           type="number"
                           value={row.countedQuantity}
                           onChange={(e) => handleItemChange(idx, 'countedQuantity', e.target.value)}
-                          className="w-full bg-slate-950 border border-slate-800 rounded px-2 py-1 text-xs text-right text-slate-100 font-bold"
+                          className="w-full bg-card border border-border rounded px-2 py-1 text-xs text-right text-foreground font-bold"
                         />
                       </td>
                       <td className="p-2 text-right">
@@ -376,7 +376,7 @@ export const StockAdjustmentsView: React.FC = () => {
                         <button
                           type="button"
                           onClick={() => handleRemoveItemRow(idx)}
-                          className="text-slate-500 hover:text-rose-400 p-1"
+                          className="text-muted-foreground hover:text-rose-400 p-1"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
@@ -395,7 +395,7 @@ export const StockAdjustmentsView: React.FC = () => {
             placeholder="e.g. Discovered during monthly cycle count audit"
           />
 
-          <div className="flex justify-end gap-2 pt-2 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-2 border-t border-border">
             <Button
               type="button"
               variant="outline"

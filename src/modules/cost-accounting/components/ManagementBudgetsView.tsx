@@ -131,11 +131,11 @@ export const ManagementBudgetsView: React.FC = () => {
       {/* Top Level Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h2 className="text-base font-bold text-slate-100 flex items-center gap-2">
+          <h2 className="text-base font-bold text-foreground flex items-center gap-2">
             <Target className="w-5 h-5 text-brand-400" />
             Management Budgets & Variance Analysis
           </h2>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-muted-foreground mt-0.5">
             Multi-version divisional planning, approval governance, and real-time Budget vs. Actual tracking
           </p>
         </div>
@@ -171,7 +171,7 @@ export const ManagementBudgetsView: React.FC = () => {
         <div className="overflow-x-auto -mx-4 -my-3 sm:mx-0 sm:my-0">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-slate-800 text-slate-400 font-semibold bg-slate-950/40">
+              <tr className="border-b border-border text-muted-foreground font-semibold bg-card/40">
                 <th className="px-4 py-2.5">Budget Plan</th>
                 <th className="px-4 py-2.5">Version</th>
                 <th className="px-4 py-2.5 text-right">Planned Revenue</th>
@@ -181,23 +181,23 @@ export const ManagementBudgetsView: React.FC = () => {
                 <th className="px-4 py-2.5 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60">
+            <tbody className="divide-y divide-border">
               {budgets.map((bg) => {
                 const isSelected = activeBudgetId === bg.id;
                 return (
                   <tr 
                     key={bg.id}
                     onClick={() => setSelectedBudgetId(bg.id)}
-                    className={`hover:bg-slate-800/40 cursor-pointer transition-colors ${
+                    className={`hover:bg-muted/40 cursor-pointer transition-colors ${
                       isSelected ? 'bg-brand-500/10' : ''
                     }`}
                   >
                     <td className="px-4 py-3">
-                      <div className="font-bold text-slate-200">{bg.budgetName}</div>
-                      <div className="text-[11px] font-mono text-slate-500">{bg.code} • {bg.periodType.toUpperCase()}</div>
+                      <div className="font-bold text-foreground">{bg.budgetName}</div>
+                      <div className="text-[11px] font-mono text-muted-foreground">{bg.code} • {bg.periodType.toUpperCase()}</div>
                     </td>
 
-                    <td className="px-4 py-3 font-mono text-slate-300">
+                    <td className="px-4 py-3 font-mono text-foreground/90">
                       v{bg.version}
                     </td>
 
@@ -209,7 +209,7 @@ export const ManagementBudgetsView: React.FC = () => {
                       ${parseFloat(bg.totalPlannedCost).toFixed(2)}
                     </td>
 
-                    <td className="px-4 py-3 text-right font-mono font-bold text-slate-100">
+                    <td className="px-4 py-3 text-right font-mono font-bold text-foreground">
                       ${parseFloat(bg.totalPlannedProfit).toFixed(2)}
                     </td>
 
@@ -223,7 +223,7 @@ export const ManagementBudgetsView: React.FC = () => {
                           <button
                             onClick={() => handleSubmit(bg.id)}
                             title="Submit for Approval"
-                            className="p-1 rounded hover:bg-slate-700 text-slate-400 hover:text-slate-200"
+                            className="p-1 rounded hover:bg-muted text-muted-foreground hover:text-foreground"
                           >
                             <Send className="w-3.5 h-3.5" />
                           </button>
@@ -244,7 +244,7 @@ export const ManagementBudgetsView: React.FC = () => {
                               setIsRevisionModalOpen(true);
                             }}
                             title="Create Version Revision"
-                            className="px-2 py-1 rounded text-[10px] font-bold bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center gap-1"
+                            className="px-2 py-1 rounded text-[10px] font-bold bg-muted hover:bg-muted text-foreground/90 flex items-center gap-1"
                           >
                             <GitBranch className="w-3 h-3" /> Revise
                           </button>
@@ -268,32 +268,32 @@ export const ManagementBudgetsView: React.FC = () => {
           <div className="space-y-4">
             {/* Top Level Summary Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div className="p-3 rounded-lg bg-slate-950/60 border border-slate-800">
-                <span className="text-[10px] text-slate-500 uppercase block">Total Revenue (Actual vs Plan)</span>
+              <div className="p-3 rounded-lg bg-card/60 border border-border">
+                <span className="text-[10px] text-muted-foreground uppercase block">Total Revenue (Actual vs Plan)</span>
                 <div className="flex items-baseline justify-between mt-1">
                   <span className="font-mono text-sm font-bold text-emerald-400">
                     ${parseFloat(bvaReport.totalActualRevenue).toFixed(2)}
                   </span>
-                  <span className="text-[11px] text-slate-400">
+                  <span className="text-[11px] text-muted-foreground">
                     Plan: ${parseFloat(bvaReport.totalPlannedRevenue).toFixed(2)}
                   </span>
                 </div>
               </div>
 
-              <div className="p-3 rounded-lg bg-slate-950/60 border border-slate-800">
-                <span className="text-[10px] text-slate-500 uppercase block">Total Costs (Actual vs Plan)</span>
+              <div className="p-3 rounded-lg bg-card/60 border border-border">
+                <span className="text-[10px] text-muted-foreground uppercase block">Total Costs (Actual vs Plan)</span>
                 <div className="flex items-baseline justify-between mt-1">
                   <span className="font-mono text-sm font-bold text-rose-400">
                     ${parseFloat(bvaReport.totalActualCost).toFixed(2)}
                   </span>
-                  <span className="text-[11px] text-slate-400">
+                  <span className="text-[11px] text-muted-foreground">
                     Plan: ${parseFloat(bvaReport.totalPlannedCost).toFixed(2)}
                   </span>
                 </div>
               </div>
 
-              <div className="p-3 rounded-lg bg-slate-950/60 border border-slate-800">
-                <span className="text-[10px] text-slate-500 uppercase block">Net Profit Variance</span>
+              <div className="p-3 rounded-lg bg-card/60 border border-border">
+                <span className="text-[10px] text-muted-foreground uppercase block">Net Profit Variance</span>
                 <div className="flex items-baseline justify-between mt-1">
                   <span className={`font-mono text-sm font-bold ${parseFloat(bvaReport.netActualProfit) >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
                     ${parseFloat(bvaReport.netActualProfit).toFixed(2)}
@@ -309,7 +309,7 @@ export const ManagementBudgetsView: React.FC = () => {
             <div className="overflow-x-auto -mx-4 -my-3 sm:mx-0 sm:my-0">
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="border-b border-slate-800 text-slate-400 font-semibold bg-slate-950/40">
+                  <tr className="border-b border-border text-muted-foreground font-semibold bg-card/40">
                     <th className="px-4 py-2.5">Account Code & Name</th>
                     <th className="px-4 py-2.5">Type</th>
                     <th className="px-4 py-2.5 text-right">Planned Budget</th>
@@ -319,23 +319,23 @@ export const ManagementBudgetsView: React.FC = () => {
                     <th className="px-4 py-2.5 text-center">Status</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60">
+                <tbody className="divide-y divide-border">
                   {bvaReport.rows.map((row, idx) => (
-                    <tr key={idx} className="hover:bg-slate-800/30">
+                    <tr key={idx} className="hover:bg-muted/30">
                       <td className="px-4 py-2.5">
-                        <span className="font-mono font-bold text-slate-200">{row.accountCode}</span>
-                        <span className="text-slate-300 ml-2">{row.accountName}</span>
+                        <span className="font-mono font-bold text-foreground">{row.accountCode}</span>
+                        <span className="text-foreground/90 ml-2">{row.accountName}</span>
                       </td>
 
-                      <td className="px-4 py-2.5 text-slate-400 capitalize">
+                      <td className="px-4 py-2.5 text-muted-foreground capitalize">
                         {row.accountType.replace('_', ' ')}
                       </td>
 
-                      <td className="px-4 py-2.5 text-right font-mono text-slate-300">
+                      <td className="px-4 py-2.5 text-right font-mono text-foreground/90">
                         ${parseFloat(row.budgetAmount).toFixed(2)}
                       </td>
 
-                      <td className="px-4 py-2.5 text-right font-mono font-semibold text-slate-100">
+                      <td className="px-4 py-2.5 text-right font-mono font-semibold text-foreground">
                         ${parseFloat(row.actualAmount).toFixed(2)}
                       </td>
 
@@ -345,7 +345,7 @@ export const ManagementBudgetsView: React.FC = () => {
                         ${parseFloat(row.varianceAmount).toFixed(2)}
                       </td>
 
-                      <td className="px-4 py-2.5 text-right font-mono text-slate-400">
+                      <td className="px-4 py-2.5 text-right font-mono text-muted-foreground">
                         {row.variancePercentage}%
                       </td>
 
@@ -383,37 +383,37 @@ export const ManagementBudgetsView: React.FC = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-slate-300 font-medium mb-1">Budget Plan Name *</label>
+              <label className="block text-foreground/90 font-medium mb-1">Budget Plan Name *</label>
               <input
                 type="text"
                 required
                 placeholder="e.g. FY2026 Commercial Sales Budget"
                 value={budgetName}
                 onChange={(e) => setBudgetName(e.target.value)}
-                className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100"
+                className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground"
               />
             </div>
 
             <div>
-              <label className="block text-slate-300 font-medium mb-1">Budget Code *</label>
+              <label className="block text-foreground/90 font-medium mb-1">Budget Code *</label>
               <input
                 type="text"
                 required
                 placeholder="e.g. BUD-2026-SALES"
                 value={budgetCode}
                 onChange={(e) => setBudgetCode(e.target.value)}
-                className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100 uppercase"
+                className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground uppercase"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-slate-300 font-medium mb-1">Fiscal Year</label>
+              <label className="block text-foreground/90 font-medium mb-1">Fiscal Year</label>
               <select
                 value={fiscalYearId}
                 onChange={(e) => setFiscalYearId(e.target.value)}
-                className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100"
+                className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground"
               >
                 {fiscalYears.map((fy) => (
                   <option key={fy.id} value={fy.id}>{fy.name} ({fy.startDate} to {fy.endDate})</option>
@@ -422,11 +422,11 @@ export const ManagementBudgetsView: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-slate-300 font-medium mb-1">Periodicity</label>
+              <label className="block text-foreground/90 font-medium mb-1">Periodicity</label>
               <select
                 value={periodType}
                 onChange={(e) => setPeriodType(e.target.value as any)}
-                className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100"
+                className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground"
               >
                 <option value="annual">Annual Budget</option>
                 <option value="quarterly">Quarterly Breakdown</option>
@@ -438,7 +438,7 @@ export const ManagementBudgetsView: React.FC = () => {
           {/* Budget Line Allocations */}
           <div>
             <div className="flex items-center justify-between mb-2">
-              <label className="text-slate-300 font-medium">Account Line Allocations</label>
+              <label className="text-foreground/90 font-medium">Account Line Allocations</label>
               <button
                 type="button"
                 onClick={() => setBudgetLines([...budgetLines, { accountId: '', plannedAmount: '5000.00' }])}
@@ -458,7 +458,7 @@ export const ManagementBudgetsView: React.FC = () => {
                       updated[idx].accountId = e.target.value;
                       setBudgetLines(updated);
                     }}
-                    className="flex-1 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100 text-xs"
+                    className="flex-1 px-3 py-1.5 rounded-lg bg-card border border-border text-foreground text-xs"
                   >
                     <option value="">Select GL Account...</option>
                     {accounts.map((acc) => (
@@ -478,14 +478,14 @@ export const ManagementBudgetsView: React.FC = () => {
                       updated[idx].plannedAmount = e.target.value;
                       setBudgetLines(updated);
                     }}
-                    className="w-32 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100 font-mono text-xs text-right"
+                    className="w-32 px-3 py-1.5 rounded-lg bg-card border border-border text-foreground font-mono text-xs text-right"
                   />
 
                   {budgetLines.length > 1 && (
                     <button
                       type="button"
                       onClick={() => setBudgetLines(budgetLines.filter((_, i) => i !== idx))}
-                      className="text-slate-500 hover:text-rose-400 p-1"
+                      className="text-muted-foreground hover:text-rose-400 p-1"
                     >
                       ×
                     </button>
@@ -495,7 +495,7 @@ export const ManagementBudgetsView: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex justify-end gap-2 pt-3 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-3 border-t border-border">
             <Button variant="secondary" size="sm" type="button" onClick={() => setIsCreateModalOpen(false)}>
               Cancel
             </Button>
@@ -516,18 +516,18 @@ export const ManagementBudgetsView: React.FC = () => {
       >
         <form onSubmit={handleRevision} className="space-y-4 text-xs">
           <div>
-            <label className="block text-slate-300 font-medium mb-1">Revision Justification *</label>
+            <label className="block text-foreground/90 font-medium mb-1">Revision Justification *</label>
             <textarea
               rows={3}
               required
               placeholder="e.g. Mid-year commercial budget adjustment due to accelerated sales expansion..."
               value={revisionReason}
               onChange={(e) => setRevisionReason(e.target.value)}
-              className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100"
+              className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground"
             />
           </div>
 
-          <div className="flex justify-end gap-2 pt-3 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-3 border-t border-border">
             <Button variant="secondary" size="sm" type="button" onClick={() => setIsRevisionModalOpen(false)}>
               Cancel
             </Button>

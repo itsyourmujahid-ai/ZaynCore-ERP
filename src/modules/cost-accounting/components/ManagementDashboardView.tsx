@@ -86,7 +86,7 @@ export const ManagementDashboardView: React.FC<{
           }
         >
           {topCostCenters.length === 0 ? (
-            <div className="p-8 text-center text-slate-500 text-xs">
+            <div className="p-8 text-center text-muted-foreground text-xs">
               No cost center activity recorded. Create cost centers to start tracking divisional expenses.
             </div>
           ) : (
@@ -94,14 +94,14 @@ export const ManagementDashboardView: React.FC<{
               {topCostCenters.map((cc) => (
                 <div 
                   key={cc.costCenterId}
-                  className="p-3 rounded-lg bg-slate-950/40 border border-slate-800/80 hover:border-slate-700 transition-colors flex items-center justify-between gap-4"
+                  className="p-3 rounded-lg bg-card/40 border border-border/80 hover:border-border transition-colors flex items-center justify-between gap-4"
                 >
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
-                      <span className="font-mono text-xs font-bold text-slate-200">{cc.costCenterCode}</span>
-                      <span className="text-xs text-slate-300 truncate">{cc.costCenterName}</span>
+                      <span className="font-mono text-xs font-bold text-foreground">{cc.costCenterCode}</span>
+                      <span className="text-xs text-foreground/90 truncate">{cc.costCenterName}</span>
                     </div>
-                    <div className="text-[11px] text-slate-500 mt-0.5">
+                    <div className="text-[11px] text-muted-foreground mt-0.5">
                       {cc.departmentName || 'General Corporate'} • Budget: ${parseFloat(cc.budgetAmount).toFixed(2)}
                     </div>
                   </div>
@@ -142,7 +142,7 @@ export const ManagementDashboardView: React.FC<{
           }
         >
           {departments.length === 0 ? (
-            <div className="p-8 text-center text-slate-500 text-xs">
+            <div className="p-8 text-center text-muted-foreground text-xs">
               No departments configured yet.
             </div>
           ) : (
@@ -150,30 +150,30 @@ export const ManagementDashboardView: React.FC<{
               {departments.map((dept) => (
                 <div 
                   key={dept.departmentId}
-                  className="p-3 rounded-lg bg-slate-950/40 border border-slate-800/80 hover:border-slate-700 transition-colors"
+                  className="p-3 rounded-lg bg-card/40 border border-border/80 hover:border-border transition-colors"
                 >
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2">
-                      <Building2 className="w-3.5 h-3.5 text-slate-400" />
-                      <span className="text-xs font-semibold text-slate-200">{dept.departmentName}</span>
-                      <span className="text-[10px] font-mono text-slate-500">({dept.departmentCode})</span>
+                      <Building2 className="w-3.5 h-3.5 text-muted-foreground" />
+                      <span className="text-xs font-semibold text-foreground">{dept.departmentName}</span>
+                      <span className="text-[10px] font-mono text-muted-foreground">({dept.departmentCode})</span>
                     </div>
                     <span className={`text-xs font-bold font-mono ${parseFloat(dept.netProfit) >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
                       ${parseFloat(dept.netProfit).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                     </span>
                   </div>
 
-                  <div className="grid grid-cols-3 gap-2 text-[11px] pt-2 border-t border-slate-800/60 text-slate-400">
+                  <div className="grid grid-cols-3 gap-2 text-[11px] pt-2 border-t border-border/60 text-muted-foreground">
                     <div>
-                      <span className="block text-[10px] text-slate-500 uppercase">Revenue</span>
-                      <span className="font-mono text-slate-200">${parseFloat(dept.actualRevenue).toFixed(2)}</span>
+                      <span className="block text-[10px] text-muted-foreground uppercase">Revenue</span>
+                      <span className="font-mono text-foreground">${parseFloat(dept.actualRevenue).toFixed(2)}</span>
                     </div>
                     <div>
-                      <span className="block text-[10px] text-slate-500 uppercase">Direct Costs</span>
+                      <span className="block text-[10px] text-muted-foreground uppercase">Direct Costs</span>
                       <span className="font-mono text-rose-400">${parseFloat(dept.directCost).toFixed(2)}</span>
                     </div>
                     <div>
-                      <span className="block text-[10px] text-slate-500 uppercase">Allocated</span>
+                      <span className="block text-[10px] text-muted-foreground uppercase">Allocated</span>
                       <span className="font-mono text-amber-400">${parseFloat(dept.allocatedOverhead).toFixed(2)}</span>
                     </div>
                   </div>
@@ -188,45 +188,45 @@ export const ManagementDashboardView: React.FC<{
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div 
           onClick={() => onNavigateTab('budgets')}
-          className="p-4 rounded-xl bg-gradient-to-br from-slate-900 to-slate-900/60 border border-slate-800 hover:border-brand-500/50 cursor-pointer transition-all group"
+          className="p-4 rounded-xl bg-gradient-to-br from-slate-900 to-slate-900/60 border border-border hover:border-brand-500/50 cursor-pointer transition-all group"
         >
           <div className="flex items-center gap-3">
             <div className="p-2 rounded-lg bg-brand-500/10 text-brand-400 group-hover:bg-brand-500/20">
               <Target className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-xs font-bold text-slate-200 group-hover:text-brand-300">Management Budgets & BvA</div>
-              <div className="text-[11px] text-slate-500 mt-0.5">Multi-version budgeting and variance control</div>
+              <div className="text-xs font-bold text-foreground group-hover:text-brand-300">Management Budgets & BvA</div>
+              <div className="text-[11px] text-muted-foreground mt-0.5">Multi-version budgeting and variance control</div>
             </div>
           </div>
         </div>
 
         <div 
           onClick={() => onNavigateTab('allocations')}
-          className="p-4 rounded-xl bg-gradient-to-br from-slate-900 to-slate-900/60 border border-slate-800 hover:border-purple-500/50 cursor-pointer transition-all group"
+          className="p-4 rounded-xl bg-gradient-to-br from-slate-900 to-slate-900/60 border border-border hover:border-purple-500/50 cursor-pointer transition-all group"
         >
           <div className="flex items-center gap-3">
             <div className="p-2 rounded-lg bg-purple-500/10 text-purple-400 group-hover:bg-purple-500/20">
               <BarChart2 className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-xs font-bold text-slate-200 group-hover:text-purple-300">Cost Allocation Engine</div>
-              <div className="text-[11px] text-slate-500 mt-0.5">Shared overhead allocation and GL posting</div>
+              <div className="text-xs font-bold text-foreground group-hover:text-purple-300">Cost Allocation Engine</div>
+              <div className="text-[11px] text-muted-foreground mt-0.5">Shared overhead allocation and GL posting</div>
             </div>
           </div>
         </div>
 
         <div 
           onClick={() => onNavigateTab('profitability')}
-          className="p-4 rounded-xl bg-gradient-to-br from-slate-900 to-slate-900/60 border border-slate-800 hover:border-emerald-500/50 cursor-pointer transition-all group"
+          className="p-4 rounded-xl bg-gradient-to-br from-slate-900 to-slate-900/60 border border-border hover:border-emerald-500/50 cursor-pointer transition-all group"
         >
           <div className="flex items-center gap-3">
             <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-400 group-hover:bg-emerald-500/20">
               <TrendingUp className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-xs font-bold text-slate-200 group-hover:text-emerald-300">Profitability & Margins</div>
-              <div className="text-[11px] text-slate-500 mt-0.5">Customer, product, and branch margin analysis</div>
+              <div className="text-xs font-bold text-foreground group-hover:text-emerald-300">Profitability & Margins</div>
+              <div className="text-[11px] text-muted-foreground mt-0.5">Customer, product, and branch margin analysis</div>
             </div>
           </div>
         </div>

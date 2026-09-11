@@ -109,11 +109,11 @@ export const BankingWorkspace: React.FC = () => {
       {/* Workspace Header Banner */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl font-bold tracking-tight text-slate-900 flex items-center gap-2.5">
+          <h1 className="text-xl font-bold tracking-tight text-foreground flex items-center gap-2.5">
             <Landmark className="w-6 h-6 text-brand-600" />
             Banking & Cash Management
           </h1>
-          <p className="text-xs text-slate-600 mt-1">
+          <p className="text-xs text-muted-foreground mt-1">
             Commercial bank accounts, cash drawers, transfers, automated statement matching, and multi-currency liquidity.
           </p>
         </div>
@@ -139,7 +139,7 @@ export const BankingWorkspace: React.FC = () => {
       </div>
 
       {/* Navigation Tabs Bar */}
-      <div className="flex items-center justify-between border-b border-slate-200">
+      <div className="flex items-center justify-between border-b border-border">
         <div className="flex items-center gap-1 overflow-x-auto">
           {primaryTabs.map((tab) => {
             const isActive = activeTab === tab.id;
@@ -150,7 +150,7 @@ export const BankingWorkspace: React.FC = () => {
                 className={`flex items-center gap-2 px-3.5 py-2.5 text-xs font-semibold border-b-2 transition-all whitespace-nowrap ${
                   isActive
                     ? 'border-brand-600 text-brand-600 bg-brand-50/50'
-                    : 'border-transparent text-slate-600 hover:text-slate-900 hover:border-slate-300'
+                    : 'border-transparent text-muted-foreground hover:text-foreground hover:border-border'
                 }`}
               >
                 {tab.icon}
@@ -158,7 +158,7 @@ export const BankingWorkspace: React.FC = () => {
                 {tab.badge !== undefined && (
                   <span
                     className={`px-1.5 py-0.2 rounded-full text-[10px] font-bold ${
-                      isActive ? 'bg-brand-100 text-brand-700' : 'bg-slate-100 text-slate-600'
+                      isActive ? 'bg-brand-100 text-brand-700' : 'bg-muted text-muted-foreground'
                     }`}
                   >
                     {tab.badge}
@@ -207,7 +207,7 @@ export const BankingWorkspace: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
             <div className="lg:col-span-2 space-y-3">
               <div className="flex items-center justify-between">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-2">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-foreground flex items-center gap-2">
                   <CreditCard className="w-4 h-4 text-brand-600" />
                   Primary Bank Accounts
                 </h3>
@@ -226,17 +226,17 @@ export const BankingWorkspace: React.FC = () => {
                   <div
                     key={b.id}
                     onClick={() => setActiveTab('bank-accounts')}
-                    className="p-3.5 rounded-xl bg-white/90 border border-slate-200 hover:border-brand-500 shadow-sm cursor-pointer space-y-2 transition-all hover:shadow-md"
+                    className="p-3.5 rounded-xl bg-card/90 border border-border hover:border-brand-500 shadow-sm cursor-pointer space-y-2 transition-all hover:shadow-md"
                   >
                     <div className="flex items-start justify-between">
                       <div>
-                        <div className="font-bold text-xs text-slate-900">{b.accountName}</div>
-                        <div className="text-[11px] text-slate-600">{b.bankName}</div>
+                        <div className="font-bold text-xs text-foreground">{b.accountName}</div>
+                        <div className="text-[11px] text-muted-foreground">{b.bankName}</div>
                       </div>
                       <StatusBadge status={b.isActive ? 'active' : 'inactive'} />
                     </div>
                     <div className="pt-2 border-t border-slate-100 flex justify-between items-end">
-                      <span className="text-[10px] text-slate-500 font-mono">••••••••{b.accountNumber.slice(-4)}</span>
+                      <span className="text-[10px] text-muted-foreground font-mono">••••••••{b.accountNumber.slice(-4)}</span>
                       <span className="text-sm font-bold font-mono text-emerald-600">
                         ${parseFloat(b.currentBalance).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                       </span>
@@ -252,7 +252,7 @@ export const BankingWorkspace: React.FC = () => {
                 <div className="space-y-2">
                   <Button
                     variant="outline"
-                    className="w-full justify-start text-xs text-slate-800"
+                    className="w-full justify-start text-xs text-foreground"
                     icon={<ArrowLeftRight className="w-3.5 h-3.5 text-brand-600" />}
                     onClick={() => setActiveTab('transfers')}
                   >
@@ -260,7 +260,7 @@ export const BankingWorkspace: React.FC = () => {
                   </Button>
                   <Button
                     variant="outline"
-                    className="w-full justify-start text-xs text-slate-800"
+                    className="w-full justify-start text-xs text-foreground"
                     icon={<Scale className="w-3.5 h-3.5 text-amber-600" />}
                     onClick={() => setActiveTab('reconciliation')}
                   >
@@ -268,7 +268,7 @@ export const BankingWorkspace: React.FC = () => {
                   </Button>
                   <Button
                     variant="outline"
-                    className="w-full justify-start text-xs text-slate-800"
+                    className="w-full justify-start text-xs text-foreground"
                     icon={<Wallet className="w-3.5 h-3.5 text-emerald-600" />}
                     onClick={() => setActiveTab('cash-position')}
                   >
@@ -276,7 +276,7 @@ export const BankingWorkspace: React.FC = () => {
                   </Button>
                   <Button
                     variant="outline"
-                    className="w-full justify-start text-xs text-slate-800"
+                    className="w-full justify-start text-xs text-foreground"
                     icon={<FileCheck className="w-3.5 h-3.5 text-purple-600" />}
                     onClick={() => setActiveTab('cheques')}
                   >
@@ -290,7 +290,7 @@ export const BankingWorkspace: React.FC = () => {
           {/* Recent Bank Transactions */}
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-foreground/90 flex items-center gap-2">
                 <FileText className="w-4 h-4 text-brand-400" />
                 Recent Financial Movements
               </h3>
@@ -305,13 +305,13 @@ export const BankingWorkspace: React.FC = () => {
 
             <Card noPadding>
               {transactions.length === 0 ? (
-                <div className="p-8 text-center text-xs text-slate-500">
+                <div className="p-8 text-center text-xs text-muted-foreground">
                   No bank or cash movements recorded yet.
                 </div>
               ) : (
                 <div className="overflow-x-auto">
                   <table className="w-full text-left text-xs">
-                    <thead className="bg-slate-950/80 text-slate-400 border-b border-slate-800">
+                    <thead className="bg-card/80 text-muted-foreground border-b border-border">
                       <tr>
                         <th className="p-2.5">Date</th>
                         <th className="p-2.5">Reference #</th>
@@ -321,15 +321,15 @@ export const BankingWorkspace: React.FC = () => {
                         <th className="p-2.5 text-center">Status</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-800/50 bg-slate-900/20 font-mono text-[11px]">
+                    <tbody className="divide-y divide-border/50 bg-card/20 font-mono text-[11px]">
                       {transactions.slice(0, 5).map((tx) => (
-                        <tr key={tx.id} className="hover:bg-slate-800/30">
-                          <td className="p-2.5 text-slate-400">{tx.transactionDate}</td>
+                        <tr key={tx.id} className="hover:bg-muted/30">
+                          <td className="p-2.5 text-muted-foreground">{tx.transactionDate}</td>
                           <td className="p-2.5 font-bold text-brand-400">{tx.reference || tx.transactionNumber}</td>
-                          <td className="p-2.5 font-sans text-slate-200 truncate max-w-xs">{tx.description}</td>
-                          <td className="p-2.5 uppercase text-[10px] text-slate-400">{tx.transactionType.replace('_', ' ')}</td>
+                          <td className="p-2.5 font-sans text-foreground truncate max-w-xs">{tx.description}</td>
+                          <td className="p-2.5 uppercase text-[10px] text-muted-foreground">{tx.transactionType.replace('_', ' ')}</td>
                           <td className={`p-2.5 text-right font-bold ${
-                            tx.debitCredit === 'debit' ? 'text-emerald-400' : 'text-slate-200'
+                            tx.debitCredit === 'debit' ? 'text-emerald-400' : 'text-foreground'
                           }`}>
                             {tx.debitCredit === 'debit' ? `+$${parseFloat(tx.amount).toFixed(2)}` : `-$${parseFloat(tx.amount).toFixed(2)}`}
                           </td>

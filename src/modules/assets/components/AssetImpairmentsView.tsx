@@ -59,11 +59,11 @@ export const AssetImpairmentsView: React.FC = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h3 className="text-base font-bold text-slate-100 flex items-center gap-2">
+          <h3 className="text-base font-bold text-foreground flex items-center gap-2">
             <TrendingDown className="w-5 h-5 text-amber-400" />
             Asset Impairments & Carrying Value Adjustments
           </h3>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-muted-foreground mt-0.5">
             Record permanent downward adjustments to asset carrying value due to damage, technological obsolescence, or market decline.
           </p>
         </div>
@@ -91,9 +91,9 @@ export const AssetImpairmentsView: React.FC = () => {
       )}
 
       {/* Impairment Register */}
-      <Card className="overflow-hidden border border-slate-800">
+      <Card className="overflow-hidden border border-border">
         <table className="w-full text-left text-sm">
-          <thead className="bg-slate-900 text-xs font-semibold text-slate-400 uppercase tracking-wider">
+          <thead className="bg-card text-xs font-semibold text-muted-foreground uppercase tracking-wider">
             <tr>
               <th className="p-4">Impairment #</th>
               <th className="p-4">Date</th>
@@ -105,18 +105,18 @@ export const AssetImpairmentsView: React.FC = () => {
               <th className="p-4 text-center">Status</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-800 text-xs text-slate-300 font-mono">
+          <tbody className="divide-y divide-border text-xs text-foreground/90 font-mono">
             {impairments.map((imp) => {
               const asset = db.getFixedAssetById(imp.assetId, tenant);
               return (
-                <tr key={imp.id} className="hover:bg-slate-800/40">
+                <tr key={imp.id} className="hover:bg-muted/40">
                   <td className="p-4 font-medium text-blue-400">{imp.impairmentNumber}</td>
-                  <td className="p-4 text-slate-400 font-sans">{imp.impairmentDate}</td>
+                  <td className="p-4 text-muted-foreground font-sans">{imp.impairmentDate}</td>
                   <td className="p-4 font-sans">
-                    <div className="font-semibold text-slate-200">{asset?.name || 'Asset'}</div>
-                    <div className="text-[11px] font-mono text-slate-500">{asset?.assetCode}</div>
+                    <div className="font-semibold text-foreground">{asset?.name || 'Asset'}</div>
+                    <div className="text-[11px] font-mono text-muted-foreground">{asset?.assetCode}</div>
                   </td>
-                  <td className="p-4 text-right text-slate-400">
+                  <td className="p-4 text-right text-muted-foreground">
                     ${parseFloat(imp.preImpairmentNBV).toFixed(2)}
                   </td>
                   <td className="p-4 text-right font-bold text-rose-400">
@@ -125,7 +125,7 @@ export const AssetImpairmentsView: React.FC = () => {
                   <td className="p-4 text-right font-bold text-emerald-400">
                     ${parseFloat(imp.postImpairmentNBV).toFixed(2)}
                   </td>
-                  <td className="p-4 font-sans text-slate-300 max-w-xs truncate">{imp.reason}</td>
+                  <td className="p-4 font-sans text-foreground/90 max-w-xs truncate">{imp.reason}</td>
                   <td className="p-4 text-center font-sans">
                     <StatusBadge status={imp.status} />
                   </td>
@@ -134,10 +134,10 @@ export const AssetImpairmentsView: React.FC = () => {
             })}
             {impairments.length === 0 && (
               <tr>
-                <td colSpan={8} className="p-12 text-center text-slate-400 font-sans">
-                  <TrendingDown className="w-8 h-8 text-slate-600 mx-auto mb-3" />
-                  <p className="font-medium text-slate-300">No Asset Impairments Recorded</p>
-                  <p className="text-xs text-slate-500 mt-1">Impairment tests adjust carrying value when recoverable amount falls below NBV.</p>
+                <td colSpan={8} className="p-12 text-center text-muted-foreground font-sans">
+                  <TrendingDown className="w-8 h-8 text-muted-foreground mx-auto mb-3" />
+                  <p className="font-medium text-foreground/90">No Asset Impairments Recorded</p>
+                  <p className="text-xs text-muted-foreground mt-1">Impairment tests adjust carrying value when recoverable amount falls below NBV.</p>
                 </td>
               </tr>
             )}
@@ -155,12 +155,12 @@ export const AssetImpairmentsView: React.FC = () => {
         >
           <form onSubmit={handleExecuteImpairment} className="space-y-4">
             <div>
-              <label className="text-xs font-medium text-slate-400 block mb-1">Select Asset *</label>
+              <label className="text-xs font-medium text-muted-foreground block mb-1">Select Asset *</label>
               <select
                 required
                 value={selectedAssetId}
                 onChange={(e) => setSelectedAssetId(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-sm text-slate-100"
+                className="w-full bg-card border border-border rounded-lg px-3 py-2 text-sm text-foreground"
               >
                 {assets.map((a) => (
                   <option key={a.id} value={a.id}>
@@ -171,17 +171,17 @@ export const AssetImpairmentsView: React.FC = () => {
             </div>
 
             {selectedAsset && (
-              <div className="bg-slate-900 border border-slate-800 rounded-lg p-3 text-xs grid grid-cols-3 gap-2 text-center">
+              <div className="bg-card border border-border rounded-lg p-3 text-xs grid grid-cols-3 gap-2 text-center">
                 <div>
-                  <span className="text-slate-400 block">Current NBV</span>
-                  <span className="font-mono font-bold text-slate-200">${currentNBV.toFixed(2)}</span>
+                  <span className="text-muted-foreground block">Current NBV</span>
+                  <span className="font-mono font-bold text-foreground">${currentNBV.toFixed(2)}</span>
                 </div>
                 <div>
-                  <span className="text-slate-400 block">Impairment Loss</span>
+                  <span className="text-muted-foreground block">Impairment Loss</span>
                   <span className="font-mono font-bold text-rose-400">-${impAmtVal.toFixed(2)}</span>
                 </div>
                 <div>
-                  <span className="text-slate-400 block">Post-Impairment NBV</span>
+                  <span className="text-muted-foreground block">Post-Impairment NBV</span>
                   <span className="font-mono font-bold text-emerald-400">${postNBV.toFixed(2)}</span>
                 </div>
               </div>
@@ -189,17 +189,17 @@ export const AssetImpairmentsView: React.FC = () => {
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-xs font-medium text-slate-400 block mb-1">Impairment Date *</label>
+                <label className="text-xs font-medium text-muted-foreground block mb-1">Impairment Date *</label>
                 <input
                   type="date"
                   required
                   value={impairmentDate}
                   onChange={(e) => setImpairmentDate(e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-sm text-slate-100 font-mono"
+                  className="w-full bg-card border border-border rounded-lg px-3 py-2 text-sm text-foreground font-mono"
                 />
               </div>
               <div>
-                <label className="text-xs font-medium text-slate-400 block mb-1">Impairment Amount ($) *</label>
+                <label className="text-xs font-medium text-muted-foreground block mb-1">Impairment Amount ($) *</label>
                 <input
                   type="number"
                   step="0.01"
@@ -207,19 +207,19 @@ export const AssetImpairmentsView: React.FC = () => {
                   placeholder="0.00"
                   value={impairmentAmount}
                   onChange={(e) => setImpairmentAmount(e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-sm text-slate-100 font-mono font-bold"
+                  className="w-full bg-card border border-border rounded-lg px-3 py-2 text-sm text-foreground font-mono font-bold"
                 />
               </div>
             </div>
 
             <div>
-              <label className="text-xs font-medium text-slate-400 block mb-1">Assessment Justification & Reason *</label>
+              <label className="text-xs font-medium text-muted-foreground block mb-1">Assessment Justification & Reason *</label>
               <textarea
                 rows={2}
                 required
                 value={reason}
                 onChange={(e) => setReason(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-sm text-slate-100"
+                className="w-full bg-card border border-border rounded-lg px-3 py-2 text-sm text-foreground"
               />
             </div>
 
@@ -228,13 +228,13 @@ export const AssetImpairmentsView: React.FC = () => {
                 <AlertTriangle className="w-3.5 h-3.5 text-amber-400" />
                 Double-Entry Accounting Impact:
               </div>
-              <div className="font-mono text-[11px] text-slate-300 pl-4">
+              <div className="font-mono text-[11px] text-foreground/90 pl-4">
                 • Dr: #6085 Loss on Impairment of Fixed Assets (+${impAmtVal.toFixed(2)})<br />
                 • Cr: #1530 Accumulated Asset Impairment (+${impAmtVal.toFixed(2)})
               </div>
             </div>
 
-            <div className="flex justify-end gap-3 pt-4 border-t border-slate-800">
+            <div className="flex justify-end gap-3 pt-4 border-t border-border">
               <Button type="button" variant="outline" onClick={() => setIsImpairModalOpen(false)}>
                 Cancel
               </Button>

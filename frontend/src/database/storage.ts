@@ -5949,16 +5949,17 @@ class RelationalStorageEngine {
     return this.data.companyProfiles.find((p) => p.companyId === companyId);
   }
 
-  public ensureCompanyProfile(companyId: string): DbCompanyProfile {
-    let profile = this.data.companyProfiles.find((p) => p.companyId === companyId);
+  public ensureCompanyProfile(companyId?: string): DbCompanyProfile {
+    const validCompId = companyId || (this.data.companies[0]?.id) || 'comp-default';
+    let profile = this.data.companyProfiles.find((p) => p.companyId === validCompId);
     if (!profile) {
-      const company = this.getCompanyById(companyId);
+      const company = this.getCompanyById(validCompId);
       const isEnterprise = company?.tier === 'enterprise';
       const isMedium = company?.tier === 'medium';
 
       profile = {
-        id: 'prof-' + companyId.slice(0, 8),
-        companyId,
+        id: 'prof-' + validCompId.slice(0, 8),
+        companyId: validCompId,
         businessTypes: ['trading', 'services'],
         sellingCategories: ['physical_products', 'services'],
         buyingCategories: ['finished_goods', 'services'],

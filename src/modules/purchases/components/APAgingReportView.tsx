@@ -26,19 +26,19 @@ export const APAgingReportView: React.FC<{
   return (
     <div className="space-y-6">
       {/* Date Filter & Metrics */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl bg-slate-900 border border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl bg-card border border-border">
         <div>
-          <h2 className="text-sm font-bold text-slate-100">Accounts Payable Aging Schedule</h2>
-          <p className="text-xs text-slate-400">Aging analysis based on vendor invoice due dates</p>
+          <h2 className="text-sm font-bold text-foreground">Accounts Payable Aging Schedule</h2>
+          <p className="text-xs text-muted-foreground">Aging analysis based on vendor invoice due dates</p>
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="text-xs text-slate-400">As of Date:</span>
+          <span className="text-xs text-muted-foreground">As of Date:</span>
           <input
             type="date"
             value={asOfDate}
             onChange={(e) => setAsOfDate(e.target.value)}
-            className="px-3 py-1.5 text-xs bg-slate-950/80 border border-slate-800 rounded-lg text-slate-200 focus:outline-none focus:border-brand-500"
+            className="px-3 py-1.5 text-xs bg-card/80 border border-border rounded-lg text-foreground focus:outline-none focus:border-brand-500"
           />
         </div>
       </div>
@@ -81,27 +81,27 @@ export const APAgingReportView: React.FC<{
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-slate-800 bg-slate-900/90 text-slate-400 font-semibold uppercase tracking-wider">
+              <tr className="border-b border-border bg-card/90 text-muted-foreground font-semibold uppercase tracking-wider">
                 <th className="px-5 py-3.5">Supplier Name & Code</th>
                 <th className="px-5 py-3.5 text-right">Current</th>
                 <th className="px-5 py-3.5 text-right">1 - 30 Days</th>
                 <th className="px-5 py-3.5 text-right">31 - 60 Days</th>
                 <th className="px-5 py-3.5 text-right">61+ Days</th>
-                <th className="px-5 py-3.5 text-right font-bold text-slate-200">Total Outstanding</th>
+                <th className="px-5 py-3.5 text-right font-bold text-foreground">Total Outstanding</th>
                 <th className="px-5 py-3.5 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-slate-200">
+            <tbody className="divide-y divide-border text-foreground">
               {agingReport.rows.map((row) => (
-                <tr key={row.supplierId} className="hover:bg-slate-800/40 transition-colors">
+                <tr key={row.supplierId} className="hover:bg-muted/40 transition-colors">
                   <td className="px-5 py-3.5">
                     <div className="flex items-center gap-2">
-                      <Building2 className="w-3.5 h-3.5 text-slate-400" />
-                      <div className="font-semibold text-slate-100">{row.supplierName}</div>
+                      <Building2 className="w-3.5 h-3.5 text-muted-foreground" />
+                      <div className="font-semibold text-foreground">{row.supplierName}</div>
                     </div>
-                    <div className="text-[10px] text-slate-500 font-mono ml-5.5">{row.supplierCode}</div>
+                    <div className="text-[10px] text-muted-foreground font-mono ml-5.5">{row.supplierCode}</div>
                   </td>
-                  <td className="px-5 py-3.5 text-right font-mono text-slate-200">
+                  <td className="px-5 py-3.5 text-right font-mono text-foreground">
                     {parseFloat(row.current) > 0 ? `$${parseFloat(row.current).toFixed(2)}` : '—'}
                   </td>
                   <td className="px-5 py-3.5 text-right font-mono text-amber-300">
@@ -139,7 +139,7 @@ export const APAgingReportView: React.FC<{
               ))}
               {agingReport.rows.length === 0 && (
                 <tr>
-                  <td colSpan={7} className="px-5 py-12 text-center text-slate-500">
+                  <td colSpan={7} className="px-5 py-12 text-center text-muted-foreground">
                     No outstanding accounts payable due as of {asOfDate}.
                   </td>
                 </tr>

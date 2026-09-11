@@ -21,6 +21,7 @@ import { TaxWorkspace } from '@/modules/tax/components/TaxWorkspace';
 import { SettingsWorkspace } from '@/modules/settings/components/SettingsWorkspace';
 import { LoginPage } from '@/modules/identity/components/LoginPage';
 import { useAuth } from '@/modules/identity/context/AuthContext';
+import { ErrorBoundary } from '@/ui/components/ErrorBoundary';
 
 const MainRouter: React.FC = () => {
   const { isAuthenticated, tenant, availableCompanies } = useAuth();
@@ -107,11 +108,13 @@ const MainRouter: React.FC = () => {
 
 export function App() {
   return (
-    <ThemeProvider>
-      <AuthProvider>
-        <MainRouter />
-      </AuthProvider>
-    </ThemeProvider>
+    <ErrorBoundary fallbackTitle="Application Error" fallbackSubtitle="ZaynCore experienced an initialization error.">
+      <ThemeProvider>
+        <AuthProvider>
+          <MainRouter />
+        </AuthProvider>
+      </ThemeProvider>
+    </ErrorBoundary>
   );
 }
 

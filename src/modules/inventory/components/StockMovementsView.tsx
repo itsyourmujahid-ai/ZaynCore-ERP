@@ -37,20 +37,20 @@ export const StockMovementsView: React.FC = () => {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-wrap items-center gap-2 flex-1">
           <div className="relative min-w-[240px] max-w-sm">
-            <Search className="w-4 h-4 text-slate-500 absolute left-3 top-2.5" />
+            <Search className="w-4 h-4 text-muted-foreground absolute left-3 top-2.5" />
             <input
               type="text"
               placeholder="Search by movement #, SKU, source document..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-slate-900/60 border border-slate-800 rounded-lg pl-9 pr-3 py-1.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand-500"
+              className="w-full bg-card/60 border border-border rounded-lg pl-9 pr-3 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-brand-500"
             />
           </div>
 
           <select
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value)}
-            className="bg-slate-900/60 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-slate-300 focus:outline-none focus:border-brand-500"
+            className="bg-card/60 border border-border rounded-lg px-2.5 py-1.5 text-xs text-foreground/90 focus:outline-none focus:border-brand-500"
           >
             <option value="all">All Movement Types</option>
             <option value="purchase_receipt">Purchase Receipt (IN)</option>
@@ -62,21 +62,21 @@ export const StockMovementsView: React.FC = () => {
           </select>
         </div>
 
-        <div className="text-xs text-slate-400 font-mono">
-          Total Logged Entries: <span className="font-bold text-slate-200">{movements.length}</span>
+        <div className="text-xs text-muted-foreground font-mono">
+          Total Logged Entries: <span className="font-bold text-foreground">{movements.length}</span>
         </div>
       </div>
 
       {/* Material Ledger Table */}
       <Card noPadding>
         {filteredMovements.length === 0 ? (
-          <div className="p-12 text-center text-slate-500 text-xs">
+          <div className="p-12 text-center text-muted-foreground text-xs">
             No stock movement transactions recorded yet.
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-950/80 text-slate-400 border-b border-slate-800">
+              <thead className="bg-card/80 text-muted-foreground border-b border-border">
                 <tr>
                   <th className="p-3">Posting Date</th>
                   <th className="p-3">Movement #</th>
@@ -90,21 +90,21 @@ export const StockMovementsView: React.FC = () => {
                   <th className="p-3">Source Ref</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/50 bg-slate-900/20 font-mono text-[11px]">
+              <tbody className="divide-y divide-border/50 bg-card/20 font-mono text-[11px]">
                 {filteredMovements.map((m) => {
                   const item = items.find((i) => i.id === m.itemId);
                   const wh = warehouses.find((w) => w.id === m.warehouseId);
 
                   return (
-                    <tr key={m.id} className="hover:bg-slate-800/30">
-                      <td className="p-3 text-slate-400">{m.movementDate}</td>
-                      <td className="p-3 font-bold text-slate-200">{m.movementNumber}</td>
+                    <tr key={m.id} className="hover:bg-muted/30">
+                      <td className="p-3 text-muted-foreground">{m.movementDate}</td>
+                      <td className="p-3 font-bold text-foreground">{m.movementNumber}</td>
                       <td className="p-3">
                         <span className="font-bold text-brand-400">{item?.itemCode || m.itemId}</span>
-                        <div className="font-sans text-[10px] text-slate-400 truncate max-w-[150px]">{item?.name}</div>
+                        <div className="font-sans text-[10px] text-muted-foreground truncate max-w-[150px]">{item?.name}</div>
                       </td>
-                      <td className="p-3 font-sans text-slate-300">{wh?.code || m.warehouseId}</td>
-                      <td className="p-3 uppercase text-[10px] text-slate-300">
+                      <td className="p-3 font-sans text-foreground/90">{wh?.code || m.warehouseId}</td>
+                      <td className="p-3 uppercase text-[10px] text-foreground/90">
                         {m.movementType.replace(/_/g, ' ')}
                       </td>
                       <td className="p-3 text-center">
@@ -117,8 +117,8 @@ export const StockMovementsView: React.FC = () => {
                           {m.direction}
                         </span>
                       </td>
-                      <td className="p-3 text-right font-bold text-slate-100">{m.quantity}</td>
-                      <td className="p-3 text-right text-slate-300">${parseFloat(m.unitCost).toFixed(2)}</td>
+                      <td className="p-3 text-right font-bold text-foreground">{m.quantity}</td>
+                      <td className="p-3 text-right text-foreground/90">${parseFloat(m.unitCost).toFixed(2)}</td>
                       <td className="p-3 text-right font-bold text-emerald-400">
                         ${parseFloat(m.totalCost).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                       </td>

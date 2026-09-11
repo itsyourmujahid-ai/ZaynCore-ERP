@@ -46,7 +46,7 @@ export const SubLedgerReconciliationView: React.FC = () => {
   return (
     <div className="space-y-5">
       {/* Sub-Ledger Type Selector Bar */}
-      <div className="flex items-center gap-1 overflow-x-auto pb-1 border-b border-slate-800">
+      <div className="flex items-center gap-1 overflow-x-auto pb-1 border-b border-border">
         {subLedgerTabs.map((tab) => {
           const isActive = activeSubLedger === tab.id;
           return (
@@ -55,34 +55,34 @@ export const SubLedgerReconciliationView: React.FC = () => {
               onClick={() => setActiveSubLedger(tab.id as SubLedgerType)}
               className={`flex items-center gap-2 px-3.5 py-2 rounded-t-lg text-xs font-semibold whitespace-nowrap transition-all select-none border-b-2 ${
                 isActive
-                  ? 'border-brand-500 text-brand-400 bg-slate-900/60'
-                  : 'border-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-900/30'
+                  ? 'border-brand-500 text-brand-400 bg-card/60'
+                  : 'border-transparent text-muted-foreground hover:text-foreground hover:bg-card/30'
               }`}
             >
               {tab.icon}
               <span>{tab.label}</span>
-              <span className="font-mono text-[10px] text-slate-500">#{tab.code}</span>
+              <span className="font-mono text-[10px] text-muted-foreground">#{tab.code}</span>
             </button>
           );
         })}
       </div>
 
       {/* Reconciliation Comparison Header Card */}
-      <div className="p-5 rounded-2xl bg-gradient-to-r from-slate-900 via-slate-900 to-slate-950 border border-slate-800 grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
+      <div className="p-5 rounded-2xl bg-gradient-to-r from-slate-900 via-slate-900 to-slate-950 border border-border grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
         <div>
-          <span className="text-[10px] uppercase font-bold text-slate-400">Sub-Ledger Total</span>
-          <div className="text-xl font-mono font-bold text-slate-100 mt-1">
+          <span className="text-[10px] uppercase font-bold text-muted-foreground">Sub-Ledger Total</span>
+          <div className="text-xl font-mono font-bold text-foreground mt-1">
             ${parseFloat(report.subLedgerTotalBalance).toFixed(2)} {tenant.baseCurrency}
           </div>
-          <span className="text-xs text-slate-400">Aggregated from individual items</span>
+          <span className="text-xs text-muted-foreground">Aggregated from individual items</span>
         </div>
 
         <div>
-          <span className="text-[10px] uppercase font-bold text-slate-400">GL Control Account (#{report.glAccountCode})</span>
+          <span className="text-[10px] uppercase font-bold text-muted-foreground">GL Control Account (#{report.glAccountCode})</span>
           <div className="text-xl font-mono font-bold text-brand-400 mt-1">
             ${parseFloat(report.glControlAccountBalance).toFixed(2)} {tenant.baseCurrency}
           </div>
-          <span className="text-xs text-slate-400">{report.glAccountName}</span>
+          <span className="text-xs text-muted-foreground">{report.glAccountName}</span>
         </div>
 
         <div className={`p-4 rounded-xl border flex items-center justify-between ${
@@ -108,13 +108,13 @@ export const SubLedgerReconciliationView: React.FC = () => {
         subtitle="Individual entity balances reconciled against general ledger"
         action={
           <div className="relative w-64">
-            <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-500" />
+            <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-muted-foreground" />
             <input
               type="text"
               placeholder="Search entity..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-3 py-1.5 text-xs bg-slate-950/80 border border-slate-800 rounded-lg text-slate-200 placeholder-slate-500 focus:outline-none focus:border-brand-500"
+              className="w-full pl-9 pr-3 py-1.5 text-xs bg-card/80 border border-border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-brand-500"
             />
           </div>
         }
@@ -123,7 +123,7 @@ export const SubLedgerReconciliationView: React.FC = () => {
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-slate-800 bg-slate-900/90 text-slate-400 font-semibold uppercase tracking-wider">
+              <tr className="border-b border-border bg-card/90 text-muted-foreground font-semibold uppercase tracking-wider">
                 <th className="px-5 py-3">Entity ID</th>
                 <th className="px-5 py-3">Entity Name</th>
                 <th className="px-5 py-3 text-right">Debit Total</th>
@@ -131,28 +131,28 @@ export const SubLedgerReconciliationView: React.FC = () => {
                 <th className="px-5 py-3 text-right">Net Sub-Ledger Balance</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-slate-200">
+            <tbody className="divide-y divide-border text-foreground">
               {filteredEntities.map((ent) => (
-                <tr key={ent.entityId} className="hover:bg-slate-800/30">
+                <tr key={ent.entityId} className="hover:bg-muted/30">
                   <td className="px-5 py-3 font-mono font-bold text-brand-400">{ent.entityId}</td>
-                  <td className="px-5 py-3 font-medium text-slate-200">{ent.entityName}</td>
+                  <td className="px-5 py-3 font-medium text-foreground">{ent.entityName}</td>
                   <td className="px-5 py-3 text-right font-mono text-emerald-400">${parseFloat(ent.totalDebit).toFixed(2)}</td>
                   <td className="px-5 py-3 text-right font-mono text-sky-400">${parseFloat(ent.totalCredit).toFixed(2)}</td>
-                  <td className="px-5 py-3 text-right font-mono font-bold text-slate-100">
+                  <td className="px-5 py-3 text-right font-mono font-bold text-foreground">
                     ${parseFloat(ent.netBalance).toFixed(2)} {ent.currency}
                   </td>
                 </tr>
               ))}
               {filteredEntities.length === 0 && (
                 <tr>
-                  <td colSpan={5} className="px-5 py-12 text-center text-slate-500">
+                  <td colSpan={5} className="px-5 py-12 text-center text-muted-foreground">
                     No individual sub-ledger entries recorded. Sub-ledger balance is currently $0.00.
                   </td>
                 </tr>
               )}
             </tbody>
             <tfoot>
-              <tr className="bg-slate-900/90 font-bold border-t border-slate-700 text-slate-100">
+              <tr className="bg-card/90 font-bold border-t border-border text-foreground">
                 <td colSpan={4} className="px-5 py-3 text-right uppercase tracking-wider">Sub-Ledger Total:</td>
                 <td className="px-5 py-3 text-right font-mono text-brand-400">
                   ${parseFloat(report.subLedgerTotalBalance).toFixed(4)} {tenant.baseCurrency}

@@ -1,22 +1,39 @@
 # Dependencies
 node_modules/
+*/node_modules/
 .pnp
 .pnp.js
 
 # Build output
 dist/
+*/dist/
 dist-ssr/
 build/
+coverage/
+.cache/
+.tmp/
+temp/
 *.tsbuildinfo
 
 # Environment & Secrets (NEVER COMMIT SECRETS)
 .env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env.*
+!.env.example
 *.pem
 *.key
+*.crt
+*.cert
+*.pfx
+*.p12
+
+# Backup Archives & Database Dumps
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.dump
+*.sql.gz
+*.bak
 
 # Logs
 npm-debug.log*
@@ -25,6 +42,7 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 *.log
+logs/
 
 # Editor & OS
 .vscode/*
@@ -35,5 +53,7 @@ lerna-debug.log*
 *.njsproj
 *.sln
 *.sw?
+*.swo
+*.swp
 .DS_Store
 Thumbs.db

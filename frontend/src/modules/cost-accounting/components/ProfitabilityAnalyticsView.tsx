@@ -42,13 +42,13 @@ export const ProfitabilityAnalyticsView: React.FC = () => {
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all ${
               perspective === tab.id
                 ? 'bg-brand-600 text-white shadow-sm'
-                : 'bg-slate-900 border border-slate-800 text-slate-400 hover:text-slate-200'
+                : 'bg-card border border-border text-muted-foreground hover:text-foreground'
             }`}
           >
             {tab.icon}
             <span>{tab.label}</span>
             {tab.badge !== undefined && (
-              <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-slate-800 text-slate-300">
+              <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-muted text-foreground/90">
                 {tab.badge}
               </span>
             )}
@@ -64,17 +64,17 @@ export const ProfitabilityAnalyticsView: React.FC = () => {
         >
           <div className="space-y-4 text-xs">
             {/* OPERATING REVENUE SECTION */}
-            <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800 space-y-2">
-              <div className="flex items-center justify-between text-sm font-bold text-slate-100 border-b border-slate-800 pb-2">
+            <div className="p-4 rounded-xl bg-card/60 border border-border space-y-2">
+              <div className="flex items-center justify-between text-sm font-bold text-foreground border-b border-border pb-2">
                 <span>1. Operating Revenue</span>
                 <span className="text-emerald-400 font-mono">${parseFloat(pnl.totalRevenue).toFixed(2)}</span>
               </div>
               {pnl.revenueLines.length === 0 ? (
-                <p className="text-[11px] text-slate-500 italic">No revenue recognized for active period.</p>
+                <p className="text-[11px] text-muted-foreground italic">No revenue recognized for active period.</p>
               ) : (
                 <div className="space-y-1 pt-1">
                   {pnl.revenueLines.map((l, idx) => (
-                    <div key={idx} className="flex justify-between text-slate-300">
+                    <div key={idx} className="flex justify-between text-foreground/90">
                       <span>{l.accountCode} - {l.accountName}</span>
                       <span className="font-mono text-emerald-400">${parseFloat(l.amount).toFixed(2)} ({l.percentageOfRevenue}%)</span>
                     </div>
@@ -84,29 +84,29 @@ export const ProfitabilityAnalyticsView: React.FC = () => {
             </div>
 
             {/* DIRECT COSTS & GROSS PROFIT */}
-            <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800 space-y-2">
-              <div className="flex items-center justify-between text-sm font-bold text-slate-100 border-b border-slate-800 pb-2">
+            <div className="p-4 rounded-xl bg-card/60 border border-border space-y-2">
+              <div className="flex items-center justify-between text-sm font-bold text-foreground border-b border-border pb-2">
                 <span>2. Direct Costs & Cost of Goods Sold (COGS)</span>
                 <span className="text-rose-400 font-mono">${parseFloat(pnl.totalDirectCosts).toFixed(2)}</span>
               </div>
               <div className="space-y-1 pt-1">
-                <div className="flex justify-between text-slate-400">
+                <div className="flex justify-between text-muted-foreground">
                   <span>Direct Materials & Supplies:</span>
-                  <span className="font-mono text-slate-200">${parseFloat(pnl.directMaterials).toFixed(2)}</span>
+                  <span className="font-mono text-foreground">${parseFloat(pnl.directMaterials).toFixed(2)}</span>
                 </div>
-                <div className="flex justify-between text-slate-400">
+                <div className="flex justify-between text-muted-foreground">
                   <span>Direct Labor & Subcontracting:</span>
-                  <span className="font-mono text-slate-200">${parseFloat(pnl.directLabor).toFixed(2)}</span>
+                  <span className="font-mono text-foreground">${parseFloat(pnl.directLabor).toFixed(2)}</span>
                 </div>
-                <div className="flex justify-between text-slate-400">
+                <div className="flex justify-between text-muted-foreground">
                   <span>Direct Project & Operating Expenses:</span>
-                  <span className="font-mono text-slate-200">${parseFloat(pnl.directExpenses).toFixed(2)}</span>
+                  <span className="font-mono text-foreground">${parseFloat(pnl.directExpenses).toFixed(2)}</span>
                 </div>
               </div>
 
               {/* Gross Profit Callout */}
-              <div className="p-3 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-between font-bold text-sm mt-3">
-                <span className="text-slate-200">GROSS PROFIT</span>
+              <div className="p-3 rounded-lg bg-card border border-border flex items-center justify-between font-bold text-sm mt-3">
+                <span className="text-foreground">GROSS PROFIT</span>
                 <span className="font-mono text-emerald-400">
                   ${parseFloat(pnl.grossProfit).toFixed(2)} ({pnl.grossMarginPercentage}%)
                 </span>
@@ -114,37 +114,37 @@ export const ProfitabilityAnalyticsView: React.FC = () => {
             </div>
 
             {/* OPERATING EXPENSES */}
-            <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800 space-y-2">
-              <div className="flex items-center justify-between text-sm font-bold text-slate-100 border-b border-slate-800 pb-2">
+            <div className="p-4 rounded-xl bg-card/60 border border-border space-y-2">
+              <div className="flex items-center justify-between text-sm font-bold text-foreground border-b border-border pb-2">
                 <span>3. Operating Overheads & Admin Expenses</span>
                 <span className="text-rose-400 font-mono">${parseFloat(pnl.totalOperatingExpenses).toFixed(2)}</span>
               </div>
               <div className="space-y-1 pt-1">
-                <div className="flex justify-between text-slate-400">
+                <div className="flex justify-between text-muted-foreground">
                   <span>Salaries, Wages & Benefits:</span>
-                  <span className="font-mono text-slate-200">${parseFloat(pnl.salariesAndBenefits).toFixed(2)}</span>
+                  <span className="font-mono text-foreground">${parseFloat(pnl.salariesAndBenefits).toFixed(2)}</span>
                 </div>
-                <div className="flex justify-between text-slate-400">
+                <div className="flex justify-between text-muted-foreground">
                   <span>Rent & Office Facilities:</span>
-                  <span className="font-mono text-slate-200">${parseFloat(pnl.rentAndFacilities).toFixed(2)}</span>
+                  <span className="font-mono text-foreground">${parseFloat(pnl.rentAndFacilities).toFixed(2)}</span>
                 </div>
-                <div className="flex justify-between text-slate-400">
+                <div className="flex justify-between text-muted-foreground">
                   <span>Utilities & Technology Infrastructure:</span>
-                  <span className="font-mono text-slate-200">${parseFloat(pnl.utilitiesAndTech).toFixed(2)}</span>
+                  <span className="font-mono text-foreground">${parseFloat(pnl.utilitiesAndTech).toFixed(2)}</span>
                 </div>
-                <div className="flex justify-between text-slate-400">
+                <div className="flex justify-between text-muted-foreground">
                   <span>General & Administrative:</span>
-                  <span className="font-mono text-slate-200">${parseFloat(pnl.generalAndAdmin).toFixed(2)}</span>
+                  <span className="font-mono text-foreground">${parseFloat(pnl.generalAndAdmin).toFixed(2)}</span>
                 </div>
-                <div className="flex justify-between text-slate-400">
+                <div className="flex justify-between text-muted-foreground">
                   <span>Allocated Shared Overheads:</span>
                   <span className="font-mono text-amber-400">${parseFloat(pnl.allocatedOverhead).toFixed(2)}</span>
                 </div>
               </div>
 
               {/* Operating Profit Callout */}
-              <div className="p-3 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-between font-bold text-sm mt-3">
-                <span className="text-slate-200">OPERATING PROFIT (EBIT)</span>
+              <div className="p-3 rounded-lg bg-card border border-border flex items-center justify-between font-bold text-sm mt-3">
+                <span className="text-foreground">OPERATING PROFIT (EBIT)</span>
                 <span className={`font-mono ${parseFloat(pnl.operatingProfit) >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
                   ${parseFloat(pnl.operatingProfit).toFixed(2)} ({pnl.operatingMarginPercentage}%)
                 </span>
@@ -173,14 +173,14 @@ export const ProfitabilityAnalyticsView: React.FC = () => {
           subtitle="Net margin contribution per client after deducting direct costs and allocated support expenses"
         >
           {customerProf.length === 0 ? (
-            <div className="p-8 text-center text-slate-500 text-xs">
+            <div className="p-8 text-center text-muted-foreground text-xs">
               No customer transactions recorded yet.
             </div>
           ) : (
             <div className="overflow-x-auto -mx-4 -my-3 sm:mx-0 sm:my-0">
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="border-b border-slate-800 text-slate-400 font-semibold bg-slate-950/40">
+                  <tr className="border-b border-border text-muted-foreground font-semibold bg-card/40">
                     <th className="px-4 py-2.5">Customer</th>
                     <th className="px-4 py-2.5 text-right">Invoiced Revenue</th>
                     <th className="px-4 py-2.5 text-right">Direct Costs</th>
@@ -189,12 +189,12 @@ export const ProfitabilityAnalyticsView: React.FC = () => {
                     <th className="px-4 py-2.5 text-right">Margin (%)</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60">
+                <tbody className="divide-y divide-border">
                   {customerProf.map((cust) => (
-                    <tr key={cust.customerId} className="hover:bg-slate-800/30">
+                    <tr key={cust.customerId} className="hover:bg-muted/30">
                       <td className="px-4 py-3">
-                        <div className="font-bold text-slate-200">{cust.customerName}</div>
-                        <div className="text-[11px] font-mono text-slate-500">{cust.customerCode}</div>
+                        <div className="font-bold text-foreground">{cust.customerName}</div>
+                        <div className="text-[11px] font-mono text-muted-foreground">{cust.customerCode}</div>
                       </td>
 
                       <td className="px-4 py-3 text-right font-mono text-emerald-400">
@@ -215,7 +215,7 @@ export const ProfitabilityAnalyticsView: React.FC = () => {
                         ${parseFloat(cust.netProfit).toFixed(2)}
                       </td>
 
-                      <td className="px-4 py-3 text-right font-mono text-slate-300">
+                      <td className="px-4 py-3 text-right font-mono text-foreground/90">
                         {cust.marginPercentage}%
                       </td>
                     </tr>
@@ -234,14 +234,14 @@ export const ProfitabilityAnalyticsView: React.FC = () => {
           subtitle="Sales revenue versus standard cost of goods sold (COGS)"
         >
           {productProf.length === 0 ? (
-            <div className="p-8 text-center text-slate-500 text-xs">
+            <div className="p-8 text-center text-muted-foreground text-xs">
               No product items configured or invoiced yet.
             </div>
           ) : (
             <div className="overflow-x-auto -mx-4 -my-3 sm:mx-0 sm:my-0">
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="border-b border-slate-800 text-slate-400 font-semibold bg-slate-950/40">
+                  <tr className="border-b border-border text-muted-foreground font-semibold bg-card/40">
                     <th className="px-4 py-2.5">Product / Item</th>
                     <th className="px-4 py-2.5 text-center">Units Sold</th>
                     <th className="px-4 py-2.5 text-right">Total Revenue</th>
@@ -250,15 +250,15 @@ export const ProfitabilityAnalyticsView: React.FC = () => {
                     <th className="px-4 py-2.5 text-right">Gross Margin (%)</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60">
+                <tbody className="divide-y divide-border">
                   {productProf.map((prod) => (
-                    <tr key={prod.itemId} className="hover:bg-slate-800/30">
+                    <tr key={prod.itemId} className="hover:bg-muted/30">
                       <td className="px-4 py-3">
-                        <div className="font-bold text-slate-200">{prod.itemName}</div>
-                        <div className="text-[11px] font-mono text-slate-500">{prod.itemCode} • {prod.categoryName || 'Inventory'}</div>
+                        <div className="font-bold text-foreground">{prod.itemName}</div>
+                        <div className="text-[11px] font-mono text-muted-foreground">{prod.itemCode} • {prod.categoryName || 'Inventory'}</div>
                       </td>
 
-                      <td className="px-4 py-3 text-center font-mono text-slate-300">
+                      <td className="px-4 py-3 text-center font-mono text-foreground/90">
                         {prod.unitsSold}
                       </td>
 
@@ -270,11 +270,11 @@ export const ProfitabilityAnalyticsView: React.FC = () => {
                         ${parseFloat(prod.totalCostOfGoodsSold).toFixed(2)}
                       </td>
 
-                      <td className="px-4 py-3 text-right font-mono font-bold text-slate-100">
+                      <td className="px-4 py-3 text-right font-mono font-bold text-foreground">
                         ${parseFloat(prod.grossProfit).toFixed(2)}
                       </td>
 
-                      <td className="px-4 py-3 text-right font-mono text-slate-300">
+                      <td className="px-4 py-3 text-right font-mono text-foreground/90">
                         {prod.marginPercentage}%
                       </td>
                     </tr>
@@ -295,7 +295,7 @@ export const ProfitabilityAnalyticsView: React.FC = () => {
           <div className="overflow-x-auto -mx-4 -my-3 sm:mx-0 sm:my-0">
             <table className="w-full text-left text-xs">
               <thead>
-                <tr className="border-b border-slate-800 text-slate-400 font-semibold bg-slate-950/40">
+                <tr className="border-b border-border text-muted-foreground font-semibold bg-card/40">
                   <th className="px-4 py-2.5">Branch</th>
                   <th className="px-4 py-2.5 text-right">Revenue</th>
                   <th className="px-4 py-2.5 text-right">Direct Costs</th>
@@ -304,12 +304,12 @@ export const ProfitabilityAnalyticsView: React.FC = () => {
                   <th className="px-4 py-2.5 text-right">Net Margin (%)</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60">
+              <tbody className="divide-y divide-border">
                 {branchProf.map((br) => (
-                  <tr key={br.branchId} className="hover:bg-slate-800/30">
+                  <tr key={br.branchId} className="hover:bg-muted/30">
                     <td className="px-4 py-3">
-                      <div className="font-bold text-slate-200">{br.branchName}</div>
-                      <div className="text-[11px] font-mono text-slate-500">
+                      <div className="font-bold text-foreground">{br.branchName}</div>
+                      <div className="text-[11px] font-mono text-muted-foreground">
                         {br.branchCode} {br.isHeadquarters && '• Headquarters'}
                       </div>
                     </td>
@@ -332,7 +332,7 @@ export const ProfitabilityAnalyticsView: React.FC = () => {
                       ${parseFloat(br.netProfit).toFixed(2)}
                     </td>
 
-                    <td className="px-4 py-3 text-right font-mono text-slate-300">
+                    <td className="px-4 py-3 text-right font-mono text-foreground/90">
                       {br.marginPercentage}%
                     </td>
                   </tr>
@@ -352,7 +352,7 @@ export const ProfitabilityAnalyticsView: React.FC = () => {
           <div className="overflow-x-auto -mx-4 -my-3 sm:mx-0 sm:my-0">
             <table className="w-full text-left text-xs">
               <thead>
-                <tr className="border-b border-slate-800 text-slate-400 font-semibold bg-slate-950/40">
+                <tr className="border-b border-border text-muted-foreground font-semibold bg-card/40">
                   <th className="px-4 py-2.5">Business Unit / Division</th>
                   <th className="px-4 py-2.5 text-right">Revenue</th>
                   <th className="px-4 py-2.5 text-right">Variable Costs</th>
@@ -362,12 +362,12 @@ export const ProfitabilityAnalyticsView: React.FC = () => {
                   <th className="px-4 py-2.5 text-right">Operating Income</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60">
+              <tbody className="divide-y divide-border">
                 {cmBusinessUnits.map((cm) => (
-                  <tr key={cm.entityId} className="hover:bg-slate-800/30">
+                  <tr key={cm.entityId} className="hover:bg-muted/30">
                     <td className="px-4 py-3">
-                      <div className="font-bold text-slate-200">{cm.entityName}</div>
-                      <div className="text-[11px] font-mono text-slate-500">{cm.entityCode}</div>
+                      <div className="font-bold text-foreground">{cm.entityName}</div>
+                      <div className="text-[11px] font-mono text-muted-foreground">{cm.entityCode}</div>
                     </td>
 
                     <td className="px-4 py-3 text-right font-mono text-emerald-400">
@@ -382,7 +382,7 @@ export const ProfitabilityAnalyticsView: React.FC = () => {
                       ${parseFloat(cm.contributionMargin).toFixed(2)}
                     </td>
 
-                    <td className="px-4 py-3 text-right font-mono text-slate-200 font-semibold">
+                    <td className="px-4 py-3 text-right font-mono text-foreground font-semibold">
                       {cm.contributionMarginPercentage}%
                     </td>
 

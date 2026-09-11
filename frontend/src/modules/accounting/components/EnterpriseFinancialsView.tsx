@@ -91,7 +91,7 @@ export const EnterpriseFinancialsView: React.FC = () => {
   return (
     <div className="space-y-5">
       {/* Sub Tabs */}
-      <div className="flex items-center justify-between border-b border-slate-200 pb-2">
+      <div className="flex items-center justify-between border-b border-border pb-2">
         <div className="flex items-center gap-1.5 overflow-x-auto">
           {[
             { id: 'accruals', label: 'Accruals & Deferrals', icon: <Layers className="w-3.5 h-3.5" />, count: accruals.length + prepayments.length + deferredRevs.length },
@@ -106,7 +106,7 @@ export const EnterpriseFinancialsView: React.FC = () => {
               className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                 subTab === tab.id
                   ? 'bg-brand-600 text-white shadow-sm'
-                  : 'bg-white border border-slate-200 text-slate-700 hover:text-slate-900 hover:bg-slate-50'
+                  : 'bg-card border border-border text-foreground/90 hover:text-foreground hover:bg-muted'
               }`}
             >
               {tab.icon}
@@ -139,67 +139,67 @@ export const EnterpriseFinancialsView: React.FC = () => {
         <div className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <Card title="Active Accruals" subtitle="Expense & revenue accruals">
-              <div className="text-2xl font-bold font-mono text-slate-900">{accruals.length}</div>
-              <div className="text-[11px] text-slate-500 mt-1">With automated period reversal support</div>
+              <div className="text-2xl font-bold font-mono text-foreground">{accruals.length}</div>
+              <div className="text-[11px] text-muted-foreground mt-1">With automated period reversal support</div>
             </Card>
             <Card title="Prepayment Schedules" subtitle="Deferred expense assets">
-              <div className="text-2xl font-bold font-mono text-slate-900">{prepayments.length}</div>
-              <div className="text-[11px] text-slate-500 mt-1">Straight-line monthly amortization</div>
+              <div className="text-2xl font-bold font-mono text-foreground">{prepayments.length}</div>
+              <div className="text-[11px] text-muted-foreground mt-1">Straight-line monthly amortization</div>
             </Card>
             <Card title="Deferred Revenues" subtitle="Unearned revenue liabilities">
-              <div className="text-2xl font-bold font-mono text-slate-900">{deferredRevs.length}</div>
-              <div className="text-[11px] text-slate-500 mt-1">Milestone/monthly recognition</div>
+              <div className="text-2xl font-bold font-mono text-foreground">{deferredRevs.length}</div>
+              <div className="text-[11px] text-muted-foreground mt-1">Milestone/monthly recognition</div>
             </Card>
             <Card title="Accounting Provisions" subtitle="IAS 37 liabilities">
-              <div className="text-2xl font-bold font-mono text-slate-900">{provisions.length}</div>
-              <div className="text-[11px] text-slate-500 mt-1">Warranty, legal & restructuring</div>
+              <div className="text-2xl font-bold font-mono text-foreground">{provisions.length}</div>
+              <div className="text-[11px] text-muted-foreground mt-1">Warranty, legal & restructuring</div>
             </Card>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <Card title="Operational Accruals Register" subtitle="Accrued liabilities and receivables with auto-reversals">
               {accruals.length > 0 ? (
-                <div className="divide-y divide-slate-100 text-xs">
+                <div className="divide-y divide-border text-xs">
                   {accruals.map((acc: any) => (
                     <div key={acc.id} className="py-2.5 flex items-center justify-between">
                       <div>
-                        <div className="font-bold text-slate-900">{acc.title}</div>
-                        <div className="text-[11px] text-slate-500 font-mono">
+                        <div className="font-bold text-foreground">{acc.title}</div>
+                        <div className="text-[11px] text-muted-foreground font-mono">
                           Date: {acc.accrualDate} {acc.autoReverseDate ? `• Auto-Reverse: ${acc.autoReverseDate}` : ''}
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="font-mono font-bold text-slate-900">${acc.amount} {acc.currency}</div>
+                        <div className="font-mono font-bold text-foreground">${acc.amount} {acc.currency}</div>
                         <StatusBadge status={acc.status} size="xs" />
                       </div>
                     </div>
                   ))}
                 </div>
               ) : (
-                <div className="p-6 text-center text-xs text-slate-500">No accruals currently registered.</div>
+                <div className="p-6 text-center text-xs text-muted-foreground">No accruals currently registered.</div>
               )}
             </Card>
 
             <Card title="Prepayment Amortization Schedules" subtitle="Prepaid rent, insurance, and subscription assets">
               {prepayments.length > 0 ? (
-                <div className="divide-y divide-slate-100 text-xs">
+                <div className="divide-y divide-border text-xs">
                   {prepayments.map((prep: any) => (
                     <div key={prep.id} className="py-2.5 flex items-center justify-between">
                       <div>
-                        <div className="font-bold text-slate-900">{prep.name || prep.scheduleNumber}</div>
-                        <div className="text-[11px] text-slate-500 font-mono">
+                        <div className="font-bold text-foreground">{prep.name || prep.scheduleNumber}</div>
+                        <div className="text-[11px] text-muted-foreground font-mono">
                           {prep.totalPeriods} Periods • Amortized: ${prep.recognizedAmount || '0.00'} / ${prep.totalAmount}
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="font-mono font-bold text-slate-900">${prep.remainingAmount}</div>
+                        <div className="font-mono font-bold text-foreground">${prep.remainingAmount}</div>
                         <StatusBadge status={prep.status} size="xs" />
                       </div>
                     </div>
                   ))}
                 </div>
               ) : (
-                <div className="p-6 text-center text-xs text-slate-500">No prepayment schedules registered.</div>
+                <div className="p-6 text-center text-xs text-muted-foreground">No prepayment schedules registered.</div>
               )}
             </Card>
           </div>
@@ -210,25 +210,25 @@ export const EnterpriseFinancialsView: React.FC = () => {
       {subTab === 'recurring' && (
         <Card title="Recurring Journal Entry Templates" subtitle="Scheduled standing journal entries with frequency automation">
           {recurringTemplates.length > 0 ? (
-            <div className="divide-y divide-slate-200 text-xs">
+            <div className="divide-y divide-border text-xs">
               {recurringTemplates.map((t: any) => {
                 const totalAmt = t.lines ? t.lines.reduce((s: number, l: any) => s + parseFloat(l.debitAmount || '0'), 0).toFixed(2) : '0.00';
                 return (
                   <div key={t.id} className="py-3 flex items-center justify-between">
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="font-bold text-slate-900">{t.templateName}</span>
+                        <span className="font-bold text-foreground">{t.templateName}</span>
                         <span className="font-mono text-[10px] bg-purple-50 text-purple-700 px-2 py-0.5 rounded uppercase font-bold">
                           {t.frequency}
                         </span>
                         <StatusBadge status={t.status} size="xs" />
                       </div>
-                      <p className="text-[11px] text-slate-500 mt-0.5">Next Run: {t.nextRunDate}</p>
+                      <p className="text-[11px] text-muted-foreground mt-0.5">Next Run: {t.nextRunDate}</p>
                     </div>
                     <div className="text-right flex items-center gap-3">
                       <div>
-                        <div className="font-mono font-bold text-slate-900">${totalAmt} {t.currency}</div>
-                        <div className="text-[10px] text-slate-500">Executions: {t.generatedCount || 0}</div>
+                        <div className="font-mono font-bold text-foreground">${totalAmt} {t.currency}</div>
+                        <div className="text-[10px] text-muted-foreground">Executions: {t.generatedCount || 0}</div>
                       </div>
                       <Button
                         size="xs"
@@ -251,7 +251,7 @@ export const EnterpriseFinancialsView: React.FC = () => {
               })}
             </div>
           ) : (
-            <div className="p-8 text-center text-xs text-slate-500">No recurring journal templates configured.</div>
+            <div className="p-8 text-center text-xs text-muted-foreground">No recurring journal templates configured.</div>
           )}
         </Card>
       )}
@@ -292,13 +292,13 @@ export const EnterpriseFinancialsView: React.FC = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider">Pre-Closing Validation Checklist</h4>
-                  <div className="divide-y divide-slate-100 border border-slate-200 rounded-lg text-xs">
+                  <h4 className="text-xs font-bold text-foreground uppercase tracking-wider">Pre-Closing Validation Checklist</h4>
+                  <div className="divide-y divide-border border border-border rounded-lg text-xs">
                     {yearEndSummary.checklist.map((item) => (
                       <div key={item.code} className="p-3 flex items-center justify-between">
                         <div>
-                          <div className="font-semibold text-slate-900">{item.title}</div>
-                          <div className="text-[11px] text-slate-500">{item.details}</div>
+                          <div className="font-semibold text-foreground">{item.title}</div>
+                          <div className="text-[11px] text-muted-foreground">{item.details}</div>
                         </div>
                         <StatusBadge status={item.status} size="xs" />
                       </div>
@@ -308,10 +308,10 @@ export const EnterpriseFinancialsView: React.FC = () => {
 
                 {yearEndSummary.nominalAccountsToClose.length > 0 && (
                   <div className="space-y-2">
-                    <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider">Nominal Accounts Closing Journal Preview</h4>
-                    <div className="overflow-x-auto border border-slate-200 rounded-lg">
+                    <h4 className="text-xs font-bold text-foreground uppercase tracking-wider">Nominal Accounts Closing Journal Preview</h4>
+                    <div className="overflow-x-auto border border-border rounded-lg">
                       <table className="w-full text-left text-xs">
-                        <thead className="bg-slate-50 border-b border-slate-200 font-bold text-slate-700">
+                        <thead className="bg-muted border-b border-border font-bold text-foreground/90">
                           <tr>
                             <th className="px-3 py-2">Code</th>
                             <th className="px-3 py-2">Account</th>
@@ -320,14 +320,14 @@ export const EnterpriseFinancialsView: React.FC = () => {
                             <th className="px-3 py-2">Closing Entry</th>
                           </tr>
                         </thead>
-                        <tbody className="divide-y divide-slate-100 font-mono">
+                        <tbody className="divide-y divide-border font-mono">
                           {yearEndSummary.nominalAccountsToClose.map((acc) => (
                             <tr key={acc.accountId}>
                               <td className="px-3 py-2 font-bold text-brand-600">{acc.accountCode}</td>
                               <td className="px-3 py-2 font-sans">{acc.accountName}</td>
                               <td className="px-3 py-2 capitalize font-sans">{acc.classification}</td>
                               <td className="px-3 py-2">${acc.balance}</td>
-                              <td className="px-3 py-2 font-bold text-slate-800 uppercase">
+                              <td className="px-3 py-2 font-bold text-foreground uppercase">
                                 {acc.closingAction} ${acc.closingAmount}
                               </td>
                             </tr>
@@ -339,7 +339,7 @@ export const EnterpriseFinancialsView: React.FC = () => {
                 )}
               </div>
             ) : (
-              <div className="p-6 text-center text-xs text-slate-500">No active fiscal year found.</div>
+              <div className="p-6 text-center text-xs text-muted-foreground">No active fiscal year found.</div>
             )}
           </Card>
         </div>
@@ -375,26 +375,26 @@ export const EnterpriseFinancialsView: React.FC = () => {
           >
             <div className="space-y-4 text-xs">
               <div className="flex items-center gap-3">
-                <label className="text-slate-700 font-medium">USD Spot Rate ({tenant.baseCurrency}):</label>
+                <label className="text-foreground/90 font-medium">USD Spot Rate ({tenant.baseCurrency}):</label>
                 <input
                   type="text"
                   value={spotRateUsdOmr}
                   onChange={(e) => setSpotRateUsdOmr(e.target.value)}
-                  className="w-24 px-2 py-1 border border-slate-300 rounded font-mono text-xs"
+                  className="w-24 px-2 py-1 border border-border rounded font-mono text-xs"
                 />
               </div>
 
-              <div className="p-3 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-between">
-                <span className="font-semibold text-slate-700">Calculated Net Unrealized Gain/Loss:</span>
+              <div className="p-3 rounded-lg bg-muted border border-border flex items-center justify-between">
+                <span className="font-semibold text-foreground/90">Calculated Net Unrealized Gain/Loss:</span>
                 <span className={`font-mono font-bold text-sm ${parseFloat(fxRevalCalc.totalUnrealizedGainLoss) >= 0 ? 'text-emerald-700' : 'text-rose-700'}`}>
                   ${fxRevalCalc.totalUnrealizedGainLoss} {tenant.baseCurrency}
                 </span>
               </div>
 
               {fxRevalCalc.items.length > 0 ? (
-                <div className="border border-slate-200 rounded-lg overflow-hidden">
+                <div className="border border-border rounded-lg overflow-hidden">
                   <table className="w-full text-left text-xs font-mono">
-                    <thead className="bg-slate-50 border-b border-slate-200 text-slate-700 font-sans font-bold">
+                    <thead className="bg-muted border-b border-border text-foreground/90 font-sans font-bold">
                       <tr>
                         <th className="px-2.5 py-2">Account</th>
                         <th className="px-2.5 py-2">Foreign Bal</th>
@@ -403,7 +403,7 @@ export const EnterpriseFinancialsView: React.FC = () => {
                         <th className="px-2.5 py-2">Gain/Loss</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-100">
+                    <tbody className="divide-y divide-border">
                       {fxRevalCalc.items.map((it) => (
                         <tr key={it.accountId}>
                           <td className="px-2.5 py-2 font-bold font-sans">{it.accountCode}</td>
@@ -417,7 +417,7 @@ export const EnterpriseFinancialsView: React.FC = () => {
                   </table>
                 </div>
               ) : (
-                <div className="p-4 text-center text-slate-500">No active foreign currency balances requiring revaluation.</div>
+                <div className="p-4 text-center text-muted-foreground">No active foreign currency balances requiring revaluation.</div>
               )}
             </div>
           </Card>
@@ -433,23 +433,23 @@ export const EnterpriseFinancialsView: React.FC = () => {
           >
             <div className="space-y-4 text-xs">
               <div className="grid grid-cols-3 gap-3">
-                <div className="p-2.5 rounded bg-slate-50 border border-slate-200">
-                  <div className="text-[10px] text-slate-500">Gross AR Receivables</div>
-                  <div className="font-mono font-bold text-slate-900">${eclCalc.totalGrossAr}</div>
+                <div className="p-2.5 rounded bg-muted border border-border">
+                  <div className="text-[10px] text-muted-foreground">Gross AR Receivables</div>
+                  <div className="font-mono font-bold text-foreground">${eclCalc.totalGrossAr}</div>
                 </div>
-                <div className="p-2.5 rounded bg-slate-50 border border-slate-200">
-                  <div className="text-[10px] text-slate-500">Required Provision</div>
-                  <div className="font-mono font-bold text-slate-900">${eclCalc.totalRequiredProvision}</div>
+                <div className="p-2.5 rounded bg-muted border border-border">
+                  <div className="text-[10px] text-muted-foreground">Required Provision</div>
+                  <div className="font-mono font-bold text-foreground">${eclCalc.totalRequiredProvision}</div>
                 </div>
-                <div className="p-2.5 rounded bg-slate-50 border border-slate-200">
-                  <div className="text-[10px] text-slate-500">Existing Allowance</div>
-                  <div className="font-mono font-bold text-slate-900">${eclCalc.currentExistingProvision}</div>
+                <div className="p-2.5 rounded bg-muted border border-border">
+                  <div className="text-[10px] text-muted-foreground">Existing Allowance</div>
+                  <div className="font-mono font-bold text-foreground">${eclCalc.currentExistingProvision}</div>
                 </div>
               </div>
 
-              <div className="border border-slate-200 rounded-lg overflow-hidden">
+              <div className="border border-border rounded-lg overflow-hidden">
                 <table className="w-full text-left text-xs font-mono">
-                  <thead className="bg-slate-50 border-b border-slate-200 text-slate-700 font-sans font-bold">
+                  <thead className="bg-muted border-b border-border text-foreground/90 font-sans font-bold">
                     <tr>
                       <th className="px-2.5 py-2">Aging Tier</th>
                       <th className="px-2.5 py-2">Gross AR</th>
@@ -457,7 +457,7 @@ export const EnterpriseFinancialsView: React.FC = () => {
                       <th className="px-2.5 py-2">ECL Amount</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100">
+                  <tbody className="divide-y divide-border">
                     {eclCalc.buckets.map((b) => (
                       <tr key={b.bucket}>
                         <td className="px-2.5 py-2 font-sans font-medium">{b.label}</td>
@@ -479,21 +479,21 @@ export const EnterpriseFinancialsView: React.FC = () => {
         <Card title="Clearing & Suspense Accounts Health Monitor" subtitle="Zero-balance verification for GRNI, Bank Clearing, Payroll, and General Suspense">
           <div className="space-y-4 text-xs">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="p-3 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-between">
-                <span className="font-semibold text-slate-700">Total Uncleared Open Balance:</span>
-                <span className="font-mono font-bold text-slate-900">${clearingSummary.totalUnclearedBalance}</span>
+              <div className="p-3 rounded-lg bg-muted border border-border flex items-center justify-between">
+                <span className="font-semibold text-foreground/90">Total Uncleared Open Balance:</span>
+                <span className="font-mono font-bold text-foreground">${clearingSummary.totalUnclearedBalance}</span>
               </div>
-              <div className="p-3 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-between">
-                <span className="font-semibold text-slate-700">Accounts Requiring Action:</span>
+              <div className="p-3 rounded-lg bg-muted border border-border flex items-center justify-between">
+                <span className="font-semibold text-foreground/90">Accounts Requiring Action:</span>
                 <span className={`font-mono font-bold ${clearingSummary.actionRequiredCount > 0 ? 'text-amber-700' : 'text-emerald-700'}`}>
                   {clearingSummary.actionRequiredCount}
                 </span>
               </div>
             </div>
 
-            <div className="border border-slate-200 rounded-lg overflow-hidden">
+            <div className="border border-border rounded-lg overflow-hidden">
               <table className="w-full text-left text-xs">
-                <thead className="bg-slate-50 border-b border-slate-200 text-slate-700 font-bold">
+                <thead className="bg-muted border-b border-border text-foreground/90 font-bold">
                   <tr>
                     <th className="px-4 py-2.5">Code</th>
                     <th className="px-4 py-2.5">Account Name</th>
@@ -502,13 +502,13 @@ export const EnterpriseFinancialsView: React.FC = () => {
                     <th className="px-4 py-2.5 text-center">Status</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-border">
                   {clearingSummary.accounts.map((acc) => (
-                    <tr key={acc.id} className="hover:bg-slate-50">
+                    <tr key={acc.id} className="hover:bg-muted">
                       <td className="px-4 py-2.5 font-mono font-bold text-brand-600">{acc.code}</td>
-                      <td className="px-4 py-2.5 font-medium text-slate-900">{acc.name}</td>
-                      <td className="px-4 py-2.5 capitalize text-slate-600">{acc.category}</td>
-                      <td className="px-4 py-2.5 text-right font-mono font-bold text-slate-900">${acc.balance}</td>
+                      <td className="px-4 py-2.5 font-medium text-foreground">{acc.name}</td>
+                      <td className="px-4 py-2.5 capitalize text-muted-foreground">{acc.category}</td>
+                      <td className="px-4 py-2.5 text-right font-mono font-bold text-foreground">${acc.balance}</td>
                       <td className="px-4 py-2.5 text-center">
                         <StatusBadge status={acc.status} size="xs" />
                       </td>

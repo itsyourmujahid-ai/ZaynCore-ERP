@@ -106,11 +106,11 @@ export const InventoryWorkspace: React.FC = () => {
         <div>
           <div className="flex items-center gap-2">
             <span className="text-xs font-bold uppercase tracking-wider text-amber-600">Inventory & Warehousing</span>
-            <span className="text-slate-400">•</span>
+            <span className="text-muted-foreground">•</span>
             <StatusBadge status={tenant.companyTier} />
           </div>
-          <h1 className="text-2xl font-bold text-slate-900 mt-1">Inventory Management</h1>
-          <p className="text-xs text-slate-600 mt-0.5">
+          <h1 className="text-2xl font-bold text-foreground mt-1">Inventory Management</h1>
+          <p className="text-xs text-muted-foreground mt-0.5">
             Perpetual weighted-average valuation, multi-warehouse stock ledger, GRNI clearing, and COGS accounting.
           </p>
         </div>
@@ -134,7 +134,7 @@ export const InventoryWorkspace: React.FC = () => {
       </div>
 
       {/* Primary Navigation Tabs */}
-      <div className="flex items-center justify-between border-b border-slate-200 pb-px gap-2 overflow-x-auto">
+      <div className="flex items-center justify-between border-b border-border pb-px gap-2 overflow-x-auto">
         <div className="flex items-center gap-1">
           {primaryTabs.map((tab) => {
             const isActive = activeTab === tab.id;
@@ -144,8 +144,8 @@ export const InventoryWorkspace: React.FC = () => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center gap-2 px-3.5 py-2 rounded-t-lg text-xs font-medium border-b-2 transition-all select-none whitespace-nowrap ${
                   isActive
-                    ? 'border-brand-600 text-brand-600 bg-white font-bold shadow-sm'
-                    : 'border-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-100/60'
+                    ? 'border-brand-600 text-brand-600 bg-card font-bold shadow-sm'
+                    : 'border-transparent text-muted-foreground hover:text-foreground hover:bg-muted/60'
                 }`}
               >
                 {tab.icon}
@@ -211,7 +211,7 @@ export const InventoryWorkspace: React.FC = () => {
               }
             >
               {movements.length === 0 ? (
-                <div className="p-8 text-center text-slate-500 text-xs">No stock movements logged.</div>
+                <div className="p-8 text-center text-muted-foreground text-xs">No stock movements logged.</div>
               ) : (
                 <div className="space-y-2">
                   {movements.slice(0, 5).map((m) => {
@@ -219,7 +219,7 @@ export const InventoryWorkspace: React.FC = () => {
                     return (
                       <div
                         key={m.id}
-                        className="p-3 rounded-lg bg-slate-950/60 border border-slate-800/80 flex items-center justify-between text-xs"
+                        className="p-3 rounded-lg bg-card/60 border border-border/80 flex items-center justify-between text-xs"
                       >
                         <div className="flex items-center gap-2">
                           <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${
@@ -228,12 +228,12 @@ export const InventoryWorkspace: React.FC = () => {
                             {m.direction}
                           </span>
                           <div>
-                            <div className="font-semibold text-slate-100">{item?.name || m.itemId}</div>
-                            <div className="text-[10px] text-slate-500 font-mono">{m.movementNumber} • {m.movementType}</div>
+                            <div className="font-semibold text-foreground">{item?.name || m.itemId}</div>
+                            <div className="text-[10px] text-muted-foreground font-mono">{m.movementNumber} • {m.movementType}</div>
                           </div>
                         </div>
                         <div className="text-right">
-                          <div className="font-mono font-bold text-slate-100">{m.quantity} units</div>
+                          <div className="font-mono font-bold text-foreground">{m.quantity} units</div>
                           <div className="text-[10px] font-mono text-emerald-400 font-semibold">${parseFloat(m.totalCost).toFixed(2)}</div>
                         </div>
                       </div>
@@ -249,36 +249,36 @@ export const InventoryWorkspace: React.FC = () => {
               subtitle="Centralized double-entry automated posting events"
             >
               <div className="space-y-3 text-xs">
-                <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-                  <div className="font-bold text-slate-100 flex items-center justify-between">
+                <div className="p-3 rounded-xl bg-card/80 border border-border">
+                  <div className="font-bold text-foreground flex items-center justify-between">
                     <span>Goods Receipt (Inward Stock):</span>
                     <span className="text-brand-400 font-mono">INVENTORY_RECEIPT_POSTED</span>
                   </div>
-                  <p className="text-slate-400 text-[11px] mt-1 font-mono">
+                  <p className="text-muted-foreground text-[11px] mt-1 font-mono">
                     Dr Merchandise Inventory Asset (#1300) <br />
                     Cr Goods Received Not Invoiced GRNI (#2020)
                   </p>
                 </div>
 
-                <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-                  <div className="font-bold text-slate-100 flex items-center justify-between">
+                <div className="p-3 rounded-xl bg-card/80 border border-border">
+                  <div className="font-bold text-foreground flex items-center justify-between">
                     <span>Sales Delivery (Outward Stock & COGS):</span>
                     <span className="text-purple-400 font-mono">SALES_DELIVERY_POSTED</span>
                   </div>
-                  <p className="text-slate-400 text-[11px] mt-1 font-mono">
+                  <p className="text-muted-foreground text-[11px] mt-1 font-mono">
                     Dr Cost of Goods Sold (#5010) <br />
                     Cr Merchandise Inventory Asset (#1300)
                   </p>
                 </div>
 
-                <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-                  <div className="font-bold text-slate-100 flex items-center justify-between">
+                <div className="p-3 rounded-xl bg-card/80 border border-border">
+                  <div className="font-bold text-foreground flex items-center justify-between">
                     <span>Open GRNI Clearing Liability:</span>
                     <span className="text-amber-400 font-mono font-bold">
                       ${parseFloat(grniReport.totalGRNIBalance).toFixed(2)} {tenant.baseCurrency}
                     </span>
                   </div>
-                  <p className="text-slate-400 text-[11px] mt-1">
+                  <p className="text-muted-foreground text-[11px] mt-1">
                     Receipts pending supplier invoice billing against Liability Account #2020.
                   </p>
                 </div>

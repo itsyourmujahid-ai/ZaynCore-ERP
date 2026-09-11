@@ -53,7 +53,7 @@ export const AssetsWorkspace: React.FC = () => {
               { label: 'Fixed Assets & Depreciation', isCurrent: true },
             ]}
           />
-          <h1 className="text-2xl font-black text-slate-900 flex items-center gap-3 mt-1">
+          <h1 className="text-2xl font-black text-foreground flex items-center gap-3 mt-1">
             <Building2 className="w-7 h-7 text-brand-600" />
             Fixed Assets & Asset Accounting
           </h1>
@@ -64,7 +64,7 @@ export const AssetsWorkspace: React.FC = () => {
           <Button
             variant="outline"
             onClick={() => setActiveTab('acquisitions')}
-            className="text-xs flex items-center gap-2 border-slate-300 text-slate-700 hover:bg-slate-50"
+            className="text-xs flex items-center gap-2 border-border text-foreground/90 hover:bg-muted"
           >
             <Clock className="w-3.5 h-3.5 text-amber-600" />
             Capitalization Queue ({pendingCapCount})
@@ -110,7 +110,7 @@ export const AssetsWorkspace: React.FC = () => {
       </div>
 
       {/* Primary Navigation Tabs */}
-      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 text-sm font-medium">
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border text-sm font-medium">
         <div className="flex flex-wrap gap-2">
           {[
             { id: 'overview', label: 'Overview', icon: Building2 },
@@ -127,7 +127,7 @@ export const AssetsWorkspace: React.FC = () => {
               className={`px-4 py-2.5 flex items-center gap-2 border-b-2 transition-colors ${
                 activeTab === tab.id
                   ? 'border-brand-600 text-brand-600 font-bold bg-brand-50/50'
-                  : 'border-transparent text-slate-600 hover:text-slate-900 hover:border-slate-300'
+                  : 'border-transparent text-muted-foreground hover:text-foreground hover:border-border'
               }`}
             >
               <tab.icon className="w-4 h-4" />
@@ -168,45 +168,45 @@ export const AssetsWorkspace: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             <Card
               onClick={() => setActiveTab('register')}
-              className="p-5 border border-slate-200 hover:border-brand-500 cursor-pointer transition-all hover:bg-slate-50/80 group"
+              className="p-5 border border-border hover:border-brand-500 cursor-pointer transition-all hover:bg-muted/80 group"
             >
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-xl bg-brand-50 border border-brand-200 flex items-center justify-center text-brand-600 group-hover:scale-105 transition-transform">
                   <Building2 className="w-6 h-6" />
                 </div>
                 <div>
-                  <h4 className="text-base font-bold text-slate-900">Asset Register</h4>
-                  <p className="text-xs text-slate-600 mt-0.5">Explore physical asset inventory, RFID tags, serials, and carrying values.</p>
+                  <h4 className="text-base font-bold text-foreground">Asset Register</h4>
+                  <p className="text-xs text-muted-foreground mt-0.5">Explore physical asset inventory, RFID tags, serials, and carrying values.</p>
                 </div>
               </div>
             </Card>
 
             <Card
               onClick={() => setActiveTab('depreciation')}
-              className="p-5 border border-slate-200 hover:border-amber-500 cursor-pointer transition-all hover:bg-slate-50/80 group"
+              className="p-5 border border-border hover:border-amber-500 cursor-pointer transition-all hover:bg-muted/80 group"
             >
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600 group-hover:scale-105 transition-transform">
                   <Clock className="w-6 h-6" />
                 </div>
                 <div>
-                  <h4 className="text-base font-bold text-slate-900">Depreciation Engine</h4>
-                  <p className="text-xs text-slate-600 mt-0.5">Run monthly batch depreciation and post automated GL double-entry journals.</p>
+                  <h4 className="text-base font-bold text-foreground">Depreciation Engine</h4>
+                  <p className="text-xs text-muted-foreground mt-0.5">Run monthly batch depreciation and post automated GL double-entry journals.</p>
                 </div>
               </div>
             </Card>
 
             <Card
               onClick={() => setActiveTab('reports')}
-              className="p-5 border border-slate-200 hover:border-emerald-500 cursor-pointer transition-all hover:bg-slate-50/80 group"
+              className="p-5 border border-border hover:border-emerald-500 cursor-pointer transition-all hover:bg-muted/80 group"
             >
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 group-hover:scale-105 transition-transform">
                   <Scale className="w-6 h-6" />
                 </div>
                 <div>
-                  <h4 className="text-base font-bold text-slate-900">Sub-Ledger Reconciliation</h4>
-                  <p className="text-xs text-slate-600 mt-0.5">Verify zero-variance integrity between Asset Sub-Ledger and GL Account #1510 / #1520.</p>
+                  <h4 className="text-base font-bold text-foreground">Sub-Ledger Reconciliation</h4>
+                  <p className="text-xs text-muted-foreground mt-0.5">Verify zero-variance integrity between Asset Sub-Ledger and GL Account #1510 / #1520.</p>
                 </div>
               </div>
             </Card>
@@ -215,7 +215,7 @@ export const AssetsWorkspace: React.FC = () => {
           {/* Asset Register Quick Snapshot */}
           <div className="space-y-3">
             <div className="flex justify-between items-center">
-              <h3 className="text-sm font-bold text-slate-800 uppercase tracking-wider">
+              <h3 className="text-sm font-bold text-foreground uppercase tracking-wider">
                 Active Capital Assets Register
               </h3>
               <Button size="sm" variant="ghost" onClick={() => setActiveTab('register')} className="text-xs text-brand-600 font-bold hover:text-brand-700">

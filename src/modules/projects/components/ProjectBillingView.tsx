@@ -140,13 +140,13 @@ export const ProjectBillingView: React.FC = () => {
   return (
     <div className="space-y-5">
       {/* Controls Bar */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-slate-900/60 p-3 rounded-lg border border-slate-800">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-card/60 p-3 rounded-lg border border-border">
         <div className="flex items-center gap-3 w-full sm:w-auto">
-          <span className="text-xs text-slate-400 font-medium whitespace-nowrap">Project:</span>
+          <span className="text-xs text-muted-foreground font-medium whitespace-nowrap">Project:</span>
           <select
             value={selectedProjectId}
             onChange={(e) => setSelectedProjectId(e.target.value)}
-            className="px-3 py-1.5 bg-slate-950 border border-slate-700 rounded text-xs text-slate-100 font-semibold focus:outline-none"
+            className="px-3 py-1.5 bg-card border border-border rounded text-xs text-foreground font-semibold focus:outline-none"
           >
             {projects.map((p) => (
               <option key={p.id} value={p.id}>{p.code} — {p.name}</option>
@@ -191,8 +191,8 @@ export const ProjectBillingView: React.FC = () => {
       {activeTab === 'milestones' && (
         <Card title="Contract Milestone Billing Schedule" subtitle="IFRS 15 milestone delivery and standard Sales Invoice generation">
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs text-slate-300">
-              <thead className="bg-slate-950/60 text-slate-400 font-semibold border-b border-slate-800">
+            <table className="w-full text-left text-xs text-foreground/90">
+              <thead className="bg-card/60 text-muted-foreground font-semibold border-b border-border">
                 <tr>
                   <th className="p-3">#</th>
                   <th className="p-3">Milestone Deliverable</th>
@@ -203,13 +203,13 @@ export const ProjectBillingView: React.FC = () => {
                   <th className="p-3 text-right">Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800">
+              <tbody className="divide-y divide-border">
                 {milestones.map((m) => (
-                  <tr key={m.id} className="hover:bg-slate-800/40">
+                  <tr key={m.id} className="hover:bg-muted/40">
                     <td className="p-3 font-mono font-bold text-cyan-400">#{m.milestoneNumber}</td>
-                    <td className="p-3 font-semibold text-slate-200">{m.name}</td>
-                    <td className="p-3 text-slate-400 font-mono">{m.dueDate}</td>
-                    <td className="p-3 text-right font-mono text-slate-300">{m.completionPercentage}%</td>
+                    <td className="p-3 font-semibold text-foreground">{m.name}</td>
+                    <td className="p-3 text-muted-foreground font-mono">{m.dueDate}</td>
+                    <td className="p-3 text-right font-mono text-foreground/90">{m.completionPercentage}%</td>
                     <td className="p-3 text-right font-mono font-bold text-emerald-400">${parseFloat(m.amount).toLocaleString()}</td>
                     <td className="p-3 text-center"><StatusBadge status={m.status} /></td>
                     <td className="p-3 text-right">
@@ -218,14 +218,14 @@ export const ProjectBillingView: React.FC = () => {
                           Generate Sales Invoice
                         </Button>
                       ) : (
-                        <span className="text-[11px] text-slate-500 font-mono">Invoice Generated</span>
+                        <span className="text-[11px] text-muted-foreground font-mono">Invoice Generated</span>
                       )}
                     </td>
                   </tr>
                 ))}
                 {milestones.length === 0 && (
                   <tr>
-                    <td colSpan={7} className="p-12 text-center text-slate-500">
+                    <td colSpan={7} className="p-12 text-center text-muted-foreground">
                       No milestones scheduled for this contract. Click "Add Milestone" to initialize the billing schedule.
                     </td>
                   </tr>
@@ -243,11 +243,11 @@ export const ProjectBillingView: React.FC = () => {
             title="Unbilled Project Costs (Time & Material)"
             subtitle="Select billable labor and material items to compile a client invoice with custom markup"
           >
-            <div className="p-4 bg-slate-950/40 border-b border-slate-800 flex flex-wrap items-center justify-between gap-4">
+            <div className="p-4 bg-card/40 border-b border-border flex flex-wrap items-center justify-between gap-4">
               <div className="flex items-center gap-4 text-xs">
                 <span>Selected: <strong className="text-cyan-400">{selectedCostIds.length}</strong> of {unbilledCosts.length} costs</span>
                 <span>•</span>
-                <span>Base Cost: <strong className="text-slate-200 font-mono">${selectedTotalCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}</strong></span>
+                <span>Base Cost: <strong className="text-foreground font-mono">${selectedTotalCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}</strong></span>
                 <span>•</span>
                 <span>Client Billable ({tmMarkup}% Markup): <strong className="text-emerald-400 font-mono text-sm">${selectedTotalBillable.toLocaleString(undefined, { minimumFractionDigits: 2 })}</strong></span>
               </div>
@@ -260,8 +260,8 @@ export const ProjectBillingView: React.FC = () => {
             </div>
 
             <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs text-slate-300">
-                <thead className="bg-slate-950/60 text-slate-400 font-semibold border-b border-slate-800">
+              <table className="w-full text-left text-xs text-foreground/90">
+                <thead className="bg-card/60 text-muted-foreground font-semibold border-b border-border">
                   <tr>
                     <th className="p-3 w-10 text-center">Select</th>
                     <th className="p-3">Date</th>
@@ -271,7 +271,7 @@ export const ProjectBillingView: React.FC = () => {
                     <th className="p-3 text-right">Billable ({tmMarkup}%)</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800">
+                <tbody className="divide-y divide-border">
                   {unbilledCosts.map((c) => {
                     const isSelected = selectedCostIds.includes(c.id);
                     const billableVal = parseFloat(c.baseAmount) * (1 + (parseFloat(tmMarkup) || 0) / 100);
@@ -279,27 +279,27 @@ export const ProjectBillingView: React.FC = () => {
                       <tr
                         key={c.id}
                         onClick={() => toggleSelectCost(c.id)}
-                        className={`hover:bg-slate-800/40 cursor-pointer ${isSelected ? 'bg-cyan-950/20' : ''}`}
+                        className={`hover:bg-muted/40 cursor-pointer ${isSelected ? 'bg-cyan-950/20' : ''}`}
                       >
                         <td className="p-3 text-center">
                           <input
                             type="checkbox"
                             checked={isSelected}
                             onChange={() => {}}
-                            className="rounded bg-slate-950 border-slate-700 text-cyan-500"
+                            className="rounded bg-card border-border text-cyan-500"
                           />
                         </td>
-                        <td className="p-3 text-slate-400 font-mono">{c.transactionDate}</td>
-                        <td className="p-3 font-semibold capitalize text-slate-200">{c.costCategory}</td>
-                        <td className="p-3 text-slate-300">{c.description}</td>
-                        <td className="p-3 text-right font-mono text-slate-400">${parseFloat(c.amount).toLocaleString()}</td>
+                        <td className="p-3 text-muted-foreground font-mono">{c.transactionDate}</td>
+                        <td className="p-3 font-semibold capitalize text-foreground">{c.costCategory}</td>
+                        <td className="p-3 text-foreground/90">{c.description}</td>
+                        <td className="p-3 text-right font-mono text-muted-foreground">${parseFloat(c.amount).toLocaleString()}</td>
                         <td className="p-3 text-right font-mono font-bold text-emerald-400">${billableVal.toFixed(2)}</td>
                       </tr>
                     );
                   })}
                   {unbilledCosts.length === 0 && (
                     <tr>
-                      <td colSpan={6} className="p-12 text-center text-slate-500">
+                      <td colSpan={6} className="p-12 text-center text-muted-foreground">
                         No unbilled costs found for this project.
                       </td>
                     </tr>
@@ -309,21 +309,21 @@ export const ProjectBillingView: React.FC = () => {
             </div>
 
             {unbilledCosts.length > 0 && (
-              <div className="p-4 border-t border-slate-800 bg-slate-950/60 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="p-4 border-t border-border bg-card/60 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="flex items-center gap-3 text-xs w-full sm:w-auto">
-                  <span className="text-slate-400">Markup %:</span>
+                  <span className="text-muted-foreground">Markup %:</span>
                   <input
                     type="number"
                     value={tmMarkup}
                     onChange={(e) => setTmMarkup(e.target.value)}
-                    className="w-20 px-2 py-1 bg-slate-950 border border-slate-700 rounded text-slate-100 font-mono"
+                    className="w-20 px-2 py-1 bg-card border border-border rounded text-foreground font-mono"
                   />
-                  <span className="text-slate-400 ml-2">Invoice Title:</span>
+                  <span className="text-muted-foreground ml-2">Invoice Title:</span>
                   <input
                     type="text"
                     value={tmDescription}
                     onChange={(e) => setTmDescription(e.target.value)}
-                    className="px-2 py-1 bg-slate-950 border border-slate-700 rounded text-slate-100 w-64"
+                    className="px-2 py-1 bg-card border border-border rounded text-foreground w-64"
                   />
                 </div>
 
@@ -343,66 +343,66 @@ export const ProjectBillingView: React.FC = () => {
 
       {/* Add Milestone Modal */}
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-xl max-w-md w-full p-6 space-y-4 shadow-2xl">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-              <h3 className="text-base font-bold text-slate-100 flex items-center gap-2">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-card/80 backdrop-blur-sm p-4">
+          <div className="bg-card border border-border rounded-xl max-w-md w-full p-6 space-y-4 shadow-2xl">
+            <div className="flex items-center justify-between border-b border-border pb-3">
+              <h3 className="text-base font-bold text-foreground flex items-center gap-2">
                 <FileText className="w-5 h-5 text-cyan-400" />
                 Add Contract Milestone
               </h3>
-              <button onClick={() => setModalOpen(false)} className="text-slate-400 hover:text-slate-200">✕</button>
+              <button onClick={() => setModalOpen(false)} className="text-muted-foreground hover:text-foreground">✕</button>
             </div>
 
             <form onSubmit={handleCreateMilestone} className="space-y-3 text-xs">
               <div>
-                <label className="block text-slate-400 mb-1">Milestone Name / Deliverable *</label>
+                <label className="block text-muted-foreground mb-1">Milestone Name / Deliverable *</label>
                 <input
                   type="text"
                   required
                   placeholder="e.g. Architecture Signoff & Discovery"
                   value={milestoneName}
                   onChange={(e) => setMilestoneName(e.target.value)}
-                  className="w-full px-3 py-1.5 bg-slate-950 border border-slate-700 rounded text-slate-100 focus:outline-none focus:border-cyan-500"
+                  className="w-full px-3 py-1.5 bg-card border border-border rounded text-foreground focus:outline-none focus:border-cyan-500"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-slate-400 mb-1">Billable Amount ($) *</label>
+                  <label className="block text-muted-foreground mb-1">Billable Amount ($) *</label>
                   <input
                     type="number"
                     step="0.01"
                     required
                     value={amount}
                     onChange={(e) => setAmount(e.target.value)}
-                    className="w-full px-3 py-1.5 bg-slate-950 border border-slate-700 rounded text-slate-100"
+                    className="w-full px-3 py-1.5 bg-card border border-border rounded text-foreground"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-400 mb-1">Target Due Date *</label>
+                  <label className="block text-muted-foreground mb-1">Target Due Date *</label>
                   <input
                     type="date"
                     required
                     value={dueDate}
                     onChange={(e) => setDueDate(e.target.value)}
-                    className="w-full px-3 py-1.5 bg-slate-950 border border-slate-700 rounded text-slate-100"
+                    className="w-full px-3 py-1.5 bg-card border border-border rounded text-foreground"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-slate-400 mb-1">Target Project Completion %</label>
+                <label className="block text-muted-foreground mb-1">Target Project Completion %</label>
                 <input
                   type="number"
                   min="0"
                   max="100"
                   value={completionPercentage}
                   onChange={(e) => setCompletionPercentage(e.target.value)}
-                  className="w-full px-3 py-1.5 bg-slate-950 border border-slate-700 rounded text-slate-100"
+                  className="w-full px-3 py-1.5 bg-card border border-border rounded text-foreground"
                 />
               </div>
 
-              <div className="flex justify-end gap-2 pt-3 border-t border-slate-800">
+              <div className="flex justify-end gap-2 pt-3 border-t border-border">
                 <Button size="sm" variant="ghost" onClick={() => setModalOpen(false)}>Cancel</Button>
                 <Button size="sm" variant="primary" type="submit">Save Milestone</Button>
               </div>

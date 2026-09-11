@@ -102,13 +102,13 @@ export const ProjectBudgetsView: React.FC = () => {
   return (
     <div className="space-y-5">
       {/* Project Selector Bar */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-slate-900/60 p-3 rounded-lg border border-slate-800">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-card/60 p-3 rounded-lg border border-border">
         <div className="flex items-center gap-3 w-full sm:w-auto">
-          <span className="text-xs text-slate-400 font-medium whitespace-nowrap">Active Project:</span>
+          <span className="text-xs text-muted-foreground font-medium whitespace-nowrap">Active Project:</span>
           <select
             value={selectedProjectId}
             onChange={(e) => setSelectedProjectId(e.target.value)}
-            className="px-3 py-1.5 bg-slate-950 border border-slate-700 rounded text-xs text-slate-100 font-semibold focus:outline-none focus:border-cyan-500"
+            className="px-3 py-1.5 bg-card border border-border rounded text-xs text-foreground font-semibold focus:outline-none focus:border-cyan-500"
           >
             {projects.map((p) => (
               <option key={p.id} value={p.id}>{p.code} — {p.name}</option>
@@ -129,14 +129,14 @@ export const ProjectBudgetsView: React.FC = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <Card title="Total Planned Cost">
               <div className="p-4 space-y-1">
-                <div className="text-2xl font-bold font-mono text-slate-100">${parseFloat(bvaSummary.totalPlannedCost).toLocaleString()}</div>
-                <div className="text-xs text-slate-400">Budget Active Version: v{bvaSummary.activeBudgetVersion || 1}</div>
+                <div className="text-2xl font-bold font-mono text-foreground">${parseFloat(bvaSummary.totalPlannedCost).toLocaleString()}</div>
+                <div className="text-xs text-muted-foreground">Budget Active Version: v{bvaSummary.activeBudgetVersion || 1}</div>
               </div>
             </Card>
             <Card title="Total Actual Incurred Cost">
               <div className="p-4 space-y-1">
                 <div className="text-2xl font-bold font-mono text-rose-400">${parseFloat(bvaSummary.totalActualCost).toLocaleString()}</div>
-                <div className="text-xs text-slate-400">Sourced from AP, Inventory & Payroll</div>
+                <div className="text-xs text-muted-foreground">Sourced from AP, Inventory & Payroll</div>
               </div>
             </Card>
             <Card title="Cost Variance">
@@ -144,7 +144,7 @@ export const ProjectBudgetsView: React.FC = () => {
                 <div className={`text-2xl font-bold font-mono ${parseFloat(bvaSummary.totalCostVariance) >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
                   ${parseFloat(bvaSummary.totalCostVariance).toLocaleString()}
                 </div>
-                <div className="text-xs text-slate-400">
+                <div className="text-xs text-muted-foreground">
                   {bvaSummary.totalCostVariancePercentage}% {parseFloat(bvaSummary.totalCostVariance) >= 0 ? 'Favorable' : 'Over Budget'}
                 </div>
               </div>
@@ -152,7 +152,7 @@ export const ProjectBudgetsView: React.FC = () => {
             <Card title="Remaining Budget">
               <div className="p-4 space-y-1">
                 <div className="text-2xl font-bold font-mono text-cyan-400">${parseFloat(bvaSummary.totalRemainingBudget).toLocaleString()}</div>
-                <div className="text-xs text-slate-400">Available expenditure ceiling</div>
+                <div className="text-xs text-muted-foreground">Available expenditure ceiling</div>
               </div>
             </Card>
           </div>
@@ -160,8 +160,8 @@ export const ProjectBudgetsView: React.FC = () => {
           {/* Granular Category Matrix Table */}
           <Card title="Cost Category Budget vs Actual Matrix" subtitle="Drilldown by operational expenditure type">
             <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs text-slate-300">
-                <thead className="bg-slate-950/60 text-slate-400 border-b border-slate-800 font-semibold">
+              <table className="w-full text-left text-xs text-foreground/90">
+                <thead className="bg-card/60 text-muted-foreground border-b border-border font-semibold">
                   <tr>
                     <th className="p-3">Cost Category</th>
                     <th className="p-3 text-right">Planned Cost</th>
@@ -172,18 +172,18 @@ export const ProjectBudgetsView: React.FC = () => {
                     <th className="p-3 text-right">Planned Revenue</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800 font-mono">
+                <tbody className="divide-y divide-border font-mono">
                   {bvaSummary.categories.map((c) => (
-                    <tr key={c.category} className="hover:bg-slate-800/40">
-                      <td className="p-3 font-sans font-semibold capitalize text-slate-200">{c.category}</td>
-                      <td className="p-3 text-right text-slate-300">${parseFloat(c.plannedCost).toLocaleString()}</td>
+                    <tr key={c.category} className="hover:bg-muted/40">
+                      <td className="p-3 font-sans font-semibold capitalize text-foreground">{c.category}</td>
+                      <td className="p-3 text-right text-foreground/90">${parseFloat(c.plannedCost).toLocaleString()}</td>
                       <td className="p-3 text-right text-rose-400">${parseFloat(c.actualCost).toLocaleString()}</td>
                       <td className={`p-3 text-right font-bold ${parseFloat(c.costVariance) >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
                         ${parseFloat(c.costVariance).toLocaleString()}
                       </td>
-                      <td className="p-3 text-right font-sans text-slate-300">{c.costVariancePercentage}%</td>
+                      <td className="p-3 text-right font-sans text-foreground/90">{c.costVariancePercentage}%</td>
                       <td className="p-3 text-right text-cyan-400">${parseFloat(c.remainingBudget).toLocaleString()}</td>
-                      <td className="p-3 text-right text-slate-400">${parseFloat(c.plannedRevenue).toLocaleString()}</td>
+                      <td className="p-3 text-right text-muted-foreground">${parseFloat(c.plannedRevenue).toLocaleString()}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -194,8 +194,8 @@ export const ProjectBudgetsView: React.FC = () => {
           {/* Budget Versions List */}
           <Card title="Controlled Budget Revisions & Versions" subtitle="Immutable audit trail of approved budget baselines">
             <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs text-slate-300">
-                <thead className="bg-slate-950/60 text-slate-400 border-b border-slate-800 font-semibold">
+              <table className="w-full text-left text-xs text-foreground/90">
+                <thead className="bg-card/60 text-muted-foreground border-b border-border font-semibold">
                   <tr>
                     <th className="p-3">Version</th>
                     <th className="p-3">Budget Name</th>
@@ -206,15 +206,15 @@ export const ProjectBudgetsView: React.FC = () => {
                     <th className="p-3 text-right">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800">
+                <tbody className="divide-y divide-border">
                   {budgets.map((b) => (
-                    <tr key={b.id} className="hover:bg-slate-800/40">
+                    <tr key={b.id} className="hover:bg-muted/40">
                       <td className="p-3 font-mono font-bold text-cyan-400">v{b.versionNumber}</td>
-                      <td className="p-3 font-semibold text-slate-200">{b.budgetName}</td>
-                      <td className="p-3 text-right font-mono text-slate-300">${parseFloat(b.totalPlannedCost).toLocaleString()}</td>
+                      <td className="p-3 font-semibold text-foreground">{b.budgetName}</td>
+                      <td className="p-3 text-right font-mono text-foreground/90">${parseFloat(b.totalPlannedCost).toLocaleString()}</td>
                       <td className="p-3 text-right font-mono text-emerald-400">${parseFloat(b.totalPlannedRevenue).toLocaleString()}</td>
                       <td className="p-3"><StatusBadge status={b.status} /></td>
-                      <td className="p-3 text-slate-400">{b.notes || '—'}</td>
+                      <td className="p-3 text-muted-foreground">{b.notes || '—'}</td>
                       <td className="p-3 text-right space-x-2">
                         {b.status === 'draft' || b.status === 'submitted' ? (
                           <Button size="xs" variant="primary" onClick={() => handleApproveBudget(b.id)}>
@@ -238,14 +238,14 @@ export const ProjectBudgetsView: React.FC = () => {
 
       {/* Create Budget Modal */}
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-xl max-w-lg w-full p-6 space-y-4 shadow-2xl">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-              <h3 className="text-base font-bold text-slate-100 flex items-center gap-2">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-card/80 backdrop-blur-sm p-4">
+          <div className="bg-card border border-border rounded-xl max-w-lg w-full p-6 space-y-4 shadow-2xl">
+            <div className="flex items-center justify-between border-b border-border pb-3">
+              <h3 className="text-base font-bold text-foreground flex items-center gap-2">
                 <DollarSign className="w-5 h-5 text-cyan-400" />
                 Create Project Budget Version
               </h3>
-              <button onClick={() => setModalOpen(false)} className="text-slate-400 hover:text-slate-200">✕</button>
+              <button onClick={() => setModalOpen(false)} className="text-muted-foreground hover:text-foreground">✕</button>
             </div>
 
             {errorMsg && (
@@ -256,64 +256,64 @@ export const ProjectBudgetsView: React.FC = () => {
 
             <form onSubmit={handleCreateBudget} className="space-y-3 text-xs">
               <div>
-                <label className="block text-slate-400 mb-1">Budget Version Name *</label>
+                <label className="block text-muted-foreground mb-1">Budget Version Name *</label>
                 <input
                   type="text"
                   required
                   placeholder="e.g. Master Construction Baseline v1"
                   value={budgetName}
                   onChange={(e) => setBudgetName(e.target.value)}
-                  className="w-full px-3 py-1.5 bg-slate-950 border border-slate-700 rounded text-slate-100 focus:outline-none focus:border-cyan-500"
+                  className="w-full px-3 py-1.5 bg-card border border-border rounded text-foreground focus:outline-none focus:border-cyan-500"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-slate-400 mb-1">Direct Labor Budget ($)</label>
+                  <label className="block text-muted-foreground mb-1">Direct Labor Budget ($)</label>
                   <input
                     type="number"
                     step="0.01"
                     value={laborCost}
                     onChange={(e) => setLaborCost(e.target.value)}
-                    className="w-full px-3 py-1.5 bg-slate-950 border border-slate-700 rounded text-slate-100"
+                    className="w-full px-3 py-1.5 bg-card border border-border rounded text-foreground"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-400 mb-1">Materials / Stock Budget ($)</label>
+                  <label className="block text-muted-foreground mb-1">Materials / Stock Budget ($)</label>
                   <input
                     type="number"
                     step="0.01"
                     value={materialCost}
                     onChange={(e) => setMaterialCost(e.target.value)}
-                    className="w-full px-3 py-1.5 bg-slate-950 border border-slate-700 rounded text-slate-100"
+                    className="w-full px-3 py-1.5 bg-card border border-border rounded text-foreground"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-slate-400 mb-1">Subcontractor Budget ($)</label>
+                  <label className="block text-muted-foreground mb-1">Subcontractor Budget ($)</label>
                   <input
                     type="number"
                     step="0.01"
                     value={subcontractorCost}
                     onChange={(e) => setSubcontractorCost(e.target.value)}
-                    className="w-full px-3 py-1.5 bg-slate-950 border border-slate-700 rounded text-slate-100"
+                    className="w-full px-3 py-1.5 bg-card border border-border rounded text-foreground"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-400 mb-1">Equipment / Machinery Budget ($)</label>
+                  <label className="block text-muted-foreground mb-1">Equipment / Machinery Budget ($)</label>
                   <input
                     type="number"
                     step="0.01"
                     value={equipmentCost}
                     onChange={(e) => setEquipmentCost(e.target.value)}
-                    className="w-full px-3 py-1.5 bg-slate-950 border border-slate-700 rounded text-slate-100"
+                    className="w-full px-3 py-1.5 bg-card border border-border rounded text-foreground"
                   />
                 </div>
               </div>
 
-              <div className="flex justify-end gap-2 pt-3 border-t border-slate-800">
+              <div className="flex justify-end gap-2 pt-3 border-t border-border">
                 <Button size="sm" variant="ghost" onClick={() => setModalOpen(false)}>Cancel</Button>
                 <Button size="sm" variant="primary" type="submit">Save Budget</Button>
               </div>

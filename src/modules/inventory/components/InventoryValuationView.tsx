@@ -57,7 +57,7 @@ export const InventoryValuationView: React.FC = () => {
           <select
             value={warehouseFilter}
             onChange={(e) => setWarehouseFilter(e.target.value)}
-            className="bg-slate-900/60 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-slate-300 focus:outline-none focus:border-brand-500"
+            className="bg-card/60 border border-border rounded-lg px-2.5 py-1.5 text-xs text-foreground/90 focus:outline-none focus:border-brand-500"
           >
             <option value="all">All Warehouses ({warehouses.length})</option>
             {warehouses.map((w) => (
@@ -68,7 +68,7 @@ export const InventoryValuationView: React.FC = () => {
           <select
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
-            className="bg-slate-900/60 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-slate-300 focus:outline-none focus:border-brand-500"
+            className="bg-card/60 border border-border rounded-lg px-2.5 py-1.5 text-xs text-foreground/90 focus:outline-none focus:border-brand-500"
           >
             <option value="all">All Categories ({categories.length})</option>
             {categories.map((c) => (
@@ -77,21 +77,21 @@ export const InventoryValuationView: React.FC = () => {
           </select>
         </div>
 
-        <div className="text-xs text-slate-400 font-mono">
-          Reported SKU Lines: <span className="font-bold text-slate-200">{report.rows.length}</span>
+        <div className="text-xs text-muted-foreground font-mono">
+          Reported SKU Lines: <span className="font-bold text-foreground">{report.rows.length}</span>
         </div>
       </div>
 
       {/* Valuation Schedule Table */}
       <Card noPadding>
         {report.rows.length === 0 ? (
-          <div className="p-12 text-center text-slate-500 text-xs">
+          <div className="p-12 text-center text-muted-foreground text-xs">
             No stock items found for valuation schedule.
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-950/80 text-slate-400 border-b border-slate-800">
+              <thead className="bg-card/80 text-muted-foreground border-b border-border">
                 <tr>
                   <th className="p-3">SKU Code</th>
                   <th className="p-3">Item Name</th>
@@ -103,19 +103,19 @@ export const InventoryValuationView: React.FC = () => {
                   <th className="p-3 text-right">Costing Method</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/50 bg-slate-900/20 font-mono text-[11px]">
+              <tbody className="divide-y divide-border/50 bg-card/20 font-mono text-[11px]">
                 {report.rows.map((row) => (
-                  <tr key={`${row.itemId}-${row.warehouseId || 'all'}`} className="hover:bg-slate-800/30">
+                  <tr key={`${row.itemId}-${row.warehouseId || 'all'}`} className="hover:bg-muted/30">
                     <td className="p-3 font-bold text-brand-400">{row.itemCode}</td>
-                    <td className="p-3 font-sans text-slate-200">{row.name}</td>
-                    <td className="p-3 font-sans text-slate-400">{row.categoryName}</td>
+                    <td className="p-3 font-sans text-foreground">{row.name}</td>
+                    <td className="p-3 font-sans text-muted-foreground">{row.categoryName}</td>
                     {warehouseFilter !== 'all' && (
-                      <td className="p-3 font-sans text-slate-300">{row.warehouseName || row.warehouseCode}</td>
+                      <td className="p-3 font-sans text-foreground/90">{row.warehouseName || row.warehouseCode}</td>
                     )}
-                    <td className="p-3 text-right font-bold text-slate-100">
+                    <td className="p-3 text-right font-bold text-foreground">
                       {row.quantity} {row.uomSymbol}
                     </td>
-                    <td className="p-3 text-right text-slate-300">
+                    <td className="p-3 text-right text-foreground/90">
                       ${parseFloat(row.averageUnitCost).toFixed(2)}
                     </td>
                     <td className="p-3 text-right font-bold text-emerald-400">
@@ -127,15 +127,15 @@ export const InventoryValuationView: React.FC = () => {
                   </tr>
                 ))}
               </tbody>
-              <tfoot className="bg-slate-950 text-xs font-bold text-slate-200 border-t-2 border-slate-800">
+              <tfoot className="bg-card text-xs font-bold text-foreground border-t-2 border-border">
                 <tr>
-                  <td colSpan={warehouseFilter !== 'all' ? 4 : 3} className="p-3 text-slate-400 font-sans">
+                  <td colSpan={warehouseFilter !== 'all' ? 4 : 3} className="p-3 text-muted-foreground font-sans">
                     TOTAL PERPETUAL INVENTORY ASSET VALUATION
                   </td>
-                  <td className="p-3 text-right font-mono text-slate-100">
+                  <td className="p-3 text-right font-mono text-foreground">
                     {parseFloat(report.totalQuantity).toLocaleString()}
                   </td>
-                  <td className="p-3 text-right font-mono text-slate-400">-</td>
+                  <td className="p-3 text-right font-mono text-muted-foreground">-</td>
                   <td className="p-3 text-right font-mono text-emerald-400 text-sm">
                     ${parseFloat(report.totalValuation).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                   </td>

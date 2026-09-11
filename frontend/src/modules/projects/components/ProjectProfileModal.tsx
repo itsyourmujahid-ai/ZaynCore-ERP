@@ -145,28 +145,28 @@ export const ProjectProfileModal: React.FC<ProjectProfileModalProps> = ({
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm p-3 overflow-y-auto">
-      <div className="bg-slate-900 border border-slate-800 rounded-xl max-w-5xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden my-6">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-card/80 backdrop-blur-sm p-3 overflow-y-auto">
+      <div className="bg-card border border-border rounded-xl max-w-5xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden my-6">
         {/* Header */}
-        <div className="p-4 border-b border-slate-800 bg-slate-950/60 flex items-start justify-between gap-4">
+        <div className="p-4 border-b border-border bg-card/60 flex items-start justify-between gap-4">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
               <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800/40">
                 {project.code}
               </span>
               <StatusBadge status={project.status} />
-              <span className="text-slate-600">•</span>
-              <span className="text-xs text-slate-400 capitalize">{project.billingMethod.replace('_', ' ')}</span>
+              <span className="text-muted-foreground">•</span>
+              <span className="text-xs text-muted-foreground capitalize">{project.billingMethod.replace('_', ' ')}</span>
             </div>
-            <h2 className="text-xl font-bold text-slate-100">{project.name}</h2>
-            <div className="text-xs text-slate-400 flex items-center gap-4">
-              <span>Customer: <strong className="text-slate-200">{project.customerName || 'Internal R&D'}</strong></span>
-              <span>Manager: <strong className="text-slate-200">{project.projectManagerName || 'Unassigned'}</strong></span>
+            <h2 className="text-xl font-bold text-foreground">{project.name}</h2>
+            <div className="text-xs text-muted-foreground flex items-center gap-4">
+              <span>Customer: <strong className="text-foreground">{project.customerName || 'Internal R&D'}</strong></span>
+              <span>Manager: <strong className="text-foreground">{project.projectManagerName || 'Unassigned'}</strong></span>
               <span>Dates: {project.startDate} to {project.endDate || 'Ongoing'}</span>
             </div>
           </div>
 
-          <button onClick={onClose} className="text-slate-400 hover:text-slate-200 text-sm p-1">
+          <button onClick={onClose} className="text-muted-foreground hover:text-foreground text-sm p-1">
             ✕
           </button>
         </div>
@@ -185,15 +185,15 @@ export const ProjectProfileModal: React.FC<ProjectProfileModalProps> = ({
         )}
 
         {/* Sub-Tabs Bar */}
-        <div className="flex items-center gap-1 border-b border-slate-800 px-4 bg-slate-950/30 overflow-x-auto select-none">
+        <div className="flex items-center gap-1 border-b border-border px-4 bg-card/30 overflow-x-auto select-none">
           {subTabs.map((t) => (
             <button
               key={t.id}
               onClick={() => setActiveSubTab(t.id)}
               className={`px-3 py-2 text-xs font-medium border-b-2 whitespace-nowrap transition-colors ${
                 activeSubTab === t.id
-                  ? 'border-cyan-500 text-cyan-400 font-semibold bg-slate-900/60'
-                  : 'border-transparent text-slate-400 hover:text-slate-200'
+                  ? 'border-cyan-500 text-cyan-400 font-semibold bg-card/60'
+                  : 'border-transparent text-muted-foreground hover:text-foreground'
               }`}
             >
               {t.label}
@@ -202,7 +202,7 @@ export const ProjectProfileModal: React.FC<ProjectProfileModalProps> = ({
         </div>
 
         {/* Content Body */}
-        <div className="p-5 flex-1 overflow-y-auto space-y-5 text-xs text-slate-300">
+        <div className="p-5 flex-1 overflow-y-auto space-y-5 text-xs text-foreground/90">
           {/* TAB 1: OVERVIEW */}
           {activeSubTab === 'overview' && (
             <div className="space-y-5">
@@ -236,20 +236,20 @@ export const ProjectProfileModal: React.FC<ProjectProfileModalProps> = ({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Card title="Contract & Scope Summary">
                   <div className="p-3 space-y-2">
-                    <div className="flex justify-between py-1 border-b border-slate-800">
-                      <span className="text-slate-400">Project Status:</span>
+                    <div className="flex justify-between py-1 border-b border-border">
+                      <span className="text-muted-foreground">Project Status:</span>
                       <StatusBadge status={project.status} />
                     </div>
-                    <div className="flex justify-between py-1 border-b border-slate-800">
-                      <span className="text-slate-400">Billing Method:</span>
-                      <span className="font-semibold text-slate-200 capitalize">{project.billingMethod.replace('_', ' ')}</span>
+                    <div className="flex justify-between py-1 border-b border-border">
+                      <span className="text-muted-foreground">Billing Method:</span>
+                      <span className="font-semibold text-foreground capitalize">{project.billingMethod.replace('_', ' ')}</span>
                     </div>
-                    <div className="flex justify-between py-1 border-b border-slate-800">
-                      <span className="text-slate-400">Budget Utilization:</span>
-                      <span className="font-mono text-slate-200">{metrics.costUtilizationPercentage}%</span>
+                    <div className="flex justify-between py-1 border-b border-border">
+                      <span className="text-muted-foreground">Budget Utilization:</span>
+                      <span className="font-mono text-foreground">{metrics.costUtilizationPercentage}%</span>
                     </div>
                     <div className="flex justify-between py-1">
-                      <span className="text-slate-400">Remaining Contract Value:</span>
+                      <span className="text-muted-foreground">Remaining Contract Value:</span>
                       <span className="font-mono text-emerald-400">${parseFloat(metrics.remainingContractValue).toLocaleString()}</span>
                     </div>
                   </div>
@@ -257,20 +257,20 @@ export const ProjectProfileModal: React.FC<ProjectProfileModalProps> = ({
 
                 <Card title="Work-In-Progress (WIP) Balance">
                   <div className="p-3 space-y-2">
-                    <div className="flex justify-between py-1 border-b border-slate-800">
-                      <span className="text-slate-400">Accumulated Project Cost:</span>
-                      <span className="font-mono text-slate-200">${wip ? parseFloat(wip.accumulatedCost).toLocaleString() : '0.00'}</span>
+                    <div className="flex justify-between py-1 border-b border-border">
+                      <span className="text-muted-foreground">Accumulated Project Cost:</span>
+                      <span className="font-mono text-foreground">${wip ? parseFloat(wip.accumulatedCost).toLocaleString() : '0.00'}</span>
                     </div>
-                    <div className="flex justify-between py-1 border-b border-slate-800">
-                      <span className="text-slate-400">Capitalized to WIP (#1350):</span>
+                    <div className="flex justify-between py-1 border-b border-border">
+                      <span className="text-muted-foreground">Capitalized to WIP (#1350):</span>
                       <span className="font-mono text-cyan-400">${wip ? parseFloat(wip.capitalizedAmount).toLocaleString() : '0.00'}</span>
                     </div>
-                    <div className="flex justify-between py-1 border-b border-slate-800">
-                      <span className="text-slate-400">Realized to COGS (#5010):</span>
+                    <div className="flex justify-between py-1 border-b border-border">
+                      <span className="text-muted-foreground">Realized to COGS (#5010):</span>
                       <span className="font-mono text-emerald-400">${wip ? parseFloat(wip.transferredToCogs).toLocaleString() : '0.00'}</span>
                     </div>
                     <div className="flex justify-between py-1">
-                      <span className="text-slate-400">Current WIP Asset Balance:</span>
+                      <span className="text-muted-foreground">Current WIP Asset Balance:</span>
                       <span className="font-mono font-bold text-amber-400">${wip ? parseFloat(wip.currentWipBalance).toLocaleString() : '0.00'}</span>
                     </div>
                   </div>
@@ -283,10 +283,10 @@ export const ProjectProfileModal: React.FC<ProjectProfileModalProps> = ({
           {activeSubTab === 'tasks' && (
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-slate-400 font-medium">Activity & Milestone Phase Schedule</span>
+                <span className="text-muted-foreground font-medium">Activity & Milestone Phase Schedule</span>
               </div>
               <table className="w-full text-left text-xs">
-                <thead className="bg-slate-950/60 text-slate-400 border-b border-slate-800">
+                <thead className="bg-card/60 text-muted-foreground border-b border-border">
                   <tr>
                     <th className="p-2.5">Task Code</th>
                     <th className="p-2.5">Task Name</th>
@@ -297,21 +297,21 @@ export const ProjectProfileModal: React.FC<ProjectProfileModalProps> = ({
                     <th className="p-2.5 text-center">Status</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800">
+                <tbody className="divide-y divide-border">
                   {tasks.map((t) => (
-                    <tr key={t.id} className="hover:bg-slate-800/40">
+                    <tr key={t.id} className="hover:bg-muted/40">
                       <td className="p-2.5 font-mono text-cyan-400">{t.taskCode}</td>
-                      <td className="p-2.5 font-medium text-slate-200">{t.taskName}</td>
-                      <td className="p-2.5 text-slate-400">{t.assigneeName || 'Unassigned'}</td>
-                      <td className="p-2.5 text-slate-500">{t.startDate} - {t.endDate}</td>
-                      <td className="p-2.5 text-right font-mono text-slate-300">{t.estimatedHours}h / {t.actualHours}h</td>
-                      <td className="p-2.5 text-right font-mono text-slate-300">${parseFloat(t.actualCost).toLocaleString()}</td>
+                      <td className="p-2.5 font-medium text-foreground">{t.taskName}</td>
+                      <td className="p-2.5 text-muted-foreground">{t.assigneeName || 'Unassigned'}</td>
+                      <td className="p-2.5 text-muted-foreground">{t.startDate} - {t.endDate}</td>
+                      <td className="p-2.5 text-right font-mono text-foreground/90">{t.estimatedHours}h / {t.actualHours}h</td>
+                      <td className="p-2.5 text-right font-mono text-foreground/90">${parseFloat(t.actualCost).toLocaleString()}</td>
                       <td className="p-2.5 text-center"><StatusBadge status={t.status} /></td>
                     </tr>
                   ))}
                   {tasks.length === 0 && (
                     <tr>
-                      <td colSpan={7} className="p-6 text-center text-slate-500">No scheduled tasks for this project.</td>
+                      <td colSpan={7} className="p-6 text-center text-muted-foreground">No scheduled tasks for this project.</td>
                     </tr>
                   )}
                 </tbody>
@@ -323,16 +323,16 @@ export const ProjectProfileModal: React.FC<ProjectProfileModalProps> = ({
           {activeSubTab === 'budgets' && (
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-slate-400 font-medium">Budget Versions & Category Breakdown</span>
+                <span className="text-muted-foreground font-medium">Budget Versions & Category Breakdown</span>
               </div>
               <div className="grid grid-cols-3 gap-3">
                 {['labor', 'materials', 'subcontractor', 'equipment', 'overhead', 'other'].map((cat) => {
                   const cost = metrics.costBreakdown[cat as keyof typeof metrics.costBreakdown] || '0.00';
                   return (
-                    <div key={cat} className="p-3 bg-slate-950/60 rounded border border-slate-800 space-y-1">
-                      <div className="text-[11px] text-slate-400 uppercase font-semibold">{cat}</div>
-                      <div className="text-sm font-bold font-mono text-slate-200">${parseFloat(cost).toLocaleString()}</div>
-                      <div className="text-[10px] text-slate-500">Accumulated Cost</div>
+                    <div key={cat} className="p-3 bg-card/60 rounded border border-border space-y-1">
+                      <div className="text-[11px] text-muted-foreground uppercase font-semibold">{cat}</div>
+                      <div className="text-sm font-bold font-mono text-foreground">${parseFloat(cost).toLocaleString()}</div>
+                      <div className="text-[10px] text-muted-foreground">Accumulated Cost</div>
                     </div>
                   );
                 })}
@@ -344,10 +344,10 @@ export const ProjectProfileModal: React.FC<ProjectProfileModalProps> = ({
           {activeSubTab === 'costs' && (
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-slate-400 font-medium">Itemized Direct Costs Ledger</span>
+                <span className="text-muted-foreground font-medium">Itemized Direct Costs Ledger</span>
               </div>
               <table className="w-full text-left text-xs">
-                <thead className="bg-slate-950/60 text-slate-400 border-b border-slate-800">
+                <thead className="bg-card/60 text-muted-foreground border-b border-border">
                   <tr>
                     <th className="p-2.5">Date</th>
                     <th className="p-2.5">Category</th>
@@ -358,21 +358,21 @@ export const ProjectProfileModal: React.FC<ProjectProfileModalProps> = ({
                     <th className="p-2.5 text-center">Billing</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800">
+                <tbody className="divide-y divide-border">
                   {costs.map((c) => (
-                    <tr key={c.id} className="hover:bg-slate-800/40">
-                      <td className="p-2.5 text-slate-400 font-mono">{c.transactionDate}</td>
-                      <td className="p-2.5 capitalize font-semibold text-slate-300">{c.costCategory}</td>
+                    <tr key={c.id} className="hover:bg-muted/40">
+                      <td className="p-2.5 text-muted-foreground font-mono">{c.transactionDate}</td>
+                      <td className="p-2.5 capitalize font-semibold text-foreground/90">{c.costCategory}</td>
                       <td className="p-2.5 font-mono text-[11px] text-cyan-400">{c.sourceModule}:{c.sourceType}</td>
-                      <td className="p-2.5 text-slate-400">{c.documentNumber}</td>
-                      <td className="p-2.5 text-slate-300">{c.description}</td>
-                      <td className="p-2.5 text-right font-mono font-bold text-slate-100">${parseFloat(c.amount).toLocaleString()}</td>
+                      <td className="p-2.5 text-muted-foreground">{c.documentNumber}</td>
+                      <td className="p-2.5 text-foreground/90">{c.description}</td>
+                      <td className="p-2.5 text-right font-mono font-bold text-foreground">${parseFloat(c.amount).toLocaleString()}</td>
                       <td className="p-2.5 text-center"><StatusBadge status={c.billingStatus} /></td>
                     </tr>
                   ))}
                   {costs.length === 0 && (
                     <tr>
-                      <td colSpan={7} className="p-6 text-center text-slate-500">No costs recorded for this project yet.</td>
+                      <td colSpan={7} className="p-6 text-center text-muted-foreground">No costs recorded for this project yet.</td>
                     </tr>
                   )}
                 </tbody>
@@ -384,10 +384,10 @@ export const ProjectProfileModal: React.FC<ProjectProfileModalProps> = ({
           {activeSubTab === 'billing' && (
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-slate-400 font-medium">Contract Milestones & Invoicing</span>
+                <span className="text-muted-foreground font-medium">Contract Milestones & Invoicing</span>
               </div>
               <table className="w-full text-left text-xs">
-                <thead className="bg-slate-950/60 text-slate-400 border-b border-slate-800">
+                <thead className="bg-card/60 text-muted-foreground border-b border-border">
                   <tr>
                     <th className="p-2.5">#</th>
                     <th className="p-2.5">Milestone Name</th>
@@ -397,12 +397,12 @@ export const ProjectProfileModal: React.FC<ProjectProfileModalProps> = ({
                     <th className="p-2.5 text-right">Action</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800">
+                <tbody className="divide-y divide-border">
                   {milestones.map((m) => (
-                    <tr key={m.id} className="hover:bg-slate-800/40">
+                    <tr key={m.id} className="hover:bg-muted/40">
                       <td className="p-2.5 font-mono text-cyan-400">#{m.milestoneNumber}</td>
-                      <td className="p-2.5 font-medium text-slate-200">{m.name}</td>
-                      <td className="p-2.5 text-slate-400 font-mono">{m.dueDate}</td>
+                      <td className="p-2.5 font-medium text-foreground">{m.name}</td>
+                      <td className="p-2.5 text-muted-foreground font-mono">{m.dueDate}</td>
                       <td className="p-2.5 text-right font-mono font-bold text-emerald-400">${parseFloat(m.amount).toLocaleString()}</td>
                       <td className="p-2.5 text-center"><StatusBadge status={m.status} /></td>
                       <td className="p-2.5 text-right">
@@ -411,14 +411,14 @@ export const ProjectProfileModal: React.FC<ProjectProfileModalProps> = ({
                             Generate AR Invoice
                           </Button>
                         ) : (
-                          <span className="text-[11px] text-slate-500 font-mono">Billed</span>
+                          <span className="text-[11px] text-muted-foreground font-mono">Billed</span>
                         )}
                       </td>
                     </tr>
                   ))}
                   {milestones.length === 0 && (
                     <tr>
-                      <td colSpan={6} className="p-6 text-center text-slate-500">No milestones scheduled for this contract.</td>
+                      <td colSpan={6} className="p-6 text-center text-muted-foreground">No milestones scheduled for this contract.</td>
                     </tr>
                   )}
                 </tbody>
@@ -431,8 +431,8 @@ export const ProjectProfileModal: React.FC<ProjectProfileModalProps> = ({
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <h4 className="font-semibold text-slate-200">Work In Progress (WIP) Management</h4>
-                  <p className="text-[11px] text-slate-400">Capitalize direct contract expenses or transfer WIP to Cost of Sales upon delivery</p>
+                  <h4 className="font-semibold text-foreground">Work In Progress (WIP) Management</h4>
+                  <p className="text-[11px] text-muted-foreground">Capitalize direct contract expenses or transfer WIP to Cost of Sales upon delivery</p>
                 </div>
                 <div className="flex gap-2">
                   <Button size="xs" variant="secondary" onClick={handleCapitalizeWip}>
@@ -444,22 +444,22 @@ export const ProjectProfileModal: React.FC<ProjectProfileModalProps> = ({
                 </div>
               </div>
 
-              <div className="p-4 bg-slate-950/60 rounded-lg border border-slate-800 space-y-3">
+              <div className="p-4 bg-card/60 rounded-lg border border-border space-y-3">
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
                   <div>
-                    <div className="text-[11px] text-slate-400">Accumulated Cost</div>
-                    <div className="text-base font-bold font-mono text-slate-200">${wip ? parseFloat(wip.accumulatedCost).toLocaleString() : '0.00'}</div>
+                    <div className="text-[11px] text-muted-foreground">Accumulated Cost</div>
+                    <div className="text-base font-bold font-mono text-foreground">${wip ? parseFloat(wip.accumulatedCost).toLocaleString() : '0.00'}</div>
                   </div>
                   <div>
-                    <div className="text-[11px] text-slate-400">Capitalized WIP</div>
+                    <div className="text-[11px] text-muted-foreground">Capitalized WIP</div>
                     <div className="text-base font-bold font-mono text-cyan-400">${wip ? parseFloat(wip.capitalizedAmount).toLocaleString() : '0.00'}</div>
                   </div>
                   <div>
-                    <div className="text-[11px] text-slate-400">Transferred to COGS</div>
+                    <div className="text-[11px] text-muted-foreground">Transferred to COGS</div>
                     <div className="text-base font-bold font-mono text-emerald-400">${wip ? parseFloat(wip.transferredToCogs).toLocaleString() : '0.00'}</div>
                   </div>
                   <div>
-                    <div className="text-[11px] text-slate-400">Current WIP Balance</div>
+                    <div className="text-[11px] text-muted-foreground">Current WIP Balance</div>
                     <div className="text-base font-bold font-mono text-amber-400">${wip ? parseFloat(wip.currentWipBalance).toLocaleString() : '0.00'}</div>
                   </div>
                 </div>
@@ -470,22 +470,22 @@ export const ProjectProfileModal: React.FC<ProjectProfileModalProps> = ({
           {/* TAB 7: PROFITABILITY */}
           {activeSubTab === 'profitability' && (
             <div className="space-y-4">
-              <div className="p-4 bg-slate-950/60 rounded-lg border border-slate-800 space-y-3">
-                <div className="flex justify-between items-center py-1 border-b border-slate-800">
-                  <span className="text-slate-400">Recognized Project Revenue:</span>
+              <div className="p-4 bg-card/60 rounded-lg border border-border space-y-3">
+                <div className="flex justify-between items-center py-1 border-b border-border">
+                  <span className="text-muted-foreground">Recognized Project Revenue:</span>
                   <span className="font-mono font-bold text-emerald-400">${parseFloat(metrics.totalRevenue).toLocaleString()}</span>
                 </div>
-                <div className="flex justify-between items-center py-1 border-b border-slate-800">
-                  <span className="text-slate-400">Total Direct Project Costs:</span>
+                <div className="flex justify-between items-center py-1 border-b border-border">
+                  <span className="text-muted-foreground">Total Direct Project Costs:</span>
                   <span className="font-mono font-bold text-rose-400">(${parseFloat(metrics.totalCost).toLocaleString()})</span>
                 </div>
-                <div className="flex justify-between items-center py-2 border-t border-slate-700">
-                  <span className="text-sm font-bold text-slate-200">Net Project Profit / Margin:</span>
+                <div className="flex justify-between items-center py-2 border-t border-border">
+                  <span className="text-sm font-bold text-foreground">Net Project Profit / Margin:</span>
                   <div className="text-right">
                     <span className={`text-base font-bold font-mono ${parseFloat(metrics.grossProfit) >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
                       ${parseFloat(metrics.grossProfit).toLocaleString()}
                     </span>
-                    <span className="text-xs text-slate-400 ml-2">({metrics.grossMarginPercentage}%)</span>
+                    <span className="text-xs text-muted-foreground ml-2">({metrics.grossMarginPercentage}%)</span>
                   </div>
                 </div>
               </div>
@@ -495,12 +495,12 @@ export const ProjectProfileModal: React.FC<ProjectProfileModalProps> = ({
           {/* TAB 8: GOVERNANCE & PRE-CLOSE */}
           {activeSubTab === 'close' && (
             <div className="space-y-4">
-              <div className="p-4 bg-slate-950/60 rounded-lg border border-slate-800 space-y-3">
-                <h4 className="font-semibold text-slate-200 flex items-center gap-2">
+              <div className="p-4 bg-card/60 rounded-lg border border-border space-y-3">
+                <h4 className="font-semibold text-foreground flex items-center gap-2">
                   <ShieldCheck className="w-4 h-4 text-cyan-400" />
                   Pre-Closure Audit Validation
                 </h4>
-                <p className="text-[11px] text-slate-400">
+                <p className="text-[11px] text-muted-foreground">
                   Validates milestone billing completion, WIP balance realization, and unbilled cost clearance before sealing project.
                 </p>
 
@@ -543,8 +543,8 @@ export const ProjectProfileModal: React.FC<ProjectProfileModalProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="p-3 border-t border-slate-800 bg-slate-950/80 flex items-center justify-between">
-          <div className="text-[11px] text-slate-500">
+        <div className="p-3 border-t border-border bg-card/80 flex items-center justify-between">
+          <div className="text-[11px] text-muted-foreground">
             Tenant: {tenant.companyName} • Base Currency: {project.currency}
           </div>
           <Button size="sm" variant="secondary" onClick={onClose}>

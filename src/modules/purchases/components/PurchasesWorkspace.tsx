@@ -115,11 +115,11 @@ export const PurchasesWorkspace: React.FC<{ onNavigateAccounting?: () => void }>
         <div>
           <div className="flex items-center gap-2">
             <span className="text-xs font-bold uppercase tracking-wider text-sky-600">Supply Chain & Accounts Payable</span>
-            <span className="text-slate-400">•</span>
+            <span className="text-muted-foreground">•</span>
             <StatusBadge status={tenant.companyTier} />
           </div>
-          <h1 className="text-2xl font-bold text-slate-900 mt-1">Procurement & Accounts Payable</h1>
-          <p className="text-xs text-slate-600 mt-0.5">
+          <h1 className="text-2xl font-bold text-foreground mt-1">Procurement & Accounts Payable</h1>
+          <p className="text-xs text-muted-foreground mt-0.5">
             Vendor master, PR workflow, RFQ comparison, POs, 3-way matching, AP sub-ledger, and GL posting.
           </p>
         </div>
@@ -143,7 +143,7 @@ export const PurchasesWorkspace: React.FC<{ onNavigateAccounting?: () => void }>
       </div>
 
       {/* Primary Navigation Tabs */}
-      <div className="flex items-center justify-between border-b border-slate-200 pb-px gap-2 overflow-x-auto">
+      <div className="flex items-center justify-between border-b border-border pb-px gap-2 overflow-x-auto">
         <div className="flex items-center gap-1">
           {primaryTabs.map((tab) => {
             const isActive = activeTab === tab.id;
@@ -157,8 +157,8 @@ export const PurchasesWorkspace: React.FC<{ onNavigateAccounting?: () => void }>
                 }}
                 className={`flex items-center gap-2 px-3.5 py-2 rounded-t-lg text-xs font-medium border-b-2 transition-all select-none whitespace-nowrap ${
                   isActive
-                    ? 'border-brand-600 text-brand-600 bg-white font-bold shadow-sm'
-                    : 'border-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-100/60'
+                    ? 'border-brand-600 text-brand-600 bg-card font-bold shadow-sm'
+                    : 'border-transparent text-muted-foreground hover:text-foreground hover:bg-muted/60'
                 }`}
               >
                 {tab.icon}
@@ -215,17 +215,17 @@ export const PurchasesWorkspace: React.FC<{ onNavigateAccounting?: () => void }>
               subtitle="Real-time verification between AP Sub-Ledger entities and GL Account #2010"
             >
               <div className="space-y-3">
-                <div className="p-3.5 rounded-lg bg-slate-950/60 border border-slate-800 flex items-center justify-between text-xs">
+                <div className="p-3.5 rounded-lg bg-card/60 border border-border flex items-center justify-between text-xs">
                   <div>
-                    <span className="text-slate-400 block">GL Control Account #2010:</span>
-                    <strong className="text-slate-100 font-mono text-sm">${parseFloat(apReconciliation.glControlAccountBalance).toFixed(2)}</strong>
+                    <span className="text-muted-foreground block">GL Control Account #2010:</span>
+                    <strong className="text-foreground font-mono text-sm">${parseFloat(apReconciliation.glControlAccountBalance).toFixed(2)}</strong>
                   </div>
                   <div className="text-right">
-                    <span className="text-slate-400 block">AP Sub-Ledger Total:</span>
+                    <span className="text-muted-foreground block">AP Sub-Ledger Total:</span>
                     <strong className="text-brand-400 font-mono text-sm">${parseFloat(apReconciliation.subLedgerTotalBalance).toFixed(2)}</strong>
                   </div>
                   <div className="text-right">
-                    <span className="text-slate-400 block">Reconciliation Status:</span>
+                    <span className="text-muted-foreground block">Reconciliation Status:</span>
                     <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
                       apReconciliation.isReconciled ? 'bg-emerald-500/20 text-emerald-400' : 'bg-rose-500/20 text-rose-400'
                     }`}>
@@ -234,28 +234,28 @@ export const PurchasesWorkspace: React.FC<{ onNavigateAccounting?: () => void }>
                   </div>
                 </div>
 
-                <div className="overflow-x-auto rounded-lg border border-slate-800 max-h-48 overflow-y-auto">
+                <div className="overflow-x-auto rounded-lg border border-border max-h-48 overflow-y-auto">
                   <table className="w-full text-left text-xs">
                     <thead>
-                      <tr className="border-b border-slate-800 bg-slate-950/80 text-slate-400 font-semibold uppercase">
+                      <tr className="border-b border-border bg-card/80 text-muted-foreground font-semibold uppercase">
                         <th className="px-4 py-2">Supplier Entity</th>
                         <th className="px-4 py-2 text-right">Debit (Paid)</th>
                         <th className="px-4 py-2 text-right">Credit (Billed)</th>
                         <th className="px-4 py-2 text-right">Net Balance</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-800/60 text-slate-200">
+                    <tbody className="divide-y divide-border text-foreground">
                       {apReconciliation.entities.map((ent) => (
                         <tr key={ent.entityId}>
                           <td className="px-4 py-2 font-medium">{ent.entityName}</td>
                           <td className="px-4 py-2 text-right font-mono text-emerald-400">${parseFloat(ent.totalDebit).toFixed(2)}</td>
-                          <td className="px-4 py-2 text-right font-mono text-slate-200">${parseFloat(ent.totalCredit).toFixed(2)}</td>
+                          <td className="px-4 py-2 text-right font-mono text-foreground">${parseFloat(ent.totalCredit).toFixed(2)}</td>
                           <td className="px-4 py-2 text-right font-mono font-bold text-amber-400">${parseFloat(ent.netBalance).toFixed(2)}</td>
                         </tr>
                       ))}
                       {apReconciliation.entities.length === 0 && (
                         <tr>
-                          <td colSpan={4} className="px-4 py-6 text-center text-slate-500">
+                          <td colSpan={4} className="px-4 py-6 text-center text-muted-foreground">
                             No posted sub-ledger entries recorded yet.
                           </td>
                         </tr>
@@ -270,12 +270,12 @@ export const PurchasesWorkspace: React.FC<{ onNavigateAccounting?: () => void }>
               title="3-Way Matching & Posting Pipeline"
               subtitle="Automated commercial verification sequence for Accounts Payable"
             >
-              <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800 text-xs text-slate-300 space-y-3">
-                <div className="flex items-center gap-2 font-bold text-slate-100">
+              <div className="p-4 rounded-xl bg-card/60 border border-border text-xs text-foreground/90 space-y-3">
+                <div className="flex items-center gap-2 font-bold text-foreground">
                   <Scale className="w-4 h-4 text-brand-400" />
                   <span>3-Way Matching Rules & Tolerances:</span>
                 </div>
-                <ul className="space-y-2 text-slate-400">
+                <ul className="space-y-2 text-muted-foreground">
                   <li className="flex items-start gap-2">
                     <span className="text-emerald-400 font-bold">1.</span>
                     <span><strong>Purchase Order vs Receiving Dock:</strong> Quantity check comparing ordered vs delivered items with rejection logs.</span>

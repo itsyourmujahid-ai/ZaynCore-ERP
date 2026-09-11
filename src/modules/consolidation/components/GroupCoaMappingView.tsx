@@ -82,11 +82,11 @@ export const GroupCoaMappingView: React.FC = () => {
         <div>
           <div className="flex items-center gap-2">
             <span className="text-xs font-bold uppercase tracking-wider text-indigo-400">Consolidation Standardization</span>
-            <span className="text-slate-600">•</span>
+            <span className="text-muted-foreground">•</span>
             <StatusBadge status="Group COA Mapping" />
           </div>
-          <h1 className="text-2xl font-bold text-slate-100 mt-1">Group Chart of Accounts & Mappings</h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <h1 className="text-2xl font-bold text-foreground mt-1">Group Chart of Accounts & Mappings</h1>
+          <p className="text-xs text-muted-foreground mt-1">
             Map diverse subsidiary local general ledger accounts into standardized corporate group reporting structures.
           </p>
         </div>
@@ -118,13 +118,13 @@ export const GroupCoaMappingView: React.FC = () => {
       )}
 
       {/* Selectors Bar */}
-      <div className="p-4 bg-slate-900/60 border border-slate-800 rounded-xl flex flex-wrap items-center gap-4 text-xs">
+      <div className="p-4 bg-card/60 border border-border rounded-xl flex flex-wrap items-center gap-4 text-xs">
         <div>
-          <label className="text-slate-400 font-medium block mb-1">Active Corporate Group</label>
+          <label className="text-muted-foreground font-medium block mb-1">Active Corporate Group</label>
           <select
             value={selectedGroupId}
             onChange={(e) => setSelectedGroupId(e.target.value)}
-            className="px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-slate-200"
+            className="px-3 py-1.5 rounded-lg bg-card border border-border text-foreground"
           >
             {groups.map((g) => (
               <option key={g.id} value={g.id}>{g.name} ({g.code})</option>
@@ -133,11 +133,11 @@ export const GroupCoaMappingView: React.FC = () => {
         </div>
 
         <div>
-          <label className="text-slate-400 font-medium block mb-1">Company Local Accounts</label>
+          <label className="text-muted-foreground font-medium block mb-1">Company Local Accounts</label>
           <select
             value={selectedCompanyId}
             onChange={(e) => setSelectedCompanyId(e.target.value)}
-            className="px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-slate-200"
+            className="px-3 py-1.5 rounded-lg bg-card border border-border text-foreground"
           >
             {companies.map((c) => (
               <option key={c.id} value={c.id}>{c.name} ({c.code})</option>
@@ -153,25 +153,25 @@ export const GroupCoaMappingView: React.FC = () => {
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="border-b border-slate-800 text-slate-400">
+                <tr className="border-b border-border text-muted-foreground">
                   <th className="py-2.5 px-3 font-semibold">Group Code</th>
                   <th className="py-2.5 px-3 font-semibold">Standard Name</th>
                   <th className="py-2.5 px-3 font-semibold">Classification</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60 text-slate-300">
+              <tbody className="divide-y divide-border text-foreground/90">
                 {groupAccounts.length === 0 ? (
                   <tr>
-                    <td colSpan={3} className="py-8 text-center text-slate-500 text-xs">
+                    <td colSpan={3} className="py-8 text-center text-muted-foreground text-xs">
                       No group accounts defined yet. Click 'Add Group Account' to establish the group taxonomy.
                     </td>
                   </tr>
                 ) : (
                   groupAccounts.map((ga) => (
-                    <tr key={ga.id} className="hover:bg-slate-800/40 transition-colors">
+                    <tr key={ga.id} className="hover:bg-muted/40 transition-colors">
                       <td className="py-2.5 px-3 font-mono font-bold text-indigo-400">{ga.code}</td>
-                      <td className="py-2.5 px-3 font-medium text-slate-200">{ga.name}</td>
-                      <td className="py-2.5 px-3 uppercase text-[10px] text-slate-400">{ga.classification}</td>
+                      <td className="py-2.5 px-3 font-medium text-foreground">{ga.name}</td>
+                      <td className="py-2.5 px-3 uppercase text-[10px] text-muted-foreground">{ga.classification}</td>
                     </tr>
                   ))
                 )}
@@ -185,31 +185,31 @@ export const GroupCoaMappingView: React.FC = () => {
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="border-b border-slate-800 text-slate-400">
+                <tr className="border-b border-border text-muted-foreground">
                   <th className="py-2.5 px-3 font-semibold">Local COA Account</th>
                   <th className="py-2.5 px-3 font-semibold">Group Account Mapping</th>
                   <th className="py-2.5 px-3 font-semibold text-center">Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60 text-slate-300">
+              <tbody className="divide-y divide-border text-foreground/90">
                 {localAccounts.map((la) => {
                   const map = mappings.find((m) => m.localAccountId === la.id && m.status === 'active');
                   const mappedGroupAcc = map ? groupAccounts.find((ga) => ga.id === map.groupAccountId) : null;
 
                   return (
-                    <tr key={la.id} className="hover:bg-slate-800/40 transition-colors">
+                    <tr key={la.id} className="hover:bg-muted/40 transition-colors">
                       <td className="py-2.5 px-3">
-                        <div className="font-medium text-slate-200">{la.code} - {la.name}</div>
-                        <div className="text-[10px] text-slate-500 uppercase">{la.classification}</div>
+                        <div className="font-medium text-foreground">{la.code} - {la.name}</div>
+                        <div className="text-[10px] text-muted-foreground uppercase">{la.classification}</div>
                       </td>
                       <td className="py-2.5 px-3">
                         {mappedGroupAcc ? (
                           <div className="font-semibold text-indigo-400 font-mono flex items-center gap-1.5">
-                            <ArrowRight className="w-3 h-3 text-slate-500" />
+                            <ArrowRight className="w-3 h-3 text-muted-foreground" />
                             {mappedGroupAcc.code} - {mappedGroupAcc.name}
                           </div>
                         ) : (
-                          <span className="text-slate-500 italic text-[11px]">Auto-fallback (Classification)</span>
+                          <span className="text-muted-foreground italic text-[11px]">Auto-fallback (Classification)</span>
                         )}
                       </td>
                       <td className="py-2.5 px-3 text-center">
@@ -232,35 +232,35 @@ export const GroupCoaMappingView: React.FC = () => {
       >
         <form onSubmit={handleCreateGroupAccount} className="space-y-4 text-xs">
           <div>
-            <label className="block text-slate-300 font-medium mb-1">Standard Account Code</label>
+            <label className="block text-foreground/90 font-medium mb-1">Standard Account Code</label>
             <input
               type="text"
               required
               placeholder="e.g. G-4000 or REVENUE"
               value={accountForm.code}
               onChange={(e) => setAccountForm({ ...accountForm, code: e.target.value.toUpperCase() })}
-              className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100 font-mono font-bold"
+              className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground font-mono font-bold"
             />
           </div>
 
           <div>
-            <label className="block text-slate-300 font-medium mb-1">Standard Account Name</label>
+            <label className="block text-foreground/90 font-medium mb-1">Standard Account Name</label>
             <input
               type="text"
               required
               placeholder="e.g. Group Operating Sales Revenue"
               value={accountForm.name}
               onChange={(e) => setAccountForm({ ...accountForm, name: e.target.value })}
-              className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100"
+              className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground"
             />
           </div>
 
           <div>
-            <label className="block text-slate-300 font-medium mb-1">Financial Classification</label>
+            <label className="block text-foreground/90 font-medium mb-1">Financial Classification</label>
             <select
               value={accountForm.classification}
               onChange={(e) => setAccountForm({ ...accountForm, classification: e.target.value as any })}
-              className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100"
+              className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground"
             >
               <option value="revenue">Revenue</option>
               <option value="cost_of_sales">Cost of Sales</option>
@@ -271,7 +271,7 @@ export const GroupCoaMappingView: React.FC = () => {
             </select>
           </div>
 
-          <div className="flex justify-end gap-2 pt-3 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-3 border-t border-border">
             <Button type="button" variant="secondary" onClick={() => setIsAccountModalOpen(false)}>
               Cancel
             </Button>
@@ -290,11 +290,11 @@ export const GroupCoaMappingView: React.FC = () => {
       >
         <form onSubmit={handleCreateMapping} className="space-y-4 text-xs">
           <div>
-            <label className="block text-slate-300 font-medium mb-1">Local Company Account</label>
+            <label className="block text-foreground/90 font-medium mb-1">Local Company Account</label>
             <select
               value={mapForm.localAccountId}
               onChange={(e) => setMapForm({ ...mapForm, localAccountId: e.target.value })}
-              className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100"
+              className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground"
             >
               {localAccounts.map((a) => (
                 <option key={a.id} value={a.id}>{a.code} - {a.name} ({a.classification})</option>
@@ -303,11 +303,11 @@ export const GroupCoaMappingView: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-slate-300 font-medium mb-1">Target Group Standard Account</label>
+            <label className="block text-foreground/90 font-medium mb-1">Target Group Standard Account</label>
             <select
               value={mapForm.groupAccountId}
               onChange={(e) => setMapForm({ ...mapForm, groupAccountId: e.target.value })}
-              className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100 font-mono"
+              className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground font-mono"
             >
               {groupAccounts.map((ga) => (
                 <option key={ga.id} value={ga.id}>{ga.code} - {ga.name} ({ga.classification})</option>
@@ -315,7 +315,7 @@ export const GroupCoaMappingView: React.FC = () => {
             </select>
           </div>
 
-          <div className="flex justify-end gap-2 pt-3 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-3 border-t border-border">
             <Button type="button" variant="secondary" onClick={() => setIsMapModalOpen(false)}>
               Cancel
             </Button>

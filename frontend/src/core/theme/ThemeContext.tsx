@@ -112,11 +112,11 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           chartStroke: isDark ? '#94a3b8' : '#334155',
           chartFill: isDark ? 'rgba(148, 163, 184, 0.15)' : 'rgba(51, 65, 85, 0.15)',
           chartDot: isDark ? '#f8fafc' : '#0f172a',
-          accentText: isDark ? 'text-slate-100' : 'text-slate-900',
-          accentBadge: isDark ? 'bg-slate-800 text-slate-100 border-slate-700' : 'bg-slate-100 text-slate-900 border-slate-300',
-          navActiveBg: isDark ? 'bg-slate-800/80 text-white' : 'bg-slate-200 text-slate-900',
+          accentText: isDark ? 'text-foreground' : 'text-foreground',
+          accentBadge: isDark ? 'bg-muted text-foreground border-border' : 'bg-muted text-foreground border-border',
+          navActiveBg: isDark ? 'bg-muted/80 text-white' : 'bg-slate-200 text-foreground',
           navActiveBorder: isDark ? 'border-slate-600 ring-1 ring-slate-500' : 'border-slate-400 ring-1 ring-slate-400',
-          navActiveDot: isDark ? 'bg-slate-200' : 'bg-slate-900',
+          navActiveDot: isDark ? 'bg-slate-200' : 'bg-card',
         };
       case 'blue':
         return {

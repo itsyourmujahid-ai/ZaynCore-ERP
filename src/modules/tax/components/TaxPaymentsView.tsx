@@ -111,8 +111,8 @@ export const TaxPaymentsView: React.FC = () => {
       {/* Action Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h2 className="text-lg font-bold text-slate-100">Tax Payments & Treasury Settlements</h2>
-          <p className="text-xs text-slate-400">
+          <h2 className="text-lg font-bold text-foreground">Tax Payments & Treasury Settlements</h2>
+          <p className="text-xs text-muted-foreground">
             Execute payments to sovereign tax authorities and record incoming refund deposits with automatic GL and bank ledger sync.
           </p>
         </div>
@@ -148,7 +148,7 @@ export const TaxPaymentsView: React.FC = () => {
         {payableReturns.length > 0 ? (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-950/60 text-slate-400 border-b border-slate-800">
+              <thead className="bg-card/60 text-muted-foreground border-b border-border">
                 <tr>
                   <th className="py-2.5 px-3">Return #</th>
                   <th className="py-2.5 px-3">Filing Date</th>
@@ -159,11 +159,11 @@ export const TaxPaymentsView: React.FC = () => {
                   <th className="py-2.5 px-3 text-right">Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60 text-slate-300">
+              <tbody className="divide-y divide-border text-foreground/90">
                 {payableReturns.map((r) => (
-                  <tr key={r.id} className="hover:bg-slate-800/30 transition-colors">
+                  <tr key={r.id} className="hover:bg-muted/30 transition-colors">
                     <td className="py-2.5 px-3 font-mono font-bold text-brand-400">{r.returnNumber}</td>
-                    <td className="py-2.5 px-3 font-mono text-slate-400">{r.filingDate}</td>
+                    <td className="py-2.5 px-3 font-mono text-muted-foreground">{r.filingDate}</td>
                     <td className="py-2.5 px-3 font-mono text-sky-400">${parseFloat(r.totalOutputTax).toFixed(2)}</td>
                     <td className="py-2.5 px-3 font-mono text-emerald-400">${parseFloat(r.totalRecoverableInputTax).toFixed(2)}</td>
                     <td className="py-2.5 px-3 text-right font-mono font-bold text-amber-400">
@@ -195,7 +195,7 @@ export const TaxPaymentsView: React.FC = () => {
             </table>
           </div>
         ) : (
-          <div className="py-8 text-center text-slate-500 text-xs">
+          <div className="py-8 text-center text-muted-foreground text-xs">
             No pending tax payments due. All filed returns are settled.
           </div>
         )}
@@ -205,7 +205,7 @@ export const TaxPaymentsView: React.FC = () => {
       <Card title="Tax Return Settlement Register" subtitle="Historical return filings, payments, and refunds">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-950/60 text-slate-400 border-b border-slate-800">
+            <thead className="bg-card/60 text-muted-foreground border-b border-border">
               <tr>
                 <th className="py-2.5 px-3">Return #</th>
                 <th className="py-2.5 px-3">Filing Date</th>
@@ -215,15 +215,15 @@ export const TaxPaymentsView: React.FC = () => {
                 <th className="py-2.5 px-3 text-center">Settlement Journal</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-slate-300">
+            <tbody className="divide-y divide-border text-foreground/90">
               {returns.map((r) => {
                 const net = parseFloat(r.netTaxPayableOrRefundable);
                 return (
-                  <tr key={r.id} className="hover:bg-slate-800/30 transition-colors">
+                  <tr key={r.id} className="hover:bg-muted/30 transition-colors">
                     <td className="py-2.5 px-3 font-mono font-bold text-brand-400">{r.returnNumber}</td>
-                    <td className="py-2.5 px-3 font-mono text-slate-400">{r.filingDate}</td>
+                    <td className="py-2.5 px-3 font-mono text-muted-foreground">{r.filingDate}</td>
                     <td className={`py-2.5 px-3 text-right font-mono font-bold ${
-                      net > 0 ? 'text-amber-400' : (net < 0 ? 'text-emerald-400' : 'text-slate-400')
+                      net > 0 ? 'text-amber-400' : (net < 0 ? 'text-emerald-400' : 'text-muted-foreground')
                     }`}>
                       {net < 0 ? `($${Math.abs(net).toFixed(2)})` : `$${net.toFixed(2)}`}
                     </td>
@@ -239,7 +239,7 @@ export const TaxPaymentsView: React.FC = () => {
                           {r.settlementJournalId}
                         </span>
                       ) : (
-                        <span className="text-slate-600 font-mono text-[10px]">Unsettled</span>
+                        <span className="text-muted-foreground font-mono text-[10px]">Unsettled</span>
                       )}
                     </td>
                   </tr>
@@ -259,7 +259,7 @@ export const TaxPaymentsView: React.FC = () => {
       >
         <form onSubmit={handleDisbursePayment} className="space-y-4">
           <div>
-            <label className="text-xs font-medium text-slate-300 mb-1 block">Select Filed Tax Return *</label>
+            <label className="text-xs font-medium text-foreground/90 mb-1 block">Select Filed Tax Return *</label>
             <select
               value={paymentForm.taxReturnId}
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -270,7 +270,7 @@ export const TaxPaymentsView: React.FC = () => {
                   amount: ret ? ret.netTaxPayableOrRefundable : '',
                 });
               }}
-              className="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-brand-500"
+              className="w-full px-3 py-1.5 bg-card border border-border rounded-lg text-xs text-foreground focus:outline-none focus:border-brand-500"
               required
             >
               <option value="">Select Return...</option>
@@ -283,11 +283,11 @@ export const TaxPaymentsView: React.FC = () => {
           </div>
 
           <div>
-            <label className="text-xs font-medium text-slate-300 mb-1 block">Disbursing Bank Account *</label>
+            <label className="text-xs font-medium text-foreground/90 mb-1 block">Disbursing Bank Account *</label>
             <select
               value={paymentForm.bankAccountId}
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setPaymentForm({ ...paymentForm, bankAccountId: e.target.value })}
-              className="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-brand-500"
+              className="w-full px-3 py-1.5 bg-card border border-border rounded-lg text-xs text-foreground focus:outline-none focus:border-brand-500"
               required
             >
               <option value="">Select Bank Account...</option>
@@ -301,39 +301,39 @@ export const TaxPaymentsView: React.FC = () => {
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-medium text-slate-300 mb-1 block">Payment Amount *</label>
+              <label className="text-xs font-medium text-foreground/90 mb-1 block">Payment Amount *</label>
               <input
                 type="number"
                 step="0.01"
                 value={paymentForm.amount}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPaymentForm({ ...paymentForm, amount: e.target.value })}
-                className="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-brand-500"
+                className="w-full px-3 py-1.5 bg-card border border-border rounded-lg text-xs text-foreground focus:outline-none focus:border-brand-500"
                 required
               />
             </div>
             <div>
-              <label className="text-xs font-medium text-slate-300 mb-1 block">Payment Date *</label>
+              <label className="text-xs font-medium text-foreground/90 mb-1 block">Payment Date *</label>
               <input
                 type="date"
                 value={paymentForm.paymentDate}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPaymentForm({ ...paymentForm, paymentDate: e.target.value })}
-                className="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-brand-500"
+                className="w-full px-3 py-1.5 bg-card border border-border rounded-lg text-xs text-foreground focus:outline-none focus:border-brand-500"
                 required
               />
             </div>
           </div>
 
           <div>
-            <label className="text-xs font-medium text-slate-300 mb-1 block">Payment Reference</label>
+            <label className="text-xs font-medium text-foreground/90 mb-1 block">Payment Reference</label>
             <input
               value={paymentForm.reference}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPaymentForm({ ...paymentForm, reference: e.target.value })}
               placeholder="e.g. EFT-OTA-2026-001"
-              className="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand-500"
+              className="w-full px-3 py-1.5 bg-card border border-border rounded-lg text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-brand-500"
             />
           </div>
 
-          <div className="flex justify-end gap-2 pt-2 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-2 border-t border-border">
             <Button variant="ghost" size="sm" type="button" onClick={() => setIsPaymentModalOpen(false)}>
               Cancel
             </Button>
@@ -353,7 +353,7 @@ export const TaxPaymentsView: React.FC = () => {
       >
         <form onSubmit={handleReceiveRefund} className="space-y-4">
           <div>
-            <label className="text-xs font-medium text-slate-300 mb-1 block">Select Refundable Tax Return *</label>
+            <label className="text-xs font-medium text-foreground/90 mb-1 block">Select Refundable Tax Return *</label>
             <select
               value={refundForm.taxReturnId}
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -364,7 +364,7 @@ export const TaxPaymentsView: React.FC = () => {
                   amount: ret ? Math.abs(parseFloat(ret.netTaxPayableOrRefundable)).toFixed(2) : '',
                 });
               }}
-              className="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-brand-500"
+              className="w-full px-3 py-1.5 bg-card border border-border rounded-lg text-xs text-foreground focus:outline-none focus:border-brand-500"
               required
             >
               <option value="">Select Return...</option>
@@ -377,11 +377,11 @@ export const TaxPaymentsView: React.FC = () => {
           </div>
 
           <div>
-            <label className="text-xs font-medium text-slate-300 mb-1 block">Receiving Bank Account *</label>
+            <label className="text-xs font-medium text-foreground/90 mb-1 block">Receiving Bank Account *</label>
             <select
               value={refundForm.bankAccountId}
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setRefundForm({ ...refundForm, bankAccountId: e.target.value })}
-              className="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-brand-500"
+              className="w-full px-3 py-1.5 bg-card border border-border rounded-lg text-xs text-foreground focus:outline-none focus:border-brand-500"
               required
             >
               <option value="">Select Bank Account...</option>
@@ -395,39 +395,39 @@ export const TaxPaymentsView: React.FC = () => {
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-medium text-slate-300 mb-1 block">Refund Deposit Amount *</label>
+              <label className="text-xs font-medium text-foreground/90 mb-1 block">Refund Deposit Amount *</label>
               <input
                 type="number"
                 step="0.01"
                 value={refundForm.amount}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setRefundForm({ ...refundForm, amount: e.target.value })}
-                className="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-brand-500"
+                className="w-full px-3 py-1.5 bg-card border border-border rounded-lg text-xs text-foreground focus:outline-none focus:border-brand-500"
                 required
               />
             </div>
             <div>
-              <label className="text-xs font-medium text-slate-300 mb-1 block">Deposit Date *</label>
+              <label className="text-xs font-medium text-foreground/90 mb-1 block">Deposit Date *</label>
               <input
                 type="date"
                 value={refundForm.receiptDate}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setRefundForm({ ...refundForm, receiptDate: e.target.value })}
-                className="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-brand-500"
+                className="w-full px-3 py-1.5 bg-card border border-border rounded-lg text-xs text-foreground focus:outline-none focus:border-brand-500"
                 required
               />
             </div>
           </div>
 
           <div>
-            <label className="text-xs font-medium text-slate-300 mb-1 block">Treasury Reference</label>
+            <label className="text-xs font-medium text-foreground/90 mb-1 block">Treasury Reference</label>
             <input
               value={refundForm.reference}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setRefundForm({ ...refundForm, reference: e.target.value })}
               placeholder="e.g. OTA-REF-2026-99"
-              className="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand-500"
+              className="w-full px-3 py-1.5 bg-card border border-border rounded-lg text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-brand-500"
             />
           </div>
 
-          <div className="flex justify-end gap-2 pt-2 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-2 border-t border-border">
             <Button variant="ghost" size="sm" type="button" onClick={() => setIsRefundModalOpen(false)}>
               Cancel
             </Button>

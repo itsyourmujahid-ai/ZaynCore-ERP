@@ -18,25 +18,25 @@ export interface BreadcrumbProps {
 
 export const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, className = '' }) => {
   return (
-    <nav aria-label="Breadcrumb" className={`flex items-center gap-1.5 text-xs text-slate-500 select-none ${className}`}>
+    <nav aria-label="Breadcrumb" className={`flex items-center gap-1.5 text-xs text-muted-foreground select-none ${className}`}>
       <button 
         onClick={items[0]?.onClick}
-        className="flex items-center gap-1 text-slate-500 hover:text-slate-900 transition-colors"
+        className="flex items-center gap-1 text-muted-foreground hover:text-foreground transition-colors"
       >
         <Home className="w-3.5 h-3.5 text-brand-600" />
       </button>
 
       {items.map((item, idx) => (
         <React.Fragment key={idx}>
-          <ChevronRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+          <ChevronRight className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
           {item.isCurrent || !item.onClick ? (
-            <span className={`font-bold ${item.isCurrent ? 'text-slate-900' : 'text-slate-600'}`}>
+            <span className={`font-bold ${item.isCurrent ? 'text-foreground' : 'text-muted-foreground'}`}>
               {item.label}
             </span>
           ) : (
             <button
               onClick={item.onClick}
-              className="text-slate-600 hover:text-slate-900 hover:underline transition-colors"
+              className="text-muted-foreground hover:text-foreground hover:underline transition-colors"
             >
               {item.label}
             </button>

@@ -7,6 +7,9 @@ import { SidebarNav } from './SidebarNav';
 import { TopHeader } from './TopHeader';
 import { ChevronRight, Home } from 'lucide-react';
 import { useAuth } from '@/modules/identity/context/AuthContext';
+import { InteractiveBackground } from '@/ui/components/InteractiveBackground';
+import { ErrorBoundary } from '@/ui/components/ErrorBoundary';
+import { PageTransition } from './PageTransition';
 
 export interface EnterpriseShellProps {
   currentView: string;
@@ -51,7 +54,10 @@ export const EnterpriseShell: React.FC<EnterpriseShellProps> = ({ currentView, o
   };
 
   return (
-    <div className="h-screen w-screen flex bg-background text-foreground overflow-hidden font-sans">
+    <div className="h-screen w-screen flex bg-background text-foreground overflow-hidden font-sans relative">
+      {/* Interactive Mouse-Reactive Dot Grid Background */}
+      <InteractiveBackground />
+
       {/* Dynamic Left Sidebar (Desktop + Mobile Drawer) */}
       <SidebarNav
         currentView={currentView}
@@ -62,7 +68,7 @@ export const EnterpriseShell: React.FC<EnterpriseShellProps> = ({ currentView, o
       />
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative z-10">
         {/* Top Header */}
         <TopHeader
           onToggleSidebar={handleToggleSidebar}
@@ -71,7 +77,7 @@ export const EnterpriseShell: React.FC<EnterpriseShellProps> = ({ currentView, o
         />
 
         {/* Breadcrumbs Bar */}
-        <div className="h-9 px-3 sm:px-6 bg-card border-b border-border flex items-center justify-between text-xs select-none min-w-0">
+        <div className="h-9 px-3 sm:px-6 bg-card/75 backdrop-blur-md border-b border-border/80 flex items-center justify-between text-xs select-none min-w-0 shadow-sm">
           <div className="flex items-center gap-1.5 sm:gap-2 text-muted-foreground min-w-0 pr-2">
             <button
               onClick={() => onNavigate('dashboard')}
@@ -95,10 +101,14 @@ export const EnterpriseShell: React.FC<EnterpriseShellProps> = ({ currentView, o
           </div>
         </div>
 
-        {/* Dynamic Viewport */}
-        <main className="flex-1 overflow-y-auto p-3 sm:p-5 md:p-6 bg-dot-grid text-foreground">
+        {/* Dynamic Viewport with Apple-Style Fluid Page Transition */}
+        <main className="flex-1 overflow-y-auto overflow-x-hidden p-3 sm:p-5 md:p-6 text-foreground">
           <div className="max-w-7xl mx-auto space-y-6 w-full min-w-0">
-            {children}
+            <ErrorBoundary>
+              <PageTransition viewKey={currentView}>
+                {children}
+              </PageTransition>
+            </ErrorBoundary>
           </div>
         </main>
       </div>

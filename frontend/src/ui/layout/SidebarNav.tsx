@@ -9,6 +9,7 @@ import { useTheme } from '@/core/theme/ThemeContext';
 import { StatusBadge } from '../data-display/StatusBadge';
 import { getVisibleNavItems } from '@/core/config/navigation.config';
 import { X } from 'lucide-react';
+import { ZaynCoreLogo } from '../components/ZaynCoreLogo';
 
 export interface SidebarNavProps {
   currentView: string;
@@ -54,18 +55,16 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
         <div className="h-14 px-4 border-b border-border flex items-center justify-between">
           {(!isCollapsed || isOpenMobile) && (
             <div className="flex items-center gap-2.5 min-w-0">
-              <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center text-primary-foreground font-black text-sm shadow-md ring-1 ring-border shrink-0">
-                Q
-              </div>
+              <ZaynCoreLogo size="md" />
               <div className="min-w-0">
-                <span className="text-xs font-black text-foreground tracking-tight block truncate">QUANTUMCORE</span>
+                <span className="text-xs font-black text-foreground tracking-tight block truncate">ZaynCore</span>
                 <span className="text-[9px] font-mono text-primary font-bold block -mt-0.5 truncate">{tenant.companyTier.toUpperCase()} EDITION</span>
               </div>
             </div>
           )}
           {isCollapsed && !isOpenMobile && (
-            <div className="mx-auto w-8 h-8 rounded-xl bg-primary flex items-center justify-center text-primary-foreground font-bold text-sm shadow-md ring-1 ring-border">
-              Q
+            <div className="mx-auto flex items-center justify-center">
+              <ZaynCoreLogo size="md" />
             </div>
           )}
 

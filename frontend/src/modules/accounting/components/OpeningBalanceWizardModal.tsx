@@ -171,9 +171,9 @@ export const OpeningBalanceWizardModal: React.FC<OpeningBalanceWizardModalProps>
         </div>
 
         {/* Lines Editor */}
-        <div className="p-3 bg-slate-950/70 border border-slate-800 rounded-xl space-y-3">
-          <div className="flex items-center justify-between pb-1 border-b border-slate-800">
-            <span className="text-xs font-bold text-slate-300">Double-Entry Balance Allocations</span>
+        <div className="p-3 bg-card/70 border border-border rounded-xl space-y-3">
+          <div className="flex items-center justify-between pb-1 border-b border-border">
+            <span className="text-xs font-bold text-foreground/90">Double-Entry Balance Allocations</span>
             <Button size="xs" variant="secondary" icon={<Plus className="w-3.5 h-3.5" />} onClick={handleAddLine}>
               Add Line
             </Button>
@@ -181,7 +181,7 @@ export const OpeningBalanceWizardModal: React.FC<OpeningBalanceWizardModalProps>
 
           <div className="space-y-2.5 max-h-72 overflow-y-auto pr-1">
             {lines.map((line, idx) => (
-              <div key={idx} className="p-2.5 rounded-lg bg-slate-900 border border-slate-800 grid grid-cols-12 gap-2 items-center text-xs">
+              <div key={idx} className="p-2.5 rounded-lg bg-card border border-border grid grid-cols-12 gap-2 items-center text-xs">
                 <div className="col-span-4">
                   <Select
                     label=""
@@ -242,7 +242,7 @@ export const OpeningBalanceWizardModal: React.FC<OpeningBalanceWizardModalProps>
                   <button
                     type="button"
                     onClick={() => handleRemoveLine(idx)}
-                    className="p-1.5 text-slate-500 hover:text-rose-400 transition-colors"
+                    className="p-1.5 text-muted-foreground hover:text-rose-400 transition-colors"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>

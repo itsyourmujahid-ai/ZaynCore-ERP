@@ -190,13 +190,13 @@ export const BusinessConfigurationView: React.FC = () => {
       )}
 
       {/* Sub-tab navigation */}
-      <div className="flex items-center gap-2 border-b border-slate-800 pb-2 overflow-x-auto">
+      <div className="flex items-center gap-2 border-b border-border pb-2 overflow-x-auto">
         <button
           onClick={() => setActiveSubTab('profile')}
           className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
             activeSubTab === 'profile'
               ? 'bg-brand-500/20 text-brand-400 border border-brand-500/30'
-              : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+              : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
           }`}
         >
           <Building2 className="w-3.5 h-3.5 inline mr-1.5" />
@@ -208,7 +208,7 @@ export const BusinessConfigurationView: React.FC = () => {
           className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
             activeSubTab === 'uom'
               ? 'bg-brand-500/20 text-brand-400 border border-brand-500/30'
-              : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+              : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
           }`}
         >
           <Scale className="w-3.5 h-3.5 inline mr-1.5" />
@@ -220,7 +220,7 @@ export const BusinessConfigurationView: React.FC = () => {
           className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
             activeSubTab === 'attributes'
               ? 'bg-brand-500/20 text-brand-400 border border-brand-500/30'
-              : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+              : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
           }`}
         >
           <Tag className="w-3.5 h-3.5 inline mr-1.5" />
@@ -232,7 +232,7 @@ export const BusinessConfigurationView: React.FC = () => {
           className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
             activeSubTab === 'workflows'
               ? 'bg-brand-500/20 text-brand-400 border border-brand-500/30'
-              : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+              : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
           }`}
         >
           <Sliders className="w-3.5 h-3.5 inline mr-1.5" />
@@ -244,7 +244,7 @@ export const BusinessConfigurationView: React.FC = () => {
           className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
             activeSubTab === 'accounting'
               ? 'bg-brand-500/20 text-brand-400 border border-brand-500/30'
-              : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+              : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
           }`}
         >
           <Calculator className="w-3.5 h-3.5 inline mr-1.5" />
@@ -267,8 +267,8 @@ export const BusinessConfigurationView: React.FC = () => {
         >
           <div className="space-y-4 text-xs">
             <div>
-              <label className="block text-slate-300 font-medium mb-1.5">Business Industry Categories</label>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-2 bg-slate-950/60 p-3 rounded-lg border border-slate-800">
+              <label className="block text-foreground/90 font-medium mb-1.5">Business Industry Categories</label>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-2 bg-card/60 p-3 rounded-lg border border-border">
                 {[
                   { id: 'trading', label: 'Trading & Commerce' },
                   { id: 'retail', label: 'Retail Sales' },
@@ -281,7 +281,7 @@ export const BusinessConfigurationView: React.FC = () => {
                 ].map((item) => {
                   const isChecked = profile.businessTypes?.includes(item.id as BusinessType);
                   return (
-                    <label key={item.id} className="flex items-center gap-2 cursor-pointer text-slate-300 hover:text-slate-100">
+                    <label key={item.id} className="flex items-center gap-2 cursor-pointer text-foreground/90 hover:text-foreground">
                       <input
                         type="checkbox"
                         checked={isChecked}
@@ -292,7 +292,7 @@ export const BusinessConfigurationView: React.FC = () => {
                             : current.filter((x) => x !== item.id);
                           setProfile({ ...profile, businessTypes: next.length > 0 ? next : ['trading'] });
                         }}
-                        className="rounded border-slate-700 bg-slate-900 text-brand-600 focus:ring-brand-500"
+                        className="rounded border-border bg-card text-brand-600 focus:ring-brand-500"
                       />
                       <span>{item.label}</span>
                     </label>
@@ -301,10 +301,10 @@ export const BusinessConfigurationView: React.FC = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-3 border-t border-slate-800">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-3 border-t border-border">
               <div>
-                <label className="block text-slate-300 font-medium mb-1.5">What Does This Company Sell?</label>
-                <div className="space-y-2 bg-slate-950/60 p-3 rounded-lg border border-slate-800">
+                <label className="block text-foreground/90 font-medium mb-1.5">What Does This Company Sell?</label>
+                <div className="space-y-2 bg-card/60 p-3 rounded-lg border border-border">
                   {[
                     { id: 'physical_products', label: 'Physical Products (Stock items, SKUs)' },
                     { id: 'finished_goods', label: 'Manufactured Finished Goods' },
@@ -314,7 +314,7 @@ export const BusinessConfigurationView: React.FC = () => {
                   ].map((item) => {
                     const isChecked = profile.sellingCategories?.includes(item.id as SellingCategory);
                     return (
-                      <label key={item.id} className="flex items-center gap-2 cursor-pointer text-slate-300 hover:text-slate-100">
+                      <label key={item.id} className="flex items-center gap-2 cursor-pointer text-foreground/90 hover:text-foreground">
                         <input
                           type="checkbox"
                           checked={isChecked}
@@ -325,7 +325,7 @@ export const BusinessConfigurationView: React.FC = () => {
                               : current.filter((x) => x !== item.id);
                             setProfile({ ...profile, sellingCategories: next });
                           }}
-                          className="rounded border-slate-700 bg-slate-900 text-brand-600 focus:ring-brand-500"
+                          className="rounded border-border bg-card text-brand-600 focus:ring-brand-500"
                         />
                         <span>{item.label}</span>
                       </label>
@@ -335,8 +335,8 @@ export const BusinessConfigurationView: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-slate-300 font-medium mb-1.5">What Does This Company Buy?</label>
-                <div className="space-y-2 bg-slate-950/60 p-3 rounded-lg border border-slate-800">
+                <label className="block text-foreground/90 font-medium mb-1.5">What Does This Company Buy?</label>
+                <div className="space-y-2 bg-card/60 p-3 rounded-lg border border-border">
                   {[
                     { id: 'raw_materials', label: 'Raw Materials & Components' },
                     { id: 'finished_goods', label: 'Inventory for Resale' },
@@ -346,7 +346,7 @@ export const BusinessConfigurationView: React.FC = () => {
                   ].map((item) => {
                     const isChecked = profile.buyingCategories?.includes(item.id as BuyingCategory);
                     return (
-                      <label key={item.id} className="flex items-center gap-2 cursor-pointer text-slate-300 hover:text-slate-100">
+                      <label key={item.id} className="flex items-center gap-2 cursor-pointer text-foreground/90 hover:text-foreground">
                         <input
                           type="checkbox"
                           checked={isChecked}
@@ -357,7 +357,7 @@ export const BusinessConfigurationView: React.FC = () => {
                               : current.filter((x) => x !== item.id);
                             setProfile({ ...profile, buyingCategories: next });
                           }}
-                          className="rounded border-slate-700 bg-slate-900 text-brand-600 focus:ring-brand-500"
+                          className="rounded border-border bg-card text-brand-600 focus:ring-brand-500"
                         />
                         <span>{item.label}</span>
                       </label>
@@ -379,8 +379,8 @@ export const BusinessConfigurationView: React.FC = () => {
           >
             <div className="space-y-4">
               {/* Add New UOM Conversion Form */}
-              <div className="p-4 rounded-xl bg-slate-950/70 border border-slate-800 space-y-3">
-                <span className="font-semibold text-xs text-slate-200 block">Add Cross-Unit Conversion Rule</span>
+              <div className="p-4 rounded-xl bg-card/70 border border-border space-y-3">
+                <span className="font-semibold text-xs text-foreground block">Add Cross-Unit Conversion Rule</span>
                 <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 items-end">
                   <Input
                     label="From Unit"
@@ -410,10 +410,10 @@ export const BusinessConfigurationView: React.FC = () => {
               </div>
 
               {/* Conversion Rules Table */}
-              <div className="overflow-x-auto border border-slate-800 rounded-xl">
+              <div className="overflow-x-auto border border-border rounded-xl">
                 <table className="w-full text-left text-xs">
                   <thead>
-                    <tr className="bg-slate-900/90 text-slate-400 font-semibold border-b border-slate-800">
+                    <tr className="bg-card/90 text-muted-foreground font-semibold border-b border-border">
                       <th className="px-4 py-3">Conversion Formula</th>
                       <th className="px-4 py-3">Source Unit</th>
                       <th className="px-4 py-3">Multiplier</th>
@@ -421,17 +421,17 @@ export const BusinessConfigurationView: React.FC = () => {
                       <th className="px-4 py-3 text-right">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800/60 text-slate-200">
+                  <tbody className="divide-y divide-border text-foreground">
                     {uoms.length === 0 ? (
                       <tr>
-                        <td colSpan={5} className="px-4 py-6 text-center text-slate-500 italic">
+                        <td colSpan={5} className="px-4 py-6 text-center text-muted-foreground italic">
                           No custom unit conversions defined yet for this company.
                         </td>
                       </tr>
                     ) : (
                       uoms.map((u) => (
-                        <tr key={u.id} className="hover:bg-slate-800/30">
-                          <td className="px-4 py-3 font-medium text-slate-100 font-mono">
+                        <tr key={u.id} className="hover:bg-muted/30">
+                          <td className="px-4 py-3 font-medium text-foreground font-mono">
                             1 {u.fromUomCode} = {u.multiplier} {u.toUomCode}
                           </td>
                           <td className="px-4 py-3 text-brand-400 font-semibold">{u.fromUomCode}</td>
@@ -454,8 +454,8 @@ export const BusinessConfigurationView: React.FC = () => {
               </div>
 
               {/* Real-time UOM Calculator Test */}
-              <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800 space-y-3">
-                <div className="flex items-center gap-2 text-xs font-semibold text-slate-200">
+              <div className="p-4 rounded-xl bg-card/60 border border-border space-y-3">
+                <div className="flex items-center gap-2 text-xs font-semibold text-foreground">
                   <Calculator className="w-4 h-4 text-brand-400" />
                   <span>UOM Calculation Engine Tester</span>
                 </div>
@@ -479,7 +479,7 @@ export const BusinessConfigurationView: React.FC = () => {
                     onChange={(e) => setTestToUnit(e.target.value.toUpperCase())}
                   />
                   <div className="pt-5">
-                    <div className="p-2 rounded-lg bg-slate-950 border border-slate-800 text-center font-mono font-bold text-brand-400">
+                    <div className="p-2 rounded-lg bg-card border border-border text-center font-mono font-bold text-brand-400">
                       {calculatedTestConversion !== null ? `${calculatedTestConversion} ${testToUnit}` : 'Select valid units'}
                     </div>
                   </div>
@@ -499,8 +499,8 @@ export const BusinessConfigurationView: React.FC = () => {
           >
             <div className="space-y-4">
               {/* Add Attribute Form */}
-              <div className="p-4 rounded-xl bg-slate-950/70 border border-slate-800 space-y-3">
-                <span className="font-semibold text-xs text-slate-200 block">Add New Product Attribute Dimension</span>
+              <div className="p-4 rounded-xl bg-card/70 border border-border space-y-3">
+                <span className="font-semibold text-xs text-foreground block">Add New Product Attribute Dimension</span>
                 <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 items-end text-xs">
                   <Input
                     label="Attribute Label"
@@ -527,12 +527,12 @@ export const BusinessConfigurationView: React.FC = () => {
                     onChange={(e) => setNewAttrValues(e.target.value)}
                   />
                   <div className="flex items-center gap-2">
-                    <label className="flex items-center gap-1.5 text-slate-300 text-xs cursor-pointer pb-2">
+                    <label className="flex items-center gap-1.5 text-foreground/90 text-xs cursor-pointer pb-2">
                       <input
                         type="checkbox"
                         checked={newAttrRequired}
                         onChange={(e) => setNewAttrRequired(e.target.checked)}
-                        className="rounded border-slate-700 bg-slate-900 text-brand-600"
+                        className="rounded border-border bg-card text-brand-600"
                       />
                       <span>Required</span>
                     </label>
@@ -546,30 +546,30 @@ export const BusinessConfigurationView: React.FC = () => {
               {/* Attributes List */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                 {attributes.length === 0 ? (
-                  <div className="col-span-full p-6 text-center text-slate-500 italic border border-slate-800 rounded-xl">
+                  <div className="col-span-full p-6 text-center text-muted-foreground italic border border-border rounded-xl">
                     No custom product attributes defined for this company.
                   </div>
                 ) : (
                   attributes.map((attr) => (
                     <div
                       key={attr.id}
-                      className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 flex items-start justify-between gap-3 text-xs"
+                      className="p-3.5 rounded-xl bg-card/80 border border-border flex items-start justify-between gap-3 text-xs"
                     >
                       <div>
                         <div className="flex items-center gap-2">
-                          <span className="font-bold text-slate-100">{attr.label}</span>
-                          <span className="font-mono text-[10px] text-slate-400 bg-slate-800 px-1.5 py-0.5 rounded">
+                          <span className="font-bold text-foreground">{attr.label}</span>
+                          <span className="font-mono text-[10px] text-muted-foreground bg-muted px-1.5 py-0.5 rounded">
                             {attr.attributeKey}
                           </span>
                         </div>
-                        <div className="text-slate-400 text-[11px] mt-1">
-                          Type: <strong className="text-slate-300 capitalize">{attr.dataType}</strong>
+                        <div className="text-muted-foreground text-[11px] mt-1">
+                          Type: <strong className="text-foreground/90 capitalize">{attr.dataType}</strong>
                           {attr.isRequired && <span className="text-rose-400 ml-1 font-semibold">*Mandatory</span>}
                         </div>
                         {attr.options && attr.options.length > 0 && (
                           <div className="mt-2 flex flex-wrap gap-1">
                             {attr.options.map((opt, i) => (
-                              <span key={i} className="px-1.5 py-0.5 rounded text-[10px] bg-slate-800 text-slate-300">
+                              <span key={i} className="px-1.5 py-0.5 rounded text-[10px] bg-muted text-foreground/90">
                                 {opt}
                               </span>
                             ))}
@@ -607,8 +607,8 @@ export const BusinessConfigurationView: React.FC = () => {
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
             {/* Sales Workflow */}
-            <div className="space-y-3 p-4 rounded-xl bg-slate-950/60 border border-slate-800">
-              <div className="font-semibold text-slate-200 flex items-center gap-2 border-b border-slate-800 pb-2">
+            <div className="space-y-3 p-4 rounded-xl bg-card/60 border border-border">
+              <div className="font-semibold text-foreground flex items-center gap-2 border-b border-border pb-2">
                 <FileText className="w-4 h-4 text-blue-400" />
                 <span>Sales Process Workflow</span>
               </div>
@@ -622,7 +622,7 @@ export const BusinessConfigurationView: React.FC = () => {
                   { key: 'enableCreditNote', label: 'Allow Sales Credit Notes / Returns' },
                   { key: 'enablePaymentProofVerification', label: 'Require Mandatory 2-Step Payment Proof Verification' },
                 ].map((item) => (
-                  <label key={item.key} className="flex items-center gap-2 cursor-pointer text-slate-300 hover:text-slate-100">
+                  <label key={item.key} className="flex items-center gap-2 cursor-pointer text-foreground/90 hover:text-foreground">
                     <input
                       type="checkbox"
                       checked={(profile.salesWorkflow as any)[item.key]}
@@ -635,7 +635,7 @@ export const BusinessConfigurationView: React.FC = () => {
                           }
                         })
                       }
-                      className="rounded border-slate-700 bg-slate-900 text-brand-600"
+                      className="rounded border-border bg-card text-brand-600"
                     />
                     <span>{item.label}</span>
                   </label>
@@ -644,8 +644,8 @@ export const BusinessConfigurationView: React.FC = () => {
             </div>
 
             {/* Purchase Workflow */}
-            <div className="space-y-3 p-4 rounded-xl bg-slate-950/60 border border-slate-800">
-              <div className="font-semibold text-slate-200 flex items-center gap-2 border-b border-slate-800 pb-2">
+            <div className="space-y-3 p-4 rounded-xl bg-card/60 border border-border">
+              <div className="font-semibold text-foreground flex items-center gap-2 border-b border-border pb-2">
                 <FileText className="w-4 h-4 text-emerald-400" />
                 <span>Procurement & Purchase Workflow</span>
               </div>
@@ -659,7 +659,7 @@ export const BusinessConfigurationView: React.FC = () => {
                   { key: 'enableThreeWayMatch', label: 'Enforce 3-Way Matching (PO vs GRN vs Bill)' },
                   { key: 'enableSupplierPayment', label: 'Track Vendor Payments' },
                 ].map((item) => (
-                  <label key={item.key} className="flex items-center gap-2 cursor-pointer text-slate-300 hover:text-slate-100">
+                  <label key={item.key} className="flex items-center gap-2 cursor-pointer text-foreground/90 hover:text-foreground">
                     <input
                       type="checkbox"
                       checked={(profile.purchaseWorkflow as any)[item.key]}
@@ -672,7 +672,7 @@ export const BusinessConfigurationView: React.FC = () => {
                           }
                         })
                       }
-                      className="rounded border-slate-700 bg-slate-900 text-brand-600"
+                      className="rounded border-border bg-card text-brand-600"
                     />
                     <span>{item.label}</span>
                   </label>
@@ -698,8 +698,8 @@ export const BusinessConfigurationView: React.FC = () => {
         >
           <div className="space-y-6 text-xs">
             {/* Inventory Configuration */}
-            <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800 space-y-4">
-              <div className="font-semibold text-slate-200 flex items-center gap-2">
+            <div className="p-4 rounded-xl bg-card/60 border border-border space-y-4">
+              <div className="font-semibold text-foreground flex items-center gap-2">
                 <Layers className="w-4 h-4 text-amber-400" />
                 <span>Inventory Valuation & Tracking Parameters</span>
               </div>
@@ -763,8 +763,8 @@ export const BusinessConfigurationView: React.FC = () => {
             </div>
 
             {/* General Ledger Account Code Defaults */}
-            <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800 space-y-4">
-              <div className="font-semibold text-slate-200 flex items-center gap-2">
+            <div className="p-4 rounded-xl bg-card/60 border border-border space-y-4">
+              <div className="font-semibold text-foreground flex items-center gap-2">
                 <Calculator className="w-4 h-4 text-purple-400" />
                 <span>Automated Journal Engine GL Account Defaults</span>
               </div>

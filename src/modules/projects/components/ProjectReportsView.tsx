@@ -75,7 +75,7 @@ export const ProjectReportsView: React.FC = () => {
   return (
     <div className="space-y-5">
       {/* Report Switcher & Export Bar */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-slate-900/60 p-3 rounded-lg border border-slate-800">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-card/60 p-3 rounded-lg border border-border">
         <div className="flex items-center gap-1 overflow-x-auto w-full sm:w-auto">
           {reportTabs.map((t) => (
             <button
@@ -84,7 +84,7 @@ export const ProjectReportsView: React.FC = () => {
               className={`px-3 py-1.5 rounded text-xs font-medium whitespace-nowrap transition-colors ${
                 activeReport === t.id
                   ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-semibold'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-muted/40'
               }`}
             >
               {t.label}
@@ -104,8 +104,8 @@ export const ProjectReportsView: React.FC = () => {
       >
         <div className="overflow-x-auto">
           {activeReport === 'summary' && (
-            <table className="w-full text-left text-xs text-slate-300">
-              <thead className="bg-slate-950/60 text-slate-400 border-b border-slate-800 font-semibold">
+            <table className="w-full text-left text-xs text-foreground/90">
+              <thead className="bg-card/60 text-muted-foreground border-b border-border font-semibold">
                 <tr>
                   <th className="p-3">Project Code</th>
                   <th className="p-3">Title</th>
@@ -119,20 +119,20 @@ export const ProjectReportsView: React.FC = () => {
                   <th className="p-3 text-center">Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800 font-mono">
+              <tbody className="divide-y divide-border font-mono">
                 {data.map((r: any) => (
-                  <tr key={r.projectId} className="hover:bg-slate-800/40">
+                  <tr key={r.projectId} className="hover:bg-muted/40">
                     <td className="p-3 text-cyan-400 font-bold">{r.projectCode}</td>
-                    <td className="p-3 font-sans font-semibold text-slate-200">{r.projectName}</td>
-                    <td className="p-3 font-sans text-slate-400">{r.customerName}</td>
-                    <td className="p-3 font-sans text-slate-400">{r.projectManager}</td>
-                    <td className="p-3 text-right text-slate-300">${parseFloat(r.contractValue).toLocaleString()}</td>
+                    <td className="p-3 font-sans font-semibold text-foreground">{r.projectName}</td>
+                    <td className="p-3 font-sans text-muted-foreground">{r.customerName}</td>
+                    <td className="p-3 font-sans text-muted-foreground">{r.projectManager}</td>
+                    <td className="p-3 text-right text-foreground/90">${parseFloat(r.contractValue).toLocaleString()}</td>
                     <td className="p-3 text-right text-emerald-400 font-bold">${parseFloat(r.totalRevenue).toLocaleString()}</td>
                     <td className="p-3 text-right text-rose-400 font-bold">${parseFloat(r.totalCost).toLocaleString()}</td>
                     <td className={`p-3 text-right font-bold ${parseFloat(r.profit) >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
                       ${parseFloat(r.profit).toLocaleString()}
                     </td>
-                    <td className="p-3 text-right font-sans font-semibold text-slate-200">{r.marginPercentage}%</td>
+                    <td className="p-3 text-right font-sans font-semibold text-foreground">{r.marginPercentage}%</td>
                     <td className="p-3 text-center font-sans"><StatusBadge status={r.status} /></td>
                   </tr>
                 ))}
@@ -141,8 +141,8 @@ export const ProjectReportsView: React.FC = () => {
           )}
 
           {activeReport === 'costs' && (
-            <table className="w-full text-left text-xs text-slate-300">
-              <thead className="bg-slate-950/60 text-slate-400 border-b border-slate-800 font-semibold">
+            <table className="w-full text-left text-xs text-foreground/90">
+              <thead className="bg-card/60 text-muted-foreground border-b border-border font-semibold">
                 <tr>
                   <th className="p-3">Date</th>
                   <th className="p-3">Project</th>
@@ -154,16 +154,16 @@ export const ProjectReportsView: React.FC = () => {
                   <th className="p-3 text-center">Billable Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800 font-mono">
+              <tbody className="divide-y divide-border font-mono">
                 {data.map((r: any) => (
-                  <tr key={r.costId} className="hover:bg-slate-800/40">
-                    <td className="p-3 text-slate-400">{r.date}</td>
+                  <tr key={r.costId} className="hover:bg-muted/40">
+                    <td className="p-3 text-muted-foreground">{r.date}</td>
                     <td className="p-3 font-sans text-cyan-400 font-bold">{r.projectCode}</td>
-                    <td className="p-3 font-sans capitalize font-semibold text-slate-200">{r.category}</td>
+                    <td className="p-3 font-sans capitalize font-semibold text-foreground">{r.category}</td>
                     <td className="p-3 text-[11px] text-purple-400 uppercase font-mono">{r.sourceModule}:{r.sourceType}</td>
-                    <td className="p-3 text-slate-400">{r.documentNumber}</td>
-                    <td className="p-3 font-sans text-slate-300">{r.description}</td>
-                    <td className="p-3 text-right font-bold text-slate-100">${parseFloat(r.amount).toLocaleString()}</td>
+                    <td className="p-3 text-muted-foreground">{r.documentNumber}</td>
+                    <td className="p-3 font-sans text-foreground/90">{r.description}</td>
+                    <td className="p-3 text-right font-bold text-foreground">${parseFloat(r.amount).toLocaleString()}</td>
                     <td className="p-3 text-center font-sans"><StatusBadge status={r.billingStatus} /></td>
                   </tr>
                 ))}
@@ -172,8 +172,8 @@ export const ProjectReportsView: React.FC = () => {
           )}
 
           {activeReport === 'revenues' && (
-            <table className="w-full text-left text-xs text-slate-300">
-              <thead className="bg-slate-950/60 text-slate-400 border-b border-slate-800 font-semibold">
+            <table className="w-full text-left text-xs text-foreground/90">
+              <thead className="bg-card/60 text-muted-foreground border-b border-border font-semibold">
                 <tr>
                   <th className="p-3">Date</th>
                   <th className="p-3">Project</th>
@@ -183,14 +183,14 @@ export const ProjectReportsView: React.FC = () => {
                   <th className="p-3 text-right">Recognized Revenue</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800 font-mono">
+              <tbody className="divide-y divide-border font-mono">
                 {data.map((r: any) => (
-                  <tr key={r.revenueId} className="hover:bg-slate-800/40">
-                    <td className="p-3 text-slate-400">{r.date}</td>
+                  <tr key={r.revenueId} className="hover:bg-muted/40">
+                    <td className="p-3 text-muted-foreground">{r.date}</td>
                     <td className="p-3 font-sans text-cyan-400 font-bold">{r.projectCode}</td>
                     <td className="p-3 text-[11px] text-purple-400 uppercase">{r.sourceModule}</td>
                     <td className="p-3 text-emerald-400 font-semibold">{r.documentNumber}</td>
-                    <td className="p-3 font-sans text-slate-300">{r.description}</td>
+                    <td className="p-3 font-sans text-foreground/90">{r.description}</td>
                     <td className="p-3 text-right font-bold text-emerald-400">${parseFloat(r.amount).toLocaleString()}</td>
                   </tr>
                 ))}
@@ -199,8 +199,8 @@ export const ProjectReportsView: React.FC = () => {
           )}
 
           {activeReport === 'wip' && (
-            <table className="w-full text-left text-xs text-slate-300">
-              <thead className="bg-slate-950/60 text-slate-400 border-b border-slate-800 font-semibold">
+            <table className="w-full text-left text-xs text-foreground/90">
+              <thead className="bg-card/60 text-muted-foreground border-b border-border font-semibold">
                 <tr>
                   <th className="p-3">Project Code</th>
                   <th className="p-3">Project Title</th>
@@ -210,12 +210,12 @@ export const ProjectReportsView: React.FC = () => {
                   <th className="p-3 text-right">Current WIP Asset Balance</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800 font-mono">
+              <tbody className="divide-y divide-border font-mono">
                 {data.map((r: any) => (
-                  <tr key={r.projectId} className="hover:bg-slate-800/40">
+                  <tr key={r.projectId} className="hover:bg-muted/40">
                     <td className="p-3 text-cyan-400 font-bold">{r.projectCode}</td>
-                    <td className="p-3 font-sans font-semibold text-slate-200">{r.projectName}</td>
-                    <td className="p-3 text-right text-slate-300">${parseFloat(r.accumulatedCost).toLocaleString()}</td>
+                    <td className="p-3 font-sans font-semibold text-foreground">{r.projectName}</td>
+                    <td className="p-3 text-right text-foreground/90">${parseFloat(r.accumulatedCost).toLocaleString()}</td>
                     <td className="p-3 text-right text-cyan-400 font-semibold">${parseFloat(r.capitalizedAmount).toLocaleString()}</td>
                     <td className="p-3 text-right text-emerald-400 font-semibold">${parseFloat(r.transferredToCogs).toLocaleString()}</td>
                     <td className="p-3 text-right font-bold text-amber-400">${parseFloat(r.currentWipBalance).toLocaleString()}</td>
@@ -226,20 +226,20 @@ export const ProjectReportsView: React.FC = () => {
           )}
 
           {activeReport === 'by_category' && (
-            <table className="w-full text-left text-xs text-slate-300">
-              <thead className="bg-slate-950/60 text-slate-400 border-b border-slate-800 font-semibold">
+            <table className="w-full text-left text-xs text-foreground/90">
+              <thead className="bg-card/60 text-muted-foreground border-b border-border font-semibold">
                 <tr>
                   <th className="p-3">Cost Category</th>
                   <th className="p-3 text-right">Transaction Count</th>
                   <th className="p-3 text-right">Total Incurred Cost</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800 font-mono">
+              <tbody className="divide-y divide-border font-mono">
                 {data.map((r: any) => (
-                  <tr key={r.category} className="hover:bg-slate-800/40">
-                    <td className="p-3 font-sans font-semibold text-slate-200">{r.category}</td>
-                    <td className="p-3 text-right text-slate-400">{r.count} transactions</td>
-                    <td className="p-3 text-right font-bold text-slate-100">${parseFloat(r.totalAmount).toLocaleString()}</td>
+                  <tr key={r.category} className="hover:bg-muted/40">
+                    <td className="p-3 font-sans font-semibold text-foreground">{r.category}</td>
+                    <td className="p-3 text-right text-muted-foreground">{r.count} transactions</td>
+                    <td className="p-3 text-right font-bold text-foreground">${parseFloat(r.totalAmount).toLocaleString()}</td>
                   </tr>
                 ))}
               </tbody>
@@ -247,18 +247,18 @@ export const ProjectReportsView: React.FC = () => {
           )}
 
           {activeReport === 'by_dept' && (
-            <table className="w-full text-left text-xs text-slate-300">
-              <thead className="bg-slate-950/60 text-slate-400 border-b border-slate-800 font-semibold">
+            <table className="w-full text-left text-xs text-foreground/90">
+              <thead className="bg-card/60 text-muted-foreground border-b border-border font-semibold">
                 <tr>
                   <th className="p-3">Department</th>
                   <th className="p-3 text-right">Total Allocated Project Cost</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800 font-mono">
+              <tbody className="divide-y divide-border font-mono">
                 {data.map((r: any) => (
-                  <tr key={r.departmentId} className="hover:bg-slate-800/40">
-                    <td className="p-3 font-sans font-semibold text-slate-200">{r.departmentName}</td>
-                    <td className="p-3 text-right font-bold text-slate-100">${parseFloat(r.totalAmount).toLocaleString()}</td>
+                  <tr key={r.departmentId} className="hover:bg-muted/40">
+                    <td className="p-3 font-sans font-semibold text-foreground">{r.departmentName}</td>
+                    <td className="p-3 text-right font-bold text-foreground">${parseFloat(r.totalAmount).toLocaleString()}</td>
                   </tr>
                 ))}
               </tbody>
@@ -266,7 +266,7 @@ export const ProjectReportsView: React.FC = () => {
           )}
 
           {data.length === 0 && (
-            <div className="p-12 text-center text-slate-500 font-sans">
+            <div className="p-12 text-center text-muted-foreground font-sans">
               No report data available for the selected view.
             </div>
           )}

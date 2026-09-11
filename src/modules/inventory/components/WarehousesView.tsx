@@ -105,7 +105,7 @@ export const WarehousesView: React.FC<{
       {/* Warehouse Master Directory */}
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <h3 className="text-sm font-bold text-slate-100 flex items-center gap-2">
+          <h3 className="text-sm font-bold text-foreground flex items-center gap-2">
             <Building2 className="w-4 h-4 text-brand-400" />
             Warehouses ({warehouses.length})
           </h3>
@@ -131,8 +131,8 @@ export const WarehousesView: React.FC<{
                 onClick={() => setSelectedWhId(wh.id)}
                 className={`p-3.5 rounded-xl border transition-all cursor-pointer ${
                   isSelected
-                    ? 'bg-slate-900 border-brand-500 shadow-md ring-1 ring-brand-500/30'
-                    : 'bg-slate-900/40 border-slate-800 hover:border-slate-700 hover:bg-slate-900/70'
+                    ? 'bg-card border-brand-500 shadow-md ring-1 ring-brand-500/30'
+                    : 'bg-card/40 border-border hover:border-border hover:bg-card/70'
                 }`}
               >
                 <div className="flex items-start justify-between">
@@ -145,21 +145,21 @@ export const WarehousesView: React.FC<{
                         </span>
                       )}
                     </div>
-                    <h4 className="font-semibold text-xs text-slate-100 mt-0.5">{wh.name}</h4>
+                    <h4 className="font-semibold text-xs text-foreground mt-0.5">{wh.name}</h4>
                   </div>
                   <StatusBadge status={wh.isActive ? 'active' : 'inactive'} />
                 </div>
 
                 {wh.address && (
-                  <p className="text-[11px] text-slate-400 mt-2 flex items-center gap-1">
-                    <MapPin className="w-3 h-3 text-slate-500 flex-shrink-0" />
+                  <p className="text-[11px] text-muted-foreground mt-2 flex items-center gap-1">
+                    <MapPin className="w-3 h-3 text-muted-foreground flex-shrink-0" />
                     <span className="truncate">{wh.address}</span>
                   </p>
                 )}
 
                 {wh.managerName && (
-                  <div className="text-[10px] text-slate-500 mt-1">
-                    Manager: <span className="text-slate-300 font-medium">{wh.managerName}</span>
+                  <div className="text-[10px] text-muted-foreground mt-1">
+                    Manager: <span className="text-foreground/90 font-medium">{wh.managerName}</span>
                   </div>
                 )}
               </div>
@@ -187,9 +187,9 @@ export const WarehousesView: React.FC<{
           >
             {locations.length === 0 ? (
               <div className="p-8 text-center space-y-2">
-                <Layers className="w-8 h-8 text-slate-600 mx-auto" />
-                <h4 className="text-xs font-semibold text-slate-300">No Internal Bins Defined</h4>
-                <p className="text-[11px] text-slate-500 max-w-sm mx-auto">
+                <Layers className="w-8 h-8 text-muted-foreground mx-auto" />
+                <h4 className="text-xs font-semibold text-foreground/90">No Internal Bins Defined</h4>
+                <p className="text-[11px] text-muted-foreground max-w-sm mx-auto">
                   Configure specific zone, aisle, rack, and bin coordinates for {currentWh.name} to enable precision multi-location storage.
                 </p>
                 <Button
@@ -202,9 +202,9 @@ export const WarehousesView: React.FC<{
                 </Button>
               </div>
             ) : (
-              <div className="overflow-x-auto rounded-xl border border-slate-800">
+              <div className="overflow-x-auto rounded-xl border border-border">
                 <table className="w-full text-left text-xs">
-                  <thead className="bg-slate-950/80 text-slate-400 border-b border-slate-800">
+                  <thead className="bg-card/80 text-muted-foreground border-b border-border">
                     <tr>
                       <th className="p-3">Location / Bin Code</th>
                       <th className="p-3">Description</th>
@@ -215,15 +215,15 @@ export const WarehousesView: React.FC<{
                       <th className="p-3 text-right">Status</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800/50 bg-slate-900/20 font-mono text-[11px]">
+                  <tbody className="divide-y divide-border/50 bg-card/20 font-mono text-[11px]">
                     {locations.map((loc) => (
-                      <tr key={loc.id} className="hover:bg-slate-800/30">
+                      <tr key={loc.id} className="hover:bg-muted/30">
                         <td className="p-3 font-bold text-brand-400">{loc.code}</td>
-                        <td className="p-3 font-sans text-slate-200">{loc.name}</td>
-                        <td className="p-3 text-slate-400">{loc.zone || '-'}</td>
-                        <td className="p-3 text-slate-400">{loc.aisle || '-'}</td>
-                        <td className="p-3 text-slate-400">{loc.rack || '-'}</td>
-                        <td className="p-3 text-slate-400">{loc.bin || '-'}</td>
+                        <td className="p-3 font-sans text-foreground">{loc.name}</td>
+                        <td className="p-3 text-muted-foreground">{loc.zone || '-'}</td>
+                        <td className="p-3 text-muted-foreground">{loc.aisle || '-'}</td>
+                        <td className="p-3 text-muted-foreground">{loc.rack || '-'}</td>
+                        <td className="p-3 text-muted-foreground">{loc.bin || '-'}</td>
                         <td className="p-3 text-right">
                           <span className="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 text-[10px] font-bold">
                             Active
@@ -237,7 +237,7 @@ export const WarehousesView: React.FC<{
             )}
           </Card>
         ) : (
-          <div className="p-8 text-center text-slate-500 text-xs">No warehouse selected.</div>
+          <div className="p-8 text-center text-muted-foreground text-xs">No warehouse selected.</div>
         )}
       </div>
 
@@ -292,14 +292,14 @@ export const WarehousesView: React.FC<{
               id="isDefaultWh"
               checked={isDefault}
               onChange={(e) => setIsDefault(e.target.checked)}
-              className="rounded bg-slate-900 border-slate-700 text-brand-500 focus:ring-0"
+              className="rounded bg-card border-border text-brand-500 focus:ring-0"
             />
-            <label htmlFor="isDefaultWh" className="text-xs text-slate-300 select-none cursor-pointer">
+            <label htmlFor="isDefaultWh" className="text-xs text-foreground/90 select-none cursor-pointer">
               Set as primary default warehouse for procurement receipts
             </label>
           </div>
 
-          <div className="flex justify-end gap-2 pt-2 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-2 border-t border-border">
             <Button
               type="button"
               variant="outline"
@@ -351,7 +351,7 @@ export const WarehousesView: React.FC<{
             <Input label="Bin" value={bin} onChange={(e) => setBin(e.target.value)} placeholder="Bin 3" />
           </div>
 
-          <div className="flex justify-end gap-2 pt-2 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-2 border-t border-border">
             <Button
               type="button"
               variant="outline"

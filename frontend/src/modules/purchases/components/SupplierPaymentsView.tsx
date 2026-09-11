@@ -122,15 +122,15 @@ export const SupplierPaymentsView: React.FC<{
   return (
     <div className="space-y-4">
       {/* Filter Bar */}
-      <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-3">
+      <div className="p-4 rounded-xl bg-card border border-border flex flex-col md:flex-row items-center justify-between gap-3">
         <div className="relative w-full md:w-72">
-          <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-500" />
+          <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-muted-foreground" />
           <input
             type="text"
             placeholder="Search payment # or supplier..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-1.5 text-xs bg-slate-950/80 border border-slate-800 rounded-lg text-slate-200 placeholder-slate-500 focus:outline-none focus:border-brand-500"
+            className="w-full pl-9 pr-3 py-1.5 text-xs bg-card/80 border border-border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-brand-500"
           />
         </div>
 
@@ -153,7 +153,7 @@ export const SupplierPaymentsView: React.FC<{
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-slate-800 bg-slate-900/90 text-slate-400 font-semibold uppercase tracking-wider">
+              <tr className="border-b border-border bg-card/90 text-muted-foreground font-semibold uppercase tracking-wider">
                 <th className="px-5 py-3.5">Payment #</th>
                 <th className="px-5 py-3.5">Supplier</th>
                 <th className="px-5 py-3.5">Date</th>
@@ -164,28 +164,28 @@ export const SupplierPaymentsView: React.FC<{
                 <th className="px-5 py-3.5 text-center">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-slate-200">
+            <tbody className="divide-y divide-border text-foreground">
               {filteredPayments.map((p) => {
                 const sup = suppliers.find((s) => s.id === p.supplierId);
                 const allocSum = p.allocations.reduce((sum, a) => sum + parseFloat(a.allocatedAmount), 0);
                 return (
-                  <tr key={p.id} className="hover:bg-slate-800/40 transition-colors">
+                  <tr key={p.id} className="hover:bg-muted/40 transition-colors">
                     <td className="px-5 py-3.5 font-mono font-bold text-emerald-400">{p.paymentNumber}</td>
                     <td className="px-5 py-3.5">
-                      <div className="font-semibold text-slate-100 flex items-center gap-1.5">
-                        <Building2 className="w-3.5 h-3.5 text-slate-400" />
+                      <div className="font-semibold text-foreground flex items-center gap-1.5">
+                        <Building2 className="w-3.5 h-3.5 text-muted-foreground" />
                         <span>{sup?.name || 'Vendor'}</span>
                       </div>
-                      <div className="text-[10px] text-slate-500 font-mono">{sup?.code}</div>
+                      <div className="text-[10px] text-muted-foreground font-mono">{sup?.code}</div>
                     </td>
-                    <td className="px-5 py-3.5 font-mono text-slate-400">{p.paymentDate}</td>
-                    <td className="px-5 py-3.5 uppercase font-medium text-slate-300">
+                    <td className="px-5 py-3.5 font-mono text-muted-foreground">{p.paymentDate}</td>
+                    <td className="px-5 py-3.5 uppercase font-medium text-foreground/90">
                       {p.paymentMethod.replace('_', ' ')}
                     </td>
-                    <td className="px-5 py-3.5 text-right font-mono font-bold text-slate-100">
+                    <td className="px-5 py-3.5 text-right font-mono font-bold text-foreground">
                       ${parseFloat(p.amount).toFixed(2)}
                     </td>
-                    <td className="px-5 py-3.5 text-right font-mono text-slate-300">
+                    <td className="px-5 py-3.5 text-right font-mono text-foreground/90">
                       ${allocSum.toFixed(2)}
                     </td>
                     <td className="px-5 py-3.5 text-right font-mono text-cyan-400">
@@ -201,7 +201,7 @@ export const SupplierPaymentsView: React.FC<{
               })}
               {filteredPayments.length === 0 && (
                 <tr>
-                  <td colSpan={8} className="px-5 py-12 text-center text-slate-500">
+                  <td colSpan={8} className="px-5 py-12 text-center text-muted-foreground">
                     No supplier disbursements recorded. Click "+ Disburse Supplier Payment" to log a payment.
                   </td>
                 </tr>
@@ -285,18 +285,18 @@ export const SupplierPaymentsView: React.FC<{
           {/* Unpaid Bills Allocation Table */}
           <div className="space-y-2 pt-2">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase text-slate-300">
+              <span className="text-xs font-bold uppercase text-foreground/90">
                 Allocate against Unpaid Bills ({unpaidBills.length} Open)
               </span>
-              <span className="text-xs text-slate-400">
+              <span className="text-xs text-muted-foreground">
                 Allocated: <strong className="text-emerald-400 font-mono">${totalAllocated.toFixed(2)}</strong> | Advance: <strong className="text-cyan-400 font-mono">${unallocatedAdvance.toFixed(2)}</strong>
               </span>
             </div>
 
-            <div className="overflow-x-auto rounded-lg border border-slate-800 max-h-48 overflow-y-auto">
+            <div className="overflow-x-auto rounded-lg border border-border max-h-48 overflow-y-auto">
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="border-b border-slate-800 bg-slate-950/80 text-slate-400 font-semibold uppercase">
+                  <tr className="border-b border-border bg-card/80 text-muted-foreground font-semibold uppercase">
                     <th className="px-4 py-2">Bill #</th>
                     <th className="px-4 py-2">Vendor Ref</th>
                     <th className="px-4 py-2">Due Date</th>
@@ -305,12 +305,12 @@ export const SupplierPaymentsView: React.FC<{
                     <th className="px-4 py-2 text-right">Quick</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60 text-slate-200">
+                <tbody className="divide-y divide-border text-foreground">
                   {unpaidBills.map((bill) => (
                     <tr key={bill.id}>
                       <td className="px-4 py-2 font-mono text-sky-400">{bill.billNumber}</td>
-                      <td className="px-4 py-2 text-slate-300">{bill.supplierInvoiceNumber}</td>
-                      <td className="px-4 py-2 font-mono text-slate-400">{bill.dueDate}</td>
+                      <td className="px-4 py-2 text-foreground/90">{bill.supplierInvoiceNumber}</td>
+                      <td className="px-4 py-2 font-mono text-muted-foreground">{bill.dueDate}</td>
                       <td className="px-4 py-2 text-right font-mono font-bold text-amber-400">
                         ${parseFloat(bill.balanceDue).toFixed(2)}
                       </td>
@@ -320,7 +320,7 @@ export const SupplierPaymentsView: React.FC<{
                           placeholder="0.00"
                           value={allocations[bill.id] || ''}
                           onChange={(e) => handleAllocate(bill.id, e.target.value)}
-                          className="w-24 px-2 py-1 text-xs bg-slate-900 border border-slate-700 rounded text-slate-100 text-right"
+                          className="w-24 px-2 py-1 text-xs bg-card border border-border rounded text-foreground text-right"
                         />
                       </td>
                       <td className="px-4 py-2 text-right">
@@ -336,7 +336,7 @@ export const SupplierPaymentsView: React.FC<{
                   ))}
                   {unpaidBills.length === 0 && (
                     <tr>
-                      <td colSpan={6} className="px-4 py-6 text-center text-slate-500">
+                      <td colSpan={6} className="px-4 py-6 text-center text-muted-foreground">
                         No outstanding unpaid bills for this supplier. Full amount will be recorded as a Supplier Advance.
                       </td>
                     </tr>

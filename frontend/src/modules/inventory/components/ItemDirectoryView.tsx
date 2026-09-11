@@ -109,20 +109,20 @@ export const ItemDirectoryView: React.FC<{
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex flex-wrap items-center gap-2 flex-1">
           <div className="relative min-w-[240px] max-w-sm">
-            <Search className="w-4 h-4 text-slate-500 absolute left-3 top-2.5" />
+            <Search className="w-4 h-4 text-muted-foreground absolute left-3 top-2.5" />
             <input
               type="text"
               placeholder="Search by SKU, item name..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-slate-900/60 border border-slate-800 rounded-lg pl-9 pr-3 py-1.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand-500"
+              className="w-full bg-card/60 border border-border rounded-lg pl-9 pr-3 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-brand-500"
             />
           </div>
 
           <select
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
-            className="bg-slate-900/60 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-slate-300 focus:outline-none focus:border-brand-500"
+            className="bg-card/60 border border-border rounded-lg px-2.5 py-1.5 text-xs text-foreground/90 focus:outline-none focus:border-brand-500"
           >
             <option value="all">All Categories ({categories.length})</option>
             {categories.map((c) => (
@@ -148,9 +148,9 @@ export const ItemDirectoryView: React.FC<{
       <Card noPadding>
         {filteredItems.length === 0 ? (
           <div className="p-12 text-center space-y-3">
-            <Boxes className="w-10 h-10 text-slate-600 mx-auto" />
-            <h4 className="text-sm font-semibold text-slate-300">No Inventory Items Found</h4>
-            <p className="text-xs text-slate-500 max-w-sm mx-auto">
+            <Boxes className="w-10 h-10 text-muted-foreground mx-auto" />
+            <h4 className="text-sm font-semibold text-foreground/90">No Inventory Items Found</h4>
+            <p className="text-xs text-muted-foreground max-w-sm mx-auto">
               Register standard SKUs, merchandise items, raw materials, or services to enable perpetual inventory tracking and automatic GL accounting.
             </p>
             <Button
@@ -165,7 +165,7 @@ export const ItemDirectoryView: React.FC<{
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-950/80 text-slate-400 border-b border-slate-800">
+              <thead className="bg-card/80 text-muted-foreground border-b border-border">
                 <tr>
                   <th className="p-3">SKU Code</th>
                   <th className="p-3">Item Name</th>
@@ -179,7 +179,7 @@ export const ItemDirectoryView: React.FC<{
                   <th className="p-3 text-center">Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/50 bg-slate-900/20">
+              <tbody className="divide-y divide-border/50 bg-card/20">
                 {filteredItems.map((item) => {
                   const cat = categories.find((c) => c.id === item.categoryId);
                   const uom = uoms.find((u) => u.id === item.uomId);
@@ -188,24 +188,24 @@ export const ItemDirectoryView: React.FC<{
                   const isLow = qty <= reorder;
 
                   return (
-                    <tr key={item.id} className="hover:bg-slate-800/30 transition-colors">
+                    <tr key={item.id} className="hover:bg-muted/30 transition-colors">
                       <td className="p-3 font-mono font-bold text-brand-400">{item.itemCode}</td>
                       <td className="p-3">
-                        <div className="font-semibold text-slate-100">{item.name}</div>
+                        <div className="font-semibold text-foreground">{item.name}</div>
                         {item.description && (
-                          <div className="text-[10px] text-slate-500 truncate max-w-xs">{item.description}</div>
+                          <div className="text-[10px] text-muted-foreground truncate max-w-xs">{item.description}</div>
                         )}
                       </td>
-                      <td className="p-3 text-slate-300">{cat?.name || 'Unassigned'}</td>
+                      <td className="p-3 text-foreground/90">{cat?.name || 'Unassigned'}</td>
                       <td className="p-3">
                         <StatusBadge status={item.itemType} />
                       </td>
-                      <td className="p-3 font-medium text-slate-400">{uom?.symbol || 'pcs'}</td>
-                      <td className="p-3 text-right font-mono text-slate-200">
+                      <td className="p-3 font-medium text-muted-foreground">{uom?.symbol || 'pcs'}</td>
+                      <td className="p-3 text-right font-mono text-foreground">
                         ${parseFloat(item.currentAverageCost).toFixed(2)}
                       </td>
                       <td className="p-3 text-right font-mono font-bold">
-                        <span className={isLow ? 'text-amber-400' : 'text-slate-100'}>
+                        <span className={isLow ? 'text-amber-400' : 'text-foreground'}>
                           {item.totalStockQuantity}
                         </span>
                         {isLow && (
@@ -342,7 +342,7 @@ export const ItemDirectoryView: React.FC<{
             placeholder="Technical details, part numbers, or warehouse notes"
           />
 
-          <div className="flex justify-end gap-2 pt-2 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-2 border-t border-border">
             <Button
               type="button"
               variant="outline"

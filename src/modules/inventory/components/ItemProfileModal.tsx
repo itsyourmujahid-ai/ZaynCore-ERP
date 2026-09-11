@@ -74,13 +74,13 @@ export const ItemProfileModal: React.FC<{
         </div>
 
         {/* Modal Navigation Tabs */}
-        <div className="flex border-b border-slate-800 gap-2">
+        <div className="flex border-b border-border gap-2">
           <button
             onClick={() => setActiveTab('overview')}
             className={`flex items-center gap-1.5 px-3 py-2 text-xs font-semibold border-b-2 transition-all ${
               activeTab === 'overview'
-                ? 'border-brand-500 text-brand-400 bg-slate-900/60'
-                : 'border-transparent text-slate-400 hover:text-slate-200'
+                ? 'border-brand-500 text-brand-400 bg-card/60'
+                : 'border-transparent text-muted-foreground hover:text-foreground'
             }`}
           >
             <Layers className="w-3.5 h-3.5" />
@@ -90,8 +90,8 @@ export const ItemProfileModal: React.FC<{
             onClick={() => setActiveTab('warehouses')}
             className={`flex items-center gap-1.5 px-3 py-2 text-xs font-semibold border-b-2 transition-all ${
               activeTab === 'warehouses'
-                ? 'border-brand-500 text-brand-400 bg-slate-900/60'
-                : 'border-transparent text-slate-400 hover:text-slate-200'
+                ? 'border-brand-500 text-brand-400 bg-card/60'
+                : 'border-transparent text-muted-foreground hover:text-foreground'
             }`}
           >
             <Building2 className="w-3.5 h-3.5" />
@@ -101,8 +101,8 @@ export const ItemProfileModal: React.FC<{
             onClick={() => setActiveTab('movements')}
             className={`flex items-center gap-1.5 px-3 py-2 text-xs font-semibold border-b-2 transition-all ${
               activeTab === 'movements'
-                ? 'border-brand-500 text-brand-400 bg-slate-900/60'
-                : 'border-transparent text-slate-400 hover:text-slate-200'
+                ? 'border-brand-500 text-brand-400 bg-card/60'
+                : 'border-transparent text-muted-foreground hover:text-foreground'
             }`}
           >
             <History className="w-3.5 h-3.5" />
@@ -112,8 +112,8 @@ export const ItemProfileModal: React.FC<{
             onClick={() => setActiveTab('batches')}
             className={`flex items-center gap-1.5 px-3 py-2 text-xs font-semibold border-b-2 transition-all ${
               activeTab === 'batches'
-                ? 'border-brand-500 text-brand-400 bg-slate-900/60'
-                : 'border-transparent text-slate-400 hover:text-slate-200'
+                ? 'border-brand-500 text-brand-400 bg-card/60'
+                : 'border-transparent text-muted-foreground hover:text-foreground'
             }`}
           >
             <Barcode className="w-3.5 h-3.5" />
@@ -124,61 +124,61 @@ export const ItemProfileModal: React.FC<{
         {/* Tab 1: Specifications & GL Accounts */}
         {activeTab === 'overview' && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-            <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-3">
-              <h4 className="font-bold text-slate-100 flex items-center gap-2">
+            <div className="p-4 rounded-xl bg-card/60 border border-border/80 space-y-3">
+              <h4 className="font-bold text-foreground flex items-center gap-2">
                 <Layers className="w-4 h-4 text-brand-400" />
                 Item Attributes & Classification
               </h4>
-              <div className="grid grid-cols-2 gap-2 text-slate-300">
+              <div className="grid grid-cols-2 gap-2 text-foreground/90">
                 <div>
-                  <span className="text-slate-500 block text-[10px] uppercase font-bold">Item Type</span>
+                  <span className="text-muted-foreground block text-[10px] uppercase font-bold">Item Type</span>
                   <StatusBadge status={item.itemType} />
                 </div>
                 <div>
-                  <span className="text-slate-500 block text-[10px] uppercase font-bold">Category</span>
-                  <span className="font-medium text-slate-200">{summary.categoryName}</span>
+                  <span className="text-muted-foreground block text-[10px] uppercase font-bold">Category</span>
+                  <span className="font-medium text-foreground">{summary.categoryName}</span>
                 </div>
                 <div>
-                  <span className="text-slate-500 block text-[10px] uppercase font-bold">Unit of Measure</span>
-                  <span className="font-medium text-slate-200">{summary.uomSymbol}</span>
+                  <span className="text-muted-foreground block text-[10px] uppercase font-bold">Unit of Measure</span>
+                  <span className="font-medium text-foreground">{summary.uomSymbol}</span>
                 </div>
                 <div>
-                  <span className="text-slate-500 block text-[10px] uppercase font-bold">Costing Method</span>
+                  <span className="text-muted-foreground block text-[10px] uppercase font-bold">Costing Method</span>
                   <span className="font-medium text-amber-400 uppercase">{item.costingMethod}</span>
                 </div>
                 <div>
-                  <span className="text-slate-500 block text-[10px] uppercase font-bold">Barcode</span>
-                  <span className="font-mono text-slate-300">{item.barcode || 'N/A'}</span>
+                  <span className="text-muted-foreground block text-[10px] uppercase font-bold">Barcode</span>
+                  <span className="font-mono text-foreground/90">{item.barcode || 'N/A'}</span>
                 </div>
                 <div>
-                  <span className="text-slate-500 block text-[10px] uppercase font-bold">Track Inventory</span>
-                  <span className={`font-bold ${item.trackInventory ? 'text-emerald-400' : 'text-slate-500'}`}>
+                  <span className="text-muted-foreground block text-[10px] uppercase font-bold">Track Inventory</span>
+                  <span className={`font-bold ${item.trackInventory ? 'text-emerald-400' : 'text-muted-foreground'}`}>
                     {item.trackInventory ? 'YES (Perpetual)' : 'NO'}
                   </span>
                 </div>
               </div>
             </div>
 
-            <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-3">
-              <h4 className="font-bold text-slate-100 flex items-center gap-2">
+            <div className="p-4 rounded-xl bg-card/60 border border-border/80 space-y-3">
+              <h4 className="font-bold text-foreground flex items-center gap-2">
                 <DollarSign className="w-4 h-4 text-emerald-400" />
                 Linked General Ledger Accounts
               </h4>
-              <div className="space-y-2 text-slate-300">
+              <div className="space-y-2 text-foreground/90">
                 <div className="flex justify-between items-center py-1 border-b border-slate-900">
-                  <span className="text-slate-500 text-[11px]">Inventory Asset Account:</span>
+                  <span className="text-muted-foreground text-[11px]">Inventory Asset Account:</span>
                   <span className="font-mono font-semibold text-brand-400">{item.inventoryAccountId || '#1300 Merchandise Inventory Asset'}</span>
                 </div>
                 <div className="flex justify-between items-center py-1 border-b border-slate-900">
-                  <span className="text-slate-500 text-[11px]">COGS / Sales Expense:</span>
+                  <span className="text-muted-foreground text-[11px]">COGS / Sales Expense:</span>
                   <span className="font-mono font-semibold text-purple-400">{item.cogsAccountId || '#5010 Direct Material & COGS'}</span>
                 </div>
                 <div className="flex justify-between items-center py-1 border-b border-slate-900">
-                  <span className="text-slate-500 text-[11px]">Purchase Expense Account:</span>
-                  <span className="font-mono font-semibold text-slate-300">{item.purchaseExpenseAccountId || '#5010 Purchases/Direct Cost'}</span>
+                  <span className="text-muted-foreground text-[11px]">Purchase Expense Account:</span>
+                  <span className="font-mono font-semibold text-foreground/90">{item.purchaseExpenseAccountId || '#5010 Purchases/Direct Cost'}</span>
                 </div>
                 <div className="flex justify-between items-center py-1">
-                  <span className="text-slate-500 text-[11px]">Sales Revenue Account:</span>
+                  <span className="text-muted-foreground text-[11px]">Sales Revenue Account:</span>
                   <span className="font-mono font-semibold text-emerald-400">{item.salesRevenueAccountId || '#4010 Product Sales Revenue'}</span>
                 </div>
               </div>
@@ -189,9 +189,9 @@ export const ItemProfileModal: React.FC<{
         {/* Tab 2: Warehouse Stock Breakdown */}
         {activeTab === 'warehouses' && (
           <div className="space-y-3">
-            <div className="overflow-x-auto rounded-xl border border-slate-800/80">
+            <div className="overflow-x-auto rounded-xl border border-border/80">
               <table className="w-full text-left text-xs">
-                <thead className="bg-slate-950 text-slate-400 border-b border-slate-800">
+                <thead className="bg-card text-muted-foreground border-b border-border">
                   <tr>
                     <th className="p-3">Warehouse Code</th>
                     <th className="p-3">Warehouse Name</th>
@@ -199,12 +199,12 @@ export const ItemProfileModal: React.FC<{
                     <th className="p-3 text-right">Valuation ({tenant.baseCurrency})</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/50 bg-slate-900/40">
+                <tbody className="divide-y divide-border/50 bg-card/40">
                   {summary.warehouseBreakdown.map((wh) => (
-                    <tr key={wh.warehouseId} className="hover:bg-slate-800/30">
+                    <tr key={wh.warehouseId} className="hover:bg-muted/30">
                       <td className="p-3 font-mono font-bold text-brand-400">{wh.warehouseCode}</td>
-                      <td className="p-3 font-medium text-slate-200">{wh.warehouseName}</td>
-                      <td className="p-3 text-right font-mono font-semibold text-slate-100">
+                      <td className="p-3 font-medium text-foreground">{wh.warehouseName}</td>
+                      <td className="p-3 text-right font-mono font-semibold text-foreground">
                         {wh.quantity} {summary.uomSymbol}
                       </td>
                       <td className="p-3 text-right font-mono text-emerald-400 font-bold">
@@ -222,11 +222,11 @@ export const ItemProfileModal: React.FC<{
         {activeTab === 'movements' && (
           <div className="space-y-3 max-h-80 overflow-y-auto">
             {movements.length === 0 ? (
-              <div className="p-6 text-center text-slate-500 text-xs">No stock movements recorded yet.</div>
+              <div className="p-6 text-center text-muted-foreground text-xs">No stock movements recorded yet.</div>
             ) : (
-              <div className="overflow-x-auto rounded-xl border border-slate-800/80">
+              <div className="overflow-x-auto rounded-xl border border-border/80">
                 <table className="w-full text-left text-xs">
-                  <thead className="bg-slate-950 text-slate-400 border-b border-slate-800">
+                  <thead className="bg-card text-muted-foreground border-b border-border">
                     <tr>
                       <th className="p-2.5">Date</th>
                       <th className="p-2.5">Movement #</th>
@@ -238,12 +238,12 @@ export const ItemProfileModal: React.FC<{
                       <th className="p-2.5">Source Doc</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800/50 bg-slate-900/40 font-mono text-[11px]">
+                  <tbody className="divide-y divide-border/50 bg-card/40 font-mono text-[11px]">
                     {movements.map((m) => (
-                      <tr key={m.id} className="hover:bg-slate-800/30">
-                        <td className="p-2.5 text-slate-400">{m.movementDate}</td>
-                        <td className="p-2.5 font-bold text-slate-200">{m.movementNumber}</td>
-                        <td className="p-2.5 text-slate-300 uppercase">{m.movementType.replace('_', ' ')}</td>
+                      <tr key={m.id} className="hover:bg-muted/30">
+                        <td className="p-2.5 text-muted-foreground">{m.movementDate}</td>
+                        <td className="p-2.5 font-bold text-foreground">{m.movementNumber}</td>
+                        <td className="p-2.5 text-foreground/90 uppercase">{m.movementType.replace('_', ' ')}</td>
                         <td className="p-2.5">
                           <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${
                             m.direction === 'IN' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-rose-500/10 text-rose-400'
@@ -251,8 +251,8 @@ export const ItemProfileModal: React.FC<{
                             {m.direction}
                           </span>
                         </td>
-                        <td className="p-2.5 text-right font-bold text-slate-100">{m.quantity}</td>
-                        <td className="p-2.5 text-right text-slate-400">${parseFloat(m.unitCost).toFixed(2)}</td>
+                        <td className="p-2.5 text-right font-bold text-foreground">{m.quantity}</td>
+                        <td className="p-2.5 text-right text-muted-foreground">${parseFloat(m.unitCost).toFixed(2)}</td>
                         <td className="p-2.5 text-right text-emerald-400 font-bold">${parseFloat(m.totalCost).toFixed(2)}</td>
                         <td className="p-2.5 text-brand-400">{m.sourceDocumentNumber}</td>
                       </tr>
@@ -268,18 +268,18 @@ export const ItemProfileModal: React.FC<{
         {activeTab === 'batches' && (
           <div className="space-y-4 text-xs">
             <div>
-              <h5 className="font-bold text-slate-200 mb-2">Tracked Batches / Lots ({batches.length})</h5>
+              <h5 className="font-bold text-foreground mb-2">Tracked Batches / Lots ({batches.length})</h5>
               {batches.length === 0 ? (
-                <div className="p-4 rounded-lg bg-slate-950 border border-slate-800 text-slate-500">No active batches.</div>
+                <div className="p-4 rounded-lg bg-card border border-border text-muted-foreground">No active batches.</div>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {batches.map((b) => (
-                    <div key={b.id} className="p-3 rounded-lg bg-slate-950 border border-slate-800 flex justify-between items-center">
+                    <div key={b.id} className="p-3 rounded-lg bg-card border border-border flex justify-between items-center">
                       <div>
                         <span className="font-mono font-bold text-brand-400 block">{b.batchNumber}</span>
-                        <span className="text-[10px] text-slate-400">Exp: {b.expiryDate || 'N/A'}</span>
+                        <span className="text-[10px] text-muted-foreground">Exp: {b.expiryDate || 'N/A'}</span>
                       </div>
-                      <span className="font-mono font-bold text-slate-100">{b.quantity} units</span>
+                      <span className="font-mono font-bold text-foreground">{b.quantity} units</span>
                     </div>
                   ))}
                 </div>
@@ -287,14 +287,14 @@ export const ItemProfileModal: React.FC<{
             </div>
 
             <div>
-              <h5 className="font-bold text-slate-200 mb-2">Serialized Units ({serials.length})</h5>
+              <h5 className="font-bold text-foreground mb-2">Serialized Units ({serials.length})</h5>
               {serials.length === 0 ? (
-                <div className="p-4 rounded-lg bg-slate-950 border border-slate-800 text-slate-500">No registered serial numbers.</div>
+                <div className="p-4 rounded-lg bg-card border border-border text-muted-foreground">No registered serial numbers.</div>
               ) : (
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                   {serials.map((s) => (
-                    <div key={s.id} className="p-2.5 rounded-lg bg-slate-950 border border-slate-800 flex justify-between items-center">
-                      <span className="font-mono text-slate-300">{s.serialNumber}</span>
+                    <div key={s.id} className="p-2.5 rounded-lg bg-card border border-border flex justify-between items-center">
+                      <span className="font-mono text-foreground/90">{s.serialNumber}</span>
                       <StatusBadge status={s.status} />
                     </div>
                   ))}

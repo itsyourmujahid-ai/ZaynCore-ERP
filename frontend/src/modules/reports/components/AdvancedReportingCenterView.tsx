@@ -147,11 +147,11 @@ export const AdvancedReportingCenterView: React.FC = () => {
         <div>
           <div className="flex items-center gap-2">
             <span className="text-xs font-bold uppercase tracking-wider text-cyan-600">Enterprise Analytics</span>
-            <span className="text-slate-400">•</span>
+            <span className="text-muted-foreground">•</span>
             <StatusBadge status="Real-Time GL Integration" />
           </div>
-          <h1 className="text-2xl font-bold text-slate-900 mt-1">Advanced Reporting Center</h1>
-          <p className="text-xs text-slate-600 mt-1">
+          <h1 className="text-2xl font-bold text-foreground mt-1">Advanced Reporting Center</h1>
+          <p className="text-xs text-muted-foreground mt-1">
             Centralized financial statements, operational reports, sub-ledger reconciliation, and recursive transaction drill-down.
           </p>
         </div>
@@ -175,19 +175,19 @@ export const AdvancedReportingCenterView: React.FC = () => {
       </div>
 
       {/* Dynamic Multi-Dimension Filter Bar */}
-      <div className="p-4 bg-white/80 backdrop-blur-xl border border-slate-200/90 shadow-sm rounded-xl space-y-3 text-xs">
-        <div className="flex items-center gap-2 text-slate-800 font-semibold border-b border-slate-200 pb-2">
+      <div className="p-4 bg-card/80 backdrop-blur-xl border border-border/90 shadow-sm rounded-xl space-y-3 text-xs">
+        <div className="flex items-center gap-2 text-foreground font-semibold border-b border-border pb-2">
           <Filter className="w-3.5 h-3.5 text-brand-600" />
           <span>Report Parameters &amp; Dimensional Scope</span>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           <div>
-            <label className="block text-slate-700 font-semibold mb-1">Company Scope</label>
+            <label className="block text-foreground/90 font-semibold mb-1">Company Scope</label>
             <select
               value={filters.companyId}
               onChange={(e) => setFilters({ ...filters, companyId: e.target.value })}
-              className="w-full px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-slate-900 focus:ring-1 focus:ring-brand-500 focus:outline-none"
+              className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground focus:ring-1 focus:ring-brand-500 focus:outline-none"
             >
               {companies.map((c) => (
                 <option key={c.id} value={c.id}>{c.name} ({c.code})</option>
@@ -196,31 +196,31 @@ export const AdvancedReportingCenterView: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-slate-700 font-semibold mb-1">Start Date</label>
+            <label className="block text-foreground/90 font-semibold mb-1">Start Date</label>
             <input
               type="date"
               value={filters.startDate}
               onChange={(e) => setFilters({ ...filters, startDate: e.target.value })}
-              className="w-full px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-slate-900 font-mono focus:ring-1 focus:ring-brand-500 focus:outline-none"
+              className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground font-mono focus:ring-1 focus:ring-brand-500 focus:outline-none"
             />
           </div>
 
           <div>
-            <label className="block text-slate-700 font-semibold mb-1">End Date</label>
+            <label className="block text-foreground/90 font-semibold mb-1">End Date</label>
             <input
               type="date"
               value={filters.endDate}
               onChange={(e) => setFilters({ ...filters, endDate: e.target.value })}
-              className="w-full px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-slate-900 font-mono focus:ring-1 focus:ring-brand-500 focus:outline-none"
+              className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground font-mono focus:ring-1 focus:ring-brand-500 focus:outline-none"
             />
           </div>
 
           <div>
-            <label className="block text-slate-700 font-semibold mb-1">Currency</label>
+            <label className="block text-foreground/90 font-semibold mb-1">Currency</label>
             <select
               value={filters.currency}
               onChange={(e) => setFilters({ ...filters, currency: e.target.value })}
-              className="w-full px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-slate-900 font-mono focus:ring-1 focus:ring-brand-500 focus:outline-none"
+              className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground font-mono focus:ring-1 focus:ring-brand-500 focus:outline-none"
             >
               <option value="USD">USD - US Dollar</option>
               <option value="EUR">EUR - Euro</option>
@@ -249,7 +249,7 @@ export const AdvancedReportingCenterView: React.FC = () => {
                   className={`w-full flex items-center justify-between p-2.5 rounded-lg text-xs font-medium transition-all ${
                     activeCategory === cat.key
                       ? 'bg-brand-50 text-brand-700 border border-brand-200 font-bold'
-                      : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+                      : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                   }`}
                 >
                   <div className="flex items-center gap-2.5">
@@ -273,7 +273,7 @@ export const AdvancedReportingCenterView: React.FC = () => {
                 className={`px-3 py-2 rounded-xl text-xs font-semibold border transition-all ${
                   selectedReportKey === rep.key
                     ? 'bg-brand-600 border-brand-600 text-white shadow-sm'
-                    : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50 hover:text-slate-900'
+                    : 'bg-card border-border text-foreground/90 hover:bg-muted hover:text-foreground'
                 }`}
               >
                 {rep.label}
@@ -289,7 +289,7 @@ export const AdvancedReportingCenterView: React.FC = () => {
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr className="border-b border-slate-200 bg-slate-50 text-slate-700 font-bold">
+                  <tr className="border-b border-border bg-muted text-foreground/90 font-bold">
                     {reportData.columns.map((col) => (
                       <th
                         key={col.key}
@@ -303,16 +303,16 @@ export const AdvancedReportingCenterView: React.FC = () => {
                     <th className="py-2.5 px-3 font-semibold text-right">Drill-Down</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-200 text-slate-900">
+                <tbody className="divide-y divide-border text-foreground">
                   {reportData.rows.length === 0 ? (
                     <tr>
-                      <td colSpan={reportData.columns.length + 1} className="py-12 text-center text-slate-500 text-xs">
+                      <td colSpan={reportData.columns.length + 1} className="py-12 text-center text-muted-foreground text-xs">
                         No transactions recorded for the selected parameters.
                       </td>
                     </tr>
                   ) : (
                     reportData.rows.map((row, idx) => (
-                      <tr key={row.id || idx} className="hover:bg-slate-50 transition-colors">
+                      <tr key={row.id || idx} className="hover:bg-muted transition-colors">
                         {reportData.columns.map((col) => (
                           <td
                             key={col.key}
@@ -321,9 +321,9 @@ export const AdvancedReportingCenterView: React.FC = () => {
                             }`}
                           >
                             {col.isNumeric ? (
-                              <span className="font-bold text-slate-900">{row[col.key]}</span>
+                              <span className="font-bold text-foreground">{row[col.key]}</span>
                             ) : (
-                              <span className="text-slate-800 font-medium">{row[col.key]}</span>
+                              <span className="text-foreground font-medium">{row[col.key]}</span>
                             )}
                           </td>
                         ))}
@@ -341,10 +341,10 @@ export const AdvancedReportingCenterView: React.FC = () => {
 
             {/* Summary Block */}
             {reportData.summary && (
-              <div className="mt-4 pt-3 border-t border-slate-200 flex flex-wrap items-center justify-end gap-6 text-xs">
+              <div className="mt-4 pt-3 border-t border-border flex flex-wrap items-center justify-end gap-6 text-xs">
                 {Object.entries(reportData.summary).map(([k, v]) => (
                   <div key={k} className="flex items-center gap-2">
-                    <span className="text-slate-600 font-semibold capitalize">{k.replace(/([A-Z])/g, ' $1')}:</span>
+                    <span className="text-muted-foreground font-semibold capitalize">{k.replace(/([A-Z])/g, ' $1')}:</span>
                     <span className="font-mono font-bold text-brand-600 text-sm">${v}</span>
                   </div>
                 ))}
@@ -362,33 +362,33 @@ export const AdvancedReportingCenterView: React.FC = () => {
           title={`Financial Drill-Down: ${drillDownTitle}`}
         >
           <div className="space-y-4 text-xs">
-            <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between">
-              <span className="text-slate-700 font-medium">Underlying Journal Transactions:</span>
+            <div className="p-3 bg-muted border border-border rounded-xl flex items-center justify-between">
+              <span className="text-foreground/90 font-medium">Underlying Journal Transactions:</span>
               <span className="font-bold text-brand-600 font-mono">{drillDownItems.length} records</span>
             </div>
 
             {drillDownItems.length === 0 ? (
-              <div className="p-8 text-center text-slate-500">
+              <div className="p-8 text-center text-muted-foreground">
                 No posted journal entries found for this specific period or account.
               </div>
             ) : (
               <div className="space-y-2 max-h-72 overflow-y-auto">
                 {drillDownItems.map((item, idx) => (
-                  <div key={item.id || idx} className="p-3 bg-white border border-slate-200 rounded-lg flex items-center justify-between shadow-sm">
+                  <div key={item.id || idx} className="p-3 bg-card border border-border rounded-lg flex items-center justify-between shadow-sm">
                     <div>
-                      <div className="font-mono font-semibold text-slate-900">{item.referenceNumber}</div>
-                      <div className="text-[10px] text-slate-500 mt-0.5">{item.date} • {item.description}</div>
+                      <div className="font-mono font-semibold text-foreground">{item.referenceNumber}</div>
+                      <div className="text-[10px] text-muted-foreground mt-0.5">{item.date} • {item.description}</div>
                     </div>
                     <div className="text-right">
                       <div className="font-mono font-bold text-emerald-600">${item.amount} {item.currency}</div>
-                      <div className="text-[10px] text-slate-500">{item.companyName}</div>
+                      <div className="text-[10px] text-muted-foreground">{item.companyName}</div>
                     </div>
                   </div>
                 ))}
               </div>
             )}
 
-            <div className="flex justify-end pt-3 border-t border-slate-200">
+            <div className="flex justify-end pt-3 border-t border-border">
               <Button variant="secondary" onClick={() => setIsDrillDownOpen(false)}>
                 Close
               </Button>

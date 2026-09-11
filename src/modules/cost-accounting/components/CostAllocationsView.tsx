@@ -147,7 +147,7 @@ export const CostAllocationsView: React.FC = () => {
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all ${
               activeTab === 'rules'
                 ? 'bg-brand-600 text-white shadow-sm'
-                : 'bg-slate-900 border border-slate-800 text-slate-400 hover:text-slate-200'
+                : 'bg-card border border-border text-muted-foreground hover:text-foreground'
             }`}
           >
             <Split className="w-3.5 h-3.5" />
@@ -159,7 +159,7 @@ export const CostAllocationsView: React.FC = () => {
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all ${
               activeTab === 'runs'
                 ? 'bg-brand-600 text-white shadow-sm'
-                : 'bg-slate-900 border border-slate-800 text-slate-400 hover:text-slate-200'
+                : 'bg-card border border-border text-muted-foreground hover:text-foreground'
             }`}
           >
             <Layers className="w-3.5 h-3.5" />
@@ -211,17 +211,17 @@ export const CostAllocationsView: React.FC = () => {
             >
               <div className="space-y-3 text-xs">
                 {rule.description && (
-                  <p className="text-slate-400 text-[11px]">{rule.description}</p>
+                  <p className="text-muted-foreground text-[11px]">{rule.description}</p>
                 )}
 
-                <div className="space-y-2 pt-2 border-t border-slate-800">
-                  <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                <div className="space-y-2 pt-2 border-t border-border">
+                  <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
                     Target Distributions ({rule.targets.length})
                   </div>
                   <div className="space-y-1.5">
                     {rule.targets.map((tgt, idx) => (
-                      <div key={idx} className="p-2 rounded bg-slate-950/40 border border-slate-800/60 flex items-center justify-between">
-                        <span className="text-slate-200 font-medium">{tgt.targetEntityName}</span>
+                      <div key={idx} className="p-2 rounded bg-card/40 border border-border/60 flex items-center justify-between">
+                        <span className="text-foreground font-medium">{tgt.targetEntityName}</span>
                         <span className="font-mono text-emerald-400 font-bold">
                           {(parseFloat(tgt.percentage) * 100).toFixed(1)}% (Weight: {tgt.weight})
                         </span>
@@ -242,14 +242,14 @@ export const CostAllocationsView: React.FC = () => {
           subtitle="Audit ledger of executed overhead reallocations and double-entry General Ledger journals"
         >
           {runs.length === 0 ? (
-            <div className="p-8 text-center text-slate-500 text-xs">
+            <div className="p-8 text-center text-muted-foreground text-xs">
               No allocation runs executed yet. Click 'Execute Allocation Run' to calculate and post your first overhead distribution.
             </div>
           ) : (
             <div className="overflow-x-auto -mx-4 -my-3 sm:mx-0 sm:my-0">
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="border-b border-slate-800 text-slate-400 font-semibold bg-slate-950/40">
+                  <tr className="border-b border-border text-muted-foreground font-semibold bg-card/40">
                     <th className="px-4 py-2.5">Run Number</th>
                     <th className="px-4 py-2.5">Date</th>
                     <th className="px-4 py-2.5 text-right">Total Allocated</th>
@@ -258,19 +258,19 @@ export const CostAllocationsView: React.FC = () => {
                     <th className="px-4 py-2.5 text-right">Action</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60">
+                <tbody className="divide-y divide-border">
                   {runs.map((run) => (
-                    <tr key={run.id} className="hover:bg-slate-800/30">
+                    <tr key={run.id} className="hover:bg-muted/30">
                       <td className="px-4 py-3">
-                        <div className="font-mono font-bold text-slate-200">{run.runNumber}</div>
-                        <div className="text-[11px] text-slate-500 truncate max-w-xs">{run.memo}</div>
+                        <div className="font-mono font-bold text-foreground">{run.runNumber}</div>
+                        <div className="text-[11px] text-muted-foreground truncate max-w-xs">{run.memo}</div>
                       </td>
 
-                      <td className="px-4 py-3 text-slate-300">
+                      <td className="px-4 py-3 text-foreground/90">
                         {run.runDate}
                       </td>
 
-                      <td className="px-4 py-3 text-right font-mono font-bold text-slate-100">
+                      <td className="px-4 py-3 text-right font-mono font-bold text-foreground">
                         ${parseFloat(run.totalAllocatedAmount).toFixed(2)}
                       </td>
 
@@ -280,13 +280,13 @@ export const CostAllocationsView: React.FC = () => {
                         />
                       </td>
 
-                      <td className="px-4 py-3 text-slate-400 font-mono text-[11px]">
+                      <td className="px-4 py-3 text-muted-foreground font-mono text-[11px]">
                         {run.journalEntryId ? (
                           <span className="text-emerald-400 font-semibold flex items-center gap-1">
                             <CheckCircle2 className="w-3 h-3" /> {run.journalEntryId}
                           </span>
                         ) : (
-                          <span className="text-slate-500">Unposted Draft</span>
+                          <span className="text-muted-foreground">Unposted Draft</span>
                         )}
                       </td>
 
@@ -338,12 +338,12 @@ export const CostAllocationsView: React.FC = () => {
           )}
 
           <div>
-            <label className="block text-slate-300 font-medium mb-1">Allocation Rule *</label>
+            <label className="block text-foreground/90 font-medium mb-1">Allocation Rule *</label>
             <select
               required
               value={selectedRuleId}
               onChange={(e) => setSelectedRuleId(e.target.value)}
-              className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100"
+              className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground"
             >
               <option value="">Select allocation rule...</option>
               {rules.map((r) => (
@@ -354,35 +354,35 @@ export const CostAllocationsView: React.FC = () => {
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-slate-300 font-medium mb-1">Execution Date</label>
+              <label className="block text-foreground/90 font-medium mb-1">Execution Date</label>
               <input
                 type="date"
                 required
                 value={runDate}
                 onChange={(e) => setRunDate(e.target.value)}
-                className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100"
+                className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground"
               />
             </div>
 
             <div>
-              <label className="block text-slate-300 font-medium mb-1">Total Pool Amount ($) *</label>
+              <label className="block text-foreground/90 font-medium mb-1">Total Pool Amount ($) *</label>
               <input
                 type="number"
                 step="0.01"
                 required
                 value={runAmount}
                 onChange={(e) => setRunAmount(e.target.value)}
-                className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100 font-mono text-right"
+                className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground font-mono text-right"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-slate-300 font-medium mb-1">Accounting Period</label>
+            <label className="block text-foreground/90 font-medium mb-1">Accounting Period</label>
             <select
               value={runPeriodId}
               onChange={(e) => setRunPeriodId(e.target.value)}
-              className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100"
+              className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground"
             >
               {periods.map((p) => (
                 <option key={p.id} value={p.id}>{p.name} ({p.startDate} to {p.endDate})</option>
@@ -391,17 +391,17 @@ export const CostAllocationsView: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-slate-300 font-medium mb-1">Memo / Allocation Reason</label>
+            <label className="block text-foreground/90 font-medium mb-1">Memo / Allocation Reason</label>
             <input
               type="text"
               placeholder="e.g. Monthly Headquarter Rent Allocation for Period 01"
               value={runMemo}
               onChange={(e) => setRunMemo(e.target.value)}
-              className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100"
+              className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground"
             />
           </div>
 
-          <div className="flex justify-end gap-2 pt-3 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-3 border-t border-border">
             <Button variant="secondary" size="sm" type="button" onClick={() => setIsRunModalOpen(false)}>
               Cancel
             </Button>
@@ -429,37 +429,37 @@ export const CostAllocationsView: React.FC = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-slate-300 font-medium mb-1">Rule Code *</label>
+              <label className="block text-foreground/90 font-medium mb-1">Rule Code *</label>
               <input
                 type="text"
                 required
                 placeholder="e.g. ALLOC-IT-OVERHEAD"
                 value={ruleCode}
                 onChange={(e) => setRuleCode(e.target.value)}
-                className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100 uppercase"
+                className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground uppercase"
               />
             </div>
 
             <div>
-              <label className="block text-slate-300 font-medium mb-1">Rule Name *</label>
+              <label className="block text-foreground/90 font-medium mb-1">Rule Name *</label>
               <input
                 type="text"
                 required
                 placeholder="e.g. IT Software & Infrastructure Allocation"
                 value={ruleName}
                 onChange={(e) => setRuleName(e.target.value)}
-                className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100"
+                className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-slate-300 font-medium mb-1">Allocation Basis</label>
+              <label className="block text-foreground/90 font-medium mb-1">Allocation Basis</label>
               <select
                 value={allocationBasis}
                 onChange={(e) => setAllocationBasis(e.target.value as any)}
-                className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100"
+                className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground"
               >
                 <option value="percentage">Percentage Split (%)</option>
                 <option value="headcount">Employee Headcount Ratio</option>
@@ -472,11 +472,11 @@ export const CostAllocationsView: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-slate-300 font-medium mb-1">Target Dimension Type</label>
+              <label className="block text-foreground/90 font-medium mb-1">Target Dimension Type</label>
               <select
                 value={targetType}
                 onChange={(e) => setTargetType(e.target.value as any)}
-                className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100"
+                className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground"
               >
                 <option value="department">Departments</option>
                 <option value="cost_center">Cost Centers</option>
@@ -487,11 +487,11 @@ export const CostAllocationsView: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-slate-300 font-medium mb-1">Source Clearing GL Account (Optional)</label>
+            <label className="block text-foreground/90 font-medium mb-1">Source Clearing GL Account (Optional)</label>
             <select
               value={sourceAccountId}
               onChange={(e) => setSourceAccountId(e.target.value)}
-              className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100"
+              className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground"
             >
               <option value="">Default Clearing Account (#6080 / System Default)</option>
               {accounts.map((a) => (
@@ -503,7 +503,7 @@ export const CostAllocationsView: React.FC = () => {
           {/* Targets Dynamic List */}
           <div>
             <div className="flex items-center justify-between mb-2">
-              <label className="text-slate-300 font-medium">Target Entities & Weights</label>
+              <label className="text-foreground/90 font-medium">Target Entities & Weights</label>
               <button
                 type="button"
                 onClick={() => setTargets([...targets, { entityId: '', entityName: '', weight: '25' }])}
@@ -533,7 +533,7 @@ export const CostAllocationsView: React.FC = () => {
                       updated[idx].entityName = name;
                       setTargets(updated);
                     }}
-                    className="flex-1 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100 text-xs"
+                    className="flex-1 px-3 py-1.5 rounded-lg bg-card border border-border text-foreground text-xs"
                   >
                     <option value="">Select target {targetType}...</option>
                     {targetType === 'department' && departments.map((d) => (
@@ -557,14 +557,14 @@ export const CostAllocationsView: React.FC = () => {
                       updated[idx].weight = e.target.value;
                       setTargets(updated);
                     }}
-                    className="w-24 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100 font-mono text-xs text-right"
+                    className="w-24 px-3 py-1.5 rounded-lg bg-card border border-border text-foreground font-mono text-xs text-right"
                   />
 
                   {targets.length > 1 && (
                     <button
                       type="button"
                       onClick={() => setTargets(targets.filter((_, i) => i !== idx))}
-                      className="text-slate-500 hover:text-rose-400 p-1"
+                      className="text-muted-foreground hover:text-rose-400 p-1"
                     >
                       ×
                     </button>
@@ -574,7 +574,7 @@ export const CostAllocationsView: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex justify-end gap-2 pt-3 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-3 border-t border-border">
             <Button variant="secondary" size="sm" type="button" onClick={() => setIsRuleModalOpen(false)}>
               Cancel
             </Button>

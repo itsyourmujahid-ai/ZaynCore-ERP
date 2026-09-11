@@ -34,11 +34,11 @@ export const IntercompanyReconciliationView: React.FC = () => {
         <div>
           <div className="flex items-center gap-2">
             <span className="text-xs font-bold uppercase tracking-wider text-amber-400">Bilateral Verification</span>
-            <span className="text-slate-600">•</span>
+            <span className="text-muted-foreground">•</span>
             <StatusBadge status="Reconciliation Matrix" />
           </div>
-          <h1 className="text-2xl font-bold text-slate-100 mt-1">Intercompany Reconciliation</h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <h1 className="text-2xl font-bold text-foreground mt-1">Intercompany Reconciliation</h1>
+          <p className="text-xs text-muted-foreground mt-1">
             Compare bilateral Intercompany Receivables vs. Payables across legal entities to detect timing, currency, and amount discrepancies.
           </p>
         </div>
@@ -57,14 +57,14 @@ export const IntercompanyReconciliationView: React.FC = () => {
         <Card>
           <div className="flex items-center justify-between">
             <div>
-              <span className="text-xs text-slate-400 font-medium">Bilateral Pairs</span>
-              <div className="text-2xl font-bold text-slate-100 mt-1">{summary.totalPairs}</div>
+              <span className="text-xs text-muted-foreground font-medium">Bilateral Pairs</span>
+              <div className="text-2xl font-bold text-foreground mt-1">{summary.totalPairs}</div>
             </div>
             <div className="p-3 bg-amber-500/10 rounded-xl text-amber-400 border border-amber-500/20">
               <Scale className="w-5 h-5" />
             </div>
           </div>
-          <div className="text-[11px] text-slate-500 mt-3 flex items-center gap-1">
+          <div className="text-[11px] text-muted-foreground mt-3 flex items-center gap-1">
             <span className="text-emerald-400 font-medium">{summary.matchedPairs} Matched</span> pairs
           </div>
         </Card>
@@ -72,14 +72,14 @@ export const IntercompanyReconciliationView: React.FC = () => {
         <Card>
           <div className="flex items-center justify-between">
             <div>
-              <span className="text-xs text-slate-400 font-medium">Total IC Receivables</span>
+              <span className="text-xs text-muted-foreground font-medium">Total IC Receivables</span>
               <div className="text-2xl font-bold font-mono text-cyan-400 mt-1">${summary.totalReceivableBalance}</div>
             </div>
             <div className="p-3 bg-cyan-500/10 rounded-xl text-cyan-400 border border-cyan-500/20">
               <CheckCircle2 className="w-5 h-5" />
             </div>
           </div>
-          <div className="text-[11px] text-slate-500 mt-3">
+          <div className="text-[11px] text-muted-foreground mt-3">
             Originating entity assets
           </div>
         </Card>
@@ -87,14 +87,14 @@ export const IntercompanyReconciliationView: React.FC = () => {
         <Card>
           <div className="flex items-center justify-between">
             <div>
-              <span className="text-xs text-slate-400 font-medium">Total IC Payables</span>
+              <span className="text-xs text-muted-foreground font-medium">Total IC Payables</span>
               <div className="text-2xl font-bold font-mono text-indigo-400 mt-1">${summary.totalPayableBalance}</div>
             </div>
             <div className="p-3 bg-indigo-500/10 rounded-xl text-indigo-400 border border-indigo-500/20">
               <CheckCircle2 className="w-5 h-5" />
             </div>
           </div>
-          <div className="text-[11px] text-slate-500 mt-3">
+          <div className="text-[11px] text-muted-foreground mt-3">
             Counterparty liabilities
           </div>
         </Card>
@@ -102,16 +102,16 @@ export const IntercompanyReconciliationView: React.FC = () => {
         <Card>
           <div className="flex items-center justify-between">
             <div>
-              <span className="text-xs text-slate-400 font-medium">Net Discrepancy</span>
+              <span className="text-xs text-muted-foreground font-medium">Net Discrepancy</span>
               <div className={`text-2xl font-bold font-mono mt-1 ${parseFloat(summary.netVariance) > 0 ? 'text-rose-400' : 'text-emerald-400'}`}>
                 ${summary.netVariance}
               </div>
             </div>
-            <div className="p-3 bg-slate-800/60 rounded-xl text-slate-400 border border-slate-700">
+            <div className="p-3 bg-muted/60 rounded-xl text-muted-foreground border border-border">
               <ShieldAlert className="w-5 h-5" />
             </div>
           </div>
-          <div className="text-[11px] text-slate-500 mt-3">
+          <div className="text-[11px] text-muted-foreground mt-3">
             {parseFloat(summary.netVariance) === 0 ? 'Zero bilateral variance' : `${summary.discrepancyPairs} pairs out of balance`}
           </div>
         </Card>
@@ -122,7 +122,7 @@ export const IntercompanyReconciliationView: React.FC = () => {
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="border-b border-slate-800 text-slate-400">
+              <tr className="border-b border-border text-muted-foreground">
                 <th className="py-2.5 px-3 font-semibold">Entity Pair</th>
                 <th className="py-2.5 px-3 font-semibold text-right">Entity 1 Receivable</th>
                 <th className="py-2.5 px-3 font-semibold text-right">Entity 2 Payable</th>
@@ -131,20 +131,20 @@ export const IntercompanyReconciliationView: React.FC = () => {
                 <th className="py-2.5 px-3 font-semibold text-right">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-slate-300">
+            <tbody className="divide-y divide-border text-foreground/90">
               {summary.items.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="py-8 text-center text-slate-500 text-xs">
+                  <td colSpan={6} className="py-8 text-center text-muted-foreground text-xs">
                     No active intercompany transaction pairs to reconcile.
                   </td>
                 </tr>
               ) : (
                 summary.items.map((item) => (
-                  <tr key={item.id} className="hover:bg-slate-800/40 transition-colors">
+                  <tr key={item.id} className="hover:bg-muted/40 transition-colors">
                     <td className="py-3 px-3">
-                      <div className="font-semibold text-slate-200 flex items-center gap-2">
+                      <div className="font-semibold text-foreground flex items-center gap-2">
                         <span>{item.sourceCompanyName}</span>
-                        <ArrowRight className="w-3.5 h-3.5 text-slate-500" />
+                        <ArrowRight className="w-3.5 h-3.5 text-muted-foreground" />
                         <span>{item.targetCompanyName}</span>
                       </div>
                     </td>
@@ -181,17 +181,17 @@ export const IntercompanyReconciliationView: React.FC = () => {
           title={`Intercompany Transactions: ${selectedPair.sourceCompanyName} ↔ ${selectedPair.targetCompanyName}`}
         >
           <div className="space-y-4 text-xs">
-            <div className="grid grid-cols-3 gap-3 p-3 bg-slate-950/60 border border-slate-800 rounded-xl text-center">
+            <div className="grid grid-cols-3 gap-3 p-3 bg-card/60 border border-border rounded-xl text-center">
               <div>
-                <span className="text-[10px] text-slate-500 uppercase block font-bold">Receivable Balance</span>
+                <span className="text-[10px] text-muted-foreground uppercase block font-bold">Receivable Balance</span>
                 <span className="font-mono font-bold text-cyan-400">${selectedPair.sourceReceivableAmount}</span>
               </div>
               <div>
-                <span className="text-[10px] text-slate-500 uppercase block font-bold">Payable Balance</span>
+                <span className="text-[10px] text-muted-foreground uppercase block font-bold">Payable Balance</span>
                 <span className="font-mono font-bold text-indigo-400">${selectedPair.targetPayableAmount}</span>
               </div>
               <div>
-                <span className="text-[10px] text-slate-500 uppercase block font-bold">Difference</span>
+                <span className="text-[10px] text-muted-foreground uppercase block font-bold">Difference</span>
                 <span className={`font-mono font-bold ${parseFloat(selectedPair.differenceAmount) > 0 ? 'text-rose-400' : 'text-emerald-400'}`}>
                   ${selectedPair.differenceAmount}
                 </span>
@@ -199,19 +199,19 @@ export const IntercompanyReconciliationView: React.FC = () => {
             </div>
 
             <div className="space-y-2">
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Source Vouchers</span>
+              <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider block">Source Vouchers</span>
               {selectedPair.transactions.length === 0 ? (
-                <div className="p-4 text-center text-slate-500 text-xs">No transactions recorded between these entities.</div>
+                <div className="p-4 text-center text-muted-foreground text-xs">No transactions recorded between these entities.</div>
               ) : (
                 <div className="space-y-2 max-h-60 overflow-y-auto">
                   {selectedPair.transactions.map((t) => (
-                    <div key={t.id} className="p-3 bg-slate-900/60 border border-slate-800 rounded-lg flex items-center justify-between">
+                    <div key={t.id} className="p-3 bg-card/60 border border-border rounded-lg flex items-center justify-between">
                       <div>
-                        <div className="font-mono font-semibold text-slate-200">{t.transactionNumber}</div>
-                        <div className="text-[10px] text-slate-400">{t.transactionDate} • {t.memo || 'Intercompany Flow'}</div>
+                        <div className="font-mono font-semibold text-foreground">{t.transactionNumber}</div>
+                        <div className="text-[10px] text-muted-foreground">{t.transactionDate} • {t.memo || 'Intercompany Flow'}</div>
                       </div>
                       <div className="text-right">
-                        <div className="font-mono font-bold text-slate-100">{t.amount} {t.currency}</div>
+                        <div className="font-mono font-bold text-foreground">{t.amount} {t.currency}</div>
                         <StatusBadge status={t.status} size="xs" />
                       </div>
                     </div>
@@ -220,7 +220,7 @@ export const IntercompanyReconciliationView: React.FC = () => {
               )}
             </div>
 
-            <div className="flex justify-end pt-3 border-t border-slate-800">
+            <div className="flex justify-end pt-3 border-t border-border">
               <Button variant="secondary" onClick={() => setSelectedPair(null)}>
                 Close
               </Button>

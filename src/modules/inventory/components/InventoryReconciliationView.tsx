@@ -52,13 +52,13 @@ export const InventoryReconciliationView: React.FC = () => {
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-slate-800 gap-2">
+      <div className="flex border-b border-border gap-2">
         <button
           onClick={() => setActiveTab('inventory_gl')}
           className={`flex items-center gap-1.5 px-3 py-2 text-xs font-semibold border-b-2 transition-all ${
             activeTab === 'inventory_gl'
-              ? 'border-brand-500 text-brand-400 bg-slate-900/60'
-              : 'border-transparent text-slate-400 hover:text-slate-200'
+              ? 'border-brand-500 text-brand-400 bg-card/60'
+              : 'border-transparent text-muted-foreground hover:text-foreground'
           }`}
         >
           <Scale className="w-3.5 h-3.5" />
@@ -68,8 +68,8 @@ export const InventoryReconciliationView: React.FC = () => {
           onClick={() => setActiveTab('grni')}
           className={`flex items-center gap-1.5 px-3 py-2 text-xs font-semibold border-b-2 transition-all ${
             activeTab === 'grni'
-              ? 'border-brand-500 text-brand-400 bg-slate-900/60'
-              : 'border-transparent text-slate-400 hover:text-slate-200'
+              ? 'border-brand-500 text-brand-400 bg-card/60'
+              : 'border-transparent text-muted-foreground hover:text-foreground'
           }`}
         >
           <FileCheck2 className="w-3.5 h-3.5" />
@@ -80,10 +80,10 @@ export const InventoryReconciliationView: React.FC = () => {
       {/* Tab 1: Inventory Sub-Ledger vs GL Account #1300 */}
       {activeTab === 'inventory_gl' && (
         <Card noPadding>
-          <div className="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-950/40">
+          <div className="p-4 border-b border-border flex items-center justify-between bg-card/40">
             <div>
-              <h4 className="text-xs font-bold text-slate-100">Item-by-Item Material Sub-Ledger Breakdown</h4>
-              <p className="text-[11px] text-slate-400">
+              <h4 className="text-xs font-bold text-foreground">Item-by-Item Material Sub-Ledger Breakdown</h4>
+              <p className="text-[11px] text-muted-foreground">
                 Audits all double-entry debits and credits posted to GL Control Account #1300.
               </p>
             </div>
@@ -95,13 +95,13 @@ export const InventoryReconciliationView: React.FC = () => {
           </div>
 
           {inventoryReconciliation.entities.length === 0 ? (
-            <div className="p-10 text-center text-slate-500 text-xs">
+            <div className="p-10 text-center text-muted-foreground text-xs">
               No inventory sub-ledger transactions recorded yet.
             </div>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
-                <thead className="bg-slate-950/80 text-slate-400 border-b border-slate-800">
+                <thead className="bg-card/80 text-muted-foreground border-b border-border">
                   <tr>
                     <th className="p-3">SKU Identifier</th>
                     <th className="p-3">Item Name</th>
@@ -110,13 +110,13 @@ export const InventoryReconciliationView: React.FC = () => {
                     <th className="p-3 text-right">Net Asset Balance</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/50 bg-slate-900/20 font-mono text-[11px]">
+                <tbody className="divide-y divide-border/50 bg-card/20 font-mono text-[11px]">
                   {inventoryReconciliation.entities.map((entity) => (
-                    <tr key={entity.entityId} className="hover:bg-slate-800/30">
+                    <tr key={entity.entityId} className="hover:bg-muted/30">
                       <td className="p-3 font-bold text-brand-400">{entity.entityId}</td>
-                      <td className="p-3 font-sans text-slate-200">{entity.entityName}</td>
-                      <td className="p-3 text-right text-slate-200">${parseFloat(entity.totalDebit).toFixed(2)}</td>
-                      <td className="p-3 text-right text-slate-400">${parseFloat(entity.totalCredit).toFixed(2)}</td>
+                      <td className="p-3 font-sans text-foreground">{entity.entityName}</td>
+                      <td className="p-3 text-right text-foreground">${parseFloat(entity.totalDebit).toFixed(2)}</td>
+                      <td className="p-3 text-right text-muted-foreground">${parseFloat(entity.totalCredit).toFixed(2)}</td>
                       <td className="p-3 text-right font-bold text-emerald-400">
                         ${parseFloat(entity.netBalance).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                       </td>
@@ -132,15 +132,15 @@ export const InventoryReconciliationView: React.FC = () => {
       {/* Tab 2: GRNI Clearing Report */}
       {activeTab === 'grni' && (
         <Card noPadding>
-          <div className="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-950/40">
+          <div className="p-4 border-b border-border flex items-center justify-between bg-card/40">
             <div>
-              <h4 className="text-xs font-bold text-slate-100">Goods Received Not Invoiced (GRNI) Log</h4>
-              <p className="text-[11px] text-slate-400">
+              <h4 className="text-xs font-bold text-foreground">Goods Received Not Invoiced (GRNI) Log</h4>
+              <p className="text-[11px] text-muted-foreground">
                 Tracks received inventory awaiting supplier invoice billing against GL Liability Account #2020.
               </p>
             </div>
             <div className="text-right">
-              <span className="text-[10px] text-slate-500 uppercase font-bold block">Open GRNI Liability:</span>
+              <span className="text-[10px] text-muted-foreground uppercase font-bold block">Open GRNI Liability:</span>
               <span className="font-mono text-xs font-bold text-amber-400">
                 ${parseFloat(grniReport.totalGRNIBalance).toLocaleString(undefined, { minimumFractionDigits: 2 })} {tenant.baseCurrency}
               </span>
@@ -148,13 +148,13 @@ export const InventoryReconciliationView: React.FC = () => {
           </div>
 
           {grniReport.items.length === 0 ? (
-            <div className="p-10 text-center text-slate-500 text-xs">
+            <div className="p-10 text-center text-muted-foreground text-xs">
               No goods receipts recorded.
             </div>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
-                <thead className="bg-slate-950/80 text-slate-400 border-b border-slate-800">
+                <thead className="bg-card/80 text-muted-foreground border-b border-border">
                   <tr>
                     <th className="p-3">GRN Receipt #</th>
                     <th className="p-3">Receipt Date</th>
@@ -166,15 +166,15 @@ export const InventoryReconciliationView: React.FC = () => {
                     <th className="p-3">Status</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/50 bg-slate-900/20 font-mono text-[11px]">
+                <tbody className="divide-y divide-border/50 bg-card/20 font-mono text-[11px]">
                   {grniReport.items.map((it) => (
-                    <tr key={it.goodsReceiptId} className="hover:bg-slate-800/30">
+                    <tr key={it.goodsReceiptId} className="hover:bg-muted/30">
                       <td className="p-3 font-bold text-brand-400">{it.receiptNumber}</td>
-                      <td className="p-3 text-slate-400">{it.receiptDate}</td>
-                      <td className="p-3 text-slate-300">{it.poNumber}</td>
-                      <td className="p-3 font-sans text-slate-200">{it.supplierName}</td>
-                      <td className="p-3 text-right text-slate-200">${parseFloat(it.receivedAmount).toFixed(2)}</td>
-                      <td className="p-3 text-right text-slate-400">${parseFloat(it.billedAmount).toFixed(2)}</td>
+                      <td className="p-3 text-muted-foreground">{it.receiptDate}</td>
+                      <td className="p-3 text-foreground/90">{it.poNumber}</td>
+                      <td className="p-3 font-sans text-foreground">{it.supplierName}</td>
+                      <td className="p-3 text-right text-foreground">${parseFloat(it.receivedAmount).toFixed(2)}</td>
+                      <td className="p-3 text-right text-muted-foreground">${parseFloat(it.billedAmount).toFixed(2)}</td>
                       <td className="p-3 text-right font-bold text-amber-400">
                         ${parseFloat(it.unbilledBalance).toFixed(2)}
                       </td>

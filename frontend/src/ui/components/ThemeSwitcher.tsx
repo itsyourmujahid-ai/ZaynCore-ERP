@@ -13,7 +13,7 @@ export const ThemeSwitcher: React.FC = () => {
     {
       id: 'black',
       label: 'Obsidian Slate',
-      bgClass: 'bg-slate-800',
+      bgClass: 'bg-muted',
       borderClass: 'border-slate-600',
     },
     {
@@ -41,7 +41,7 @@ export const ThemeSwitcher: React.FC = () => {
         {mode === 'dark' ? (
           <Sun className="w-4 h-4 text-amber-400" />
         ) : (
-          <Moon className="w-4 h-4 text-slate-700" />
+          <Moon className="w-4 h-4 text-foreground/90" />
         )}
       </button>
 

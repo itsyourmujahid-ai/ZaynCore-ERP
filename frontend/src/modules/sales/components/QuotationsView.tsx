@@ -162,7 +162,7 @@ export const QuotationsView: React.FC<{
   return (
     <div className="space-y-4">
       {/* Search & Actions Bar */}
-      <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-3">
+      <div className="p-4 rounded-xl bg-card border border-border flex flex-col md:flex-row items-center justify-between gap-3">
         <div className="flex items-center gap-1.5 w-full md:w-auto overflow-x-auto pb-1 md:pb-0">
           {[
             { id: 'all', label: 'All Quotes' },
@@ -177,7 +177,7 @@ export const QuotationsView: React.FC<{
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold capitalize transition-all select-none whitespace-nowrap ${
                 statusFilter === s.id
                   ? 'bg-brand-600 text-white shadow-sm'
-                  : 'bg-slate-800 text-slate-400 hover:text-slate-200'
+                  : 'bg-muted text-muted-foreground hover:text-foreground'
               }`}
             >
               {s.label}
@@ -187,13 +187,13 @@ export const QuotationsView: React.FC<{
 
         <div className="flex items-center gap-2 w-full md:w-auto">
           <div className="relative w-full md:w-72">
-            <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-500" />
+            <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-muted-foreground" />
             <input
               type="text"
               placeholder="Search quote # or customer..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-3 py-1.5 text-xs bg-slate-950/80 border border-slate-800 rounded-lg text-slate-200 placeholder-slate-500 focus:outline-none focus:border-brand-500"
+              className="w-full pl-9 pr-3 py-1.5 text-xs bg-card/80 border border-border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-brand-500"
             />
           </div>
 
@@ -217,7 +217,7 @@ export const QuotationsView: React.FC<{
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-slate-800 bg-slate-900/90 text-slate-400 font-semibold uppercase tracking-wider">
+              <tr className="border-b border-border bg-card/90 text-muted-foreground font-semibold uppercase tracking-wider">
                 <th className="px-5 py-3.5">Quote #</th>
                 <th className="px-5 py-3.5">Customer Name</th>
                 <th className="px-5 py-3.5">Quote Date</th>
@@ -228,17 +228,17 @@ export const QuotationsView: React.FC<{
                 <th className="px-5 py-3.5 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-slate-200">
+            <tbody className="divide-y divide-border text-foreground">
               {filteredQuotes.map((q) => {
                 const customer = customers.find((c) => c.id === q.customerId);
                 return (
-                  <tr key={q.id} className="hover:bg-slate-800/40 transition-colors">
+                  <tr key={q.id} className="hover:bg-muted/40 transition-colors">
                     <td className="px-5 py-3.5 font-mono font-bold text-brand-400">{q.quotationNumber}</td>
-                    <td className="px-5 py-3.5 font-medium text-slate-100">{customer?.name || 'Unknown Customer'}</td>
-                    <td className="px-5 py-3.5 font-mono text-slate-300">{q.date}</td>
-                    <td className="px-5 py-3.5 font-mono text-slate-400">{q.validUntil}</td>
-                    <td className="px-5 py-3.5 text-right font-mono text-slate-400">${parseFloat(q.taxTotal).toFixed(2)}</td>
-                    <td className="px-5 py-3.5 text-right font-mono font-bold text-slate-100">${parseFloat(q.total).toFixed(2)} {q.currency}</td>
+                    <td className="px-5 py-3.5 font-medium text-foreground">{customer?.name || 'Unknown Customer'}</td>
+                    <td className="px-5 py-3.5 font-mono text-foreground/90">{q.date}</td>
+                    <td className="px-5 py-3.5 font-mono text-muted-foreground">{q.validUntil}</td>
+                    <td className="px-5 py-3.5 text-right font-mono text-muted-foreground">${parseFloat(q.taxTotal).toFixed(2)}</td>
+                    <td className="px-5 py-3.5 text-right font-mono font-bold text-foreground">${parseFloat(q.total).toFixed(2)} {q.currency}</td>
                     <td className="px-5 py-3.5 text-center"><StatusBadge status={q.status} size="xs" /></td>
                     <td className="px-5 py-3.5 text-right">
                       <div className="inline-flex items-center gap-1.5">
@@ -270,7 +270,7 @@ export const QuotationsView: React.FC<{
               })}
               {filteredQuotes.length === 0 && (
                 <tr>
-                  <td colSpan={8} className="px-5 py-12 text-center text-slate-500">
+                  <td colSpan={8} className="px-5 py-12 text-center text-muted-foreground">
                     No quotations found. Click "+ Create Quote" to generate your first price proposal.
                   </td>
                 </tr>
@@ -310,30 +310,30 @@ export const QuotationsView: React.FC<{
           }
         >
           <div className="space-y-4 text-xs">
-            <div className="p-3.5 rounded-lg bg-slate-950/70 border border-slate-800 grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div className="p-3.5 rounded-lg bg-card/70 border border-border grid grid-cols-2 sm:grid-cols-4 gap-3">
               <div>
-                <span className="text-slate-500 text-[10px] uppercase font-bold block">Quote Date</span>
-                <span className="text-slate-200 font-mono mt-0.5">{selectedQuote.date}</span>
+                <span className="text-muted-foreground text-[10px] uppercase font-bold block">Quote Date</span>
+                <span className="text-foreground font-mono mt-0.5">{selectedQuote.date}</span>
               </div>
               <div>
-                <span className="text-slate-500 text-[10px] uppercase font-bold block">Valid Until</span>
-                <span className="text-slate-200 font-mono mt-0.5">{selectedQuote.validUntil}</span>
+                <span className="text-muted-foreground text-[10px] uppercase font-bold block">Valid Until</span>
+                <span className="text-foreground font-mono mt-0.5">{selectedQuote.validUntil}</span>
               </div>
               <div>
-                <span className="text-slate-500 text-[10px] uppercase font-bold block">Sales Representative</span>
-                <span className="text-slate-200 mt-0.5">{selectedQuote.salesperson || 'N/A'}</span>
+                <span className="text-muted-foreground text-[10px] uppercase font-bold block">Sales Representative</span>
+                <span className="text-foreground mt-0.5">{selectedQuote.salesperson || 'N/A'}</span>
               </div>
               <div>
-                <span className="text-slate-500 text-[10px] uppercase font-bold block">Total Amount</span>
+                <span className="text-muted-foreground text-[10px] uppercase font-bold block">Total Amount</span>
                 <span className="text-emerald-400 font-mono font-bold mt-0.5">${parseFloat(selectedQuote.total).toFixed(2)} {selectedQuote.currency}</span>
               </div>
             </div>
 
             {/* Line Items Table */}
-            <div className="overflow-hidden rounded-lg border border-slate-800">
+            <div className="overflow-hidden rounded-lg border border-border">
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="border-b border-slate-800 bg-slate-900/90 text-slate-400 font-semibold uppercase tracking-wider">
+                  <tr className="border-b border-border bg-card/90 text-muted-foreground font-semibold uppercase tracking-wider">
                     <th className="px-4 py-2.5">Description</th>
                     <th className="px-4 py-2.5 text-right">Qty</th>
                     <th className="px-4 py-2.5 text-right">Unit Price</th>
@@ -341,14 +341,14 @@ export const QuotationsView: React.FC<{
                     <th className="px-4 py-2.5 text-right">Total</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60 text-slate-200">
+                <tbody className="divide-y divide-border text-foreground">
                   {selectedQuote.items.map((item: any, idx: number) => (
-                    <tr key={idx} className="hover:bg-slate-800/30">
+                    <tr key={idx} className="hover:bg-muted/30">
                       <td className="px-4 py-2.5">{item.description}</td>
                       <td className="px-4 py-2.5 text-right font-mono">{item.quantity}</td>
                       <td className="px-4 py-2.5 text-right font-mono">${parseFloat(item.unitPrice).toFixed(2)}</td>
-                      <td className="px-4 py-2.5 text-right font-mono text-slate-400">${parseFloat(item.taxAmount).toFixed(2)}</td>
-                      <td className="px-4 py-2.5 text-right font-mono font-bold text-slate-100">${parseFloat(item.total).toFixed(2)}</td>
+                      <td className="px-4 py-2.5 text-right font-mono text-muted-foreground">${parseFloat(item.taxAmount).toFixed(2)}</td>
+                      <td className="px-4 py-2.5 text-right font-mono font-bold text-foreground">${parseFloat(item.total).toFixed(2)}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -367,7 +367,7 @@ export const QuotationsView: React.FC<{
         size="2xl"
         footer={
           <div className="flex items-center justify-between w-full">
-            <div className="text-xs text-slate-300 font-mono">
+            <div className="text-xs text-foreground/90 font-mono">
               Total: <strong className="text-emerald-400 text-sm">${totalSum.toFixed(2)} {form.currency}</strong> (Includes ${taxSum.toFixed(2)} Tax)
             </div>
             <div className="flex items-center gap-2">
@@ -432,9 +432,9 @@ export const QuotationsView: React.FC<{
           </div>
 
           {/* Line Items Editor */}
-          <div className="p-3.5 bg-slate-950/70 border border-slate-800 rounded-xl space-y-3">
-            <div className="flex items-center justify-between pb-1 border-b border-slate-800">
-              <span className="text-xs font-bold text-slate-300">Quote Line Items</span>
+          <div className="p-3.5 bg-card/70 border border-border rounded-xl space-y-3">
+            <div className="flex items-center justify-between pb-1 border-b border-border">
+              <span className="text-xs font-bold text-foreground/90">Quote Line Items</span>
               <Button
                 size="xs"
                 variant="secondary"
@@ -465,7 +465,7 @@ export const QuotationsView: React.FC<{
 
             <div className="space-y-2.5 max-h-60 overflow-y-auto pr-1">
               {form.items.map((item, idx) => (
-                <div key={idx} className="p-2.5 rounded-lg bg-slate-900 border border-slate-800 grid grid-cols-12 gap-2 items-center text-xs">
+                <div key={idx} className="p-2.5 rounded-lg bg-card border border-border grid grid-cols-12 gap-2 items-center text-xs">
                   <div className="col-span-5">
                     <Input
                       label=""
@@ -528,7 +528,7 @@ export const QuotationsView: React.FC<{
                         if (form.items.length <= 1) return;
                         setForm({ ...form, items: form.items.filter((_, i) => i !== idx) });
                       }}
-                      className="p-1.5 text-slate-500 hover:text-rose-400 transition-colors"
+                      className="p-1.5 text-muted-foreground hover:text-rose-400 transition-colors"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>

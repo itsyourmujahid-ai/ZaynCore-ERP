@@ -41,8 +41,8 @@ export const TopHeader: React.FC<TopHeaderProps> = ({ onToggleSidebar, onNavigat
   return (
     <>
       <header className="h-14 bg-card border-b border-border px-3 sm:px-5 flex items-center justify-between gap-3 z-20 select-none min-w-0 shadow-sm">
-        {/* Left: Sidebar Toggle & Enterprise Branding */}
-        <div className="flex items-center gap-3 min-w-0 shrink">
+        {/* Left: Sidebar Toggle & Company Switcher */}
+        <div className="flex items-center gap-2 sm:gap-3 min-w-0 shrink">
           <button
             onClick={onToggleSidebar}
             title="Toggle Navigation Menu"
@@ -51,31 +51,10 @@ export const TopHeader: React.FC<TopHeaderProps> = ({ onToggleSidebar, onNavigat
             <Menu className="w-5 h-5" />
           </button>
 
-          <div className="flex items-center gap-2 min-w-0">
-            <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center text-primary-foreground font-black text-sm shadow-sm ring-1 ring-border shrink-0">
-              Q
-            </div>
-            <div className="min-w-0 hidden md:block">
-              <div className="text-xs font-black tracking-tight text-foreground flex items-center gap-1.5 truncate">
-                <span>QuantumCore ERP</span>
-                <span className="px-1 py-0.2 text-[8px] font-black uppercase tracking-wider bg-primary/15 text-primary border border-primary/30 rounded">
-                  v2.0
-                </span>
-              </div>
-              <div className="text-[10px] text-muted-foreground font-medium truncate">
-                {tenant.companyName || 'Sovereign Enterprise System'}
-              </div>
-            </div>
-          </div>
-
-          <div className="h-4 w-px bg-border hidden xl:block mx-1" />
-
           {!isSuperAdminView ? (
-            <div className="hidden lg:block">
-              <CompanySwitcher />
-            </div>
+            <CompanySwitcher />
           ) : (
-            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-purple-500/15 border border-purple-500/30 text-purple-700 dark:text-purple-300 text-xs font-semibold truncate shrink-0">
+            <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-purple-500/15 border border-purple-500/30 text-purple-700 dark:text-purple-300 text-xs font-semibold truncate shrink-0">
               <Server className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400 shrink-0" />
               <span className="truncate">Platform Console</span>
             </div>
@@ -90,7 +69,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({ onToggleSidebar, onNavigat
           >
             <div className="flex items-center gap-2.5 truncate">
               <Search className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
-              <span className="truncate text-[11px]">Search QuantumCore ERP...</span>
+              <span className="truncate text-[11px]">Search ZaynCore...</span>
             </div>
             <kbd className="px-1.5 py-0.5 text-[9px] font-mono bg-muted rounded border border-border text-foreground shrink-0">
               Ctrl K

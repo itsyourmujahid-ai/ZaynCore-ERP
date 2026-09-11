@@ -115,16 +115,16 @@ export const CustomerDirectoryView: React.FC<{
   return (
     <div className="space-y-4">
       {/* Search & Actions Bar */}
-      <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-3">
+      <div className="p-4 rounded-xl bg-card border border-border flex flex-col md:flex-row items-center justify-between gap-3">
         <div className="flex items-center gap-2 w-full md:w-auto">
           <div className="relative w-full md:w-72">
-            <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-500" />
+            <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-muted-foreground" />
             <input
               type="text"
               placeholder="Search customer name, code, email..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-3 py-1.5 text-xs bg-slate-950/80 border border-slate-800 rounded-lg text-slate-200 placeholder-slate-500 focus:outline-none focus:border-brand-500"
+              className="w-full pl-9 pr-3 py-1.5 text-xs bg-card/80 border border-border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-brand-500"
             />
           </div>
 
@@ -158,7 +158,7 @@ export const CustomerDirectoryView: React.FC<{
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-slate-800 bg-slate-900/90 text-slate-400 font-semibold uppercase tracking-wider">
+              <tr className="border-b border-border bg-card/90 text-muted-foreground font-semibold uppercase tracking-wider">
                 <th className="px-5 py-3.5">Customer Code</th>
                 <th className="px-5 py-3.5">Company / Customer Name</th>
                 <th className="px-5 py-3.5">Type</th>
@@ -168,26 +168,26 @@ export const CustomerDirectoryView: React.FC<{
                 <th className="px-5 py-3.5 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-slate-200">
+            <tbody className="divide-y divide-border text-foreground">
               {filteredCustomers.map((cust) => {
                 const summary = accountsReceivableService.getCustomerCreditSummary(cust.id, tenant);
                 return (
-                  <tr key={cust.id} className="hover:bg-slate-800/40 transition-colors">
+                  <tr key={cust.id} className="hover:bg-muted/40 transition-colors">
                     <td className="px-5 py-3.5 font-mono font-bold text-brand-400">{cust.code}</td>
                     <td className="px-5 py-3.5">
-                      <div className="font-semibold text-slate-100">{cust.name}</div>
-                      <div className="text-[11px] text-slate-400 flex items-center gap-2 mt-0.5">
+                      <div className="font-semibold text-foreground">{cust.name}</div>
+                      <div className="text-[11px] text-muted-foreground flex items-center gap-2 mt-0.5">
                         {cust.contactPerson && <span>{cust.contactPerson}</span>}
-                        {cust.email && <span className="text-slate-500">• {cust.email}</span>}
+                        {cust.email && <span className="text-muted-foreground">• {cust.email}</span>}
                       </div>
                     </td>
-                    <td className="px-5 py-3.5 capitalize text-slate-300">
-                      <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-slate-800 text-slate-300 border border-slate-700">
+                    <td className="px-5 py-3.5 capitalize text-foreground/90">
+                      <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-muted text-foreground/90 border border-border">
                         {cust.customerType}
                       </span>
                     </td>
-                    <td className="px-5 py-3.5 text-slate-300 font-mono">Net {cust.paymentTermsDays}d</td>
-                    <td className="px-5 py-3.5 text-right font-mono text-slate-200">${parseFloat(cust.creditLimit).toFixed(2)}</td>
+                    <td className="px-5 py-3.5 text-foreground/90 font-mono">Net {cust.paymentTermsDays}d</td>
+                    <td className="px-5 py-3.5 text-right font-mono text-foreground">${parseFloat(cust.creditLimit).toFixed(2)}</td>
                     <td className="px-5 py-3.5 text-right font-mono font-bold text-amber-400">
                       ${parseFloat(summary.outstandingBalance).toFixed(2)}
                     </td>
@@ -209,7 +209,7 @@ export const CustomerDirectoryView: React.FC<{
               })}
               {filteredCustomers.length === 0 && (
                 <tr>
-                  <td colSpan={7} className="px-5 py-12 text-center text-slate-500">
+                  <td colSpan={7} className="px-5 py-12 text-center text-muted-foreground">
                     No customers found. Click "+ Add Customer" to register your first commercial account.
                   </td>
                 </tr>

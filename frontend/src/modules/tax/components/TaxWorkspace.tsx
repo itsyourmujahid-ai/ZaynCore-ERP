@@ -62,7 +62,7 @@ export const TaxWorkspace: React.FC<{
     { divider: true, label: '', onClick: () => {} },
     {
       label: 'Tax Jurisdictions & Authorities',
-      icon: <Settings className="w-3.5 h-3.5 text-slate-400" />,
+      icon: <Settings className="w-3.5 h-3.5 text-muted-foreground" />,
       onClick: () => setActiveTab('config'),
     },
   ];
@@ -85,11 +85,11 @@ export const TaxWorkspace: React.FC<{
             <span className="text-xs font-bold uppercase tracking-wider text-sky-600">
               Tax & VAT Management Engine
             </span>
-            <span className="text-slate-400">•</span>
+            <span className="text-muted-foreground">•</span>
             <StatusBadge status={tenant.companyTier} />
           </div>
-          <h1 className="text-2xl font-bold text-slate-900 mt-1">Tax & VAT Management</h1>
-          <p className="text-xs text-slate-600 mt-0.5">
+          <h1 className="text-2xl font-bold text-foreground mt-1">Tax & VAT Management</h1>
+          <p className="text-xs text-muted-foreground mt-0.5">
             Centralized tax calculation, multi-jurisdiction rules, tax sub-ledger, return filing schedules, and zero-variance GL reconciliation.
           </p>
         </div>
@@ -122,7 +122,7 @@ export const TaxWorkspace: React.FC<{
       </div>
 
       {/* Secondary Navigation Bar */}
-      <div className="flex items-center justify-between border-b border-slate-200 pb-px gap-2 overflow-x-auto">
+      <div className="flex items-center justify-between border-b border-border pb-px gap-2 overflow-x-auto">
         <div className="flex items-center gap-1">
           {primaryTabs.map((tab) => {
             const isActive = activeTab === tab.id;
@@ -132,8 +132,8 @@ export const TaxWorkspace: React.FC<{
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center gap-2 px-3.5 py-2 rounded-t-lg text-xs font-medium border-b-2 transition-all select-none whitespace-nowrap ${
                   isActive
-                    ? 'border-brand-600 text-brand-600 bg-white font-bold shadow-sm'
-                    : 'border-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-100/60'
+                    ? 'border-brand-600 text-brand-600 bg-card font-bold shadow-sm'
+                    : 'border-transparent text-muted-foreground hover:text-foreground hover:bg-muted/60'
                 }`}
               >
                 {tab.icon}

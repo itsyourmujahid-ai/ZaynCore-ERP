@@ -127,23 +127,23 @@ export const SupplierDirectoryView: React.FC<{
   return (
     <div className="space-y-4">
       {/* Top Filter Bar */}
-      <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-3">
+      <div className="p-4 rounded-xl bg-card border border-border flex flex-col md:flex-row items-center justify-between gap-3">
         <div className="flex items-center gap-2 w-full md:w-auto">
           <div className="relative w-full md:w-72">
-            <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-500" />
+            <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-muted-foreground" />
             <input
               type="text"
               placeholder="Search by code, supplier, or contact..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-3 py-1.5 text-xs bg-slate-950/80 border border-slate-800 rounded-lg text-slate-200 placeholder-slate-500 focus:outline-none focus:border-brand-500"
+              className="w-full pl-9 pr-3 py-1.5 text-xs bg-card/80 border border-border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-brand-500"
             />
           </div>
 
           <select
             value={selectedGroup}
             onChange={(e) => setSelectedGroup(e.target.value)}
-            className="px-3 py-1.5 text-xs bg-slate-950/80 border border-slate-800 rounded-lg text-slate-300 focus:outline-none focus:border-brand-500"
+            className="px-3 py-1.5 text-xs bg-card/80 border border-border rounded-lg text-foreground/90 focus:outline-none focus:border-brand-500"
           >
             <option value="all">All Supplier Groups</option>
             {supplierGroups.map((g) => (
@@ -171,7 +171,7 @@ export const SupplierDirectoryView: React.FC<{
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-slate-800 bg-slate-900/90 text-slate-400 font-semibold uppercase tracking-wider">
+              <tr className="border-b border-border bg-card/90 text-muted-foreground font-semibold uppercase tracking-wider">
                 <th className="px-5 py-3.5">Supplier Code & Name</th>
                 <th className="px-5 py-3.5">Category Group</th>
                 <th className="px-5 py-3.5">Contact Person</th>
@@ -181,38 +181,38 @@ export const SupplierDirectoryView: React.FC<{
                 <th className="px-5 py-3.5 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-slate-200">
+            <tbody className="divide-y divide-border text-foreground">
               {filteredSuppliers.map((s) => {
                 const group = supplierGroups.find((g) => g.id === s.supplierGroupId);
                 const supplierBills = bills.filter((b) => b.supplierId === s.id);
                 const totalOutstanding = supplierBills.reduce((sum, b) => sum + parseFloat(b.balanceDue), 0);
 
                 return (
-                  <tr key={s.id} className="hover:bg-slate-800/40 transition-colors">
+                  <tr key={s.id} className="hover:bg-muted/40 transition-colors">
                     <td className="px-5 py-3.5">
                       <div className="flex items-center gap-3">
-                        <div className="w-7 h-7 rounded-lg bg-slate-800 flex items-center justify-center font-bold text-slate-300 text-[11px] shrink-0">
+                        <div className="w-7 h-7 rounded-lg bg-muted flex items-center justify-center font-bold text-foreground/90 text-[11px] shrink-0">
                           {s.code.slice(0, 2)}
                         </div>
                         <div className="min-w-0">
-                          <div className="font-semibold text-slate-100 truncate max-w-[180px]" title={s.name}>{s.name}</div>
-                          <div className="text-[10px] font-mono text-slate-500">{s.code} • {s.currency}</div>
+                          <div className="font-semibold text-foreground truncate max-w-[180px]" title={s.name}>{s.name}</div>
+                          <div className="text-[10px] font-mono text-muted-foreground">{s.code} • {s.currency}</div>
                         </div>
                       </div>
                     </td>
 
-                    <td className="px-5 py-3.5 text-slate-300">
-                      <span className="px-2 py-0.5 rounded bg-slate-800 text-slate-300 text-[10px] font-medium">
+                    <td className="px-5 py-3.5 text-foreground/90">
+                      <span className="px-2 py-0.5 rounded bg-muted text-foreground/90 text-[10px] font-medium">
                         {group?.name || s.supplierType.toUpperCase()}
                       </span>
                     </td>
 
-                    <td className="px-5 py-3.5 text-slate-300">
+                    <td className="px-5 py-3.5 text-foreground/90">
                       <div>{s.contactPerson || '—'}</div>
-                      <div className="text-[10px] text-slate-500">{s.email || s.phone || ''}</div>
+                      <div className="text-[10px] text-muted-foreground">{s.email || s.phone || ''}</div>
                     </td>
 
-                    <td className="px-5 py-3.5 text-slate-300">
+                    <td className="px-5 py-3.5 text-foreground/90">
                       <span className="font-semibold">Net {s.paymentTermsDays} Days</span>
                     </td>
 
@@ -248,7 +248,7 @@ export const SupplierDirectoryView: React.FC<{
               })}
               {filteredSuppliers.length === 0 && (
                 <tr>
-                  <td colSpan={7} className="px-5 py-12 text-center text-slate-500">
+                  <td colSpan={7} className="px-5 py-12 text-center text-muted-foreground">
                     No suppliers found. Click "+ Register Supplier" to add your first vendor.
                   </td>
                 </tr>

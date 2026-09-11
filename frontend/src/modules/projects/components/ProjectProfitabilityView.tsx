@@ -69,8 +69,8 @@ export const ProjectProfitabilityView: React.FC<ProjectProfitabilityViewProps> =
       {/* Detailed Project Profitability Table */}
       <Card title="Contract Profitability & Margin Performance Table" subtitle="Decimal-safe margin computations per project">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs text-slate-300">
-            <thead className="bg-slate-950/60 text-slate-400 font-semibold border-b border-slate-800">
+          <table className="w-full text-left text-xs text-foreground/90">
+            <thead className="bg-card/60 text-muted-foreground font-semibold border-b border-border">
               <tr>
                 <th className="p-3">Project Code</th>
                 <th className="p-3">Project Title</th>
@@ -83,16 +83,16 @@ export const ProjectProfitabilityView: React.FC<ProjectProfitabilityViewProps> =
                 <th className="p-3 text-center">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800 font-mono">
+            <tbody className="divide-y divide-border font-mono">
               {portfolio.projects.map((p) => (
                 <tr
                   key={p.projectId}
                   onClick={() => onOpenProject && onOpenProject(p.projectId)}
-                  className="hover:bg-slate-800/40 cursor-pointer"
+                  className="hover:bg-muted/40 cursor-pointer"
                 >
                   <td className="p-3 font-bold text-cyan-400">{p.projectCode}</td>
-                  <td className="p-3 font-sans font-semibold text-slate-200">{p.projectName}</td>
-                  <td className="p-3 text-right text-slate-400">${parseFloat(p.contractValue).toLocaleString()}</td>
+                  <td className="p-3 font-sans font-semibold text-foreground">{p.projectName}</td>
+                  <td className="p-3 text-right text-muted-foreground">${parseFloat(p.contractValue).toLocaleString()}</td>
                   <td className="p-3 text-right text-emerald-400 font-semibold">${parseFloat(p.totalRevenue).toLocaleString()}</td>
                   <td className="p-3 text-right text-rose-400 font-semibold">${parseFloat(p.totalCost).toLocaleString()}</td>
                   <td className={`p-3 text-right font-bold ${parseFloat(p.grossProfit) >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
@@ -103,7 +103,7 @@ export const ProjectProfitabilityView: React.FC<ProjectProfitabilityViewProps> =
                       {p.grossMarginPercentage}%
                     </span>
                   </td>
-                  <td className={`p-3 text-right ${parseFloat(p.budgetVariance) >= 0 ? 'text-slate-300' : 'text-rose-400'}`}>
+                  <td className={`p-3 text-right ${parseFloat(p.budgetVariance) >= 0 ? 'text-foreground/90' : 'text-rose-400'}`}>
                     ${parseFloat(p.budgetVariance).toLocaleString()}
                   </td>
                   <td className="p-3 text-center font-sans">
@@ -113,7 +113,7 @@ export const ProjectProfitabilityView: React.FC<ProjectProfitabilityViewProps> =
               ))}
               {portfolio.projects.length === 0 && (
                 <tr>
-                  <td colSpan={9} className="p-12 text-center text-slate-500 font-sans">
+                  <td colSpan={9} className="p-12 text-center text-muted-foreground font-sans">
                     No project contracts available for profitability analysis.
                   </td>
                 </tr>

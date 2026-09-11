@@ -70,11 +70,11 @@ export const RolePermissionManager: React.FC = () => {
         <div>
           <div className="flex items-center gap-2">
             <span className="text-xs font-bold uppercase tracking-wider text-purple-400">Security & Authorization</span>
-            <span className="text-slate-600">•</span>
-            <span className="text-xs text-slate-400">Tenant: {tenant.companyName}</span>
+            <span className="text-muted-foreground">•</span>
+            <span className="text-xs text-muted-foreground">Tenant: {tenant.companyName}</span>
           </div>
-          <h1 className="text-2xl font-bold text-slate-100 mt-1">Roles & Granular RBAC</h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <h1 className="text-2xl font-bold text-foreground mt-1">Roles & Granular RBAC</h1>
+          <p className="text-xs text-muted-foreground mt-1">
             Configure fine-grained resource permissions across all ERP modules for system and custom roles.
           </p>
         </div>
@@ -93,7 +93,7 @@ export const RolePermissionManager: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         {/* Left Column: Roles Selector */}
         <div className="space-y-3">
-          <span className="text-xs font-bold uppercase text-slate-400 tracking-wider block px-1">
+          <span className="text-xs font-bold uppercase text-muted-foreground tracking-wider block px-1">
             Available Roles ({roles.length})
           </span>
           <div className="space-y-1.5">
@@ -106,15 +106,15 @@ export const RolePermissionManager: React.FC = () => {
                   className={`p-3 rounded-xl border cursor-pointer transition-all ${
                     isSelected
                       ? 'bg-brand-600/10 border-brand-500/50 shadow-sm'
-                      : 'bg-slate-900 border-slate-800 hover:bg-slate-800/60'
+                      : 'bg-card border-border hover:bg-muted/60'
                   }`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-slate-100">{role.name}</span>
+                    <span className="text-xs font-bold text-foreground">{role.name}</span>
                     {role.isSystemRole && <Badge variant="purple" size="xs">SYSTEM</Badge>}
                   </div>
-                  <div className="text-[10px] font-mono text-slate-400 mt-0.5">{role.code}</div>
-                  <p className="text-[11px] text-slate-400 mt-1 line-clamp-2">{role.description}</p>
+                  <div className="text-[10px] font-mono text-muted-foreground mt-0.5">{role.code}</div>
+                  <p className="text-[11px] text-muted-foreground mt-1 line-clamp-2">{role.description}</p>
                 </div>
               );
             })}
@@ -139,13 +139,13 @@ export const RolePermissionManager: React.FC = () => {
                 if (mod.permissions.length === 0) return null;
 
                 return (
-                  <div key={mod.key} className="p-4 rounded-xl bg-slate-950/60 border border-slate-800 space-y-3">
-                    <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+                  <div key={mod.key} className="p-4 rounded-xl bg-card/60 border border-border space-y-3">
+                    <div className="flex items-center justify-between border-b border-border pb-2">
                       <div className="flex items-center gap-2">
-                        <span className="text-xs font-bold text-slate-100">{mod.name}</span>
-                        <span className="font-mono text-[10px] text-slate-500">[{mod.key}]</span>
+                        <span className="text-xs font-bold text-foreground">{mod.name}</span>
+                        <span className="font-mono text-[10px] text-muted-foreground">[{mod.key}]</span>
                       </div>
-                      <span className="text-[10px] text-slate-400 uppercase font-semibold">
+                      <span className="text-[10px] text-muted-foreground uppercase font-semibold">
                         {mod.permissions.length} Available Permissions
                       </span>
                     </div>
@@ -161,20 +161,20 @@ export const RolePermissionManager: React.FC = () => {
                             onClick={() => !isSuper && togglePermission(perm.code)}
                             className={`p-2.5 rounded-lg border transition-all flex items-start justify-between gap-2 ${
                               isSuper
-                                ? 'bg-slate-900/60 border-slate-800 opacity-90 cursor-default'
+                                ? 'bg-card/60 border-border opacity-90 cursor-default'
                                 : isGranted
                                 ? 'bg-brand-500/10 border-brand-500/30 cursor-pointer hover:bg-brand-500/15'
-                                : 'bg-slate-900/40 border-slate-800/80 cursor-pointer hover:bg-slate-800/40 opacity-70'
+                                : 'bg-card/40 border-border/80 cursor-pointer hover:bg-muted/40 opacity-70'
                             }`}
                           >
                             <div>
                               <div className="flex items-center gap-1.5">
-                                <span className={`text-xs font-semibold ${isGranted ? 'text-brand-300' : 'text-slate-300'}`}>
+                                <span className={`text-xs font-semibold ${isGranted ? 'text-brand-300' : 'text-foreground/90'}`}>
                                   {perm.name}
                                 </span>
                               </div>
-                              <span className="font-mono text-[10px] text-slate-500 block">{perm.code}</span>
-                              <p className="text-[11px] text-slate-400 mt-0.5">{perm.description}</p>
+                              <span className="font-mono text-[10px] text-muted-foreground block">{perm.code}</span>
+                              <p className="text-[11px] text-muted-foreground mt-0.5">{perm.description}</p>
                             </div>
 
                             <div className="shrink-0 mt-0.5">
@@ -183,7 +183,7 @@ export const RolePermissionManager: React.FC = () => {
                                   <Check className="w-3.5 h-3.5" />
                                 </div>
                               ) : (
-                                <div className="w-5 h-5 rounded bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-500">
+                                <div className="w-5 h-5 rounded bg-muted border border-border flex items-center justify-center text-muted-foreground">
                                   <X className="w-3.5 h-3.5" />
                                 </div>
                               )}

@@ -33,11 +33,11 @@ export function Table<T>({
   emptySubtext = 'Try adjusting your filters or search criteria.',
 }: TableProps<T>) {
   return (
-    <div className="w-full overflow-hidden rounded-xl border border-slate-200 bg-white/90 shadow-sm">
+    <div className="w-full overflow-hidden rounded-xl border border-border bg-card/90 shadow-sm">
       <div className="overflow-x-auto">
         <table className="w-full text-left text-xs border-collapse">
           <thead>
-            <tr className="border-b border-slate-200 bg-slate-50 text-slate-700 font-bold uppercase tracking-wider">
+            <tr className="border-b border-border bg-muted text-foreground/90 font-bold uppercase tracking-wider">
               {columns.map((col) => (
                 <th
                   key={col.key}
@@ -52,10 +52,10 @@ export function Table<T>({
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100 text-slate-800">
+          <tbody className="divide-y divide-border text-foreground">
             {isLoading ? (
               <tr>
-                <td colSpan={columns.length} className="px-4 py-12 text-center text-slate-500">
+                <td colSpan={columns.length} className="px-4 py-12 text-center text-muted-foreground">
                   <div className="flex flex-col items-center justify-center gap-2">
                     <div className="w-6 h-6 border-2 border-brand-500 border-t-transparent rounded-full animate-spin" />
                     <span className="text-xs">Loading records...</span>
@@ -64,9 +64,9 @@ export function Table<T>({
               </tr>
             ) : data.length === 0 ? (
               <tr>
-                <td colSpan={columns.length} className="px-4 py-12 text-center text-slate-500">
-                  <p className="text-sm font-semibold text-slate-700">{emptyMessage}</p>
-                  <p className="text-xs text-slate-500 mt-1">{emptySubtext}</p>
+                <td colSpan={columns.length} className="px-4 py-12 text-center text-muted-foreground">
+                  <p className="text-sm font-semibold text-foreground/90">{emptyMessage}</p>
+                  <p className="text-xs text-muted-foreground mt-1">{emptySubtext}</p>
                 </td>
               </tr>
             ) : (
@@ -75,8 +75,8 @@ export function Table<T>({
                   key={keyExtractor(item)}
                   onClick={() => onRowClick && onRowClick(item)}
                   className={clsx(
-                    'transition-colors duration-100 hover:bg-slate-50',
-                    index % 2 === 1 ? 'bg-slate-50/30' : 'bg-white',
+                    'transition-colors duration-100 hover:bg-muted',
+                    index % 2 === 1 ? 'bg-muted/30' : 'bg-card',
                     onRowClick && 'cursor-pointer'
                   )}
                 >
@@ -84,7 +84,7 @@ export function Table<T>({
                     <td
                       key={col.key}
                       className={clsx(
-                        'px-4 py-3 whitespace-nowrap text-slate-900',
+                        'px-4 py-3 whitespace-nowrap text-foreground',
                         col.align === 'right' ? 'text-right' : col.align === 'center' ? 'text-center' : 'text-left'
                       )}
                     >

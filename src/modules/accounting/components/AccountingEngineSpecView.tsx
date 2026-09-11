@@ -77,11 +77,11 @@ export const AccountingEngineSpecView: React.FC = () => {
       <div>
         <div className="flex items-center gap-2">
           <span className="text-xs font-bold uppercase tracking-wider text-brand-400">Architectural Core</span>
-          <span className="text-slate-600">•</span>
-          <span className="text-xs text-slate-400">Phase 1 Foundation Rule Engine</span>
+          <span className="text-muted-foreground">•</span>
+          <span className="text-xs text-muted-foreground">Phase 1 Foundation Rule Engine</span>
         </div>
-        <h1 className="text-2xl font-bold text-slate-100 mt-1">Automated Posting Engine Specification</h1>
-        <p className="text-xs text-slate-400 mt-1">
+        <h1 className="text-2xl font-bold text-foreground mt-1">Automated Posting Engine Specification</h1>
+        <p className="text-xs text-muted-foreground mt-1">
           Operational transactions never require manual journal creation. The centralized rule engine automatically generates balanced double-entry records.
         </p>
       </div>
@@ -93,13 +93,13 @@ export const AccountingEngineSpecView: React.FC = () => {
       >
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-3">
           {lifecycleSteps.map((s, idx) => (
-            <div key={idx} className="p-3 rounded-lg bg-slate-950/70 border border-slate-800 flex flex-col justify-between">
+            <div key={idx} className="p-3 rounded-lg bg-card/70 border border-border flex flex-col justify-between">
               <div>
                 <span className="text-[10px] font-mono text-brand-400 font-bold uppercase block">{s.step}</span>
-                <p className="text-xs text-slate-300 mt-1.5">{s.desc}</p>
+                <p className="text-xs text-foreground/90 mt-1.5">{s.desc}</p>
               </div>
               {idx < lifecycleSteps.length - 1 && (
-                <div className="hidden lg:flex items-center justify-end mt-2 text-slate-600">
+                <div className="hidden lg:flex items-center justify-end mt-2 text-muted-foreground">
                   <ArrowRight className="w-3.5 h-3.5" />
                 </div>
               )}
@@ -117,7 +117,7 @@ export const AccountingEngineSpecView: React.FC = () => {
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-slate-800 bg-slate-900/90 text-slate-400 font-semibold uppercase tracking-wider">
+              <tr className="border-b border-border bg-card/90 text-muted-foreground font-semibold uppercase tracking-wider">
                 <th className="px-5 py-3.5">Business Event</th>
                 <th className="px-5 py-3.5">Domain Module</th>
                 <th className="px-5 py-3.5">Debit Account(s)</th>
@@ -125,15 +125,15 @@ export const AccountingEngineSpecView: React.FC = () => {
                 <th className="px-5 py-3.5">Sub-Ledger Target</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-slate-200">
+            <tbody className="divide-y divide-border text-foreground">
               {postingRules.map((rule, idx) => (
-                <tr key={idx} className="hover:bg-slate-800/40 transition-colors">
-                  <td className="px-5 py-3.5 font-semibold text-slate-100 flex items-center gap-2">
+                <tr key={idx} className="hover:bg-muted/40 transition-colors">
+                  <td className="px-5 py-3.5 font-semibold text-foreground flex items-center gap-2">
                     <Sparkles className="w-3.5 h-3.5 text-brand-400 shrink-0" />
                     <span>{rule.event}</span>
                   </td>
                   <td className="px-5 py-3.5">
-                    <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-slate-800 text-slate-300 border border-slate-700">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-muted text-foreground/90 border border-border">
                       {rule.module}
                     </span>
                   </td>
@@ -158,19 +158,19 @@ export const AccountingEngineSpecView: React.FC = () => {
       {/* Sub-Ledger to General Ledger Reconciliation Architecture */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card title="AR & AP Sub-Ledgers" subtitle="Customer & Vendor Sub-Ledgers">
-          <p className="text-xs text-slate-400">
+          <p className="text-xs text-muted-foreground">
             Individual customer invoices, credit notes, and payment allocations write to the Accounts Receivable sub-ledger. The AR Control account in the General Ledger reconciles automatically in real-time.
           </p>
         </Card>
 
         <Card title="Perpetual Inventory Valuation" subtitle="FIFO & Standard Cost Engine">
-          <p className="text-xs text-slate-400">
+          <p className="text-xs text-muted-foreground">
             Stock movements generate automated Cost of Goods Sold (COGS) and inventory asset debits/credits, ensuring perpetual inventory reconciles directly with warehouse valuation reports.
           </p>
         </Card>
 
         <Card title="Audit & Reversal Protocol" subtitle="Zero In-Place Edits">
-          <p className="text-xs text-slate-400">
+          <p className="text-xs text-muted-foreground">
             No posted accounting records can be deleted or modified. Corrections trigger automated reversal journals, ensuring 100% compliance with external statutory audits.
           </p>
         </Card>

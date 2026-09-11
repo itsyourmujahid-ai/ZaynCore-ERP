@@ -3,152 +3,251 @@
 @tailwind utilities;
 
 @layer base {
-  body {
-    @apply bg-slate-950 text-slate-900 font-sans antialiased selection:bg-emerald-500 selection:text-white min-h-screen overflow-hidden;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  /* ==========================================================================
+     LIGHT THEME (Default / :root / [data-theme="light"])
+     WCAG AAA High Contrast Design Tokens
+     ========================================================================== */
+  :root, [data-mode="light"], .light {
+    --background: #f8fafc;
+    --foreground: #0f172a;
+
+    --card: #ffffff;
+    --card-foreground: #0f172a;
+
+    --popover: #ffffff;
+    --popover-foreground: #0f172a;
+
+    --muted: #f1f5f9;
+    --muted-foreground: #475569;
+
+    --primary: #059669;
+    --primary-foreground: #ffffff;
+
+    --secondary: #e2e8f0;
+    --secondary-foreground: #0f172a;
+
+    --border: #cbd5e1;
+    --input: #ffffff;
+    --input-border: #94a3b8;
+    --ring: #059669;
+
+    --destructive: #dc2626;
+    --destructive-foreground: #ffffff;
+
+    --success: #16a34a;
+    --success-foreground: #ffffff;
+    --warning: #d97706;
+    --warning-foreground: #ffffff;
+    --info: #0284c7;
+    --info-foreground: #ffffff;
+
+    /* Frosted Glass Design Tokens (Light) */
+    --glass: rgba(255, 255, 255, 0.82);
+    --glass-foreground: #0f172a;
+    --glass-border: rgba(203, 213, 225, 0.8);
+    --glass-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+
+    /* Theme Accents (Light) */
+    --theme-accent-primary: #059669;
+    --theme-accent-hover: #047857;
+    --theme-accent-light: #ecfdf5;
+    --theme-accent-border: #a7f3d0;
+    --theme-accent-text: #047857;
+    --theme-chart-stroke: #059669;
+    --theme-chart-fill: rgba(5, 150, 105, 0.15);
+    --theme-chart-dot: #047857;
+    --theme-nav-active: rgba(5, 150, 105, 0.15);
+    --theme-nav-ring: rgba(5, 150, 105, 0.3);
+    --theme-nav-dot: #059669;
+
+    --brand-50: #ecfdf5;
+    --brand-100: #d1fae5;
+    --brand-200: #a7f3d0;
+    --brand-300: #6ee7b7;
+    --brand-400: #34d399;
+    --brand-500: #10b981;
+    --brand-600: #059669;
+    --brand-700: #047857;
+    --brand-800: #065f46;
+    --brand-900: #064e3b;
+    --brand-950: #022c22;
   }
 
-  /* Custom scrollbar for dense enterprise tables and menus */
+  /* ==========================================================================
+     DARK THEME (.dark / [data-mode="dark"])
+     WCAG AAA High Contrast Design Tokens
+     ========================================================================== */
+  .dark, [data-mode="dark"] {
+    --background: #090d16;
+    --foreground: #f8fafc;
+
+    --card: #111827;
+    --card-foreground: #f8fafc;
+
+    --popover: #111827;
+    --popover-foreground: #f8fafc;
+
+    --muted: #1e293b;
+    --muted-foreground: #94a3b8;
+
+    --primary: #10b981;
+    --primary-foreground: #ffffff;
+
+    --secondary: #1e293b;
+    --secondary-foreground: #f8fafc;
+
+    --border: #334155;
+    --input: #0f172a;
+    --input-border: #475569;
+    --ring: #34d399;
+
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+
+    --success: #22c55e;
+    --success-foreground: #ffffff;
+    --warning: #f59e0b;
+    --warning-foreground: #000000;
+    --info: #38bdf8;
+    --info-foreground: #000000;
+
+    /* Frosted Glass Design Tokens (Dark) */
+    --glass: rgba(17, 24, 39, 0.82);
+    --glass-foreground: #f8fafc;
+    --glass-border: rgba(51, 65, 85, 0.8);
+    --glass-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.4);
+
+    /* Theme Accents (Dark) */
+    --theme-accent-primary: #10b981;
+    --theme-accent-hover: #34d399;
+    --theme-accent-light: rgba(16, 185, 129, 0.15);
+    --theme-accent-border: #047857;
+    --theme-accent-text: #34d399;
+    --theme-chart-stroke: #10b981;
+    --theme-chart-fill: rgba(16, 185, 129, 0.15);
+    --theme-chart-dot: #34d399;
+    --theme-nav-active: rgba(16, 185, 129, 0.22);
+    --theme-nav-ring: rgba(52, 211, 153, 0.4);
+    --theme-nav-dot: #34d399;
+
+    --brand-50: #022c22;
+    --brand-100: #064e3b;
+    --brand-200: #065f46;
+    --brand-300: #047857;
+    --brand-400: #059669;
+    --brand-500: #10b981;
+    --brand-600: #34d399;
+    --brand-700: #6ee7b7;
+    --brand-800: #a7f3d0;
+    --brand-900: #d1fae5;
+    --brand-950: #ecfdf5;
+  }
+
+  /* Palette Overrides: Blue */
+  .theme-blue, [data-palette="blue"] {
+    --primary: #0284c7;
+    --brand-500: #0284c7;
+    --brand-600: #0369a1;
+    --theme-accent-primary: #0284c7;
+    --theme-accent-hover: #0369a1;
+    --theme-accent-light: #f0f9ff;
+    --theme-accent-border: #bae6fd;
+    --theme-accent-text: #0284c7;
+    --theme-chart-stroke: #0284c7;
+    --theme-chart-fill: rgba(2, 132, 199, 0.15);
+    --theme-chart-dot: #0284c7;
+    --theme-nav-active: rgba(2, 132, 199, 0.22);
+    --theme-nav-ring: rgba(56, 189, 248, 0.4);
+    --theme-nav-dot: #38bdf8;
+  }
+
+  /* Palette Overrides: Black / Obsidian */
+  .theme-black, [data-palette="black"] {
+    --primary: #334155;
+    --brand-500: #334155;
+    --brand-600: #1e293b;
+    --theme-accent-primary: #334155;
+    --theme-accent-hover: #1e293b;
+    --theme-accent-light: #f1f5f9;
+    --theme-accent-border: #cbd5e1;
+    --theme-accent-text: #0f172a;
+    --theme-chart-stroke: #475569;
+    --theme-chart-fill: rgba(51, 65, 85, 0.15);
+    --theme-chart-dot: #0f172a;
+    --theme-nav-active: rgba(255, 255, 255, 0.15);
+    --theme-nav-ring: rgba(255, 255, 255, 0.3);
+    --theme-nav-dot: #f8fafc;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Custom high-contrast scrollbars */
   ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
   }
 
   ::-webkit-scrollbar-track {
-    background: rgba(241, 245, 249, 0.6);
+    background: var(--muted);
   }
 
   ::-webkit-scrollbar-thumb {
-    background: rgba(148, 163, 184, 0.5);
+    background: var(--muted-foreground);
     border-radius: 9999px;
+    opacity: 0.7;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(100, 116, 139, 0.7);
+    background: var(--primary);
   }
 }
 
-/* Subtle Enterprise Dot Grid Background */
+/* Subtle Enterprise Dot Grid Background (Adaptive) */
 .bg-dot-grid {
-  background-color: #f8fafc;
-  background-image: radial-gradient(#cbd5e1 1.1px, transparent 1.1px);
+  background-color: var(--background);
+  background-image: radial-gradient(var(--border) 1.2px, transparent 1.2px);
   background-size: 24px 24px;
 }
 
-/* Light Frosted Glass Classes (Dashboard Panels, KPI Cards, Tables, Charts) */
+/* High Contrast Frosted Glass Panels & Surfaces */
+.glass-panel,
 .glass-panel-light {
-  background: rgba(255, 255, 255, 0.82);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(226, 232, 240, 0.9);
-  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
+.glass-card,
 .glass-card-light {
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(16px) saturate(160%);
-  -webkit-backdrop-filter: blur(16px) saturate(160%);
-  border: 1px solid rgba(226, 232, 240, 0.85);
-  box-shadow: 0 2px 12px -1px rgba(15, 23, 42, 0.04);
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.glass-card:hover,
 .glass-card-light:hover {
-  border-color: rgba(203, 213, 225, 0.95);
-  box-shadow: 0 6px 20px -2px rgba(15, 23, 42, 0.07);
+  border-color: var(--primary);
+  box-shadow: 0 12px 35px -5px rgba(0, 0, 0, 0.12);
 }
 
-/* Dark Frosted Glass Classes (Sidebar & Top Navigation) */
-.glass-header-dark {
-  background: rgba(15, 23, 42, 0.78);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.25);
-}
-
-.glass-sidebar-dark {
-  background: rgba(15, 23, 42, 0.8);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border-right: 1px solid rgba(255, 255, 255, 0.09);
-  box-shadow: 4px 0 24px -2px rgba(0, 0, 0, 0.3);
-}
-
-/* Theme Accents & Global Brand Palette */
-.theme-black, [data-theme="black"] {
-  --brand-50: #f8fafc;
-  --brand-100: #f1f5f9;
-  --brand-200: #e2e8f0;
-  --brand-300: #cbd5e1;
-  --brand-400: #94a3b8;
-  --brand-500: #475569;
-  --brand-600: #0f172a;
-  --brand-700: #020617;
-  --brand-800: #000000;
-  --brand-900: #000000;
-  --brand-950: #000000;
-  --theme-accent-primary: #0f172a;
-  --theme-accent-hover: #1e293b;
-  --theme-accent-light: #f1f5f9;
-  --theme-accent-border: #cbd5e1;
-  --theme-accent-text: #0f172a;
-  --theme-chart-stroke: #334155;
-  --theme-chart-fill: rgba(51, 65, 85, 0.12);
-  --theme-chart-dot: #0f172a;
-  --theme-nav-active: rgba(255, 255, 255, 0.15);
-  --theme-nav-ring: rgba(255, 255, 255, 0.3);
-  --theme-nav-dot: #f8fafc;
-}
-
-.theme-blue, [data-theme="blue"] {
-  --brand-50: #f0f9ff;
-  --brand-100: #e0f2fe;
-  --brand-200: #bae6fd;
-  --brand-300: #7dd3fc;
-  --brand-400: #38bdf8;
-  --brand-500: #0ea5e9;
-  --brand-600: #0284c7;
-  --brand-700: #0369a1;
-  --brand-800: #075985;
-  --brand-900: #0c4a6e;
-  --brand-950: #082f49;
-  --theme-accent-primary: #0284c7;
-  --theme-accent-hover: #0369a1;
-  --theme-accent-light: #f0f9ff;
-  --theme-accent-border: #bae6fd;
-  --theme-accent-text: #0284c7;
-  --theme-chart-stroke: #0284c7;
-  --theme-chart-fill: rgba(2, 132, 199, 0.14);
-  --theme-chart-dot: #0284c7;
-  --theme-nav-active: rgba(2, 132, 199, 0.25);
-  --theme-nav-ring: rgba(56, 189, 248, 0.4);
-  --theme-nav-dot: #38bdf8;
-}
-
-.theme-green, [data-theme="green"], :root {
-  --brand-50: #ecfdf5;
-  --brand-100: #d1fae5;
-  --brand-200: #a7f3d0;
-  --brand-300: #6ee7b7;
-  --brand-400: #34d399;
-  --brand-500: #10b981;
-  --brand-600: #059669;
-  --brand-700: #047857;
-  --brand-800: #065f46;
-  --brand-900: #064e3b;
-  --brand-950: #022c22;
-  --theme-accent-primary: #059669;
-  --theme-accent-hover: #047857;
-  --theme-accent-light: #ecfdf5;
-  --theme-accent-border: #a7f3d0;
-  --theme-accent-text: #059669;
-  --theme-chart-stroke: #059669;
-  --theme-chart-fill: rgba(5, 150, 105, 0.14);
-  --theme-chart-dot: #059669;
-  --theme-nav-active: rgba(5, 150, 105, 0.25);
-  --theme-nav-ring: rgba(52, 211, 153, 0.4);
-  --theme-nav-dot: #34d399;
+.glass-surface {
+  background: var(--glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
 }
 
 @keyframes fadeIn {
@@ -167,4 +266,89 @@
 
 .animate-scaleUp {
   animation: scaleUp 0.15s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ==========================================================================
+   APPLE-STYLE FLUID PAGE TRANSITIONS (ZaynCore Motion System)
+   Native spring-like cubic-bezier(0.22, 1, 0.36, 1), GPU-accelerated translate3d,
+   micro-scale and opacity blending with zero layout shifts and reduced-motion support.
+   ========================================================================== */
+
+.zayn-page-transition {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  overflow-x: hidden;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.zayn-enter-forward {
+  animation: zaynSlideInRight 240ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.zayn-enter-backward {
+  animation: zaynSlideInLeft 240ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.zayn-enter-neutral {
+  animation: zaynScaleFadeIn 220ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes zaynSlideInRight {
+  0% {
+    opacity: 0;
+    transform: translate3d(24px, 0, 0) scale(0.988);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes zaynSlideInLeft {
+  0% {
+    opacity: 0;
+    transform: translate3d(-24px, 0, 0) scale(0.988);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes zaynScaleFadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.988);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes zaynQuickFade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.zayn-reduced-motion {
+  animation: zaynQuickFade 80ms ease-out forwards !important;
+  transform: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .zayn-page-transition,
+  .zayn-enter-forward,
+  .zayn-enter-backward,
+  .zayn-enter-neutral {
+    animation: zaynQuickFade 80ms ease-out forwards !important;
+    transform: none !important;
+  }
 }

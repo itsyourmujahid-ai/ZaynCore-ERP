@@ -15,6 +15,8 @@ import {
   ShieldAlert,
   X
 } from 'lucide-react';
+import { InteractiveBackground } from '@/ui/components/InteractiveBackground';
+import { ZaynCoreLogo } from '@/ui/components/ZaynCoreLogo';
 
 export const LoginPage: React.FC = () => {
   const { loginCompanyUser, loginSuperAdmin } = useAuth();
@@ -54,7 +56,7 @@ export const LoginPage: React.FC = () => {
       }
     };
 
-    // 2. Keyboard Sequence Detector (CTRL + M + U + J fallback)
+    // 2. Keyboard Sequence Detector (CTRL + M + U + J)
     const handleKeyDown = (e: KeyboardEvent) => {
       const now = Date.now();
       if (now - lastKeyTimeRef.current > 3000) {
@@ -64,9 +66,9 @@ export const LoginPage: React.FC = () => {
 
       const key = e.key.toLowerCase();
 
-      // Handle Ctrl held + M -> U -> J
+      // Support 1: Holding Ctrl/Meta while pressing M -> U -> J
       if (e.ctrlKey || e.metaKey) {
-        if (key === 'm' && keySequenceRef.current.length === 0) {
+        if (key === 'm') {
           keySequenceRef.current = ['m'];
           return;
         } else if (key === 'u' && keySequenceRef.current.length === 1 && keySequenceRef.current[0] === 'm') {
@@ -79,6 +81,22 @@ export const LoginPage: React.FC = () => {
           setVvipErrorMessage(null);
           return;
         }
+      }
+
+      // Support 2: Sequential keypresses 'control' -> 'm' -> 'u' -> 'j'
+      if (key === 'control') {
+        keySequenceRef.current = ['control'];
+      } else if (keySequenceRef.current.length === 1 && keySequenceRef.current[0] === 'control' && key === 'm') {
+        keySequenceRef.current.push('m');
+      } else if (keySequenceRef.current.length === 2 && keySequenceRef.current[1] === 'm' && key === 'u') {
+        keySequenceRef.current.push('u');
+      } else if (keySequenceRef.current.length === 3 && keySequenceRef.current[2] === 'u' && key === 'j') {
+        e.preventDefault();
+        keySequenceRef.current = [];
+        setIsVVIPOpen(true);
+        setVvipErrorMessage(null);
+      } else if (key !== 'control' && key !== 'shift' && key !== 'alt') {
+        keySequenceRef.current = [];
       }
     };
 
@@ -121,7 +139,10 @@ export const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen w-screen bg-background text-foreground flex flex-col justify-between selection:bg-primary selection:text-primary-foreground font-sans">
+    <div className="min-h-screen w-screen bg-background text-foreground flex flex-col justify-between selection:bg-primary selection:text-primary-foreground font-sans relative">
+      {/* Interactive Mouse-Reactive Dot Grid Background */}
+      <InteractiveBackground />
+
       {/* Background Subtle Gradient */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
         <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[500px] bg-primary/10 blur-[120px] rounded-full" />
@@ -129,20 +150,18 @@ export const LoginPage: React.FC = () => {
       </div>
 
       {/* Top Brand Bar */}
-      <header className="relative z-10 px-6 py-4 border-b border-border bg-card/60 backdrop-blur-md flex items-center justify-between">
+      <header className="relative z-10 px-6 py-4 border-b border-border/80 bg-card/70 backdrop-blur-md flex items-center justify-between shadow-sm">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center font-bold text-lg text-primary-foreground shadow-md">
-            E
-          </div>
+          <ZaynCoreLogo size="md" />
           <div>
             <div className="text-sm font-bold tracking-tight text-foreground flex items-center gap-2">
-              <span>ENTERPRISE ERP</span>
+              <span>ZaynCore</span>
               <span className="px-1.5 py-0.2 text-[9px] font-black uppercase tracking-wider bg-primary/20 text-primary border border-primary/30 rounded">
-                CORE
+                CORE v2.0
               </span>
             </div>
             <div className="text-[10px] text-muted-foreground font-medium tracking-wide">
-              Accounting & Enterprise Management
+              Enterprise Ledger & Operations System
             </div>
           </div>
         </div>
@@ -155,8 +174,8 @@ export const LoginPage: React.FC = () => {
       {/* Main Clean Normal Login Container */}
       <main className="relative z-10 flex-1 flex items-center justify-center p-4 sm:p-6">
         <div className="w-full max-w-md">
-          {/* Main Clean Card */}
-          <div className="bg-card border border-border rounded-2xl shadow-xl p-6 sm:p-8 space-y-6">
+          {/* Main Frosted Glass Card */}
+          <div className="bg-card/85 backdrop-blur-xl border border-border/90 rounded-2xl shadow-2xl p-6 sm:p-8 space-y-6">
             
             <div>
               <h1 className="text-xl font-bold text-card-foreground tracking-tight flex items-center gap-2">
@@ -344,7 +363,7 @@ export const LoginPage: React.FC = () => {
       {/* Clean Footer */}
       <footer className="relative z-10 px-6 py-4 border-t border-border bg-card/40 backdrop-blur-md flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-muted-foreground">
         <div>
-          <span>© 2026 Enterprise ERP Core. All rights reserved.</span>
+          <span>© 2026 ZaynCore. All rights reserved.</span>
         </div>
         <div className="flex items-center gap-4">
           <span>Enterprise Multi-Tenant Architecture</span>

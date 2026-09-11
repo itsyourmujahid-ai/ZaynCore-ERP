@@ -343,14 +343,47 @@ export class OnboardingService {
     adminUserId: string,
     ctx: TenantContext
   ): { company: DbCompany; adminUser: DbUser; profile: DbCompanyProfile } {
+    const defaults = this.getDefaultOnboardingPayload();
+    const completePayload: FullCompanyOnboardingPayload = {
+      ...defaults,
+      ...payload,
+      tier: payload.tier || defaults.tier,
+      fiscalYearStartMonth: payload.fiscalYearStartMonth || defaults.fiscalYearStartMonth,
+      accountingDefaults: {
+        ...defaults.accountingDefaults,
+        ...(payload.accountingDefaults || {}),
+      },
+      inventoryConfig: {
+        ...defaults.inventoryConfig,
+        ...(payload.inventoryConfig || {}),
+      },
+      salesWorkflow: {
+        ...defaults.salesWorkflow,
+        ...(payload.salesWorkflow || {}),
+      },
+      purchaseWorkflow: {
+        ...defaults.purchaseWorkflow,
+        ...(payload.purchaseWorkflow || {}),
+      },
+      branches: payload.branches?.length ? payload.branches : defaults.branches,
+      departments: payload.departments?.length ? payload.departments : defaults.departments,
+      costCenters: payload.costCenters?.length ? payload.costCenters : defaults.costCenters,
+      selectedRoles: payload.selectedRoles?.length ? payload.selectedRoles : defaults.selectedRoles,
+      enabledModuleKeys: payload.enabledModuleKeys?.length ? payload.enabledModuleKeys : defaults.enabledModuleKeys,
+      selectedUomCodes: payload.selectedUomCodes?.length ? payload.selectedUomCodes : defaults.selectedUomCodes,
+      warehouses: payload.inventoryConfig?.maintainsInventory === false
+        ? []
+        : (payload.warehouses?.length ? payload.warehouses : defaults.warehouses),
+    };
+
     // 1. Full payload validation
-    const reviewResult = this.validateStep(12, payload);
+    const reviewResult = this.validateStep(12, completePayload);
     if (!reviewResult.isValid) {
       throw new Error(`Company Onboarding Validation Failed: ${reviewResult.errors.join(' | ')}`);
     }
 
     // 2. Execute atomic initialization in database engine
-    const result = db.createCompanyWithFullOnboarding(payload, adminUserId, ctx);
+    const result = db.createCompanyWithFullOnboarding(completePayload, adminUserId, ctx);
 
     return result;
   }

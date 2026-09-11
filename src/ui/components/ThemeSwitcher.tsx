@@ -13,8 +13,8 @@ export const ThemeSwitcher: React.FC = () => {
     {
       id: 'black',
       label: 'Obsidian Black',
-      bgClass: 'bg-slate-900',
-      borderClass: 'border-slate-700',
+      bgClass: 'bg-card',
+      borderClass: 'border-border',
     },
     {
       id: 'blue',
@@ -31,8 +31,8 @@ export const ThemeSwitcher: React.FC = () => {
   ];
 
   return (
-    <div className="flex items-center gap-2 px-2.5 py-1.5 rounded-xl bg-slate-900/60 backdrop-blur-md border border-white/10 shrink-0">
-      <span className="text-[11px] font-semibold text-slate-300 hidden sm:inline select-none">
+    <div className="flex items-center gap-2 px-2.5 py-1.5 rounded-xl bg-card/60 backdrop-blur-md border border-white/10 shrink-0">
+      <span className="text-[11px] font-semibold text-foreground/90 hidden sm:inline select-none">
         Theme:
       </span>
       <div className="flex items-center gap-1.5">

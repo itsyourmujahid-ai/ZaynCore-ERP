@@ -115,8 +115,8 @@ export const TaxReturnsView: React.FC = () => {
       {/* Header Actions */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h2 className="text-lg font-bold text-slate-100">Tax Returns & Filings</h2>
-          <p className="text-xs text-slate-400">
+          <h2 className="text-lg font-bold text-foreground">Tax Returns & Filings</h2>
+          <p className="text-xs text-muted-foreground">
             Compile actual sub-ledger tax transactions into official tax return boxes and post GL settlement journals.
           </p>
         </div>
@@ -147,7 +147,7 @@ export const TaxReturnsView: React.FC = () => {
         {returns.length > 0 ? (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-950/60 text-slate-400 border-b border-slate-800">
+              <thead className="bg-card/60 text-muted-foreground border-b border-border">
                 <tr>
                   <th className="py-2.5 px-3">Return Number</th>
                   <th className="py-2.5 px-3">Filing Date</th>
@@ -159,13 +159,13 @@ export const TaxReturnsView: React.FC = () => {
                   <th className="py-2.5 px-3 text-right">Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60 text-slate-300">
+              <tbody className="divide-y divide-border text-foreground/90">
                 {returns.map((r) => {
                   const netVal = parseFloat(r.netTaxPayableOrRefundable);
                   return (
-                    <tr key={r.id} className="hover:bg-slate-800/30 transition-colors">
+                    <tr key={r.id} className="hover:bg-muted/30 transition-colors">
                       <td className="py-2.5 px-3 font-mono font-bold text-brand-400">{r.returnNumber}</td>
-                      <td className="py-2.5 px-3 font-mono text-slate-400">{r.filingDate}</td>
+                      <td className="py-2.5 px-3 font-mono text-muted-foreground">{r.filingDate}</td>
                       <td className="py-2.5 px-3 font-mono text-sky-400 font-medium">
                         ${parseFloat(r.totalOutputTax).toFixed(2)}
                       </td>
@@ -173,7 +173,7 @@ export const TaxReturnsView: React.FC = () => {
                         ${parseFloat(r.totalRecoverableInputTax).toFixed(2)}
                       </td>
                       <td className={`py-2.5 px-3 text-right font-mono font-bold ${
-                        netVal > 0 ? 'text-amber-400' : (netVal < 0 ? 'text-emerald-400' : 'text-slate-400')
+                        netVal > 0 ? 'text-amber-400' : (netVal < 0 ? 'text-emerald-400' : 'text-muted-foreground')
                       }`}>
                         {netVal < 0 ? `($${Math.abs(netVal).toFixed(2)})` : `$${netVal.toFixed(2)}`}
                       </td>
@@ -200,7 +200,7 @@ export const TaxReturnsView: React.FC = () => {
             </table>
           </div>
         ) : (
-          <div className="py-10 text-center text-slate-500 text-xs">
+          <div className="py-10 text-center text-muted-foreground text-xs">
             No tax returns prepared yet. Click "Prepare Tax Return" to compile your first return.
           </div>
         )}
@@ -216,9 +216,9 @@ export const TaxReturnsView: React.FC = () => {
         >
           <div className="space-y-5">
             {/* Status & Filing Header */}
-            <div className="p-3 rounded-lg bg-slate-950 border border-slate-800 flex items-center justify-between">
+            <div className="p-3 rounded-lg bg-card border border-border flex items-center justify-between">
               <div>
-                <span className="text-[10px] text-slate-500 uppercase font-mono block">Return Status</span>
+                <span className="text-[10px] text-muted-foreground uppercase font-mono block">Return Status</span>
                 <div className="flex items-center gap-2 mt-0.5">
                   <StatusBadge status={selectedReturn.status} />
                   <StatusBadge status={selectedReturn.paymentStatus} />
@@ -227,70 +227,70 @@ export const TaxReturnsView: React.FC = () => {
 
               {selectedReturn.settlementJournalId && (
                 <div className="text-right">
-                  <span className="text-[10px] text-slate-500 uppercase font-mono block">Settlement Journal</span>
+                  <span className="text-[10px] text-muted-foreground uppercase font-mono block">Settlement Journal</span>
                   <span className="font-mono text-xs text-brand-400 font-bold">{selectedReturn.settlementJournalId}</span>
                 </div>
               )}
             </div>
 
             {/* BOX SECTION 1: OUTPUT TAX (SALES) */}
-            <div className="p-3.5 rounded-lg bg-slate-900 border border-slate-800 space-y-2">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-1.5">
+            <div className="p-3.5 rounded-lg bg-card border border-border space-y-2">
+              <div className="flex items-center justify-between border-b border-border pb-1.5">
                 <span className="text-xs font-bold text-sky-400 uppercase tracking-wider">
                   Box 1: Output Tax on Sales & Supplies
                 </span>
-                <span className="text-xs font-bold text-slate-100 font-mono">
+                <span className="text-xs font-bold text-foreground font-mono">
                   ${parseFloat(selectedReturn.totalOutputTax).toFixed(2)}
                 </span>
               </div>
               <div className="grid grid-cols-2 gap-2 text-xs">
-                <div className="flex justify-between py-1 border-b border-slate-800/40 text-slate-400">
+                <div className="flex justify-between py-1 border-b border-border/40 text-muted-foreground">
                   <span>Standard Rated Sales Base:</span>
-                  <span className="font-mono text-slate-200">${parseFloat(selectedReturn.standardRatedSalesTaxable).toFixed(2)}</span>
+                  <span className="font-mono text-foreground">${parseFloat(selectedReturn.standardRatedSalesTaxable).toFixed(2)}</span>
                 </div>
-                <div className="flex justify-between py-1 border-b border-slate-800/40 text-slate-400">
+                <div className="flex justify-between py-1 border-b border-border/40 text-muted-foreground">
                   <span>Standard Output Tax:</span>
                   <span className="font-mono text-sky-400 font-bold">${parseFloat(selectedReturn.standardRatedSalesTax).toFixed(2)}</span>
                 </div>
-                <div className="flex justify-between py-1 text-slate-400">
+                <div className="flex justify-between py-1 text-muted-foreground">
                   <span>Zero-Rated / Export Sales:</span>
-                  <span className="font-mono text-slate-200">
+                  <span className="font-mono text-foreground">
                     ${(parseFloat(selectedReturn.zeroRatedSales) + parseFloat(selectedReturn.exportSales)).toFixed(2)}
                   </span>
                 </div>
-                <div className="flex justify-between py-1 text-slate-400">
+                <div className="flex justify-between py-1 text-muted-foreground">
                   <span>Exempt Supplies:</span>
-                  <span className="font-mono text-slate-200">${parseFloat(selectedReturn.exemptSales).toFixed(2)}</span>
+                  <span className="font-mono text-foreground">${parseFloat(selectedReturn.exemptSales).toFixed(2)}</span>
                 </div>
               </div>
             </div>
 
             {/* BOX SECTION 2: INPUT TAX (PURCHASES) */}
-            <div className="p-3.5 rounded-lg bg-slate-900 border border-slate-800 space-y-2">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-1.5">
+            <div className="p-3.5 rounded-lg bg-card border border-border space-y-2">
+              <div className="flex items-center justify-between border-b border-border pb-1.5">
                 <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider">
                   Box 2: Recoverable Input Tax on Purchases
                 </span>
-                <span className="text-xs font-bold text-slate-100 font-mono">
+                <span className="text-xs font-bold text-foreground font-mono">
                   ${parseFloat(selectedReturn.totalRecoverableInputTax).toFixed(2)}
                 </span>
               </div>
               <div className="grid grid-cols-2 gap-2 text-xs">
-                <div className="flex justify-between py-1 border-b border-slate-800/40 text-slate-400">
+                <div className="flex justify-between py-1 border-b border-border/40 text-muted-foreground">
                   <span>Standard Purchases Base:</span>
-                  <span className="font-mono text-slate-200">${parseFloat(selectedReturn.standardRatedPurchasesTaxable).toFixed(2)}</span>
+                  <span className="font-mono text-foreground">${parseFloat(selectedReturn.standardRatedPurchasesTaxable).toFixed(2)}</span>
                 </div>
-                <div className="flex justify-between py-1 border-b border-slate-800/40 text-slate-400">
+                <div className="flex justify-between py-1 border-b border-border/40 text-muted-foreground">
                   <span>Recoverable Input Tax:</span>
                   <span className="font-mono text-emerald-400 font-bold">${parseFloat(selectedReturn.totalRecoverableInputTax).toFixed(2)}</span>
                 </div>
-                <div className="flex justify-between py-1 text-slate-400">
+                <div className="flex justify-between py-1 text-muted-foreground">
                   <span>Non-Recoverable Input Tax:</span>
                   <span className="font-mono text-rose-400">${parseFloat(selectedReturn.totalNonRecoverableInputTax).toFixed(2)}</span>
                 </div>
-                <div className="flex justify-between py-1 text-slate-400">
+                <div className="flex justify-between py-1 text-muted-foreground">
                   <span>Capital Goods Input Tax:</span>
-                  <span className="font-mono text-slate-200">${parseFloat(selectedReturn.capitalGoodsInputTax).toFixed(2)}</span>
+                  <span className="font-mono text-foreground">${parseFloat(selectedReturn.capitalGoodsInputTax).toFixed(2)}</span>
                 </div>
               </div>
             </div>
@@ -301,7 +301,7 @@ export const TaxReturnsView: React.FC = () => {
                 <span className="text-xs font-bold text-brand-300 block">
                   Net Tax Balance Due / (Refundable)
                 </span>
-                <span className="text-[11px] text-slate-400">
+                <span className="text-[11px] text-muted-foreground">
                   Output Tax ($ {parseFloat(selectedReturn.totalOutputTax).toFixed(2)}) − Recoverable Input ($ {parseFloat(selectedReturn.totalRecoverableInputTax).toFixed(2)})
                 </span>
               </div>
@@ -311,7 +311,7 @@ export const TaxReturnsView: React.FC = () => {
             </div>
 
             {/* WORKFLOW ACTION BUTTONS */}
-            <div className="flex justify-end items-center gap-2 pt-2 border-t border-slate-800">
+            <div className="flex justify-end items-center gap-2 pt-2 border-t border-border">
               <Button variant="ghost" size="sm" onClick={() => setSelectedReturn(null)}>
                 Close
               </Button>
@@ -347,11 +347,11 @@ export const TaxReturnsView: React.FC = () => {
       >
         <form onSubmit={handlePrepareReturn} className="space-y-4">
           <div>
-            <label className="text-xs font-medium text-slate-300 mb-1 block">Tax Jurisdiction *</label>
+            <label className="text-xs font-medium text-foreground/90 mb-1 block">Tax Jurisdiction *</label>
             <select
               value={returnForm.jurisdictionId}
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setReturnForm({ ...returnForm, jurisdictionId: e.target.value })}
-              className="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-brand-500"
+              className="w-full px-3 py-1.5 bg-card border border-border rounded-lg text-xs text-foreground focus:outline-none focus:border-brand-500"
               required
             >
               <option value="">Select Jurisdiction...</option>
@@ -364,11 +364,11 @@ export const TaxReturnsView: React.FC = () => {
           </div>
 
           <div>
-            <label className="text-xs font-medium text-slate-300 mb-1 block">Tax Period *</label>
+            <label className="text-xs font-medium text-foreground/90 mb-1 block">Tax Period *</label>
             <select
               value={returnForm.taxPeriodId}
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setReturnForm({ ...returnForm, taxPeriodId: e.target.value })}
-              className="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-brand-500"
+              className="w-full px-3 py-1.5 bg-card border border-border rounded-lg text-xs text-foreground focus:outline-none focus:border-brand-500"
               required
             >
               <option value="">Select Period...</option>
@@ -382,38 +382,38 @@ export const TaxReturnsView: React.FC = () => {
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-medium text-slate-300 mb-1 block">Prior Period Adjustments</label>
+              <label className="text-xs font-medium text-foreground/90 mb-1 block">Prior Period Adjustments</label>
               <input
                 type="number"
                 step="0.01"
                 value={returnForm.priorPeriodAdjustments}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setReturnForm({ ...returnForm, priorPeriodAdjustments: e.target.value })}
-                className="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-brand-500"
+                className="w-full px-3 py-1.5 bg-card border border-border rounded-lg text-xs text-foreground focus:outline-none focus:border-brand-500"
               />
             </div>
             <div>
-              <label className="text-xs font-medium text-slate-300 mb-1 block">Other Adjustments</label>
+              <label className="text-xs font-medium text-foreground/90 mb-1 block">Other Adjustments</label>
               <input
                 type="number"
                 step="0.01"
                 value={returnForm.otherAdjustments}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setReturnForm({ ...returnForm, otherAdjustments: e.target.value })}
-                className="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-brand-500"
+                className="w-full px-3 py-1.5 bg-card border border-border rounded-lg text-xs text-foreground focus:outline-none focus:border-brand-500"
               />
             </div>
           </div>
 
           <div>
-            <label className="text-xs font-medium text-slate-300 mb-1 block">Notes</label>
+            <label className="text-xs font-medium text-foreground/90 mb-1 block">Notes</label>
             <input
               value={returnForm.notes}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setReturnForm({ ...returnForm, notes: e.target.value })}
               placeholder="e.g. Q1 2026 VAT Filing"
-              className="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand-500"
+              className="w-full px-3 py-1.5 bg-card border border-border rounded-lg text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-brand-500"
             />
           </div>
 
-          <div className="flex justify-end gap-2 pt-2 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-2 border-t border-border">
             <Button variant="ghost" size="sm" type="button" onClick={() => setIsPrepareModalOpen(false)}>
               Cancel
             </Button>
@@ -433,11 +433,11 @@ export const TaxReturnsView: React.FC = () => {
       >
         <form onSubmit={handleCreatePeriod} className="space-y-4">
           <div>
-            <label className="text-xs font-medium text-slate-300 mb-1 block">Jurisdiction *</label>
+            <label className="text-xs font-medium text-foreground/90 mb-1 block">Jurisdiction *</label>
             <select
               value={periodForm.jurisdictionId}
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setPeriodForm({ ...periodForm, jurisdictionId: e.target.value })}
-              className="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-brand-500"
+              className="w-full px-3 py-1.5 bg-card border border-border rounded-lg text-xs text-foreground focus:outline-none focus:border-brand-500"
               required
             >
               <option value="">Select Jurisdiction...</option>
@@ -451,21 +451,21 @@ export const TaxReturnsView: React.FC = () => {
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-medium text-slate-300 mb-1 block">Period Code *</label>
+              <label className="text-xs font-medium text-foreground/90 mb-1 block">Period Code *</label>
               <input
                 value={periodForm.periodCode}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPeriodForm({ ...periodForm, periodCode: e.target.value })}
                 placeholder="e.g. TAX-2026-Q1"
-                className="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand-500"
+                className="w-full px-3 py-1.5 bg-card border border-border rounded-lg text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-brand-500"
                 required
               />
             </div>
             <div>
-              <label className="text-xs font-medium text-slate-300 mb-1 block">Frequency *</label>
+              <label className="text-xs font-medium text-foreground/90 mb-1 block">Frequency *</label>
               <select
                 value={periodForm.frequency}
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setPeriodForm({ ...periodForm, frequency: e.target.value as any })}
-                className="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-brand-500"
+                className="w-full px-3 py-1.5 bg-card border border-border rounded-lg text-xs text-foreground focus:outline-none focus:border-brand-500"
                 required
               >
                 <option value="monthly">Monthly</option>
@@ -477,50 +477,50 @@ export const TaxReturnsView: React.FC = () => {
           </div>
 
           <div>
-            <label className="text-xs font-medium text-slate-300 mb-1 block">Period Name *</label>
+            <label className="text-xs font-medium text-foreground/90 mb-1 block">Period Name *</label>
             <input
               value={periodForm.periodName}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPeriodForm({ ...periodForm, periodName: e.target.value })}
               placeholder="e.g. Q1 2026 VAT Period"
-              className="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand-500"
+              className="w-full px-3 py-1.5 bg-card border border-border rounded-lg text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-brand-500"
               required
             />
           </div>
 
           <div className="grid grid-cols-3 gap-3">
             <div>
-              <label className="text-xs font-medium text-slate-300 mb-1 block">Start Date *</label>
+              <label className="text-xs font-medium text-foreground/90 mb-1 block">Start Date *</label>
               <input
                 type="date"
                 value={periodForm.startDate}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPeriodForm({ ...periodForm, startDate: e.target.value })}
-                className="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-brand-500"
+                className="w-full px-3 py-1.5 bg-card border border-border rounded-lg text-xs text-foreground focus:outline-none focus:border-brand-500"
                 required
               />
             </div>
             <div>
-              <label className="text-xs font-medium text-slate-300 mb-1 block">End Date *</label>
+              <label className="text-xs font-medium text-foreground/90 mb-1 block">End Date *</label>
               <input
                 type="date"
                 value={periodForm.endDate}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPeriodForm({ ...periodForm, endDate: e.target.value })}
-                className="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-brand-500"
+                className="w-full px-3 py-1.5 bg-card border border-border rounded-lg text-xs text-foreground focus:outline-none focus:border-brand-500"
                 required
               />
             </div>
             <div>
-              <label className="text-xs font-medium text-slate-300 mb-1 block">Deadline *</label>
+              <label className="text-xs font-medium text-foreground/90 mb-1 block">Deadline *</label>
               <input
                 type="date"
                 value={periodForm.filingDeadline}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPeriodForm({ ...periodForm, filingDeadline: e.target.value })}
-                className="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-brand-500"
+                className="w-full px-3 py-1.5 bg-card border border-border rounded-lg text-xs text-foreground focus:outline-none focus:border-brand-500"
                 required
               />
             </div>
           </div>
 
-          <div className="flex justify-end gap-2 pt-2 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-2 border-t border-border">
             <Button variant="ghost" size="sm" type="button" onClick={() => setIsCreatePeriodModalOpen(false)}>
               Cancel
             </Button>

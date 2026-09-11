@@ -88,13 +88,13 @@ export const BankTransfersView: React.FC = () => {
       {/* Controls Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="relative min-w-[240px] max-w-sm">
-          <Search className="w-4 h-4 text-slate-500 absolute left-3 top-2.5" />
+          <Search className="w-4 h-4 text-muted-foreground absolute left-3 top-2.5" />
           <input
             type="text"
             placeholder="Search transfers..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-slate-900/60 border border-slate-800 rounded-lg pl-9 pr-3 py-1.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand-500"
+            className="w-full bg-card/60 border border-border rounded-lg pl-9 pr-3 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-brand-500"
           />
         </div>
 
@@ -115,9 +115,9 @@ export const BankTransfersView: React.FC = () => {
       <Card noPadding>
         {filteredTransfers.length === 0 ? (
           <div className="p-12 text-center space-y-3">
-            <ArrowLeftRight className="w-10 h-10 text-slate-600 mx-auto" />
-            <h4 className="text-sm font-semibold text-slate-300">No Transfers Recorded</h4>
-            <p className="text-xs text-slate-500 max-w-sm mx-auto">
+            <ArrowLeftRight className="w-10 h-10 text-muted-foreground mx-auto" />
+            <h4 className="text-sm font-semibold text-foreground/90">No Transfers Recorded</h4>
+            <p className="text-xs text-muted-foreground max-w-sm mx-auto">
               Transfer funds between corporate checking accounts, savings deposits, and physical cash drawers with paired ledger tracking.
             </p>
             <Button
@@ -132,7 +132,7 @@ export const BankTransfersView: React.FC = () => {
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-950/80 text-slate-400 border-b border-slate-800">
+              <thead className="bg-card/80 text-muted-foreground border-b border-border">
                 <tr>
                   <th className="p-3">Transfer #</th>
                   <th className="p-3">Posting Date</th>
@@ -144,23 +144,23 @@ export const BankTransfersView: React.FC = () => {
                   <th className="p-3 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/50 bg-slate-900/20">
+              <tbody className="divide-y divide-border/50 bg-card/20">
                 {filteredTransfers.map((t) => {
                   const fromAcc = allAccounts.find((a) => a.id === t.fromBankAccountId);
                   const toAcc = allAccounts.find((a) => a.id === t.toBankAccountId);
 
                   return (
-                    <tr key={t.id} className="hover:bg-slate-800/30 font-mono text-[11px]">
+                    <tr key={t.id} className="hover:bg-muted/30 font-mono text-[11px]">
                       <td className="p-3 font-bold text-brand-400">{t.transferNumber}</td>
-                      <td className="p-3 text-slate-300 font-sans">{t.transferDate}</td>
-                      <td className="p-3 font-sans font-medium text-slate-200">
+                      <td className="p-3 text-foreground/90 font-sans">{t.transferDate}</td>
+                      <td className="p-3 font-sans font-medium text-foreground">
                         {fromAcc?.accountName || t.fromBankAccountId}
                       </td>
-                      <td className="p-3 font-sans font-medium text-slate-200">
+                      <td className="p-3 font-sans font-medium text-foreground">
                         {toAcc?.accountName || t.toBankAccountId}
                       </td>
-                      <td className="p-3 text-right font-bold text-slate-100">${t.amount}</td>
-                      <td className="p-3 text-right text-slate-400">${t.feeAmount || '0.00'}</td>
+                      <td className="p-3 text-right font-bold text-foreground">${t.amount}</td>
+                      <td className="p-3 text-right text-muted-foreground">${t.feeAmount || '0.00'}</td>
                       <td className="p-3 text-center">
                         <StatusBadge status={t.status} />
                       </td>
@@ -252,7 +252,7 @@ export const BankTransfersView: React.FC = () => {
             placeholder="e.g. Weekly operational liquidity top-up"
           />
 
-          <div className="flex justify-end gap-2 pt-2 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-2 border-t border-border">
             <Button
               type="button"
               variant="outline"

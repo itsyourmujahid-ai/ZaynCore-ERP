@@ -59,8 +59,8 @@ export const AssetAcquisitionsView: React.FC = () => {
             <FileCheck className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="text-base font-bold text-slate-100">Capitalization & In-Service Workbench</h3>
-            <p className="text-xs text-slate-400 mt-1 max-w-3xl leading-relaxed">
+            <h3 className="text-base font-bold text-foreground">Capitalization & In-Service Workbench</h3>
+            <p className="text-xs text-muted-foreground mt-1 max-w-3xl leading-relaxed">
               Acquired and draft assets remain in non-depreciating holding status until formal capitalization. Capitalization officially activates the asset, transitions its status to <span className="text-emerald-400 font-semibold">In Service</span>, creates the automated double-entry GL journal (<span className="font-mono text-blue-300">Dr Fixed Asset #1510, Cr Asset Clearing #1590</span>), and auto-generates the straight-line monthly depreciation schedule.
             </p>
           </div>
@@ -70,7 +70,7 @@ export const AssetAcquisitionsView: React.FC = () => {
       {/* Pending Capitalization Queue */}
       <div className="space-y-4">
         <div className="flex justify-between items-center">
-          <h4 className="text-sm font-bold text-slate-200 uppercase tracking-wider flex items-center gap-2">
+          <h4 className="text-sm font-bold text-foreground uppercase tracking-wider flex items-center gap-2">
             <Clock className="w-4 h-4 text-amber-400" />
             Pending Capitalization Queue ({pendingCapitalization.length})
           </h4>
@@ -82,27 +82,27 @@ export const AssetAcquisitionsView: React.FC = () => {
             const cost = parseFloat(asset.originalCost);
 
             return (
-              <Card key={asset.id} className="p-5 flex flex-col justify-between space-y-4 border border-slate-800 hover:border-slate-700 transition-colors">
+              <Card key={asset.id} className="p-5 flex flex-col justify-between space-y-4 border border-border hover:border-border transition-colors">
                 <div className="space-y-3">
                   <div className="flex justify-between items-start">
                     <div>
                       <span className="font-mono text-xs text-blue-400 font-semibold">{asset.assetCode}</span>
-                      <h4 className="text-base font-bold text-slate-100 mt-0.5">{asset.name}</h4>
+                      <h4 className="text-base font-bold text-foreground mt-0.5">{asset.name}</h4>
                     </div>
                     <StatusBadge status={asset.status} />
                   </div>
 
-                  <div className="text-xs text-slate-400 space-y-1">
-                    <div>Category: <span className="text-slate-200 font-medium">{cat?.name || 'General'}</span></div>
-                    <div>Purchase Date: <span className="text-slate-200">{asset.purchaseDate || 'N/A'}</span></div>
-                    <div>Useful Life: <span className="text-slate-200 font-semibold">{asset.usefulLifeMonths} Months</span></div>
-                    <div>Custodian: <span className="text-slate-200">{asset.custodianName || 'Unassigned'}</span></div>
+                  <div className="text-xs text-muted-foreground space-y-1">
+                    <div>Category: <span className="text-foreground font-medium">{cat?.name || 'General'}</span></div>
+                    <div>Purchase Date: <span className="text-foreground">{asset.purchaseDate || 'N/A'}</span></div>
+                    <div>Useful Life: <span className="text-foreground font-semibold">{asset.usefulLifeMonths} Months</span></div>
+                    <div>Custodian: <span className="text-foreground">{asset.custodianName || 'Unassigned'}</span></div>
                   </div>
                 </div>
 
-                <div className="pt-3 border-t border-slate-800/80 flex items-center justify-between">
+                <div className="pt-3 border-t border-border/80 flex items-center justify-between">
                   <div>
-                    <span className="text-[11px] text-slate-400 block">Acquisition Cost</span>
+                    <span className="text-[11px] text-muted-foreground block">Acquisition Cost</span>
                     <span className="text-lg font-bold font-mono text-emerald-400">
                       ${cost.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </span>
@@ -125,10 +125,10 @@ export const AssetAcquisitionsView: React.FC = () => {
           })}
 
           {pendingCapitalization.length === 0 && (
-            <div className="col-span-full py-16 text-center border border-dashed border-slate-800 rounded-xl bg-slate-900/30">
+            <div className="col-span-full py-16 text-center border border-dashed border-border rounded-xl bg-card/30">
               <CheckCircle2 className="w-10 h-10 text-emerald-500/40 mx-auto mb-3" />
-              <p className="text-base font-semibold text-slate-300">All Capital Assets Are Fully Capitalized</p>
-              <p className="text-xs text-slate-500 mt-1">There are no uncapitalized draft assets waiting in the queue.</p>
+              <p className="text-base font-semibold text-foreground/90">All Capital Assets Are Fully Capitalized</p>
+              <p className="text-xs text-muted-foreground mt-1">There are no uncapitalized draft assets waiting in the queue.</p>
             </div>
           )}
         </div>
@@ -143,40 +143,40 @@ export const AssetAcquisitionsView: React.FC = () => {
           size="md"
         >
           <form onSubmit={handleCapitalize} className="space-y-5">
-            <div className="bg-slate-900 border border-slate-800 rounded-lg p-4 space-y-2 text-xs">
+            <div className="bg-card border border-border rounded-lg p-4 space-y-2 text-xs">
               <div className="flex justify-between">
-                <span className="text-slate-400">Asset Name:</span>
-                <span className="font-semibold text-slate-100">{selectedAsset.name}</span>
+                <span className="text-muted-foreground">Asset Name:</span>
+                <span className="font-semibold text-foreground">{selectedAsset.name}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-400">Original Cost:</span>
+                <span className="text-muted-foreground">Original Cost:</span>
                 <span className="font-mono font-bold text-emerald-400">
                   ${parseFloat(selectedAsset.originalCost).toFixed(2)} {selectedAsset.currency}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-400">Depreciation Term:</span>
-                <span className="text-slate-200">{selectedAsset.usefulLifeMonths} Months (Straight Line)</span>
+                <span className="text-muted-foreground">Depreciation Term:</span>
+                <span className="text-foreground">{selectedAsset.usefulLifeMonths} Months (Straight Line)</span>
               </div>
             </div>
 
             <div>
-              <label className="text-xs font-medium text-slate-400 block mb-1">Capitalization / In-Service Date *</label>
+              <label className="text-xs font-medium text-muted-foreground block mb-1">Capitalization / In-Service Date *</label>
               <input
                 type="date"
                 required
                 value={capitalizationDate}
                 onChange={(e) => setCapitalizationDate(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-sm text-slate-100 font-mono"
+                className="w-full bg-card border border-border rounded-lg px-3 py-2 text-sm text-foreground font-mono"
               />
             </div>
 
             <div>
-              <label className="text-xs font-medium text-slate-400 block mb-1">Offset / Contra Clearing Account *</label>
+              <label className="text-xs font-medium text-muted-foreground block mb-1">Offset / Contra Clearing Account *</label>
               <select
                 value={contraAccountId}
                 onChange={(e) => setContraAccountId(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-sm text-slate-100"
+                className="w-full bg-card border border-border rounded-lg px-3 py-2 text-sm text-foreground"
               >
                 <option value="acc-1590">#1590 — Asset Clearing & CWIP (Recommended)</option>
                 <option value="acc-2010">#2010 — Accounts Payable Vendor Clearing</option>
@@ -185,13 +185,13 @@ export const AssetAcquisitionsView: React.FC = () => {
             </div>
 
             <div>
-              <label className="text-xs font-medium text-slate-400 block mb-1">Authorization Notes & Reference</label>
+              <label className="text-xs font-medium text-muted-foreground block mb-1">Authorization Notes & Reference</label>
               <textarea
                 rows={2}
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 placeholder="Optional notes or work order reference"
-                className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-sm text-slate-100"
+                className="w-full bg-card border border-border rounded-lg px-3 py-2 text-sm text-foreground"
               />
             </div>
 
@@ -200,13 +200,13 @@ export const AssetAcquisitionsView: React.FC = () => {
                 <DollarSign className="w-3.5 h-3.5 text-blue-400" />
                 Automated Double-Entry GL Journal Impact:
               </div>
-              <div className="font-mono text-[11px] text-slate-300 pl-4">
+              <div className="font-mono text-[11px] text-foreground/90 pl-4">
                 • Debit: #1510 Property, Plant & Equipment (+${parseFloat(selectedAsset.originalCost).toFixed(2)})<br />
                 • Credit: Clearing / AP / Bank (-${parseFloat(selectedAsset.originalCost).toFixed(2)})
               </div>
             </div>
 
-            <div className="flex justify-end gap-3 pt-4 border-t border-slate-800">
+            <div className="flex justify-end gap-3 pt-4 border-t border-border">
               <Button type="button" variant="outline" onClick={() => setIsCapitalizeModalOpen(false)}>
                 Cancel
               </Button>

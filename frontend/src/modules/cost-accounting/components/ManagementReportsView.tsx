@@ -85,7 +85,7 @@ export const ManagementReportsView: React.FC = () => {
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all ${
                 selectedReport === r.id
                   ? 'bg-brand-600 text-white shadow-sm'
-                  : 'bg-slate-900 border border-slate-800 text-slate-400 hover:text-slate-200'
+                  : 'bg-card border border-border text-muted-foreground hover:text-foreground'
               }`}
             >
               {r.icon}
@@ -107,18 +107,18 @@ export const ManagementReportsView: React.FC = () => {
       </div>
 
       {/* Dimension Filter Bar */}
-      <div className="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 flex flex-wrap items-center gap-4 text-xs">
-        <div className="flex items-center gap-2 text-slate-400 font-medium">
+      <div className="p-3.5 rounded-xl bg-card/60 border border-border flex flex-wrap items-center gap-4 text-xs">
+        <div className="flex items-center gap-2 text-muted-foreground font-medium">
           <Filter className="w-3.5 h-3.5 text-brand-400" />
           Dimension Filters:
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="text-slate-500">Branch:</span>
+          <span className="text-muted-foreground">Branch:</span>
           <select
             value={selectedBranchId}
             onChange={(e) => setSelectedBranchId(e.target.value)}
-            className="px-2.5 py-1 rounded-lg bg-slate-950 border border-slate-800 text-slate-200"
+            className="px-2.5 py-1 rounded-lg bg-card border border-border text-foreground"
           >
             <option value="">All Operating Branches</option>
             {branches.map((b) => (
@@ -128,11 +128,11 @@ export const ManagementReportsView: React.FC = () => {
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="text-slate-500">Department:</span>
+          <span className="text-muted-foreground">Department:</span>
           <select
             value={selectedDepartmentId}
             onChange={(e) => setSelectedDepartmentId(e.target.value)}
-            className="px-2.5 py-1 rounded-lg bg-slate-950 border border-slate-800 text-slate-200"
+            className="px-2.5 py-1 rounded-lg bg-card border border-border text-foreground"
           >
             <option value="">All Departments</option>
             {departments.map((d) => (
@@ -161,62 +161,62 @@ export const ManagementReportsView: React.FC = () => {
             <div className="overflow-x-auto -mx-4 -my-3 sm:mx-0 sm:my-0">
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="border-b border-slate-800 text-slate-400 font-semibold bg-slate-950/40">
+                  <tr className="border-b border-border text-muted-foreground font-semibold bg-card/40">
                     <th className="px-4 py-2.5">Line Item / Account</th>
                     <th className="px-4 py-2.5 text-right">Amount ($)</th>
                     <th className="px-4 py-2.5 text-right">% of Revenue</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60">
-                  <tr className="bg-slate-950/20 font-bold text-slate-200">
+                <tbody className="divide-y divide-border">
+                  <tr className="bg-card/20 font-bold text-foreground">
                     <td colSpan={3} className="px-4 py-2 text-brand-400 uppercase tracking-wider text-[11px]">1. Operating Revenue</td>
                   </tr>
                   {pnl.revenueLines.map((l, idx) => (
-                    <tr key={idx} className="hover:bg-slate-800/20">
-                      <td className="px-4 py-2 text-slate-300 pl-8">{l.accountCode} - {l.accountName}</td>
+                    <tr key={idx} className="hover:bg-muted/20">
+                      <td className="px-4 py-2 text-foreground/90 pl-8">{l.accountCode} - {l.accountName}</td>
                       <td className="px-4 py-2 text-right font-mono text-emerald-400">${parseFloat(l.amount).toFixed(2)}</td>
-                      <td className="px-4 py-2 text-right font-mono text-slate-400">{l.percentageOfRevenue}%</td>
+                      <td className="px-4 py-2 text-right font-mono text-muted-foreground">{l.percentageOfRevenue}%</td>
                     </tr>
                   ))}
-                  <tr className="font-bold border-t border-slate-800 bg-slate-900/60 text-slate-100">
+                  <tr className="font-bold border-t border-border bg-card/60 text-foreground">
                     <td className="px-4 py-2.5">Total Operating Revenue</td>
                     <td className="px-4 py-2.5 text-right font-mono text-emerald-400">${parseFloat(pnl.totalRevenue).toFixed(2)}</td>
                     <td className="px-4 py-2.5 text-right font-mono">100.00%</td>
                   </tr>
 
-                  <tr className="bg-slate-950/20 font-bold text-slate-200">
+                  <tr className="bg-card/20 font-bold text-foreground">
                     <td colSpan={3} className="px-4 py-2 text-rose-400 uppercase tracking-wider text-[11px] pt-4">2. Direct Costs (COGS)</td>
                   </tr>
                   {pnl.directCostLines.map((l, idx) => (
-                    <tr key={idx} className="hover:bg-slate-800/20">
-                      <td className="px-4 py-2 text-slate-300 pl-8">{l.accountCode} - {l.accountName}</td>
+                    <tr key={idx} className="hover:bg-muted/20">
+                      <td className="px-4 py-2 text-foreground/90 pl-8">{l.accountCode} - {l.accountName}</td>
                       <td className="px-4 py-2 text-right font-mono text-rose-400">${parseFloat(l.amount).toFixed(2)}</td>
-                      <td className="px-4 py-2 text-right font-mono text-slate-400">{l.percentageOfRevenue}%</td>
+                      <td className="px-4 py-2 text-right font-mono text-muted-foreground">{l.percentageOfRevenue}%</td>
                     </tr>
                   ))}
-                  <tr className="font-bold border-t border-slate-800 bg-slate-900/60 text-slate-100">
+                  <tr className="font-bold border-t border-border bg-card/60 text-foreground">
                     <td className="px-4 py-2.5">Total Direct Costs</td>
                     <td className="px-4 py-2.5 text-right font-mono text-rose-400">${parseFloat(pnl.totalDirectCosts).toFixed(2)}</td>
                     <td className="px-4 py-2.5 text-right font-mono">{pnl.revenueLines.length > 0 ? ((parseFloat(pnl.totalDirectCosts)/parseFloat(pnl.totalRevenue))*100).toFixed(2) : '0.00'}%</td>
                   </tr>
 
-                  <tr className="font-bold bg-slate-900 text-emerald-300 border-t border-b border-emerald-500/20">
+                  <tr className="font-bold bg-card text-emerald-300 border-t border-b border-emerald-500/20">
                     <td className="px-4 py-3 text-sm">GROSS PROFIT</td>
                     <td className="px-4 py-3 text-right font-mono text-sm">${parseFloat(pnl.grossProfit).toFixed(2)}</td>
                     <td className="px-4 py-3 text-right font-mono text-sm">{pnl.grossMarginPercentage}%</td>
                   </tr>
 
-                  <tr className="bg-slate-950/20 font-bold text-slate-200">
+                  <tr className="bg-card/20 font-bold text-foreground">
                     <td colSpan={3} className="px-4 py-2 text-amber-400 uppercase tracking-wider text-[11px] pt-4">3. Operating Expenses</td>
                   </tr>
                   {pnl.operatingExpenseLines.map((l, idx) => (
-                    <tr key={idx} className="hover:bg-slate-800/20">
-                      <td className="px-4 py-2 text-slate-300 pl-8">{l.accountCode} - {l.accountName}</td>
+                    <tr key={idx} className="hover:bg-muted/20">
+                      <td className="px-4 py-2 text-foreground/90 pl-8">{l.accountCode} - {l.accountName}</td>
                       <td className="px-4 py-2 text-right font-mono text-rose-400">${parseFloat(l.amount).toFixed(2)}</td>
-                      <td className="px-4 py-2 text-right font-mono text-slate-400">{l.percentageOfRevenue}%</td>
+                      <td className="px-4 py-2 text-right font-mono text-muted-foreground">{l.percentageOfRevenue}%</td>
                     </tr>
                   ))}
-                  <tr className="font-bold border-t border-slate-800 bg-slate-900/60 text-slate-100">
+                  <tr className="font-bold border-t border-border bg-card/60 text-foreground">
                     <td className="px-4 py-2.5">Total Operating Expenses</td>
                     <td className="px-4 py-2.5 text-right font-mono text-rose-400">${parseFloat(pnl.totalOperatingExpenses).toFixed(2)}</td>
                     <td className="px-4 py-2.5 text-right font-mono"></td>
@@ -243,7 +243,7 @@ export const ManagementReportsView: React.FC = () => {
           <div className="overflow-x-auto -mx-4 -my-3 sm:mx-0 sm:my-0">
             <table className="w-full text-left text-xs">
               <thead>
-                <tr className="border-b border-slate-800 text-slate-400 font-semibold bg-slate-950/40">
+                <tr className="border-b border-border text-muted-foreground font-semibold bg-card/40">
                   <th className="px-4 py-2.5">Cost Center</th>
                   <th className="px-4 py-2.5">Department</th>
                   <th className="px-4 py-2.5 text-right">Budget ($)</th>
@@ -253,21 +253,21 @@ export const ManagementReportsView: React.FC = () => {
                   <th className="px-4 py-2.5 text-right">Variance ($)</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60">
+              <tbody className="divide-y divide-border">
                 {costCenters.map((cc) => {
                   const p = costCenterService.calculateCostCenterPnL(cc.id, tenant);
                   return (
-                    <tr key={cc.id} className="hover:bg-slate-800/30">
+                    <tr key={cc.id} className="hover:bg-muted/30">
                       <td className="px-4 py-3">
-                        <div className="font-mono font-bold text-slate-200">{p.costCenterCode}</div>
-                        <div className="text-[11px] text-slate-400">{p.costCenterName}</div>
+                        <div className="font-mono font-bold text-foreground">{p.costCenterCode}</div>
+                        <div className="text-[11px] text-muted-foreground">{p.costCenterName}</div>
                       </td>
 
-                      <td className="px-4 py-3 text-slate-300">
+                      <td className="px-4 py-3 text-foreground/90">
                         {p.departmentName || 'N/A'}
                       </td>
 
-                      <td className="px-4 py-3 text-right font-mono text-slate-300">
+                      <td className="px-4 py-3 text-right font-mono text-foreground/90">
                         ${parseFloat(p.budgetAmount).toFixed(2)}
                       </td>
 
@@ -308,7 +308,7 @@ export const ManagementReportsView: React.FC = () => {
           <div className="overflow-x-auto -mx-4 -my-3 sm:mx-0 sm:my-0">
             <table className="w-full text-left text-xs">
               <thead>
-                <tr className="border-b border-slate-800 text-slate-400 font-semibold bg-slate-950/40">
+                <tr className="border-b border-border text-muted-foreground font-semibold bg-card/40">
                   <th className="px-4 py-2.5">Run Number</th>
                   <th className="px-4 py-2.5">Date</th>
                   <th className="px-4 py-2.5 text-right">Amount ($)</th>
@@ -317,15 +317,15 @@ export const ManagementReportsView: React.FC = () => {
                   <th className="px-4 py-2.5">Memo / Description</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60">
+              <tbody className="divide-y divide-border">
                 {runs.map((r) => (
-                  <tr key={r.id} className="hover:bg-slate-800/30">
-                    <td className="px-4 py-3 font-mono font-bold text-slate-200">{r.runNumber}</td>
-                    <td className="px-4 py-3 text-slate-300">{r.runDate}</td>
-                    <td className="px-4 py-3 text-right font-mono font-bold text-slate-100">${parseFloat(r.totalAllocatedAmount).toFixed(2)}</td>
-                    <td className="px-4 py-3"><span className="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-slate-300 uppercase">{r.status}</span></td>
+                  <tr key={r.id} className="hover:bg-muted/30">
+                    <td className="px-4 py-3 font-mono font-bold text-foreground">{r.runNumber}</td>
+                    <td className="px-4 py-3 text-foreground/90">{r.runDate}</td>
+                    <td className="px-4 py-3 text-right font-mono font-bold text-foreground">${parseFloat(r.totalAllocatedAmount).toFixed(2)}</td>
+                    <td className="px-4 py-3"><span className="px-2 py-0.5 rounded text-[10px] font-bold bg-muted text-foreground/90 uppercase">{r.status}</span></td>
                     <td className="px-4 py-3 font-mono text-[11px] text-emerald-400">{r.journalEntryId || 'Pending'}</td>
-                    <td className="px-4 py-3 text-slate-400 truncate max-w-xs">{r.memo}</td>
+                    <td className="px-4 py-3 text-muted-foreground truncate max-w-xs">{r.memo}</td>
                   </tr>
                 ))}
               </tbody>

@@ -84,11 +84,11 @@ export const TaxCodesView: React.FC = () => {
       {/* Action Header & Filter */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center gap-2">
-          <span className="text-xs font-semibold text-slate-400">Jurisdiction Filter:</span>
+          <span className="text-xs font-semibold text-muted-foreground">Jurisdiction Filter:</span>
           <select
             value={selectedJurisdictionId}
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedJurisdictionId(e.target.value)}
-            className="bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1 text-xs text-slate-200 focus:outline-none focus:border-brand-500"
+            className="bg-card border border-border rounded-lg px-2.5 py-1 text-xs text-foreground focus:outline-none focus:border-brand-500"
           >
             <option value="">All Jurisdictions ({taxCodes.length})</option>
             {jurisdictions.map((j) => (
@@ -113,7 +113,7 @@ export const TaxCodesView: React.FC = () => {
       <Card title="Tax Rates & Codes Catalog" subtitle="Configured operational tax rules with double-entry GL mappings">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-950/60 text-slate-400 border-b border-slate-800">
+            <thead className="bg-card/60 text-muted-foreground border-b border-border">
               <tr>
                 <th className="py-2.5 px-3">Tax Code</th>
                 <th className="py-2.5 px-3">Description & Treatment</th>
@@ -124,21 +124,21 @@ export const TaxCodesView: React.FC = () => {
                 <th className="py-2.5 px-3">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-slate-300">
+            <tbody className="divide-y divide-border text-foreground/90">
               {taxCodes.map((tc) => {
                 const acc = accounts.find((a) => a.id === tc.accountId);
                 const rateNum = (parseFloat(tc.rate) * 100).toFixed(1);
                 const recNum = tc.recoverablePercentage ? (parseFloat(tc.recoverablePercentage) * 100).toFixed(0) : '100';
 
                 return (
-                  <tr key={tc.id} className="hover:bg-slate-800/30 transition-colors">
+                  <tr key={tc.id} className="hover:bg-muted/30 transition-colors">
                     <td className="py-2.5 px-3">
                       <div className="font-mono font-bold text-brand-400">{tc.code}</div>
-                      <div className="text-[10px] text-slate-500">{tc.isInclusive ? 'Tax Inclusive' : 'Tax Exclusive'}</div>
+                      <div className="text-[10px] text-muted-foreground">{tc.isInclusive ? 'Tax Inclusive' : 'Tax Exclusive'}</div>
                     </td>
                     <td className="py-2.5 px-3">
-                      <div className="font-medium text-slate-100">{tc.name}</div>
-                      <div className="text-[10px] text-slate-400 uppercase font-mono">{tc.taxTreatment || 'standard'}</div>
+                      <div className="font-medium text-foreground">{tc.name}</div>
+                      <div className="text-[10px] text-muted-foreground uppercase font-mono">{tc.taxTreatment || 'standard'}</div>
                     </td>
                     <td className="py-2.5 px-3 font-mono font-bold text-emerald-400">{rateNum}%</td>
                     <td className="py-2.5 px-3">
@@ -148,14 +148,14 @@ export const TaxCodesView: React.FC = () => {
                         {tc.direction || tc.taxType}
                       </span>
                     </td>
-                    <td className="py-2.5 px-3 font-mono text-slate-300">
+                    <td className="py-2.5 px-3 font-mono text-foreground/90">
                       {tc.recoverability === 'non_recoverable' ? (
                         <span className="text-rose-400">0% (Expensed)</span>
                       ) : (
                         <span className="text-emerald-400">{recNum}% Recoverable</span>
                       )}
                     </td>
-                    <td className="py-2.5 px-3 font-mono text-slate-300">
+                    <td className="py-2.5 px-3 font-mono text-foreground/90">
                       {acc ? `${acc.code} - ${acc.name}` : tc.accountId}
                     </td>
                     <td className="py-2.5 px-3">
@@ -179,21 +179,21 @@ export const TaxCodesView: React.FC = () => {
         <form onSubmit={handleCreateTaxCode} className="space-y-4">
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-medium text-slate-300 mb-1 block">Tax Code Identifier *</label>
+              <label className="text-xs font-medium text-foreground/90 mb-1 block">Tax Code Identifier *</label>
               <input
                 value={form.code}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, code: e.target.value })}
                 placeholder="e.g. VAT-05, VAT-IN-05"
-                className="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand-500"
+                className="w-full px-3 py-1.5 bg-card border border-border rounded-lg text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-brand-500"
                 required
               />
             </div>
             <div>
-              <label className="text-xs font-medium text-slate-300 mb-1 block">Tax Jurisdiction *</label>
+              <label className="text-xs font-medium text-foreground/90 mb-1 block">Tax Jurisdiction *</label>
               <select
                 value={form.jurisdictionId}
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setForm({ ...form, jurisdictionId: e.target.value })}
-                className="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-brand-500"
+                className="w-full px-3 py-1.5 bg-card border border-border rounded-lg text-xs text-foreground focus:outline-none focus:border-brand-500"
               >
                 <option value="">Select Jurisdiction...</option>
                 {jurisdictions.map((j) => (
@@ -206,19 +206,19 @@ export const TaxCodesView: React.FC = () => {
           </div>
 
           <div>
-            <label className="text-xs font-medium text-slate-300 mb-1 block">Tax Code Name *</label>
+            <label className="text-xs font-medium text-foreground/90 mb-1 block">Tax Code Name *</label>
             <input
               value={form.name}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, name: e.target.value })}
               placeholder="e.g. Standard Value Added Tax 5%"
-              className="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand-500"
+              className="w-full px-3 py-1.5 bg-card border border-border rounded-lg text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-brand-500"
               required
             />
           </div>
 
           <div className="grid grid-cols-3 gap-3">
             <div>
-              <label className="text-xs font-medium text-slate-300 mb-1 block">Tax Rate *</label>
+              <label className="text-xs font-medium text-foreground/90 mb-1 block">Tax Rate *</label>
               <input
                 type="number"
                 step="0.0001"
@@ -226,16 +226,16 @@ export const TaxCodesView: React.FC = () => {
                 max="1"
                 value={form.rate}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, rate: e.target.value })}
-                className="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-brand-500"
+                className="w-full px-3 py-1.5 bg-card border border-border rounded-lg text-xs text-foreground focus:outline-none focus:border-brand-500"
                 required
               />
             </div>
             <div>
-              <label className="text-xs font-medium text-slate-300 mb-1 block">Direction *</label>
+              <label className="text-xs font-medium text-foreground/90 mb-1 block">Direction *</label>
               <select
                 value={form.direction}
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setForm({ ...form, direction: e.target.value as any })}
-                className="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-brand-500"
+                className="w-full px-3 py-1.5 bg-card border border-border rounded-lg text-xs text-foreground focus:outline-none focus:border-brand-500"
                 required
               >
                 <option value="output">Output Tax (Sales)</option>
@@ -244,11 +244,11 @@ export const TaxCodesView: React.FC = () => {
               </select>
             </div>
             <div>
-              <label className="text-xs font-medium text-slate-300 mb-1 block">Treatment *</label>
+              <label className="text-xs font-medium text-foreground/90 mb-1 block">Treatment *</label>
               <select
                 value={form.taxTreatment}
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setForm({ ...form, taxTreatment: e.target.value as any })}
-                className="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-brand-500"
+                className="w-full px-3 py-1.5 bg-card border border-border rounded-lg text-xs text-foreground focus:outline-none focus:border-brand-500"
                 required
               >
                 <option value="standard">Standard Rated</option>
@@ -262,7 +262,7 @@ export const TaxCodesView: React.FC = () => {
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-medium text-slate-300 mb-1 block">Recoverability *</label>
+              <label className="text-xs font-medium text-foreground/90 mb-1 block">Recoverability *</label>
               <select
                 value={form.recoverability}
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -273,7 +273,7 @@ export const TaxCodesView: React.FC = () => {
                     recoverablePercentage: rec === 'non_recoverable' ? '0.0000' : (rec === 'partially_recoverable' ? '0.7000' : '1.0000'),
                   });
                 }}
-                className="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-brand-500"
+                className="w-full px-3 py-1.5 bg-card border border-border rounded-lg text-xs text-foreground focus:outline-none focus:border-brand-500"
                 required
               >
                 <option value="fully_recoverable">Fully Recoverable (100%)</option>
@@ -283,7 +283,7 @@ export const TaxCodesView: React.FC = () => {
             </div>
 
             <div>
-              <label className="text-xs font-medium text-slate-300 mb-1 block">Recoverable %</label>
+              <label className="text-xs font-medium text-foreground/90 mb-1 block">Recoverable %</label>
               <input
                 type="number"
                 step="0.01"
@@ -292,18 +292,18 @@ export const TaxCodesView: React.FC = () => {
                 value={form.recoverablePercentage}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, recoverablePercentage: e.target.value })}
                 disabled={form.recoverability === 'fully_recoverable' || form.recoverability === 'non_recoverable'}
-                className="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-100 disabled:opacity-50 focus:outline-none focus:border-brand-500"
+                className="w-full px-3 py-1.5 bg-card border border-border rounded-lg text-xs text-foreground disabled:opacity-50 focus:outline-none focus:border-brand-500"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-medium text-slate-300 mb-1 block">GL Tax Control Account *</label>
+              <label className="text-xs font-medium text-foreground/90 mb-1 block">GL Tax Control Account *</label>
               <select
                 value={form.accountId}
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setForm({ ...form, accountId: e.target.value })}
-                className="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-brand-500"
+                className="w-full px-3 py-1.5 bg-card border border-border rounded-lg text-xs text-foreground focus:outline-none focus:border-brand-500"
                 required
               >
                 <option value="">Select Account...</option>
@@ -316,11 +316,11 @@ export const TaxCodesView: React.FC = () => {
             </div>
 
             <div>
-              <label className="text-xs font-medium text-slate-300 mb-1 block">Non-Recoverable Expense Account</label>
+              <label className="text-xs font-medium text-foreground/90 mb-1 block">Non-Recoverable Expense Account</label>
               <select
                 value={form.nonRecoverableExpenseAccountId}
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setForm({ ...form, nonRecoverableExpenseAccountId: e.target.value })}
-                className="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-brand-500"
+                className="w-full px-3 py-1.5 bg-card border border-border rounded-lg text-xs text-foreground focus:outline-none focus:border-brand-500"
               >
                 <option value="">None / Standard Expense</option>
                 {accounts.filter((a) => a.classification === 'expense' || a.accountType === 'expense').map((a) => (
@@ -338,14 +338,14 @@ export const TaxCodesView: React.FC = () => {
               id="isInclusive"
               checked={form.isInclusive}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, isInclusive: e.target.checked })}
-              className="rounded bg-slate-900 border-slate-700 text-brand-600 focus:ring-brand-500"
+              className="rounded bg-card border-border text-brand-600 focus:ring-brand-500"
             />
-            <label htmlFor="isInclusive" className="text-xs text-slate-300 font-medium">
+            <label htmlFor="isInclusive" className="text-xs text-foreground/90 font-medium">
               Tax Inclusive Pricing (Prices entered already include tax)
             </label>
           </div>
 
-          <div className="flex justify-end gap-2 pt-2 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-2 border-t border-border">
             <Button variant="ghost" size="sm" type="button" onClick={() => setIsModalOpen(false)}>
               Cancel
             </Button>

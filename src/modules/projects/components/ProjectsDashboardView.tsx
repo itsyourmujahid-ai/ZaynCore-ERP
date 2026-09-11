@@ -89,11 +89,11 @@ export const ProjectsDashboardView: React.FC<DashboardViewProps> = ({
           >
             {portfolio.projects.length === 0 ? (
               <div className="p-8 text-center space-y-3">
-                <div className="w-12 h-12 rounded-full bg-slate-800/80 text-cyan-400 mx-auto flex items-center justify-center">
+                <div className="w-12 h-12 rounded-full bg-muted/80 text-cyan-400 mx-auto flex items-center justify-center">
                   <Briefcase className="w-6 h-6" />
                 </div>
-                <h3 className="text-sm font-medium text-slate-200">No Projects Configured</h3>
-                <p className="text-xs text-slate-400 max-w-sm mx-auto">
+                <h3 className="text-sm font-medium text-foreground">No Projects Configured</h3>
+                <p className="text-xs text-muted-foreground max-w-sm mx-auto">
                   Create your first client contract, internal R&D project, or construction job to start tracking costs and milestones.
                 </p>
                 <Button size="sm" variant="primary" icon={<Plus className="w-4 h-4" />} onClick={onCreateProject}>
@@ -101,24 +101,24 @@ export const ProjectsDashboardView: React.FC<DashboardViewProps> = ({
                 </Button>
               </div>
             ) : (
-              <div className="divide-y divide-slate-800">
+              <div className="divide-y divide-border">
                 {portfolio.projects.slice(0, 6).map((proj) => (
                   <div
                     key={proj.projectId}
                     onClick={() => onOpenProject(proj.projectId)}
-                    className="p-4 hover:bg-slate-800/40 cursor-pointer transition-colors flex items-center justify-between gap-4"
+                    className="p-4 hover:bg-muted/40 cursor-pointer transition-colors flex items-center justify-between gap-4"
                   >
                     <div className="space-y-1">
                       <div className="flex items-center gap-2">
-                        <span className="font-semibold text-slate-200 text-sm hover:text-cyan-400 transition-colors">
+                        <span className="font-semibold text-foreground text-sm hover:text-cyan-400 transition-colors">
                           {proj.projectName}
                         </span>
-                        <span className="text-xs font-mono px-1.5 py-0.5 rounded bg-slate-800 text-slate-400">
+                        <span className="text-xs font-mono px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
                           {proj.projectCode}
                         </span>
                         <StatusBadge status={proj.projectStatus} />
                       </div>
-                      <div className="text-xs text-slate-400 flex items-center gap-3">
+                      <div className="text-xs text-muted-foreground flex items-center gap-3">
                         <span>Contract: ${parseFloat(proj.contractValue).toLocaleString()} {proj.currency}</span>
                         <span>•</span>
                         <span>Revenue: ${parseFloat(proj.totalRevenue).toLocaleString()}</span>
@@ -131,8 +131,8 @@ export const ProjectsDashboardView: React.FC<DashboardViewProps> = ({
                       <div className={`text-sm font-bold ${parseFloat(proj.grossProfit) >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
                         ${parseFloat(proj.grossProfit).toLocaleString()}
                       </div>
-                      <div className="text-[11px] text-slate-400">
-                        Margin: <span className="font-semibold text-slate-200">{proj.grossMarginPercentage}%</span>
+                      <div className="text-[11px] text-muted-foreground">
+                        Margin: <span className="font-semibold text-foreground">{proj.grossMarginPercentage}%</span>
                       </div>
                     </div>
                   </div>
@@ -146,8 +146,8 @@ export const ProjectsDashboardView: React.FC<DashboardViewProps> = ({
         <div className="space-y-4">
           <Card title="Project Governance & Health" subtitle="Budget utilization alerts">
             <div className="p-4 space-y-3">
-              <div className="flex items-center justify-between p-3 rounded-lg bg-slate-900/60 border border-slate-800">
-                <div className="flex items-center gap-2 text-xs text-slate-300">
+              <div className="flex items-center justify-between p-3 rounded-lg bg-card/60 border border-border">
+                <div className="flex items-center gap-2 text-xs text-foreground/90">
                   <AlertTriangle className="w-4 h-4 text-amber-400" />
                   <span>Projects Over Budget</span>
                 </div>
@@ -156,8 +156,8 @@ export const ProjectsDashboardView: React.FC<DashboardViewProps> = ({
                 </span>
               </div>
 
-              <div className="flex items-center justify-between p-3 rounded-lg bg-slate-900/60 border border-slate-800">
-                <div className="flex items-center gap-2 text-xs text-slate-300">
+              <div className="flex items-center justify-between p-3 rounded-lg bg-card/60 border border-border">
+                <div className="flex items-center gap-2 text-xs text-foreground/90">
                   <CheckCircle2 className="w-4 h-4 text-emerald-400" />
                   <span>Completed Projects</span>
                 </div>
@@ -187,7 +187,7 @@ export const ProjectsDashboardView: React.FC<DashboardViewProps> = ({
                 <Button 
                   size="sm" 
                   variant="ghost" 
-                  className="w-full justify-center text-xs text-slate-400 hover:text-slate-200"
+                  className="w-full justify-center text-xs text-muted-foreground hover:text-foreground"
                   onClick={() => onNavigateTab('reports')}
                 >
                   View 12+ Financial Reports →

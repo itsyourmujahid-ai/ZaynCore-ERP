@@ -118,11 +118,11 @@ export const ChartOfAccountsView: React.FC = () => {
         <div>
           <div className="flex items-center gap-2">
             <span className="text-xs font-bold uppercase tracking-wider text-emerald-600">General Ledger Foundation</span>
-            <span className="text-slate-400">•</span>
-            <span className="text-xs text-slate-600">{tenant.companyName}</span>
+            <span className="text-muted-foreground">•</span>
+            <span className="text-xs text-muted-foreground">{tenant.companyName}</span>
           </div>
-          <h1 className="text-2xl font-bold text-slate-900 mt-1">Chart of Accounts</h1>
-          <p className="text-xs text-slate-600 mt-1">
+          <h1 className="text-2xl font-bold text-foreground mt-1">Chart of Accounts</h1>
+          <p className="text-xs text-muted-foreground mt-1">
             Hierarchical general ledger accounts supporting 8 account types, sub-ledger reconciliation, and posting controls.
           </p>
         </div>
@@ -140,7 +140,7 @@ export const ChartOfAccountsView: React.FC = () => {
 
       {/* Filter & Search Bar */}
       <Card noPadding>
-        <div className="p-4 flex flex-col md:flex-row items-center justify-between gap-4 border-b border-slate-200">
+        <div className="p-4 flex flex-col md:flex-row items-center justify-between gap-4 border-b border-border">
           <div className="flex items-center gap-1.5 w-full md:w-auto overflow-x-auto pb-1 md:pb-0">
             {[
               { id: 'all', label: 'All Accounts' },
@@ -159,7 +159,7 @@ export const ChartOfAccountsView: React.FC = () => {
                 className={`px-2.5 py-1.5 rounded-lg text-xs font-semibold capitalize transition-all select-none whitespace-nowrap ${
                   filterType === t.id
                     ? 'bg-brand-600 text-white shadow-sm'
-                    : 'bg-slate-100 text-slate-700 hover:text-slate-900 hover:bg-slate-200/80'
+                    : 'bg-muted text-foreground/90 hover:text-foreground hover:bg-slate-200/80'
                 }`}
               >
                 {t.label}
@@ -168,13 +168,13 @@ export const ChartOfAccountsView: React.FC = () => {
           </div>
 
           <div className="relative w-full md:w-72">
-            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
             <input
               type="text"
               placeholder="Search account code or name..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-white border border-slate-300 rounded-lg pl-9 pr-3 py-1.5 text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-brand-500"
+              className="w-full bg-card border border-border rounded-lg pl-9 pr-3 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-brand-500"
             />
           </div>
         </div>
@@ -183,7 +183,7 @@ export const ChartOfAccountsView: React.FC = () => {
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-slate-200 bg-slate-50 text-slate-700 font-bold uppercase tracking-wider">
+              <tr className="border-b border-border bg-muted text-foreground/90 font-bold uppercase tracking-wider">
                 <th className="px-5 py-3.5">Code</th>
                 <th className="px-5 py-3.5">Account Name</th>
                 <th className="px-5 py-3.5">Account Type</th>
@@ -193,13 +193,13 @@ export const ChartOfAccountsView: React.FC = () => {
                 <th className="px-5 py-3.5 text-right">Manual Posting</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-200 text-slate-900">
+            <tbody className="divide-y divide-border text-foreground">
               {filteredAccounts.map((acc) => (
-                <tr key={acc.id} className="hover:bg-slate-50 transition-colors">
+                <tr key={acc.id} className="hover:bg-muted transition-colors">
                   <td className="px-5 py-3.5 font-mono font-bold text-brand-600">
                     {acc.code}
                   </td>
-                  <td className="px-5 py-3.5 font-semibold text-slate-900">
+                  <td className="px-5 py-3.5 font-semibold text-foreground">
                     <div className="flex items-center gap-2">
                       <span style={{ paddingLeft: `${(acc.level - 1) * 12}px` }}>{acc.name}</span>
                     </div>
@@ -214,7 +214,7 @@ export const ChartOfAccountsView: React.FC = () => {
                       {acc.normalBalance.toUpperCase()}
                     </span>
                   </td>
-                  <td className="px-5 py-3.5 font-mono text-slate-700 font-medium">
+                  <td className="px-5 py-3.5 font-mono text-foreground/90 font-medium">
                     {acc.currency}
                   </td>
                   <td className="px-5 py-3.5">
@@ -223,12 +223,12 @@ export const ChartOfAccountsView: React.FC = () => {
                         <CheckCircle2 className="w-3.5 h-3.5" /> Sub-Ledger Control
                       </span>
                     ) : (
-                      <span className="text-slate-500 font-medium">Standard GL</span>
+                      <span className="text-muted-foreground font-medium">Standard GL</span>
                     )}
                   </td>
                   <td className="px-5 py-3.5 text-right">
                     {acc.allowManualJournal ? (
-                      <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-100 text-slate-700 border border-slate-200">
+                      <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-muted text-foreground/90 border border-border">
                         Allowed
                       </span>
                     ) : (
@@ -241,7 +241,7 @@ export const ChartOfAccountsView: React.FC = () => {
               ))}
               {filteredAccounts.length === 0 && (
                 <tr>
-                  <td colSpan={7} className="px-5 py-10 text-center text-slate-500">
+                  <td colSpan={7} className="px-5 py-10 text-center text-muted-foreground">
                     No accounts matching "{searchQuery}".
                   </td>
                 </tr>
@@ -353,22 +353,22 @@ export const ChartOfAccountsView: React.FC = () => {
           />
 
           <div className="pt-2 flex flex-col sm:flex-row items-start sm:items-center gap-4 text-xs">
-            <label className="flex items-center gap-2 text-slate-300 cursor-pointer">
+            <label className="flex items-center gap-2 text-foreground/90 cursor-pointer">
               <input
                 type="checkbox"
                 checked={accountForm.isControlAccount}
                 onChange={(e) => setAccountForm({ ...accountForm, isControlAccount: e.target.checked, isReconciliationAccount: e.target.checked })}
-                className="rounded bg-slate-900 border-slate-700 text-brand-600 focus:ring-brand-500"
+                className="rounded bg-card border-border text-brand-600 focus:ring-brand-500"
               />
               <span>Sub-Ledger Control Account (Reconciliation required)</span>
             </label>
 
-            <label className="flex items-center gap-2 text-slate-300 cursor-pointer">
+            <label className="flex items-center gap-2 text-foreground/90 cursor-pointer">
               <input
                 type="checkbox"
                 checked={accountForm.allowManualJournal}
                 onChange={(e) => setAccountForm({ ...accountForm, allowManualJournal: e.target.checked })}
-                className="rounded bg-slate-900 border-slate-700 text-brand-600 focus:ring-brand-500"
+                className="rounded bg-card border-border text-brand-600 focus:ring-brand-500"
               />
               <span>Allow Manual Journal Entry</span>
             </label>

@@ -166,7 +166,7 @@ export const AccountingWorkspace: React.FC<{
     { divider: true, label: '', onClick: () => {} },
     {
       label: 'Accounting Configuration',
-      icon: <SettingsIcon className="w-3.5 h-3.5 text-slate-400" />,
+      icon: <SettingsIcon className="w-3.5 h-3.5 text-muted-foreground" />,
       onClick: () => onNavigateSettings?.(),
     },
     {
@@ -191,11 +191,11 @@ export const AccountingWorkspace: React.FC<{
         <div>
           <div className="flex items-center gap-2">
             <span className="text-xs font-bold uppercase tracking-wider text-emerald-600">Core Accounting Backbone</span>
-            <span className="text-slate-300">•</span>
+            <span className="text-foreground/90">•</span>
             <StatusBadge status={tenant.companyTier} />
           </div>
-          <h1 className="text-2xl font-bold text-slate-900 mt-1">Accounting Workspace</h1>
-          <p className="text-xs text-slate-600 mt-0.5">
+          <h1 className="text-2xl font-bold text-foreground mt-1">Accounting Workspace</h1>
+          <p className="text-xs text-muted-foreground mt-0.5">
             General Ledger, automated posting engines, double-entry journals, sub-ledger controls, and period closes.
           </p>
         </div>
@@ -228,7 +228,7 @@ export const AccountingWorkspace: React.FC<{
       </div>
 
       {/* 5-7 Tab Secondary Navigation Bar with Integrated 'More ▾' */}
-      <div className="flex items-center justify-between border-b border-slate-200 pb-px gap-2 overflow-x-auto">
+      <div className="flex items-center justify-between border-b border-border pb-px gap-2 overflow-x-auto">
         <div className="flex items-center gap-1">
           {primaryTabs.map((tab) => {
             const isActive = activeTab === tab.id;
@@ -238,15 +238,15 @@ export const AccountingWorkspace: React.FC<{
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center gap-2 px-3.5 py-2 rounded-t-lg text-xs font-medium border-b-2 transition-all select-none whitespace-nowrap ${
                   isActive
-                    ? 'border-brand-600 text-brand-600 bg-white font-bold shadow-sm'
-                    : 'border-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-100/60'
+                    ? 'border-brand-600 text-brand-600 bg-card font-bold shadow-sm'
+                    : 'border-transparent text-muted-foreground hover:text-foreground hover:bg-muted/60'
                 }`}
               >
                 {tab.icon}
                 <span>{tab.label}</span>
                 {tab.badge !== undefined && (
                   <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-bold ${
-                    isActive ? 'bg-brand-50 text-brand-700 border border-brand-200' : 'bg-slate-100 text-slate-600'
+                    isActive ? 'bg-brand-50 text-brand-700 border border-brand-200' : 'bg-muted text-muted-foreground'
                   }`}>
                     {tab.badge}
                   </span>
@@ -333,33 +333,33 @@ export const AccountingWorkspace: React.FC<{
                     {journals.slice(0, 4).map((j) => (
                       <div
                         key={j.id}
-                        className="p-3 rounded-lg bg-white border border-slate-200 shadow-sm flex items-center justify-between hover:border-brand-500 transition-colors"
+                        className="p-3 rounded-lg bg-card border border-border shadow-sm flex items-center justify-between hover:border-brand-500 transition-colors"
                       >
                         <div>
                           <div className="flex items-center gap-2">
                             <span className="font-mono text-xs font-bold text-brand-600">{j.entryNumber}</span>
                             <StatusBadge status={j.status} size="xs" />
-                            <span className="text-[10px] font-mono text-slate-600 bg-slate-100 px-1.5 py-0.2 rounded border border-slate-200">
+                            <span className="text-[10px] font-mono text-muted-foreground bg-muted px-1.5 py-0.2 rounded border border-border">
                               {j.sourceModule}
                             </span>
                           </div>
-                          <p className="text-xs text-slate-800 font-medium mt-1">{j.memo}</p>
+                          <p className="text-xs text-foreground font-medium mt-1">{j.memo}</p>
                         </div>
                         <div className="text-right">
                           <FinancialAmount amount={j.totalDebit} currency={j.currency} size="sm" type="debit" />
-                          <div className="text-[10px] text-slate-500 font-mono mt-0.5">{j.postingDate}</div>
+                          <div className="text-[10px] text-muted-foreground font-mono mt-0.5">{j.postingDate}</div>
                         </div>
                       </div>
                     ))}
                   </div>
                 ) : (
-                  <div className="p-8 text-center rounded-xl bg-slate-50 border border-slate-200 space-y-3">
-                    <div className="w-10 h-10 rounded-full bg-slate-200 text-slate-600 mx-auto flex items-center justify-center">
+                  <div className="p-8 text-center rounded-xl bg-muted border border-border space-y-3">
+                    <div className="w-10 h-10 rounded-full bg-slate-200 text-muted-foreground mx-auto flex items-center justify-center">
                       <FileSpreadsheet className="w-5 h-5" />
                     </div>
                     <div>
-                      <h3 className="text-xs font-bold text-slate-900">No Journal Entries Recorded Yet</h3>
-                      <p className="text-[11px] text-slate-600 mt-0.5 max-w-sm mx-auto">
+                      <h3 className="text-xs font-bold text-foreground">No Journal Entries Recorded Yet</h3>
+                      <p className="text-[11px] text-muted-foreground mt-0.5 max-w-sm mx-auto">
                         Post your initial opening balances or record standard adjustments to start generating General Ledger history.
                       </p>
                     </div>
@@ -381,23 +381,23 @@ export const AccountingWorkspace: React.FC<{
                 <div className="space-y-2 text-xs">
                   <button
                     onClick={() => { setActiveTab('ledger'); setLedgerSubTab('detail'); }}
-                    className="w-full p-2.5 rounded-lg bg-slate-50 border border-slate-200 hover:border-brand-500 hover:bg-slate-100/80 text-left font-semibold text-slate-800 hover:text-brand-700 transition-all flex items-center justify-between"
+                    className="w-full p-2.5 rounded-lg bg-muted border border-border hover:border-brand-500 hover:bg-muted/80 text-left font-semibold text-foreground hover:text-brand-700 transition-all flex items-center justify-between"
                   >
                     <span>Account Ledger Inspector</span>
-                    <span className="font-mono text-slate-500 font-normal">Drill-Down</span>
+                    <span className="font-mono text-muted-foreground font-normal">Drill-Down</span>
                   </button>
 
                   <button
                     onClick={() => { setActiveTab('ledger'); setLedgerSubTab('coa'); }}
-                    className="w-full p-2.5 rounded-lg bg-slate-50 border border-slate-200 hover:border-brand-500 hover:bg-slate-100/80 text-left font-semibold text-slate-800 hover:text-brand-700 transition-all flex items-center justify-between"
+                    className="w-full p-2.5 rounded-lg bg-muted border border-border hover:border-brand-500 hover:bg-muted/80 text-left font-semibold text-foreground hover:text-brand-700 transition-all flex items-center justify-between"
                   >
                     <span>Chart of Accounts Directory</span>
-                    <span className="font-mono text-slate-500 font-normal">{accounts.length} Accounts</span>
+                    <span className="font-mono text-muted-foreground font-normal">{accounts.length} Accounts</span>
                   </button>
 
                   <button
                     onClick={() => { setActiveTab('ledger'); setLedgerSubTab('trial-balance'); }}
-                    className="w-full p-2.5 rounded-lg bg-slate-50 border border-slate-200 hover:border-brand-500 hover:bg-slate-100/80 text-left font-semibold text-slate-800 hover:text-brand-700 transition-all flex items-center justify-between"
+                    className="w-full p-2.5 rounded-lg bg-muted border border-border hover:border-brand-500 hover:bg-muted/80 text-left font-semibold text-foreground hover:text-brand-700 transition-all flex items-center justify-between"
                   >
                     <span>Real-Time Trial Balance</span>
                     <span className="font-mono text-emerald-700 font-bold">Balanced</span>
@@ -405,7 +405,7 @@ export const AccountingWorkspace: React.FC<{
 
                   <button
                     onClick={() => setIsOpeningBalanceModalOpen(true)}
-                    className="w-full p-2.5 rounded-lg bg-slate-50 border border-slate-200 hover:border-brand-500 hover:bg-slate-100/80 text-left font-semibold text-slate-800 hover:text-brand-700 transition-all flex items-center justify-between"
+                    className="w-full p-2.5 rounded-lg bg-muted border border-border hover:border-brand-500 hover:bg-muted/80 text-left font-semibold text-foreground hover:text-brand-700 transition-all flex items-center justify-between"
                   >
                     <span>Opening Balance Setup Wizard</span>
                     <span className="font-mono text-brand-700 font-bold">Wizard</span>
@@ -415,25 +415,25 @@ export const AccountingWorkspace: React.FC<{
 
               <Card title="COA Classification Summary" subtitle="Account groups registered">
                 <div className="space-y-1.5 text-xs">
-                  <div className="flex items-center justify-between p-2 rounded bg-slate-50 border border-slate-200/80">
+                  <div className="flex items-center justify-between p-2 rounded bg-muted border border-border/80">
                     <span className="text-emerald-700 font-semibold">1000 - Assets</span>
-                    <span className="font-mono font-bold text-slate-900">{assetAccounts.length}</span>
+                    <span className="font-mono font-bold text-foreground">{assetAccounts.length}</span>
                   </div>
-                  <div className="flex items-center justify-between p-2 rounded bg-slate-50 border border-slate-200/80">
+                  <div className="flex items-center justify-between p-2 rounded bg-muted border border-border/80">
                     <span className="text-amber-700 font-semibold">2000 - Liabilities</span>
-                    <span className="font-mono font-bold text-slate-900">{liabilityAccounts.length}</span>
+                    <span className="font-mono font-bold text-foreground">{liabilityAccounts.length}</span>
                   </div>
-                  <div className="flex items-center justify-between p-2 rounded bg-slate-50 border border-slate-200/80">
+                  <div className="flex items-center justify-between p-2 rounded bg-muted border border-border/80">
                     <span className="text-purple-700 font-semibold">3000 - Equity</span>
-                    <span className="font-mono font-bold text-slate-900">{accounts.filter((a) => a.classification === 'equity').length}</span>
+                    <span className="font-mono font-bold text-foreground">{accounts.filter((a) => a.classification === 'equity').length}</span>
                   </div>
-                  <div className="flex items-center justify-between p-2 rounded bg-slate-50 border border-slate-200/80">
+                  <div className="flex items-center justify-between p-2 rounded bg-muted border border-border/80">
                     <span className="text-sky-700 font-semibold">4000 - Revenue</span>
-                    <span className="font-mono font-bold text-slate-900">{revenueAccounts.length}</span>
+                    <span className="font-mono font-bold text-foreground">{revenueAccounts.length}</span>
                   </div>
-                  <div className="flex items-center justify-between p-2 rounded bg-slate-50 border border-slate-200/80">
+                  <div className="flex items-center justify-between p-2 rounded bg-muted border border-border/80">
                     <span className="text-rose-700 font-semibold">5000+ - Expenses &amp; COGS</span>
-                    <span className="font-mono font-bold text-slate-900">{expenseAccounts.length}</span>
+                    <span className="font-mono font-bold text-foreground">{expenseAccounts.length}</span>
                   </div>
                 </div>
               </Card>
@@ -452,7 +452,7 @@ export const AccountingWorkspace: React.FC<{
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                   ledgerSubTab === 'detail'
                     ? 'bg-brand-600 text-white shadow-sm'
-                    : 'bg-white border border-slate-200 text-slate-700 hover:text-slate-900 hover:bg-slate-50'
+                    : 'bg-card border border-border text-foreground/90 hover:text-foreground hover:bg-muted'
                 }`}
               >
                 Account Drill-Down Ledger
@@ -462,7 +462,7 @@ export const AccountingWorkspace: React.FC<{
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                   ledgerSubTab === 'coa'
                     ? 'bg-brand-600 text-white shadow-sm'
-                    : 'bg-white border border-slate-200 text-slate-700 hover:text-slate-900 hover:bg-slate-50'
+                    : 'bg-card border border-border text-foreground/90 hover:text-foreground hover:bg-muted'
                 }`}
               >
                 Chart of Accounts Tree ({accounts.length})
@@ -472,7 +472,7 @@ export const AccountingWorkspace: React.FC<{
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                   ledgerSubTab === 'trial-balance'
                     ? 'bg-brand-600 text-white shadow-sm'
-                    : 'bg-white border border-slate-200 text-slate-700 hover:text-slate-900 hover:bg-slate-50'
+                    : 'bg-card border border-border text-foreground/90 hover:text-foreground hover:bg-muted'
                 }`}
               >
                 Trial Balance Summary
@@ -498,7 +498,7 @@ export const AccountingWorkspace: React.FC<{
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs">
                   <thead>
-                    <tr className="border-b border-slate-200 bg-slate-50 text-slate-700 font-bold uppercase tracking-wider">
+                    <tr className="border-b border-border bg-muted text-foreground/90 font-bold uppercase tracking-wider">
                       <th className="px-5 py-3">Account Code</th>
                       <th className="px-5 py-3">Account Name</th>
                       <th className="px-5 py-3">Classification</th>
@@ -506,12 +506,12 @@ export const AccountingWorkspace: React.FC<{
                       <th className="px-5 py-3 text-right">Credit Balance</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-200 text-slate-900">
+                  <tbody className="divide-y divide-border text-foreground">
                     {tbReport.rows.map((row) => (
-                      <tr key={row.accountId} className="hover:bg-slate-50">
+                      <tr key={row.accountId} className="hover:bg-muted">
                         <td className="px-5 py-2.5 font-mono font-bold text-brand-600">{row.code}</td>
-                        <td className="px-5 py-2.5 font-medium text-slate-900">{row.name}</td>
-                        <td className="px-5 py-2.5 capitalize text-slate-600">{row.classification}</td>
+                        <td className="px-5 py-2.5 font-medium text-foreground">{row.name}</td>
+                        <td className="px-5 py-2.5 capitalize text-muted-foreground">{row.classification}</td>
                         <td className="px-5 py-2.5 text-right font-mono font-semibold">
                           {parseFloat(row.closingDebit) > 0 ? <span className="text-emerald-700">{row.closingDebit}</span> : '-'}
                         </td>
@@ -522,7 +522,7 @@ export const AccountingWorkspace: React.FC<{
                     ))}
                   </tbody>
                   <tfoot>
-                    <tr className="bg-slate-50 font-bold border-t border-slate-200 text-slate-900">
+                    <tr className="bg-muted font-bold border-t border-border text-foreground">
                       <td colSpan={3} className="px-5 py-3 text-right uppercase tracking-wider">Totals:</td>
                       <td className="px-5 py-3 text-right font-mono text-emerald-700">${parseFloat(tbReport.totalClosingDebit).toFixed(4)}</td>
                       <td className="px-5 py-3 text-right font-mono text-sky-700">${parseFloat(tbReport.totalClosingCredit).toFixed(4)}</td>
@@ -544,11 +544,11 @@ export const AccountingWorkspace: React.FC<{
               subtitle="Trade Debtors control integration with General Ledger (Account #1200)"
             >
               <div className="space-y-3 text-xs">
-                <p className="text-slate-400">
+                <p className="text-muted-foreground">
                   Every sales invoice and customer receipt posted in the Sales domain writes directly to customer sub-ledger balances and automatically updates the GL AR Control Account.
                 </p>
-                <div className="p-3 rounded-lg bg-slate-950/60 border border-slate-800 flex items-center justify-between">
-                  <span className="text-slate-400">Reconciliation Status:</span>
+                <div className="p-3 rounded-lg bg-card/60 border border-border flex items-center justify-between">
+                  <span className="text-muted-foreground">Reconciliation Status:</span>
                   <span className="text-emerald-400 font-semibold flex items-center gap-1">
                     <CheckCircle2 className="w-3.5 h-3.5" /> 100% In Balance (${totalAR.toFixed(2)} {tenant.baseCurrency})
                   </span>
@@ -561,21 +561,21 @@ export const AccountingWorkspace: React.FC<{
               subtitle="Outstanding customer receivables by due date tier"
             >
               <div className="space-y-2 text-xs">
-                <div className="flex justify-between p-2 rounded bg-slate-950/40">
+                <div className="flex justify-between p-2 rounded bg-card/40">
                   <span className="text-emerald-400 font-medium">Current (0 - 30 Days)</span>
-                  <span className="font-mono text-slate-100">${totalAR.toFixed(2)}</span>
+                  <span className="font-mono text-foreground">${totalAR.toFixed(2)}</span>
                 </div>
-                <div className="flex justify-between p-2 rounded bg-slate-950/40">
-                  <span className="text-slate-400">31 - 60 Days</span>
-                  <span className="font-mono text-slate-500">$0.00</span>
+                <div className="flex justify-between p-2 rounded bg-card/40">
+                  <span className="text-muted-foreground">31 - 60 Days</span>
+                  <span className="font-mono text-muted-foreground">$0.00</span>
                 </div>
-                <div className="flex justify-between p-2 rounded bg-slate-950/40">
-                  <span className="text-slate-400">61 - 90 Days</span>
-                  <span className="font-mono text-slate-500">$0.00</span>
+                <div className="flex justify-between p-2 rounded bg-card/40">
+                  <span className="text-muted-foreground">61 - 90 Days</span>
+                  <span className="font-mono text-muted-foreground">$0.00</span>
                 </div>
-                <div className="flex justify-between p-2 rounded bg-slate-950/40">
-                  <span className="text-slate-400">90+ Days (Overdue)</span>
-                  <span className="font-mono text-slate-500">$0.00</span>
+                <div className="flex justify-between p-2 rounded bg-card/40">
+                  <span className="text-muted-foreground">90+ Days (Overdue)</span>
+                  <span className="font-mono text-muted-foreground">$0.00</span>
                 </div>
               </div>
             </Card>
@@ -592,11 +592,11 @@ export const AccountingWorkspace: React.FC<{
               subtitle="Trade Creditors control integration with General Ledger (Account #2010)"
             >
               <div className="space-y-3 text-xs">
-                <p className="text-slate-400">
+                <p className="text-muted-foreground">
                   Supplier bills and payment disbursements update supplier sub-ledger balances with 3-way matching support and automated input tax calculation.
                 </p>
-                <div className="p-3 rounded-lg bg-slate-950/60 border border-slate-800 flex items-center justify-between">
-                  <span className="text-slate-400">Reconciliation Status:</span>
+                <div className="p-3 rounded-lg bg-card/60 border border-border flex items-center justify-between">
+                  <span className="text-muted-foreground">Reconciliation Status:</span>
                   <span className="text-emerald-400 font-semibold flex items-center gap-1">
                     <CheckCircle2 className="w-3.5 h-3.5" /> 100% In Balance (${totalAP.toFixed(2)} {tenant.baseCurrency})
                   </span>
@@ -609,21 +609,21 @@ export const AccountingWorkspace: React.FC<{
               subtitle="Upcoming supplier liabilities by due date tier"
             >
               <div className="space-y-2 text-xs">
-                <div className="flex justify-between p-2 rounded bg-slate-950/40">
-                  <span className="text-slate-400">Current (0 - 30 Days)</span>
-                  <span className="font-mono text-slate-100">${totalAP.toFixed(2)}</span>
+                <div className="flex justify-between p-2 rounded bg-card/40">
+                  <span className="text-muted-foreground">Current (0 - 30 Days)</span>
+                  <span className="font-mono text-foreground">${totalAP.toFixed(2)}</span>
                 </div>
-                <div className="flex justify-between p-2 rounded bg-slate-950/40">
-                  <span className="text-slate-400">31 - 60 Days</span>
-                  <span className="font-mono text-slate-500">$0.00</span>
+                <div className="flex justify-between p-2 rounded bg-card/40">
+                  <span className="text-muted-foreground">31 - 60 Days</span>
+                  <span className="font-mono text-muted-foreground">$0.00</span>
                 </div>
-                <div className="flex justify-between p-2 rounded bg-slate-950/40">
-                  <span className="text-slate-400">61 - 90 Days</span>
-                  <span className="font-mono text-slate-500">$0.00</span>
+                <div className="flex justify-between p-2 rounded bg-card/40">
+                  <span className="text-muted-foreground">61 - 90 Days</span>
+                  <span className="font-mono text-muted-foreground">$0.00</span>
                 </div>
-                <div className="flex justify-between p-2 rounded bg-slate-950/40">
-                  <span className="text-slate-400">90+ Days (Overdue)</span>
-                  <span className="font-mono text-slate-500">$0.00</span>
+                <div className="flex justify-between p-2 rounded bg-card/40">
+                  <span className="text-muted-foreground">90+ Days (Overdue)</span>
+                  <span className="font-mono text-muted-foreground">$0.00</span>
                 </div>
               </div>
             </Card>
@@ -663,7 +663,7 @@ export const AccountingWorkspace: React.FC<{
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                   reportView === r.id
                     ? 'bg-brand-600 text-white shadow-sm'
-                    : 'bg-slate-900 border border-slate-800 text-slate-400 hover:text-slate-200'
+                    : 'bg-card border border-border text-muted-foreground hover:text-foreground'
                 }`}
               >
                 {r.label}
@@ -681,22 +681,22 @@ export const AccountingWorkspace: React.FC<{
               subtitle={`For period ended ${new Date().toLocaleDateString()} • Currency: ${tenant.baseCurrency}`}
             >
               <div className="space-y-4 text-xs">
-                <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800 space-y-2">
-                  <div className="flex items-center justify-between text-sm font-bold text-slate-100 border-b border-slate-800 pb-2">
+                <div className="p-4 rounded-xl bg-card/60 border border-border space-y-2">
+                  <div className="flex items-center justify-between text-sm font-bold text-foreground border-b border-border pb-2">
                     <span>Total Operating Revenue (4000)</span>
                     <span className="text-emerald-400 font-mono">${revenueTotal.toFixed(2)}</span>
                   </div>
-                  <p className="text-[11px] text-slate-400 pt-1">
+                  <p className="text-[11px] text-muted-foreground pt-1">
                     {revenueTotal > 0 ? 'Operating revenues recognized from posted invoices & journals.' : 'No revenue posted for active period.'}
                   </p>
                 </div>
 
-                <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800 space-y-2">
-                  <div className="flex items-center justify-between text-sm font-bold text-slate-100 border-b border-slate-800 pb-2">
+                <div className="p-4 rounded-xl bg-card/60 border border-border space-y-2">
+                  <div className="flex items-center justify-between text-sm font-bold text-foreground border-b border-border pb-2">
                     <span>Total Operating Expenses & COGS (5000-6000)</span>
                     <span className="text-rose-400 font-mono">${expenseTotal.toFixed(2)}</span>
                   </div>
-                  <p className="text-[11px] text-slate-400 pt-1">
+                  <p className="text-[11px] text-muted-foreground pt-1">
                     {expenseTotal > 0 ? 'Operating expenses recognized from posted bills & journals.' : 'No expenses posted for active period.'}
                   </p>
                 </div>
@@ -719,25 +719,25 @@ export const AccountingWorkspace: React.FC<{
               subtitle={`As of ${new Date().toLocaleDateString()} • Currency: ${tenant.baseCurrency}`}
             >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-                <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800 space-y-3">
-                  <div className="flex items-center justify-between text-sm font-bold text-emerald-400 border-b border-slate-800 pb-2">
+                <div className="p-4 rounded-xl bg-card/60 border border-border space-y-3">
+                  <div className="flex items-center justify-between text-sm font-bold text-emerald-400 border-b border-border pb-2">
                     <span>Total Assets (1000)</span>
                     <span className="font-mono">${totalAssets.toFixed(2)}</span>
                   </div>
-                  <div className="space-y-1 text-slate-300">
-                    <p className="text-slate-400 text-[11px]">
+                  <div className="space-y-1 text-foreground/90">
+                    <p className="text-muted-foreground text-[11px]">
                       {totalAssets > 0 ? 'Live balances aggregated from General Ledger asset accounts.' : 'All asset balances currently at $0.00.'}
                     </p>
                   </div>
                 </div>
 
-                <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800 space-y-3">
-                  <div className="flex items-center justify-between text-sm font-bold text-sky-400 border-b border-slate-800 pb-2">
+                <div className="p-4 rounded-xl bg-card/60 border border-border space-y-3">
+                  <div className="flex items-center justify-between text-sm font-bold text-sky-400 border-b border-border pb-2">
                     <span>Total Liabilities & Equity (2000-3000)</span>
                     <span className="font-mono">${totalLiabilitiesAndEquity.toFixed(2)}</span>
                   </div>
-                  <div className="space-y-1 text-slate-300">
-                    <p className="text-slate-400 text-[11px]">
+                  <div className="space-y-1 text-foreground/90">
+                    <p className="text-muted-foreground text-[11px]">
                       {totalLiabilitiesAndEquity > 0 ? 'Live balances aggregated from General Ledger liabilities & equity.' : 'All liabilities & equity balances currently at $0.00.'}
                     </p>
                   </div>
@@ -749,9 +749,9 @@ export const AccountingWorkspace: React.FC<{
               title="Trial Balance Summary"
               subtitle={`Live General Ledger balance • Currency: ${tenant.baseCurrency}`}
             >
-              <div className="p-4 rounded-lg bg-slate-950/60 border border-slate-800 flex items-center justify-between text-xs">
-                <span className="text-slate-300 font-semibold">Total Debits: <strong className="text-emerald-400">${parseFloat(tbReport.totalClosingDebit).toFixed(2)}</strong></span>
-                <span className="text-slate-300 font-semibold">Total Credits: <strong className="text-sky-400">${parseFloat(tbReport.totalClosingCredit).toFixed(2)}</strong></span>
+              <div className="p-4 rounded-lg bg-card/60 border border-border flex items-center justify-between text-xs">
+                <span className="text-foreground/90 font-semibold">Total Debits: <strong className="text-emerald-400">${parseFloat(tbReport.totalClosingDebit).toFixed(2)}</strong></span>
+                <span className="text-foreground/90 font-semibold">Total Credits: <strong className="text-sky-400">${parseFloat(tbReport.totalClosingCredit).toFixed(2)}</strong></span>
                 <span className="text-emerald-400 font-bold">100% Balanced</span>
               </div>
             </Card>
@@ -797,7 +797,7 @@ export const AccountingWorkspace: React.FC<{
           <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/20 text-xs text-amber-200">
             Current Operating Period: <strong>{currentPeriod ? currentPeriod.name : 'FY-2026'}</strong> (Status: {currentPeriod ? currentPeriod.status.toUpperCase() : 'OPEN'}).
           </div>
-          <p className="text-xs text-slate-400">
+          <p className="text-xs text-muted-foreground">
             To lock historical periods or configure multi-year fiscal calendars, visit the Accounting section in Settings.
           </p>
         </div>

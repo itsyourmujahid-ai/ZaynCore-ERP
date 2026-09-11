@@ -29,10 +29,10 @@ export const Button: React.FC<ButtonProps> = ({
 
   const variants = {
     primary: 'bg-brand-600 hover:bg-brand-700 text-white shadow-sm hover:shadow focus:ring-brand-500 border border-brand-700/30 font-semibold',
-    secondary: 'bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-200 focus:ring-slate-400 shadow-sm font-semibold',
-    outline: 'bg-white hover:bg-slate-50 text-slate-700 hover:text-slate-900 border border-slate-300 focus:ring-slate-400 shadow-sm font-semibold',
+    secondary: 'bg-muted hover:bg-slate-200 text-foreground border border-border focus:ring-slate-400 shadow-sm font-semibold',
+    outline: 'bg-card hover:bg-muted text-foreground/90 hover:text-foreground border border-border focus:ring-slate-400 shadow-sm font-semibold',
     danger: 'bg-rose-600 hover:bg-rose-700 text-white shadow-sm focus:ring-rose-500 border border-rose-700/30 font-semibold',
-    ghost: 'bg-transparent hover:bg-slate-100 text-slate-600 hover:text-slate-900 focus:ring-slate-300 font-semibold',
+    ghost: 'bg-transparent hover:bg-muted text-muted-foreground hover:text-foreground focus:ring-slate-300 font-semibold',
   };
 
   const sizes = {

@@ -159,15 +159,15 @@ export const RFQsView: React.FC<{
   return (
     <div className="space-y-4">
       {/* Top Filter Bar */}
-      <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-3">
+      <div className="p-4 rounded-xl bg-card border border-border flex flex-col md:flex-row items-center justify-between gap-3">
         <div className="relative w-full md:w-72">
-          <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-500" />
+          <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-muted-foreground" />
           <input
             type="text"
             placeholder="Search RFQs by number or buyer..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-1.5 text-xs bg-slate-950/80 border border-slate-800 rounded-lg text-slate-200 placeholder-slate-500 focus:outline-none focus:border-brand-500"
+            className="w-full pl-9 pr-3 py-1.5 text-xs bg-card/80 border border-border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-brand-500"
           />
         </div>
 
@@ -190,7 +190,7 @@ export const RFQsView: React.FC<{
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-slate-800 bg-slate-900/90 text-slate-400 font-semibold uppercase tracking-wider">
+              <tr className="border-b border-border bg-card/90 text-muted-foreground font-semibold uppercase tracking-wider">
                 <th className="px-5 py-3.5">RFQ #</th>
                 <th className="px-5 py-3.5">Issue Date</th>
                 <th className="px-5 py-3.5">Deadline</th>
@@ -200,19 +200,19 @@ export const RFQsView: React.FC<{
                 <th className="px-5 py-3.5 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-slate-200">
+            <tbody className="divide-y divide-border text-foreground">
               {filteredRFQs.map((rfq) => {
                 const quotes = allQuotes.filter((q) => q.rfqId === rfq.id);
                 return (
-                  <tr key={rfq.id} className="hover:bg-slate-800/40 transition-colors">
+                  <tr key={rfq.id} className="hover:bg-muted/40 transition-colors">
                     <td className="px-5 py-3.5 font-mono font-bold text-sky-400">{rfq.rfqNumber}</td>
-                    <td className="px-5 py-3.5 font-mono text-slate-400">{rfq.date}</td>
+                    <td className="px-5 py-3.5 font-mono text-muted-foreground">{rfq.date}</td>
                     <td className="px-5 py-3.5 font-mono text-amber-400">{rfq.deadlineDate}</td>
-                    <td className="px-5 py-3.5 text-slate-300">
+                    <td className="px-5 py-3.5 text-foreground/90">
                       {rfq.invitedSupplierIds.length} Suppliers Invited
                     </td>
                     <td className="px-5 py-3.5 text-center">
-                      <span className="px-2 py-0.5 rounded bg-slate-800 text-brand-400 font-mono font-bold">
+                      <span className="px-2 py-0.5 rounded bg-muted text-brand-400 font-mono font-bold">
                         {quotes.length} Quotes
                       </span>
                     </td>
@@ -251,7 +251,7 @@ export const RFQsView: React.FC<{
               })}
               {filteredRFQs.length === 0 && (
                 <tr>
-                  <td colSpan={7} className="px-5 py-12 text-center text-slate-500">
+                  <td colSpan={7} className="px-5 py-12 text-center text-muted-foreground">
                     No RFQs active. Click "+ Create RFQ" to invite vendors for bids.
                   </td>
                 </tr>
@@ -301,10 +301,10 @@ export const RFQsView: React.FC<{
           </div>
 
           <div className="space-y-2">
-            <span className="text-xs font-semibold text-slate-300">Invite Approved Suppliers:</span>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-40 overflow-y-auto p-2 rounded-lg bg-slate-950/60 border border-slate-800">
+            <span className="text-xs font-semibold text-foreground/90">Invite Approved Suppliers:</span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-40 overflow-y-auto p-2 rounded-lg bg-card/60 border border-border">
               {suppliers.map((s) => (
-                <label key={s.id} className="flex items-center gap-2 p-2 rounded hover:bg-slate-900 text-xs text-slate-200 cursor-pointer">
+                <label key={s.id} className="flex items-center gap-2 p-2 rounded hover:bg-card text-xs text-foreground cursor-pointer">
                   <input
                     type="checkbox"
                     checked={form.invitedSupplierIds.includes(s.id)}
@@ -315,7 +315,7 @@ export const RFQsView: React.FC<{
                         setForm({ ...form, invitedSupplierIds: form.invitedSupplierIds.filter((id) => id !== s.id) });
                       }
                     }}
-                    className="rounded bg-slate-900 border-slate-700 text-brand-500"
+                    className="rounded bg-card border-border text-brand-500"
                   />
                   <span>{s.name} ({s.code})</span>
                 </label>
@@ -398,10 +398,10 @@ export const RFQsView: React.FC<{
           }
         >
           <div className="space-y-4">
-            <div className="overflow-x-auto rounded-lg border border-slate-800">
+            <div className="overflow-x-auto rounded-lg border border-border">
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="border-b border-slate-800 bg-slate-950/80 text-slate-400 font-semibold uppercase">
+                  <tr className="border-b border-border bg-card/80 text-muted-foreground font-semibold uppercase">
                     <th className="px-4 py-2.5">Supplier</th>
                     <th className="px-4 py-2.5">Quote #</th>
                     <th className="px-4 py-2.5">Lead Time</th>
@@ -411,24 +411,24 @@ export const RFQsView: React.FC<{
                     <th className="px-4 py-2.5 text-right">Action</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60 text-slate-200">
+                <tbody className="divide-y divide-border text-foreground">
                   {allQuotes
                     .filter((q) => q.rfqId === selectedRFQ.id)
                     .map((quote) => {
                       const sup = suppliers.find((s) => s.id === quote.supplierId);
                       return (
-                        <tr key={quote.id} className={quote.isSelected ? 'bg-emerald-950/20' : 'hover:bg-slate-800/40'}>
+                        <tr key={quote.id} className={quote.isSelected ? 'bg-emerald-950/20' : 'hover:bg-muted/40'}>
                           <td className="px-4 py-2.5">
-                            <div className="font-semibold text-slate-100 flex items-center gap-1.5">
+                            <div className="font-semibold text-foreground flex items-center gap-1.5">
                               <Building2 className="w-3.5 h-3.5 text-brand-400" />
                               <span>{sup?.name || 'Vendor'}</span>
                             </div>
-                            <div className="text-[10px] text-slate-500 font-mono">{sup?.code}</div>
+                            <div className="text-[10px] text-muted-foreground font-mono">{sup?.code}</div>
                           </td>
                           <td className="px-4 py-2.5 font-mono text-sky-400">{quote.quotationNumber}</td>
-                          <td className="px-4 py-2.5 font-mono text-slate-300">{quote.deliveryLeadTimeDays || '—'} Days</td>
-                          <td className="px-4 py-2.5 font-mono text-slate-300">Net {quote.paymentTermsDays}d</td>
-                          <td className="px-4 py-2.5 text-right font-mono font-bold text-slate-100">
+                          <td className="px-4 py-2.5 font-mono text-foreground/90">{quote.deliveryLeadTimeDays || '—'} Days</td>
+                          <td className="px-4 py-2.5 font-mono text-foreground/90">Net {quote.paymentTermsDays}d</td>
+                          <td className="px-4 py-2.5 text-right font-mono font-bold text-foreground">
                             ${parseFloat(quote.total).toFixed(2)}
                           </td>
                           <td className="px-4 py-2.5 text-center">
@@ -437,7 +437,7 @@ export const RFQsView: React.FC<{
                                 Awarded
                               </span>
                             ) : (
-                              <span className="text-slate-500 text-[10px]">Under Review</span>
+                              <span className="text-muted-foreground text-[10px]">Under Review</span>
                             )}
                           </td>
                           <td className="px-4 py-2.5 text-right">
@@ -457,7 +457,7 @@ export const RFQsView: React.FC<{
                     })}
                   {allQuotes.filter((q) => q.rfqId === selectedRFQ.id).length === 0 && (
                     <tr>
-                      <td colSpan={7} className="px-4 py-8 text-center text-slate-500">
+                      <td colSpan={7} className="px-4 py-8 text-center text-muted-foreground">
                         No vendor bids recorded yet. Click "Record Bid" to log supplier quotes.
                       </td>
                     </tr>

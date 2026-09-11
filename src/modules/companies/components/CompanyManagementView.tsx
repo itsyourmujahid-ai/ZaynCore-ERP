@@ -26,7 +26,23 @@ export const CompanyManagementView: React.FC = () => {
   const branches = db.getBranches(tenant);
   const departments = db.getDepartments(tenant);
   const costCenters = db.getCostCenters(tenant);
-  const company = db.getCompanyById(tenant.companyId, tenant) || db.getCompanies()[0];
+  const allCompanies = db.getCompanies();
+  const company = db.getCompanyById(tenant.companyId, tenant) || allCompanies.find(c => c.id === tenant.companyId) || allCompanies[0] || {
+    id: tenant.companyId || 'comp-default',
+    name: tenant.companyName || 'Enterprise Organization',
+    code: 'DEFAULT',
+    legalName: tenant.companyName || 'Enterprise Corporation LLC',
+    countryCode: 'US',
+    baseCurrency: tenant.baseCurrency || 'USD',
+    taxIdentifier: 'N/A',
+    industry: 'Enterprise Services',
+    tier: tenant.companyTier || 'enterprise',
+    status: 'active' as const,
+    fiscalYearStartMonth: 1,
+    retainedEarningsAccountId: 'acc-3200',
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  };
 
   const [branchForm, setBranchForm] = useState({
     code: '',
@@ -68,11 +84,11 @@ export const CompanyManagementView: React.FC = () => {
         <div>
           <div className="flex items-center gap-2">
             <span className="text-xs font-bold uppercase tracking-wider text-brand-600">Organization Hierarchy</span>
-            <span className="text-slate-400">•</span>
+            <span className="text-muted-foreground">•</span>
             <StatusBadge status={tenant.companyTier} />
           </div>
-          <h1 className="text-2xl font-bold text-slate-900 mt-1">{company.name}</h1>
-          <p className="text-xs text-slate-600 mt-1">
+          <h1 className="text-2xl font-bold text-foreground mt-1">{company.name}</h1>
+          <p className="text-xs text-muted-foreground mt-1">
             Manage multi-branch operations, departmental divisions, and cost centers under active tenant isolation.
           </p>
         </div>
@@ -89,24 +105,24 @@ export const CompanyManagementView: React.FC = () => {
       {/* Company Legal Profile Overview */}
       <Card title="Legal Entity Profile" subtitle="Corporate registration and base currency configuration">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs">
-          <div className="p-3.5 rounded-lg bg-slate-50 border border-slate-200">
-            <span className="text-slate-500 block text-[10px] uppercase font-bold">Legal Name</span>
-            <span className="font-semibold text-slate-900 mt-1 block">{company.legalName}</span>
+          <div className="p-3.5 rounded-lg bg-muted border border-border">
+            <span className="text-muted-foreground block text-[10px] uppercase font-bold">Legal Name</span>
+            <span className="font-semibold text-foreground mt-1 block">{company.legalName}</span>
           </div>
 
-          <div className="p-3.5 rounded-lg bg-slate-50 border border-slate-200">
-            <span className="text-slate-500 block text-[10px] uppercase font-bold">Base Ledger Currency</span>
+          <div className="p-3.5 rounded-lg bg-muted border border-border">
+            <span className="text-muted-foreground block text-[10px] uppercase font-bold">Base Ledger Currency</span>
             <span className="font-bold font-mono text-brand-600 mt-1 block">{company.baseCurrency}</span>
           </div>
 
-          <div className="p-3.5 rounded-lg bg-slate-50 border border-slate-200">
-            <span className="text-slate-500 block text-[10px] uppercase font-bold">Tax / VAT ID</span>
-            <span className="font-semibold font-mono text-slate-900 mt-1 block">{company.taxIdentifier || 'N/A'}</span>
+          <div className="p-3.5 rounded-lg bg-muted border border-border">
+            <span className="text-muted-foreground block text-[10px] uppercase font-bold">Tax / VAT ID</span>
+            <span className="font-semibold font-mono text-foreground mt-1 block">{company.taxIdentifier || 'N/A'}</span>
           </div>
 
-          <div className="p-3.5 rounded-lg bg-slate-50 border border-slate-200">
-            <span className="text-slate-500 block text-[10px] uppercase font-bold">Industry Classification</span>
-            <span className="font-semibold text-slate-900 mt-1 block">{company.industry}</span>
+          <div className="p-3.5 rounded-lg bg-muted border border-border">
+            <span className="text-muted-foreground block text-[10px] uppercase font-bold">Industry Classification</span>
+            <span className="font-semibold text-foreground mt-1 block">{company.industry}</span>
           </div>
         </div>
       </Card>
@@ -131,7 +147,7 @@ export const CompanyManagementView: React.FC = () => {
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
               <thead>
-                <tr className="border-b border-slate-200 bg-slate-50 text-slate-700 font-bold uppercase tracking-wider">
+                <tr className="border-b border-border bg-muted text-foreground/90 font-bold uppercase tracking-wider">
                   <th className="px-5 py-3.5">Branch Code</th>
                   <th className="px-5 py-3.5">Branch Name</th>
                   <th className="px-5 py-3.5">Location / City</th>
@@ -139,18 +155,18 @@ export const CompanyManagementView: React.FC = () => {
                   <th className="px-5 py-3.5 text-right">Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-200 text-slate-900">
+              <tbody className="divide-y divide-border text-foreground">
                 {branches.map((b) => (
-                  <tr key={b.id} className="hover:bg-slate-50 transition-colors">
+                  <tr key={b.id} className="hover:bg-muted transition-colors">
                     <td className="px-5 py-4 font-mono font-bold text-brand-600">
                       {b.code}
                     </td>
                     <td className="px-5 py-4">
-                      <div className="font-semibold text-slate-900">{b.name}</div>
-                      <div className="text-[11px] text-slate-500">{b.addressLine1 || 'No street address specified'}</div>
+                      <div className="font-semibold text-foreground">{b.name}</div>
+                      <div className="text-[11px] text-muted-foreground">{b.addressLine1 || 'No street address specified'}</div>
                     </td>
-                    <td className="px-5 py-4 flex items-center gap-1 text-slate-700">
-                      <MapPin className="w-3.5 h-3.5 text-slate-400" />
+                    <td className="px-5 py-4 flex items-center gap-1 text-foreground/90">
+                      <MapPin className="w-3.5 h-3.5 text-muted-foreground" />
                       <span>{b.city || 'N/A'}, {b.countryCode}</span>
                     </td>
                     <td className="px-5 py-4">
@@ -159,7 +175,7 @@ export const CompanyManagementView: React.FC = () => {
                           HEADQUARTERS
                         </span>
                       ) : (
-                        <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-slate-100 text-slate-700 border border-slate-200">
+                        <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-muted text-foreground/90 border border-border">
                           REGIONAL BRANCH
                         </span>
                       )}
@@ -182,23 +198,23 @@ export const CompanyManagementView: React.FC = () => {
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="border-b border-slate-200 bg-slate-50 text-slate-700 font-bold uppercase tracking-wider">
+                  <tr className="border-b border-border bg-muted text-foreground/90 font-bold uppercase tracking-wider">
                     <th className="px-4 py-3">Code</th>
                     <th className="px-4 py-3">Department Name</th>
                     <th className="px-4 py-3 text-right">Status</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-200 text-slate-900">
+                <tbody className="divide-y divide-border text-foreground">
                   {departments.map((d) => (
-                    <tr key={d.id} className="hover:bg-slate-50">
+                    <tr key={d.id} className="hover:bg-muted">
                       <td className="px-4 py-3 font-mono font-bold text-brand-600">{d.code}</td>
-                      <td className="px-4 py-3 font-medium text-slate-900">{d.name}</td>
+                      <td className="px-4 py-3 font-medium text-foreground">{d.name}</td>
                       <td className="px-4 py-3 text-right"><StatusBadge status={d.status} size="xs" /></td>
                     </tr>
                   ))}
                   {departments.length === 0 && (
                     <tr>
-                      <td colSpan={3} className="px-4 py-8 text-center text-slate-500">No departments configured</td>
+                      <td colSpan={3} className="px-4 py-8 text-center text-muted-foreground">No departments configured</td>
                     </tr>
                   )}
                 </tbody>
@@ -210,23 +226,23 @@ export const CompanyManagementView: React.FC = () => {
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="border-b border-slate-200 bg-slate-50 text-slate-700 font-bold uppercase tracking-wider">
+                  <tr className="border-b border-border bg-muted text-foreground/90 font-bold uppercase tracking-wider">
                     <th className="px-4 py-3">Cost Center Code</th>
                     <th className="px-4 py-3">Cost Center Name</th>
                     <th className="px-4 py-3 text-right">Status</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-200 text-slate-900">
+                <tbody className="divide-y divide-border text-foreground">
                   {costCenters.map((cc) => (
-                    <tr key={cc.id} className="hover:bg-slate-50">
+                    <tr key={cc.id} className="hover:bg-muted">
                       <td className="px-4 py-3 font-mono font-bold text-brand-600">{cc.code}</td>
-                      <td className="px-4 py-3 font-medium text-slate-900">{cc.name}</td>
+                      <td className="px-4 py-3 font-medium text-foreground">{cc.name}</td>
                       <td className="px-4 py-3 text-right"><StatusBadge status={cc.status} size="xs" /></td>
                     </tr>
                   ))}
                   {costCenters.length === 0 && (
                     <tr>
-                      <td colSpan={3} className="px-4 py-8 text-center text-slate-500">No cost centers configured</td>
+                      <td colSpan={3} className="px-4 py-8 text-center text-muted-foreground">No cost centers configured</td>
                     </tr>
                   )}
                 </tbody>

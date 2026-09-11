@@ -100,14 +100,14 @@ export const HRDashboardView: React.FC<HRDashboardViewProps> = ({
             }
           >
             {recentPeriods.length === 0 ? (
-              <div className="py-8 text-center text-slate-400 text-xs">
-                <FileSpreadsheet className="w-8 h-8 text-slate-600 mx-auto mb-2" />
+              <div className="py-8 text-center text-muted-foreground text-xs">
+                <FileSpreadsheet className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
                 No payroll periods recorded yet. Click 'Run Payroll' to initialize this month's batch.
               </div>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs">
-                  <thead className="bg-slate-900/50 text-slate-400 border-b border-slate-800">
+                  <thead className="bg-muted/50 text-muted-foreground border-b border-border">
                     <tr>
                       <th className="p-2.5">Period</th>
                       <th className="p-2.5">Employees</th>
@@ -117,15 +117,15 @@ export const HRDashboardView: React.FC<HRDashboardViewProps> = ({
                       <th className="p-2.5">Payment</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800/60">
+                  <tbody className="divide-y divide-border">
                     {recentPeriods.map((p) => (
-                      <tr key={p.id} className="hover:bg-slate-800/30">
-                        <td className="p-2.5 font-semibold text-slate-200">
+                      <tr key={p.id} className="hover:bg-muted/30">
+                        <td className="p-2.5 font-semibold text-foreground">
                           {p.periodName}
-                          <span className="block text-[10px] text-slate-500 font-normal">{p.periodCode}</span>
+                          <span className="block text-[10px] text-muted-foreground font-normal">{p.periodCode}</span>
                         </td>
-                        <td className="p-2.5 text-slate-300">{p.employeeCount}</td>
-                        <td className="p-2.5 text-slate-200">${parseFloat(p.totalGrossSalary).toFixed(2)}</td>
+                        <td className="p-2.5 text-foreground/90">{p.employeeCount}</td>
+                        <td className="p-2.5 text-foreground">${parseFloat(p.totalGrossSalary).toFixed(2)}</td>
                         <td className="p-2.5 font-bold text-emerald-400">${parseFloat(p.totalNetSalary).toFixed(2)}</td>
                         <td className="p-2.5">
                           <StatusBadge status={p.status} />
@@ -150,12 +150,12 @@ export const HRDashboardView: React.FC<HRDashboardViewProps> = ({
           </Card>
 
           {/* Core Integration Invariant Alert */}
-          <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800 text-xs text-slate-300 space-y-2">
-            <div className="flex items-center gap-2 font-bold text-slate-100">
+          <div className="p-4 rounded-xl bg-card/60 border border-border text-xs text-foreground/90 space-y-2">
+            <div className="flex items-center gap-2 font-bold text-foreground">
               <ShieldCheck className="w-4 h-4 text-brand-400" />
               <span>Centralized Double-Entry Accounting Invariant</span>
             </div>
-            <p className="text-slate-400 leading-relaxed">
+            <p className="text-muted-foreground leading-relaxed">
               All payroll transactions execute through the centralized <code>AccountingPostingService</code> and synchronize directly with Bank Accounts, General Ledger Accounts (<code>#6010</code> Basic, <code>#6012</code> Allowances, <code>#6015</code> Overtime, <code>#2300</code> Salaries Payable), and the Payroll Sub-Ledger with strictly <strong>$0.00 variance</strong>.
             </p>
           </div>
@@ -167,44 +167,44 @@ export const HRDashboardView: React.FC<HRDashboardViewProps> = ({
             <div className="space-y-2.5">
               <button
                 onClick={onOpenNewEmployee}
-                className="w-full text-left p-3 rounded-lg bg-slate-900/80 hover:bg-slate-800/80 border border-slate-800 flex items-center justify-between transition-colors"
+                className="w-full text-left p-3 rounded-lg bg-card/80 hover:bg-muted/80 border border-border flex items-center justify-between transition-colors"
               >
                 <div>
-                  <div className="text-xs font-semibold text-slate-200">Add New Employee</div>
-                  <div className="text-[11px] text-slate-400">Register employee master & salary structure</div>
+                  <div className="text-xs font-semibold text-foreground">Add New Employee</div>
+                  <div className="text-[11px] text-muted-foreground">Register employee master & salary structure</div>
                 </div>
                 <Users className="w-4 h-4 text-purple-400" />
               </button>
 
               <button
                 onClick={() => onNavigateTab('attendance')}
-                className="w-full text-left p-3 rounded-lg bg-slate-900/80 hover:bg-slate-800/80 border border-slate-800 flex items-center justify-between transition-colors"
+                className="w-full text-left p-3 rounded-lg bg-card/80 hover:bg-muted/80 border border-border flex items-center justify-between transition-colors"
               >
                 <div>
-                  <div className="text-xs font-semibold text-slate-200">Daily Attendance Sheet</div>
-                  <div className="text-[11px] text-slate-400">Clock in/out, log overtime & absences</div>
+                  <div className="text-xs font-semibold text-foreground">Daily Attendance Sheet</div>
+                  <div className="text-[11px] text-muted-foreground">Clock in/out, log overtime & absences</div>
                 </div>
                 <Clock className="w-4 h-4 text-blue-400" />
               </button>
 
               <button
                 onClick={() => onNavigateTab('leave')}
-                className="w-full text-left p-3 rounded-lg bg-slate-900/80 hover:bg-slate-800/80 border border-slate-800 flex items-center justify-between transition-colors"
+                className="w-full text-left p-3 rounded-lg bg-card/80 hover:bg-muted/80 border border-border flex items-center justify-between transition-colors"
               >
                 <div>
-                  <div className="text-xs font-semibold text-slate-200">Leave Approvals</div>
-                  <div className="text-[11px] text-slate-400">Manage vacation, sick & unpaid leaves</div>
+                  <div className="text-xs font-semibold text-foreground">Leave Approvals</div>
+                  <div className="text-[11px] text-muted-foreground">Manage vacation, sick & unpaid leaves</div>
                 </div>
                 <Calendar className="w-4 h-4 text-amber-400" />
               </button>
 
               <button
                 onClick={() => onNavigateTab('reports')}
-                className="w-full text-left p-3 rounded-lg bg-slate-900/80 hover:bg-slate-800/80 border border-slate-800 flex items-center justify-between transition-colors"
+                className="w-full text-left p-3 rounded-lg bg-card/80 hover:bg-muted/80 border border-border flex items-center justify-between transition-colors"
               >
                 <div>
-                  <div className="text-xs font-semibold text-slate-200">Sub-Ledger Reconciliation</div>
-                  <div className="text-[11px] text-slate-400">Verify Sub-Ledger ↔ GL #2300 balance</div>
+                  <div className="text-xs font-semibold text-foreground">Sub-Ledger Reconciliation</div>
+                  <div className="text-[11px] text-muted-foreground">Verify Sub-Ledger ↔ GL #2300 balance</div>
                 </div>
                 <ShieldCheck className="w-4 h-4 text-emerald-400" />
               </button>
@@ -214,14 +214,14 @@ export const HRDashboardView: React.FC<HRDashboardViewProps> = ({
           {/* Recent Employees */}
           <Card title="Recently Added Staff" subtitle="Latest personnel records">
             {recentEmployees.length === 0 ? (
-              <div className="py-4 text-center text-slate-400 text-xs">No employees registered yet.</div>
+              <div className="py-4 text-center text-muted-foreground text-xs">No employees registered yet.</div>
             ) : (
-              <div className="divide-y divide-slate-800/60">
+              <div className="divide-y divide-border">
                 {recentEmployees.map((e) => (
                   <div key={e.id} className="py-2 flex items-center justify-between">
                     <div>
-                      <div className="text-xs font-semibold text-slate-200">{e.fullName}</div>
-                      <div className="text-[10px] text-slate-500">
+                      <div className="text-xs font-semibold text-foreground">{e.fullName}</div>
+                      <div className="text-[10px] text-muted-foreground">
                         {e.employeeCode} • {e.jobTitle}
                       </div>
                     </div>

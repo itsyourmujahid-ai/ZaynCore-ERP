@@ -107,8 +107,8 @@ export const SalaryStructuresView: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-base font-bold text-slate-100">Salary Structures & Compensation Components</h2>
-          <p className="text-xs text-slate-400">
+          <h2 className="text-base font-bold text-foreground">Salary Structures & Compensation Components</h2>
+          <p className="text-xs text-muted-foreground">
             Define recurring allowances, statutory deductions, overtime rates, and company salary grade structures.
           </p>
         </div>
@@ -140,33 +140,33 @@ export const SalaryStructuresView: React.FC = () => {
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {structures.map((s) => (
-            <div key={s.id} className="p-4 rounded-xl bg-slate-950/60 border border-slate-800 space-y-3">
+            <div key={s.id} className="p-4 rounded-xl bg-card/60 border border-border space-y-3">
               <div className="flex items-center justify-between">
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-bold text-slate-100">{s.name}</span>
+                    <span className="text-sm font-bold text-foreground">{s.name}</span>
                     {s.isDefault && (
                       <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-brand-950/60 text-brand-400 border border-brand-800/50">
                         DEFAULT
                       </span>
                     )}
                   </div>
-                  <span className="text-[10px] text-slate-500 font-mono">{s.code}</span>
+                  <span className="text-[10px] text-muted-foreground font-mono">{s.code}</span>
                 </div>
                 <Layers className="w-4 h-4 text-purple-400" />
               </div>
 
-              <p className="text-xs text-slate-400">{s.description || 'No description provided.'}</p>
+              <p className="text-xs text-muted-foreground">{s.description || 'No description provided.'}</p>
 
-              <div className="space-y-1.5 border-t border-slate-800/80 pt-2">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">
+              <div className="space-y-1.5 border-t border-border/80 pt-2">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground block">
                   Included Components:
                 </span>
                 <div className="space-y-1">
                   {s.components.map((c, idx) => (
-                    <div key={idx} className="flex items-center justify-between text-xs text-slate-300">
+                    <div key={idx} className="flex items-center justify-between text-xs text-foreground/90">
                       <span>• {c.componentName}</span>
-                      <span className="font-mono text-slate-400">
+                      <span className="font-mono text-muted-foreground">
                         {c.calculationMethod === 'percentage_of_basic'
                           ? `${(parseFloat(c.rateOrAmount) * 100).toFixed(0)}% of Basic`
                           : `$${parseFloat(c.rateOrAmount).toFixed(2)}`}
@@ -187,7 +187,7 @@ export const SalaryStructuresView: React.FC = () => {
       >
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-900/50 text-slate-400 border-b border-slate-800">
+            <thead className="bg-muted/50 text-muted-foreground border-b border-border">
               <tr>
                 <th className="p-3">Component</th>
                 <th className="p-3">Type</th>
@@ -197,12 +197,12 @@ export const SalaryStructuresView: React.FC = () => {
                 <th className="p-3">GL Liability Account</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60">
+            <tbody className="divide-y divide-border">
               {components.map((c) => (
-                <tr key={c.id} className="hover:bg-slate-800/20 transition-colors">
+                <tr key={c.id} className="hover:bg-muted/20 transition-colors">
                   <td className="p-3">
-                    <div className="font-semibold text-slate-200">{c.name}</div>
-                    <div className="text-[10px] text-slate-500 font-mono">{c.code}</div>
+                    <div className="font-semibold text-foreground">{c.name}</div>
+                    <div className="text-[10px] text-muted-foreground font-mono">{c.code}</div>
                   </td>
                   <td className="p-3">
                     <span
@@ -215,10 +215,10 @@ export const SalaryStructuresView: React.FC = () => {
                       {c.type.toUpperCase()}
                     </span>
                   </td>
-                  <td className="p-3 text-slate-300 capitalize">{c.calculationMethod.replace(/_/g, ' ')}</td>
-                  <td className="p-3 font-mono text-slate-200">{c.defaultRateOrAmount}</td>
-                  <td className="p-3 text-slate-400 font-mono">{c.expenseAccountId}</td>
-                  <td className="p-3 text-slate-400 font-mono">{c.liabilityAccountId}</td>
+                  <td className="p-3 text-foreground/90 capitalize">{c.calculationMethod.replace(/_/g, ' ')}</td>
+                  <td className="p-3 font-mono text-foreground">{c.defaultRateOrAmount}</td>
+                  <td className="p-3 text-muted-foreground font-mono">{c.expenseAccountId}</td>
+                  <td className="p-3 text-muted-foreground font-mono">{c.liabilityAccountId}</td>
                 </tr>
               ))}
             </tbody>
@@ -228,58 +228,58 @@ export const SalaryStructuresView: React.FC = () => {
 
       {/* New Component Modal */}
       {isCompModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-fadeIn">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md shadow-2xl overflow-hidden">
-            <div className="p-5 border-b border-slate-800 flex items-center justify-between">
-              <h2 className="text-base font-bold text-slate-100">Create Salary Component</h2>
-              <button onClick={() => setIsCompModalOpen(false)} className="text-slate-400 hover:text-slate-100">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-card/80 backdrop-blur-sm animate-fadeIn">
+          <div className="bg-card border border-border rounded-2xl w-full max-w-md shadow-2xl overflow-hidden">
+            <div className="p-5 border-b border-border flex items-center justify-between">
+              <h2 className="text-base font-bold text-foreground">Create Salary Component</h2>
+              <button onClick={() => setIsCompModalOpen(false)} className="text-muted-foreground hover:text-foreground">
                 ✕
               </button>
             </div>
 
             <form onSubmit={handleCreateComponent} className="p-6 space-y-4 text-xs">
               <div>
-                <label className="block text-slate-400 mb-1">Component Code *</label>
+                <label className="block text-muted-foreground mb-1">Component Code *</label>
                 <input
                   type="text"
                   required
                   placeholder="e.g. FOOD_ALLOWANCE"
                   value={compCode}
                   onChange={(e) => setCompCode(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 uppercase font-mono focus:outline-none focus:border-brand-500"
+                  className="w-full px-3 py-2 bg-card border border-border rounded-lg text-foreground uppercase font-mono focus:outline-none focus:border-brand-500"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-400 mb-1">Component Name *</label>
+                <label className="block text-muted-foreground mb-1">Component Name *</label>
                 <input
                   type="text"
                   required
                   placeholder="e.g. Meal & Food Allowance"
                   value={compName}
                   onChange={(e) => setCompName(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 focus:outline-none focus:border-brand-500"
+                  className="w-full px-3 py-2 bg-card border border-border rounded-lg text-foreground focus:outline-none focus:border-brand-500"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-slate-400 mb-1">Type</label>
+                  <label className="block text-muted-foreground mb-1">Type</label>
                   <select
                     value={compType}
                     onChange={(e) => setCompType(e.target.value as ComponentType)}
-                    className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 focus:outline-none focus:border-brand-500"
+                    className="w-full px-3 py-2 bg-card border border-border rounded-lg text-foreground focus:outline-none focus:border-brand-500"
                   >
                     <option value="earning">Earning</option>
                     <option value="deduction">Deduction</option>
                   </select>
                 </div>
                 <div>
-                  <label className="block text-slate-400 mb-1">Calculation Method</label>
+                  <label className="block text-muted-foreground mb-1">Calculation Method</label>
                   <select
                     value={compMethod}
                     onChange={(e) => setCompMethod(e.target.value as CalculationMethod)}
-                    className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 focus:outline-none focus:border-brand-500"
+                    className="w-full px-3 py-2 bg-card border border-border rounded-lg text-foreground focus:outline-none focus:border-brand-500"
                   >
                     <option value="fixed_amount">Fixed Amount</option>
                     <option value="percentage_of_basic">Percentage of Basic</option>
@@ -289,18 +289,18 @@ export const SalaryStructuresView: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-slate-400 mb-1">Default Rate or Fixed Amount</label>
+                <label className="block text-muted-foreground mb-1">Default Rate or Fixed Amount</label>
                 <input
                   type="number"
                   step="0.01"
                   required
                   value={compRate}
                   onChange={(e) => setCompRate(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 font-mono focus:outline-none focus:border-brand-500"
+                  className="w-full px-3 py-2 bg-card border border-border rounded-lg text-foreground font-mono focus:outline-none focus:border-brand-500"
                 />
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-800">
+              <div className="flex items-center justify-end gap-3 pt-4 border-t border-border">
                 <Button variant="secondary" size="sm" type="button" onClick={() => setIsCompModalOpen(false)}>
                   Cancel
                 </Button>
@@ -315,51 +315,51 @@ export const SalaryStructuresView: React.FC = () => {
 
       {/* New Structure Modal */}
       {isStructModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-fadeIn">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md shadow-2xl overflow-hidden">
-            <div className="p-5 border-b border-slate-800 flex items-center justify-between">
-              <h2 className="text-base font-bold text-slate-100">Create Salary Grade Structure</h2>
-              <button onClick={() => setIsStructModalOpen(false)} className="text-slate-400 hover:text-slate-100">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-card/80 backdrop-blur-sm animate-fadeIn">
+          <div className="bg-card border border-border rounded-2xl w-full max-w-md shadow-2xl overflow-hidden">
+            <div className="p-5 border-b border-border flex items-center justify-between">
+              <h2 className="text-base font-bold text-foreground">Create Salary Grade Structure</h2>
+              <button onClick={() => setIsStructModalOpen(false)} className="text-muted-foreground hover:text-foreground">
                 ✕
               </button>
             </div>
 
             <form onSubmit={handleCreateStructure} className="p-6 space-y-4 text-xs">
               <div>
-                <label className="block text-slate-400 mb-1">Structure Code *</label>
+                <label className="block text-muted-foreground mb-1">Structure Code *</label>
                 <input
                   type="text"
                   required
                   placeholder="e.g. EXEC-GRADE-1"
                   value={structCode}
                   onChange={(e) => setStructCode(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 uppercase font-mono focus:outline-none focus:border-brand-500"
+                  className="w-full px-3 py-2 bg-card border border-border rounded-lg text-foreground uppercase font-mono focus:outline-none focus:border-brand-500"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-400 mb-1">Structure Name *</label>
+                <label className="block text-muted-foreground mb-1">Structure Name *</label>
                 <input
                   type="text"
                   required
                   placeholder="e.g. Executive Senior Management Band"
                   value={structName}
                   onChange={(e) => setStructName(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 focus:outline-none focus:border-brand-500"
+                  className="w-full px-3 py-2 bg-card border border-border rounded-lg text-foreground focus:outline-none focus:border-brand-500"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-400 mb-1">Description</label>
+                <label className="block text-muted-foreground mb-1">Description</label>
                 <textarea
                   rows={2}
                   value={structDesc}
                   onChange={(e) => setStructDesc(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 focus:outline-none focus:border-brand-500"
+                  className="w-full px-3 py-2 bg-card border border-border rounded-lg text-foreground focus:outline-none focus:border-brand-500"
                 />
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-800">
+              <div className="flex items-center justify-end gap-3 pt-4 border-t border-border">
                 <Button variant="secondary" size="sm" type="button" onClick={() => setIsStructModalOpen(false)}>
                   Cancel
                 </Button>

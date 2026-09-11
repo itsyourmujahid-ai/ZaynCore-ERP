@@ -126,17 +126,17 @@ export const AttendanceWorkbenchView: React.FC = () => {
       {/* Date Filter & Action Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-lg">
+          <div className="flex items-center gap-2 bg-card border border-border px-3 py-1.5 rounded-lg">
             <Calendar className="w-4 h-4 text-brand-400" />
             <input
               type="date"
               value={selectedDate}
               onChange={(e) => setSelectedDate(e.target.value)}
-              className="bg-transparent text-xs text-slate-200 focus:outline-none"
+              className="bg-transparent text-xs text-foreground focus:outline-none"
             />
           </div>
-          <div className="text-xs text-slate-400">
-            Daily Attendance Sheet for <strong className="text-slate-200">{selectedDate}</strong>
+          <div className="text-xs text-muted-foreground">
+            Daily Attendance Sheet for <strong className="text-foreground">{selectedDate}</strong>
           </div>
         </div>
 
@@ -175,20 +175,20 @@ export const AttendanceWorkbenchView: React.FC = () => {
         subtitle="Record daily check-in, check-out, working hours, and approved overtime"
         action={
           <div className="relative w-48">
-            <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
+            <Search className="w-3.5 h-3.5 text-muted-foreground absolute left-2.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               placeholder="Search staff..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-8 pr-3 py-1 bg-slate-950 border border-slate-800 rounded-lg text-xs text-slate-200 focus:outline-none focus:border-brand-500"
+              className="w-full pl-8 pr-3 py-1 bg-card border border-border rounded-lg text-xs text-foreground focus:outline-none focus:border-brand-500"
             />
           </div>
         }
       >
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-900/50 text-slate-400 border-b border-slate-800">
+            <thead className="bg-muted/50 text-muted-foreground border-b border-border">
               <tr>
                 <th className="p-3">Employee</th>
                 <th className="p-3">Status</th>
@@ -198,7 +198,7 @@ export const AttendanceWorkbenchView: React.FC = () => {
                 <th className="p-3 text-right">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60">
+            <tbody className="divide-y divide-border">
               {filteredEmployees.map((emp) => {
                 const row = rowStates[emp.id] || {
                   status: 'present',
@@ -207,16 +207,16 @@ export const AttendanceWorkbenchView: React.FC = () => {
                   overtime: '0.00',
                 };
                 return (
-                  <tr key={emp.id} className="hover:bg-slate-800/20 transition-colors">
+                  <tr key={emp.id} className="hover:bg-muted/20 transition-colors">
                     <td className="p-3">
-                      <div className="font-semibold text-slate-200">{emp.fullName}</div>
-                      <div className="text-[10px] text-slate-500">{emp.employeeCode} • {emp.jobTitle}</div>
+                      <div className="font-semibold text-foreground">{emp.fullName}</div>
+                      <div className="text-[10px] text-muted-foreground">{emp.employeeCode} • {emp.jobTitle}</div>
                     </td>
                     <td className="p-3">
                       <select
                         value={row.status}
                         onChange={(e) => handleRowChange(emp.id, 'status', e.target.value)}
-                        className="px-2.5 py-1 bg-slate-950 border border-slate-800 rounded text-xs text-slate-200 focus:outline-none focus:border-brand-500"
+                        className="px-2.5 py-1 bg-card border border-border rounded text-xs text-foreground focus:outline-none focus:border-brand-500"
                       >
                         <option value="present">Present</option>
                         <option value="absent">Absent</option>
@@ -231,7 +231,7 @@ export const AttendanceWorkbenchView: React.FC = () => {
                         type="time"
                         value={row.checkIn}
                         onChange={(e) => handleRowChange(emp.id, 'checkIn', e.target.value)}
-                        className="px-2 py-1 bg-slate-950 border border-slate-800 rounded text-xs text-slate-200 font-mono focus:outline-none focus:border-brand-500"
+                        className="px-2 py-1 bg-card border border-border rounded text-xs text-foreground font-mono focus:outline-none focus:border-brand-500"
                       />
                     </td>
                     <td className="p-3">
@@ -239,7 +239,7 @@ export const AttendanceWorkbenchView: React.FC = () => {
                         type="time"
                         value={row.checkOut}
                         onChange={(e) => handleRowChange(emp.id, 'checkOut', e.target.value)}
-                        className="px-2 py-1 bg-slate-950 border border-slate-800 rounded text-xs text-slate-200 font-mono focus:outline-none focus:border-brand-500"
+                        className="px-2 py-1 bg-card border border-border rounded text-xs text-foreground font-mono focus:outline-none focus:border-brand-500"
                       />
                     </td>
                     <td className="p-3">
@@ -249,7 +249,7 @@ export const AttendanceWorkbenchView: React.FC = () => {
                         min="0"
                         value={row.overtime}
                         onChange={(e) => handleRowChange(emp.id, 'overtime', e.target.value)}
-                        className="w-20 px-2 py-1 bg-slate-950 border border-slate-800 rounded text-xs text-slate-200 font-mono focus:outline-none focus:border-brand-500"
+                        className="w-20 px-2 py-1 bg-card border border-border rounded text-xs text-foreground font-mono focus:outline-none focus:border-brand-500"
                       />
                     </td>
                     <td className="p-3 text-right">

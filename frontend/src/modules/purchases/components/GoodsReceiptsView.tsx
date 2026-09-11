@@ -107,15 +107,15 @@ export const GoodsReceiptsView: React.FC<{
   return (
     <div className="space-y-4">
       {/* Filter Bar */}
-      <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-3">
+      <div className="p-4 rounded-xl bg-card border border-border flex flex-col md:flex-row items-center justify-between gap-3">
         <div className="relative w-full md:w-72">
-          <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-500" />
+          <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-muted-foreground" />
           <input
             type="text"
             placeholder="Search receipt # or receiver..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-1.5 text-xs bg-slate-950/80 border border-slate-800 rounded-lg text-slate-200 placeholder-slate-500 focus:outline-none focus:border-brand-500"
+            className="w-full pl-9 pr-3 py-1.5 text-xs bg-card/80 border border-border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-brand-500"
           />
         </div>
 
@@ -138,7 +138,7 @@ export const GoodsReceiptsView: React.FC<{
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-slate-800 bg-slate-900/90 text-slate-400 font-semibold uppercase tracking-wider">
+              <tr className="border-b border-border bg-card/90 text-muted-foreground font-semibold uppercase tracking-wider">
                 <th className="px-5 py-3.5">Receipt #</th>
                 <th className="px-5 py-3.5">Supplier</th>
                 <th className="px-5 py-3.5">Date</th>
@@ -148,16 +148,16 @@ export const GoodsReceiptsView: React.FC<{
                 <th className="px-5 py-3.5 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-slate-200">
+            <tbody className="divide-y divide-border text-foreground">
               {filteredReceipts.map((gr) => {
                 const sup = suppliers.find((s) => s.id === gr.supplierId);
                 return (
-                  <tr key={gr.id} className="hover:bg-slate-800/40 transition-colors">
+                  <tr key={gr.id} className="hover:bg-muted/40 transition-colors">
                     <td className="px-5 py-3.5 font-mono font-bold text-sky-400">{gr.receiptNumber}</td>
-                    <td className="px-5 py-3.5 font-semibold text-slate-100">{sup?.name || 'Vendor'}</td>
-                    <td className="px-5 py-3.5 font-mono text-slate-400">{gr.receiptDate}</td>
-                    <td className="px-5 py-3.5 text-slate-300">{gr.receivingLocation || 'Warehouse'}</td>
-                    <td className="px-5 py-3.5 text-slate-300">{gr.receivedBy}</td>
+                    <td className="px-5 py-3.5 font-semibold text-foreground">{sup?.name || 'Vendor'}</td>
+                    <td className="px-5 py-3.5 font-mono text-muted-foreground">{gr.receiptDate}</td>
+                    <td className="px-5 py-3.5 text-foreground/90">{gr.receivingLocation || 'Warehouse'}</td>
+                    <td className="px-5 py-3.5 text-foreground/90">{gr.receivedBy}</td>
                     <td className="px-5 py-3.5 text-center">
                       <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-[10px] font-bold">
                         Received
@@ -178,7 +178,7 @@ export const GoodsReceiptsView: React.FC<{
               })}
               {filteredReceipts.length === 0 && (
                 <tr>
-                  <td colSpan={7} className="px-5 py-12 text-center text-slate-500">
+                  <td colSpan={7} className="px-5 py-12 text-center text-muted-foreground">
                     No goods receipts recorded. Click "+ Receive Goods (GRN)" to log warehouse receiving.
                   </td>
                 </tr>
@@ -236,16 +236,16 @@ export const GoodsReceiptsView: React.FC<{
 
           {/* Receiving Items Table */}
           <div className="space-y-2 pt-2">
-            <span className="text-xs font-bold uppercase text-slate-300">Receiving Line Items</span>
+            <span className="text-xs font-bold uppercase text-foreground/90">Receiving Line Items</span>
             <div className="space-y-2">
               {form.items.map((item, idx) => (
-                <div key={item.poItemId} className="p-3 rounded-lg bg-slate-950/60 border border-slate-800 flex items-center gap-3">
+                <div key={item.poItemId} className="p-3 rounded-lg bg-card/60 border border-border flex items-center gap-3">
                   <div className="flex-1">
-                    <div className="font-semibold text-xs text-slate-200">{item.description}</div>
-                    <div className="text-[10px] text-slate-500">Ordered: {item.orderedQuantity}</div>
+                    <div className="font-semibold text-xs text-foreground">{item.description}</div>
+                    <div className="text-[10px] text-muted-foreground">Ordered: {item.orderedQuantity}</div>
                   </div>
                   <div className="w-28">
-                    <span className="text-[10px] text-slate-400 block mb-1">Accepted Qty</span>
+                    <span className="text-[10px] text-muted-foreground block mb-1">Accepted Qty</span>
                     <input
                       type="number"
                       value={item.acceptedQuantity}
@@ -255,11 +255,11 @@ export const GoodsReceiptsView: React.FC<{
                         updated[idx].receivedQuantity = e.target.value;
                         setForm({ ...form, items: updated });
                       }}
-                      className="w-full px-2.5 py-1 text-xs bg-slate-900 border border-slate-700 rounded text-slate-100 text-right"
+                      className="w-full px-2.5 py-1 text-xs bg-card border border-border rounded text-foreground text-right"
                     />
                   </div>
                   <div className="w-28">
-                    <span className="text-[10px] text-slate-400 block mb-1">Rejected Qty</span>
+                    <span className="text-[10px] text-muted-foreground block mb-1">Rejected Qty</span>
                     <input
                       type="number"
                       value={item.rejectedQuantity}
@@ -268,7 +268,7 @@ export const GoodsReceiptsView: React.FC<{
                         updated[idx].rejectedQuantity = e.target.value;
                         setForm({ ...form, items: updated });
                       }}
-                      className="w-full px-2.5 py-1 text-xs bg-slate-900 border border-slate-700 rounded text-slate-100 text-right"
+                      className="w-full px-2.5 py-1 text-xs bg-card border border-border rounded text-foreground text-right"
                     />
                   </div>
                 </div>
@@ -292,17 +292,17 @@ export const GoodsReceiptsView: React.FC<{
             </Button>
           }
         >
-          <div className="overflow-x-auto rounded-lg border border-slate-800">
+          <div className="overflow-x-auto rounded-lg border border-border">
             <table className="w-full text-left text-xs">
               <thead>
-                <tr className="border-b border-slate-800 bg-slate-950/80 text-slate-400 font-semibold uppercase">
+                <tr className="border-b border-border bg-card/80 text-muted-foreground font-semibold uppercase">
                   <th className="px-4 py-2.5">Item Description</th>
                   <th className="px-4 py-2.5 text-right">Ordered</th>
                   <th className="px-4 py-2.5 text-right">Accepted</th>
                   <th className="px-4 py-2.5 text-right">Rejected</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60 text-slate-200">
+              <tbody className="divide-y divide-border text-foreground">
                 {selectedReceipt.items.map((it, idx) => (
                   <tr key={idx}>
                     <td className="px-4 py-2.5 font-medium">{it.description}</td>

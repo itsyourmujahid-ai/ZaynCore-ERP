@@ -67,11 +67,11 @@ export const AssetDisposalsView: React.FC = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h3 className="text-base font-bold text-slate-100 flex items-center gap-2">
+          <h3 className="text-base font-bold text-foreground flex items-center gap-2">
             <Trash2 className="w-5 h-5 text-rose-400" />
             Asset Disposals, Retirements & Write-Offs
           </h3>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-muted-foreground mt-0.5">
             Process asset sales, scrapping, and complete write-offs with automated Gain/Loss on Disposal General Ledger posting.
           </p>
         </div>
@@ -99,9 +99,9 @@ export const AssetDisposalsView: React.FC = () => {
       )}
 
       {/* Disposals Register */}
-      <Card className="overflow-hidden border border-slate-800">
+      <Card className="overflow-hidden border border-border">
         <table className="w-full text-left text-sm">
-          <thead className="bg-slate-900 text-xs font-semibold text-slate-400 uppercase tracking-wider">
+          <thead className="bg-card text-xs font-semibold text-muted-foreground uppercase tracking-wider">
             <tr>
               <th className="p-4">Disposal #</th>
               <th className="p-4">Date</th>
@@ -115,22 +115,22 @@ export const AssetDisposalsView: React.FC = () => {
               <th className="p-4 text-center">Status</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-800 text-xs text-slate-300 font-mono">
+          <tbody className="divide-y divide-border text-xs text-foreground/90 font-mono">
             {disposals.map((d) => {
               const asset = db.getFixedAssetById(d.assetId, tenant);
               return (
-                <tr key={d.id} className="hover:bg-slate-800/40">
+                <tr key={d.id} className="hover:bg-muted/40">
                   <td className="p-4 font-medium text-blue-400">{d.disposalNumber}</td>
-                  <td className="p-4 text-slate-400 font-sans">{d.disposalDate}</td>
+                  <td className="p-4 text-muted-foreground font-sans">{d.disposalDate}</td>
                   <td className="p-4 font-sans">
-                    <div className="font-semibold text-slate-200">{asset?.name || 'Asset'}</div>
-                    <div className="text-[11px] font-mono text-slate-500">{asset?.assetCode}</div>
+                    <div className="font-semibold text-foreground">{asset?.name || 'Asset'}</div>
+                    <div className="text-[11px] font-mono text-muted-foreground">{asset?.assetCode}</div>
                   </td>
-                  <td className="p-4 capitalize font-sans text-slate-300">{d.disposalType.replace('_', ' ')}</td>
-                  <td className="p-4 text-right text-slate-400">${parseFloat(d.originalCost).toFixed(2)}</td>
-                  <td className="p-4 text-right text-slate-400">-${parseFloat(d.accumulatedDepreciation).toFixed(2)}</td>
-                  <td className="p-4 text-right text-slate-300">${parseFloat(d.netBookValue).toFixed(2)}</td>
-                  <td className="p-4 text-right font-bold text-slate-100">${parseFloat(d.disposalProceeds).toFixed(2)}</td>
+                  <td className="p-4 capitalize font-sans text-foreground/90">{d.disposalType.replace('_', ' ')}</td>
+                  <td className="p-4 text-right text-muted-foreground">${parseFloat(d.originalCost).toFixed(2)}</td>
+                  <td className="p-4 text-right text-muted-foreground">-${parseFloat(d.accumulatedDepreciation).toFixed(2)}</td>
+                  <td className="p-4 text-right text-foreground/90">${parseFloat(d.netBookValue).toFixed(2)}</td>
+                  <td className="p-4 text-right font-bold text-foreground">${parseFloat(d.disposalProceeds).toFixed(2)}</td>
                   <td className="p-4 text-right font-bold">
                     {d.isGain ? (
                       <span className="text-emerald-400">+${parseFloat(d.gainLossAmount).toFixed(2)} (Gain)</span>
@@ -146,10 +146,10 @@ export const AssetDisposalsView: React.FC = () => {
             })}
             {disposals.length === 0 && (
               <tr>
-                <td colSpan={10} className="p-12 text-center text-slate-400 font-sans">
-                  <Trash2 className="w-8 h-8 text-slate-600 mx-auto mb-3" />
-                  <p className="font-medium text-slate-300">No Asset Disposals Recorded</p>
-                  <p className="text-xs text-slate-500 mt-1">Disposals de-recognize assets and automatically post gains or losses to General Ledger.</p>
+                <td colSpan={10} className="p-12 text-center text-muted-foreground font-sans">
+                  <Trash2 className="w-8 h-8 text-muted-foreground mx-auto mb-3" />
+                  <p className="font-medium text-foreground/90">No Asset Disposals Recorded</p>
+                  <p className="text-xs text-muted-foreground mt-1">Disposals de-recognize assets and automatically post gains or losses to General Ledger.</p>
                 </td>
               </tr>
             )}
@@ -167,12 +167,12 @@ export const AssetDisposalsView: React.FC = () => {
         >
           <form onSubmit={handleExecuteDisposal} className="space-y-4">
             <div>
-              <label className="text-xs font-medium text-slate-400 block mb-1">Select Asset to Dispose *</label>
+              <label className="text-xs font-medium text-muted-foreground block mb-1">Select Asset to Dispose *</label>
               <select
                 required
                 value={selectedAssetId}
                 onChange={(e) => setSelectedAssetId(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-sm text-slate-100"
+                className="w-full bg-card border border-border rounded-lg px-3 py-2 text-sm text-foreground"
               >
                 {assets.map((a) => (
                   <option key={a.id} value={a.id}>
@@ -183,21 +183,21 @@ export const AssetDisposalsView: React.FC = () => {
             </div>
 
             {selectedAsset && (
-              <div className="bg-slate-900 border border-slate-800 rounded-lg p-4 grid grid-cols-4 gap-2 text-center text-xs">
+              <div className="bg-card border border-border rounded-lg p-4 grid grid-cols-4 gap-2 text-center text-xs">
                 <div>
-                  <span className="text-slate-400 block">Original Cost</span>
-                  <span className="font-mono font-semibold text-slate-200">${cost.toFixed(2)}</span>
+                  <span className="text-muted-foreground block">Original Cost</span>
+                  <span className="font-mono font-semibold text-foreground">${cost.toFixed(2)}</span>
                 </div>
                 <div>
-                  <span className="text-slate-400 block">Accum. Dep.</span>
+                  <span className="text-muted-foreground block">Accum. Dep.</span>
                   <span className="font-mono font-semibold text-amber-400">-${accumDep.toFixed(2)}</span>
                 </div>
                 <div>
-                  <span className="text-slate-400 block">Net Book Value</span>
-                  <span className="font-mono font-bold text-slate-100">${nbv.toFixed(2)}</span>
+                  <span className="text-muted-foreground block">Net Book Value</span>
+                  <span className="font-mono font-bold text-foreground">${nbv.toFixed(2)}</span>
                 </div>
                 <div>
-                  <span className="text-slate-400 block">Est. Gain / Loss</span>
+                  <span className="text-muted-foreground block">Est. Gain / Loss</span>
                   <span className={`font-mono font-bold ${isGain ? 'text-emerald-400' : 'text-rose-400'}`}>
                     {isGain ? '+' : '-'}${gainLossAmount.toFixed(2)}
                   </span>
@@ -207,7 +207,7 @@ export const AssetDisposalsView: React.FC = () => {
 
             <div className="grid grid-cols-3 gap-4">
               <div>
-                <label className="text-xs font-medium text-slate-400 block mb-1">Disposal Type *</label>
+                <label className="text-xs font-medium text-muted-foreground block mb-1">Disposal Type *</label>
                 <select
                   value={disposalType}
                   onChange={(e) => {
@@ -217,7 +217,7 @@ export const AssetDisposalsView: React.FC = () => {
                       setDisposalProceeds('0.00');
                     }
                   }}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-sm text-slate-100"
+                  className="w-full bg-card border border-border rounded-lg px-3 py-2 text-sm text-foreground"
                 >
                   <option value="sale">Commercial Sale</option>
                   <option value="scrapping">Scrapping / Decommission</option>
@@ -228,46 +228,46 @@ export const AssetDisposalsView: React.FC = () => {
               </div>
 
               <div>
-                <label className="text-xs font-medium text-slate-400 block mb-1">Disposal Date *</label>
+                <label className="text-xs font-medium text-muted-foreground block mb-1">Disposal Date *</label>
                 <input
                   type="date"
                   required
                   value={disposalDate}
                   onChange={(e) => setDisposalDate(e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-sm text-slate-100 font-mono"
+                  className="w-full bg-card border border-border rounded-lg px-3 py-2 text-sm text-foreground font-mono"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-medium text-slate-400 block mb-1">Disposal Proceeds ($)</label>
+                <label className="text-xs font-medium text-muted-foreground block mb-1">Disposal Proceeds ($)</label>
                 <input
                   type="number"
                   step="0.01"
                   disabled={disposalType === 'scrapping' || disposalType === 'write_off'}
                   value={disposalProceeds}
                   onChange={(e) => setDisposalProceeds(e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-sm text-slate-100 font-mono font-bold disabled:opacity-50"
+                  className="w-full bg-card border border-border rounded-lg px-3 py-2 text-sm text-foreground font-mono font-bold disabled:opacity-50"
                 />
               </div>
             </div>
 
             <div>
-              <label className="text-xs font-medium text-slate-400 block mb-1">Disposal Notes & Authorization</label>
+              <label className="text-xs font-medium text-muted-foreground block mb-1">Disposal Notes & Authorization</label>
               <textarea
                 rows={2}
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-sm text-slate-100"
+                className="w-full bg-card border border-border rounded-lg px-3 py-2 text-sm text-foreground"
               />
             </div>
 
             {/* Accounting Impact Preview */}
-            <div className="bg-slate-900/80 border border-slate-800 rounded-lg p-3 text-xs space-y-1">
-              <div className="font-semibold text-slate-200 flex items-center gap-1.5">
+            <div className="bg-card/80 border border-border rounded-lg p-3 text-xs space-y-1">
+              <div className="font-semibold text-foreground flex items-center gap-1.5">
                 <DollarSign className="w-3.5 h-3.5 text-emerald-400" />
                 Automatic Multi-Line Double-Entry GL Journal:
               </div>
-              <div className="font-mono text-[11px] text-slate-300 pl-4 space-y-0.5">
+              <div className="font-mono text-[11px] text-foreground/90 pl-4 space-y-0.5">
                 {proceedsVal > 0 && <div>• Dr: #1010 Operating Bank Account (+${proceedsVal.toFixed(2)})</div>}
                 {accumDep > 0 && <div>• Dr: #1520 Accumulated Depreciation (+${accumDep.toFixed(2)})</div>}
                 {accumImp > 0 && <div>• Dr: #1530 Accumulated Asset Impairment (+${accumImp.toFixed(2)})</div>}
@@ -281,7 +281,7 @@ export const AssetDisposalsView: React.FC = () => {
               </div>
             </div>
 
-            <div className="flex justify-end gap-3 pt-4 border-t border-slate-800">
+            <div className="flex justify-end gap-3 pt-4 border-t border-border">
               <Button type="button" variant="outline" onClick={() => setIsDisposalModalOpen(false)}>
                 Cancel
               </Button>

@@ -36,7 +36,7 @@ export const TaxDashboardView: React.FC<{
   return (
     <div className="space-y-6 animate-fadeIn">
       {/* Top Banner: Real-Time Sub-Ledger ↔ GL Tax Integrity Assertion */}
-      <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="p-4 rounded-xl bg-card border border-border flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center gap-3">
           <div className={`w-9 h-9 rounded-lg flex items-center justify-center ${
             metrics.isFullyReconciled ? 'bg-emerald-500/10 text-emerald-400' : 'bg-amber-500/10 text-amber-400'
@@ -45,10 +45,10 @@ export const TaxDashboardView: React.FC<{
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-bold text-slate-100">Tax Sub-Ledger ↔ General Ledger Control Integrity</span>
+              <span className="text-xs font-bold text-foreground">Tax Sub-Ledger ↔ General Ledger Control Integrity</span>
               <StatusBadge status={metrics.isFullyReconciled ? 'reconciled' : 'unreconciled'} size="xs" />
             </div>
-            <p className="text-[11px] text-slate-400 mt-0.5">
+            <p className="text-[11px] text-muted-foreground mt-0.5">
               {metrics.isFullyReconciled
                 ? 'All Output & Recoverable Input Tax entries are 100% reconciled against GL Accounts #2200 and #1450 ($0.00 variance).'
                 : 'Variance detected between Tax Sub-Ledger and General Ledger tax control accounts.'}
@@ -102,66 +102,66 @@ export const TaxDashboardView: React.FC<{
             <div className="space-y-2.5">
               <button
                 onClick={() => onNavigateTab('returns')}
-                className="w-full p-3 rounded-lg bg-slate-950/60 border border-slate-800 hover:border-slate-700 flex items-center justify-between text-left group transition-all"
+                className="w-full p-3 rounded-lg bg-card/60 border border-border hover:border-border flex items-center justify-between text-left group transition-all"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-lg bg-brand-500/10 text-brand-400 flex items-center justify-center">
                     <FileSpreadsheet className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="text-xs font-semibold text-slate-200 group-hover:text-brand-300 block">Tax Returns & Filings</span>
-                    <span className="text-[10px] text-slate-500">Box-by-box return calculation & GL settlement</span>
+                    <span className="text-xs font-semibold text-foreground group-hover:text-brand-300 block">Tax Returns & Filings</span>
+                    <span className="text-[10px] text-muted-foreground">Box-by-box return calculation & GL settlement</span>
                   </div>
                 </div>
-                <span className="text-slate-500 group-hover:text-slate-300 text-xs">→</span>
+                <span className="text-muted-foreground group-hover:text-foreground/90 text-xs">→</span>
               </button>
 
               <button
                 onClick={() => onNavigateTab('payments')}
-                className="w-full p-3 rounded-lg bg-slate-950/60 border border-slate-800 hover:border-slate-700 flex items-center justify-between text-left group transition-all"
+                className="w-full p-3 rounded-lg bg-card/60 border border-border hover:border-border flex items-center justify-between text-left group transition-all"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
                     <Landmark className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="text-xs font-semibold text-slate-200 group-hover:text-emerald-300 block">Tax Authority Payments</span>
-                    <span className="text-[10px] text-slate-500">Disburse liability via treasury bank accounts</span>
+                    <span className="text-xs font-semibold text-foreground group-hover:text-emerald-300 block">Tax Authority Payments</span>
+                    <span className="text-[10px] text-muted-foreground">Disburse liability via treasury bank accounts</span>
                   </div>
                 </div>
-                <span className="text-slate-500 group-hover:text-slate-300 text-xs">→</span>
+                <span className="text-muted-foreground group-hover:text-foreground/90 text-xs">→</span>
               </button>
 
               <button
                 onClick={() => onNavigateTab('adjustments')}
-                className="w-full p-3 rounded-lg bg-slate-950/60 border border-slate-800 hover:border-slate-700 flex items-center justify-between text-left group transition-all"
+                className="w-full p-3 rounded-lg bg-card/60 border border-border hover:border-border flex items-center justify-between text-left group transition-all"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center">
                     <Scale className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="text-xs font-semibold text-slate-200 group-hover:text-amber-300 block">Tax Adjustments</span>
-                    <span className="text-[10px] text-slate-500">Prior period corrections & bad debt relief</span>
+                    <span className="text-xs font-semibold text-foreground group-hover:text-amber-300 block">Tax Adjustments</span>
+                    <span className="text-[10px] text-muted-foreground">Prior period corrections & bad debt relief</span>
                   </div>
                 </div>
-                <span className="text-slate-500 group-hover:text-slate-300 text-xs">→</span>
+                <span className="text-muted-foreground group-hover:text-foreground/90 text-xs">→</span>
               </button>
 
               <button
                 onClick={() => onNavigateTab('config')}
-                className="w-full p-3 rounded-lg bg-slate-950/60 border border-slate-800 hover:border-slate-700 flex items-center justify-between text-left group transition-all"
+                className="w-full p-3 rounded-lg bg-card/60 border border-border hover:border-border flex items-center justify-between text-left group transition-all"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-lg bg-purple-500/10 text-purple-400 flex items-center justify-center">
                     <Layers className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="text-xs font-semibold text-slate-200 group-hover:text-purple-300 block">Tax Jurisdictions & Types</span>
-                    <span className="text-[10px] text-slate-500">Multi-country authorities & registration numbers</span>
+                    <span className="text-xs font-semibold text-foreground group-hover:text-purple-300 block">Tax Jurisdictions & Types</span>
+                    <span className="text-[10px] text-muted-foreground">Multi-country authorities & registration numbers</span>
                   </div>
                 </div>
-                <span className="text-slate-500 group-hover:text-slate-300 text-xs">→</span>
+                <span className="text-muted-foreground group-hover:text-foreground/90 text-xs">→</span>
               </button>
             </div>
           </Card>
@@ -183,17 +183,17 @@ export const TaxDashboardView: React.FC<{
                 {recentEntries.map((e) => (
                   <div
                     key={e.id}
-                    className="p-3 rounded-lg bg-slate-950/60 border border-slate-800 flex items-center justify-between hover:border-slate-700 transition-colors"
+                    className="p-3 rounded-lg bg-card/60 border border-border flex items-center justify-between hover:border-border transition-colors"
                   >
                     <div className="min-w-0 flex-1 pr-3">
                       <div className="flex items-center gap-2">
                         <span className="font-mono text-xs font-bold text-brand-400">{e.documentNumber}</span>
                         <StatusBadge status={e.direction === 'output' ? 'paid' : 'approved'} size="xs" />
-                        <span className="text-[10px] font-mono text-slate-400 bg-slate-800 px-1.5 py-0.5 rounded">
+                        <span className="text-[10px] font-mono text-muted-foreground bg-muted px-1.5 py-0.5 rounded">
                           {e.taxCode}
                         </span>
                       </div>
-                      <p className="text-xs text-slate-300 mt-1 truncate">
+                      <p className="text-xs text-foreground/90 mt-1 truncate">
                         {e.notes || `${e.sourceModule.toUpperCase()} transaction`} • {e.transactionDate}
                       </p>
                     </div>
@@ -204,7 +204,7 @@ export const TaxDashboardView: React.FC<{
                       }`}>
                         {e.direction === 'output' ? '+' : '-'}${parseFloat(e.taxAmount).toFixed(2)} {e.currency}
                       </div>
-                      <div className="text-[10px] text-slate-500 font-mono">
+                      <div className="text-[10px] text-muted-foreground font-mono">
                         Base: ${parseFloat(e.taxableAmount).toFixed(2)}
                       </div>
                     </div>
@@ -212,7 +212,7 @@ export const TaxDashboardView: React.FC<{
                 ))}
               </div>
             ) : (
-              <div className="py-8 text-center text-slate-500 text-xs">
+              <div className="py-8 text-center text-muted-foreground text-xs">
                 No posted tax transactions found in the sub-ledger.
               </div>
             )}

@@ -107,19 +107,19 @@ export const BankAccountDirectoryView: React.FC = () => {
       {/* Search & Actions Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="relative min-w-[240px] max-w-sm">
-          <Search className="w-4 h-4 text-slate-500 absolute left-3 top-2.5" />
+          <Search className="w-4 h-4 text-muted-foreground absolute left-3 top-2.5" />
           <input
             type="text"
             placeholder="Search bank accounts by name, bank, IBAN..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-slate-900/60 border border-slate-800 rounded-lg pl-9 pr-3 py-1.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand-500"
+            className="w-full bg-card/60 border border-border rounded-lg pl-9 pr-3 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-brand-500"
           />
         </div>
 
         <div className="flex items-center gap-3">
           <div className="text-right hidden sm:block">
-            <span className="text-[10px] text-slate-500 uppercase font-bold">Total Liquid Bank Funds</span>
+            <span className="text-[10px] text-muted-foreground uppercase font-bold">Total Liquid Bank Funds</span>
             <div className="text-sm font-bold font-mono text-emerald-400">
               ${totalBankBalance.toLocaleString(undefined, { minimumFractionDigits: 2 })}
             </div>
@@ -146,7 +146,7 @@ export const BankAccountDirectoryView: React.FC = () => {
             <div
               key={acc.id}
               onClick={() => setSelectedAccountId(acc.id)}
-              className="p-4 rounded-xl bg-slate-900/50 border border-slate-800 hover:border-slate-700 hover:bg-slate-900/80 transition-all cursor-pointer space-y-3 relative group"
+              className="p-4 rounded-xl bg-muted/50 border border-border hover:border-border hover:bg-card/80 transition-all cursor-pointer space-y-3 relative group"
             >
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-2.5">
@@ -154,28 +154,28 @@ export const BankAccountDirectoryView: React.FC = () => {
                     <Landmark className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-xs text-slate-100 group-hover:text-brand-400 transition-colors">
+                    <h4 className="font-bold text-xs text-foreground group-hover:text-brand-400 transition-colors">
                       {acc.accountName}
                     </h4>
-                    <p className="text-[11px] text-slate-400">{acc.bankName}</p>
+                    <p className="text-[11px] text-muted-foreground">{acc.bankName}</p>
                   </div>
                 </div>
                 <StatusBadge status={acc.isActive ? 'active' : 'inactive'} />
               </div>
 
-              <div className="pt-2 border-t border-slate-800/60 flex items-end justify-between">
+              <div className="pt-2 border-t border-border/60 flex items-end justify-between">
                 <div>
-                  <div className="text-[10px] text-slate-500 font-mono flex items-center gap-1">
-                    <Lock className="w-3 h-3 text-slate-600" />
+                  <div className="text-[10px] text-muted-foreground font-mono flex items-center gap-1">
+                    <Lock className="w-3 h-3 text-muted-foreground" />
                     {bankingService.getMaskedAccountNumber(acc.accountNumber)}
                   </div>
-                  <div className="text-[10px] text-slate-400 font-mono mt-0.5">
+                  <div className="text-[10px] text-muted-foreground font-mono mt-0.5">
                     GL: {glAcc?.code}
                   </div>
                 </div>
 
                 <div className="text-right">
-                  <div className="text-[10px] text-slate-500 uppercase">Book Balance</div>
+                  <div className="text-[10px] text-muted-foreground uppercase">Book Balance</div>
                   <div className="text-sm font-bold font-mono text-emerald-400">
                     ${parseFloat(acc.currentBalance).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                   </div>
@@ -197,9 +197,9 @@ export const BankAccountDirectoryView: React.FC = () => {
       {filteredAccounts.length === 0 && (
         <Card noPadding>
           <div className="p-12 text-center space-y-3">
-            <Landmark className="w-10 h-10 text-slate-600 mx-auto" />
-            <h4 className="text-sm font-semibold text-slate-300">No Bank Accounts Found</h4>
-            <p className="text-xs text-slate-500 max-w-sm mx-auto">
+            <Landmark className="w-10 h-10 text-muted-foreground mx-auto" />
+            <h4 className="text-sm font-semibold text-foreground/90">No Bank Accounts Found</h4>
+            <p className="text-xs text-muted-foreground max-w-sm mx-auto">
               Configure corporate checking, savings, and multi-currency bank accounts for enterprise treasury management.
             </p>
             <Button
@@ -338,14 +338,14 @@ export const BankAccountDirectoryView: React.FC = () => {
               id="isDefaultBank"
               checked={isDefault}
               onChange={(e) => setIsDefault(e.target.checked)}
-              className="rounded bg-slate-900 border-slate-700 text-brand-500 focus:ring-0"
+              className="rounded bg-card border-border text-brand-500 focus:ring-0"
             />
-            <label htmlFor="isDefaultBank" className="text-xs text-slate-300 select-none cursor-pointer">
+            <label htmlFor="isDefaultBank" className="text-xs text-foreground/90 select-none cursor-pointer">
               Set as primary default bank account for AR Receipts and AP Disbursements
             </label>
           </div>
 
-          <div className="flex justify-end gap-2 pt-2 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-2 border-t border-border">
             <Button
               type="button"
               variant="outline"

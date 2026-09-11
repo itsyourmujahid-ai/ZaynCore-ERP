@@ -162,7 +162,7 @@ export const PurchaseOrdersView: React.FC<{
   return (
     <div className="space-y-4">
       {/* Filter Bar */}
-      <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-3">
+      <div className="p-4 rounded-xl bg-card border border-border flex flex-col md:flex-row items-center justify-between gap-3">
         <div className="flex items-center gap-1.5 w-full md:w-auto overflow-x-auto pb-1 md:pb-0">
           {[
             { id: 'all', label: 'All Orders' },
@@ -177,7 +177,7 @@ export const PurchaseOrdersView: React.FC<{
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold capitalize transition-all select-none whitespace-nowrap ${
                 statusFilter === s.id
                   ? 'bg-brand-600 text-white shadow-sm'
-                  : 'bg-slate-800 text-slate-400 hover:text-slate-200'
+                  : 'bg-muted text-muted-foreground hover:text-foreground'
               }`}
             >
               {s.label}
@@ -187,13 +187,13 @@ export const PurchaseOrdersView: React.FC<{
 
         <div className="flex items-center gap-2 w-full md:w-auto">
           <div className="relative w-full md:w-72">
-            <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-500" />
+            <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-muted-foreground" />
             <input
               type="text"
               placeholder="Search PO # or vendor..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-3 py-1.5 text-xs bg-slate-950/80 border border-slate-800 rounded-lg text-slate-200 placeholder-slate-500 focus:outline-none focus:border-brand-500"
+              className="w-full pl-9 pr-3 py-1.5 text-xs bg-card/80 border border-border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-brand-500"
             />
           </div>
 
@@ -217,7 +217,7 @@ export const PurchaseOrdersView: React.FC<{
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-slate-800 bg-slate-900/90 text-slate-400 font-semibold uppercase tracking-wider">
+              <tr className="border-b border-border bg-card/90 text-muted-foreground font-semibold uppercase tracking-wider">
                 <th className="px-5 py-3.5">PO #</th>
                 <th className="px-5 py-3.5">Supplier</th>
                 <th className="px-5 py-3.5">PO Date</th>
@@ -227,19 +227,19 @@ export const PurchaseOrdersView: React.FC<{
                 <th className="px-5 py-3.5 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-slate-200">
+            <tbody className="divide-y divide-border text-foreground">
               {filteredPOs.map((po) => {
                 const sup = suppliers.find((s) => s.id === po.supplierId);
                 return (
-                  <tr key={po.id} className="hover:bg-slate-800/40 transition-colors">
+                  <tr key={po.id} className="hover:bg-muted/40 transition-colors">
                     <td className="px-5 py-3.5 font-mono font-bold text-sky-400">{po.poNumber}</td>
                     <td className="px-5 py-3.5">
-                      <div className="font-semibold text-slate-100">{sup?.name || 'Vendor'}</div>
-                      <div className="text-[10px] text-slate-500 font-mono">{sup?.code}</div>
+                      <div className="font-semibold text-foreground">{sup?.name || 'Vendor'}</div>
+                      <div className="text-[10px] text-muted-foreground font-mono">{sup?.code}</div>
                     </td>
-                    <td className="px-5 py-3.5 font-mono text-slate-400">{po.poDate}</td>
-                    <td className="px-5 py-3.5 font-mono text-slate-300">{po.expectedDeliveryDate || '—'}</td>
-                    <td className="px-5 py-3.5 text-right font-mono font-bold text-slate-100">
+                    <td className="px-5 py-3.5 font-mono text-muted-foreground">{po.poDate}</td>
+                    <td className="px-5 py-3.5 font-mono text-foreground/90">{po.expectedDeliveryDate || '—'}</td>
+                    <td className="px-5 py-3.5 text-right font-mono font-bold text-foreground">
                       ${parseFloat(po.total).toFixed(2)}
                     </td>
                     <td className="px-5 py-3.5 text-center">
@@ -295,7 +295,7 @@ export const PurchaseOrdersView: React.FC<{
               })}
               {filteredPOs.length === 0 && (
                 <tr>
-                  <td colSpan={7} className="px-5 py-12 text-center text-slate-500">
+                  <td colSpan={7} className="px-5 py-12 text-center text-muted-foreground">
                     No purchase orders recorded. Click "+ Create PO" to create a new purchase order.
                   </td>
                 </tr>
@@ -346,7 +346,7 @@ export const PurchaseOrdersView: React.FC<{
 
           <div className="space-y-2 pt-2">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase text-slate-300">Line Items</span>
+              <span className="text-xs font-bold uppercase text-foreground/90">Line Items</span>
               <Button size="xs" variant="outline" icon={<Plus className="w-3 h-3" />} onClick={handleAddItem}>
                 Add Line
               </Button>
@@ -354,14 +354,14 @@ export const PurchaseOrdersView: React.FC<{
 
             <div className="space-y-2">
               {form.items.map((item, idx) => (
-                <div key={item.id} className="p-3 rounded-lg bg-slate-950/60 border border-slate-800 flex items-center gap-3">
+                <div key={item.id} className="p-3 rounded-lg bg-card/60 border border-border flex items-center gap-3">
                   <div className="flex-1">
                     <input
                       type="text"
                       placeholder="Item Description"
                       value={item.description}
                       onChange={(e) => handleItemChange(idx, 'description', e.target.value)}
-                      className="w-full px-3 py-1.5 text-xs bg-slate-900 border border-slate-700 rounded text-slate-100"
+                      className="w-full px-3 py-1.5 text-xs bg-card border border-border rounded text-foreground"
                     />
                   </div>
                   <div className="w-24">
@@ -370,7 +370,7 @@ export const PurchaseOrdersView: React.FC<{
                       placeholder="Qty"
                       value={item.quantity}
                       onChange={(e) => handleItemChange(idx, 'quantity', e.target.value)}
-                      className="w-full px-3 py-1.5 text-xs bg-slate-900 border border-slate-700 rounded text-slate-100 text-right"
+                      className="w-full px-3 py-1.5 text-xs bg-card border border-border rounded text-foreground text-right"
                     />
                   </div>
                   <div className="w-32">
@@ -379,15 +379,15 @@ export const PurchaseOrdersView: React.FC<{
                       placeholder="Unit Price"
                       value={item.unitPrice}
                       onChange={(e) => handleItemChange(idx, 'unitPrice', e.target.value)}
-                      className="w-full px-3 py-1.5 text-xs bg-slate-900 border border-slate-700 rounded text-slate-100 text-right"
+                      className="w-full px-3 py-1.5 text-xs bg-card border border-border rounded text-foreground text-right"
                     />
                   </div>
-                  <div className="w-28 text-right font-mono text-xs font-bold text-slate-200">
+                  <div className="w-28 text-right font-mono text-xs font-bold text-foreground">
                     ${parseFloat(item.total || '0').toFixed(2)}
                   </div>
                   <button
                     onClick={() => handleRemoveItem(idx)}
-                    className="p-1.5 text-slate-500 hover:text-rose-400"
+                    className="p-1.5 text-muted-foreground hover:text-rose-400"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
@@ -395,7 +395,7 @@ export const PurchaseOrdersView: React.FC<{
               ))}
             </div>
 
-            <div className="flex justify-end pt-2 text-xs font-mono font-bold text-slate-200">
+            <div className="flex justify-end pt-2 text-xs font-mono font-bold text-foreground">
               Order Total: ${subtotal.toFixed(2)}
             </div>
           </div>
@@ -417,10 +417,10 @@ export const PurchaseOrdersView: React.FC<{
           }
         >
           <div className="space-y-4">
-            <div className="overflow-x-auto rounded-lg border border-slate-800">
+            <div className="overflow-x-auto rounded-lg border border-border">
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="border-b border-slate-800 bg-slate-950/80 text-slate-400 font-semibold uppercase">
+                  <tr className="border-b border-border bg-card/80 text-muted-foreground font-semibold uppercase">
                     <th className="px-4 py-2.5">Description</th>
                     <th className="px-4 py-2.5 text-right">Ordered</th>
                     <th className="px-4 py-2.5 text-right">Received</th>
@@ -428,7 +428,7 @@ export const PurchaseOrdersView: React.FC<{
                     <th className="px-4 py-2.5 text-right">Total</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60 text-slate-200">
+                <tbody className="divide-y divide-border text-foreground">
                   {selectedPO.items.map((it) => (
                     <tr key={it.id}>
                       <td className="px-4 py-2.5 font-medium">{it.description}</td>

@@ -59,9 +59,9 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           chartStroke: '#334155',
           chartFill: 'rgba(51, 65, 85, 0.14)',
           chartDot: '#0f172a',
-          accentText: 'text-slate-900',
-          accentBadge: 'bg-slate-100 text-slate-900 border-slate-300',
-          navActiveBg: 'bg-white/15 text-white',
+          accentText: 'text-foreground',
+          accentBadge: 'bg-muted text-foreground border-border',
+          navActiveBg: 'bg-card/15 text-white',
           navActiveBorder: 'border-white/30 ring-1 ring-white/20',
           navActiveDot: 'bg-slate-200',
         };

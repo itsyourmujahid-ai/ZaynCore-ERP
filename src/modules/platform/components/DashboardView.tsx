@@ -49,13 +49,13 @@ export const DashboardView: React.FC<{ onNavigate: (viewId: string) => void }> =
     },
     {
       id: 'row-2',
-      name: 'QuantumCore ERP',
+      name: 'ZaynCore',
       data: '#0.289 342 ETH',
       lastModified: '14 mins ago',
       table: 'Consolidated Sub-Ledger',
       state: 'Verified',
       stateType: 'purple' as const,
-      avatar: 'QC',
+      avatar: 'ZC',
     },
     {
       id: 'row-3',
@@ -116,22 +116,22 @@ export const DashboardView: React.FC<{ onNavigate: (viewId: string) => void }> =
 
   return (
     <div className="space-y-6 animate-fadeIn pb-8">
-      {/* Top Banner with Clean Light Frosted Glass */}
-      <div className="rounded-xl bg-white/80 backdrop-blur-xl border border-slate-200/90 p-5 sm:p-6 shadow-sm hover:shadow-md transition-all">
+      {/* Top Banner with Clean Semantic Card Styling */}
+      <div className="rounded-xl bg-card border border-border p-5 sm:p-6 shadow-sm hover:shadow-md transition-all">
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2">
               <span className={`text-xs font-bold uppercase tracking-wider ${accentText} flex items-center gap-1.5`}>
                 <Sparkles className="w-3.5 h-3.5" />
-                <span>QuantumCore ERP Platform</span>
+                <span>ZaynCore Platform</span>
               </span>
-              <span className="text-slate-300">•</span>
+              <span className="text-muted-foreground/50">•</span>
               <StatusBadge status={tenant.companyTier} />
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1 tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-foreground mt-1 tracking-tight">
               {tenant.companyName || 'Platform Workspace Overview'}
             </h1>
-            <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-2xl leading-relaxed font-normal">
+            <p className="text-xs sm:text-sm text-muted-foreground mt-1 max-w-2xl leading-relaxed font-normal">
               Real-time multi-tenant ledger architecture, cryptographic audit verification, and executive financial analytics.
             </p>
           </div>
@@ -140,9 +140,9 @@ export const DashboardView: React.FC<{ onNavigate: (viewId: string) => void }> =
             <Button 
               variant="outline" 
               size="sm" 
-              icon={<Cpu className="w-4 h-4 text-slate-700" />} 
+              icon={<Cpu className="w-4 h-4 text-foreground" />} 
               onClick={() => onNavigate('accounting-engine')}
-              className="bg-white/80 hover:bg-slate-50 text-slate-700 border-slate-300"
+              className="bg-card hover:bg-muted text-foreground border-border"
             >
               Posting Spec
             </Button>
@@ -159,127 +159,129 @@ export const DashboardView: React.FC<{ onNavigate: (viewId: string) => void }> =
         </div>
       </div>
 
-      {/* 1. TOP ROW: 6 Distinct Frosted Glass KPI Cards */}
+      {/* 1. TOP ROW: 6 Normalized Semantic Frosted KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
-        {/* Card 1 (Blue Accent): KPI #2.33 */}
-        <div className="p-4 rounded-xl bg-white/80 backdrop-blur-xl border border-slate-200/90 shadow-sm hover:shadow-md hover:border-slate-300 transition-all flex flex-col justify-between">
-          <div className="flex items-center justify-between text-xs font-semibold text-slate-600 mb-1.5">
-            <span>KPI #2.33</span>
-            <div className="flex items-center gap-1 text-[11px] text-emerald-700 font-bold bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
+        {/* Card 1: Revenue Velocity */}
+        <div className="p-4 rounded-xl bg-card/85 backdrop-blur-xl border border-border/80 shadow-sm hover:border-primary/50 transition-all flex flex-col justify-between">
+          <div className="flex items-center justify-between text-xs font-semibold text-muted-foreground mb-1.5">
+            <span>Revenue Velocity</span>
+            <div className="flex items-center gap-1 text-[11px] text-emerald-600 dark:text-emerald-400 font-bold bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">
               <TrendingUp className="w-3 h-3" />
               <span>+12.4%</span>
             </div>
           </div>
-          <div className="text-2xl font-black text-slate-900 tracking-tight my-1">
+          <div className="text-2xl font-black text-foreground tracking-tight my-1">
             2.33M
           </div>
-          <div className="text-[11px] text-slate-500 mt-1 flex items-center justify-between border-t border-slate-100 pt-1.5">
-            <span>Active Velocity</span>
-            <span className="font-mono text-slate-700 font-bold">#0F1725</span>
+          <div className="text-[11px] text-muted-foreground mt-1 flex items-center justify-between border-t border-border/70 pt-1.5">
+            <span>Throughput Rate</span>
+            <span className="font-semibold text-primary font-mono text-[10px]">ACTIVE</span>
           </div>
         </div>
 
-        {/* Card 2 (Blue Accent): KPI #25% */}
-        <div className="p-4 rounded-xl bg-white/80 backdrop-blur-xl border border-slate-200/90 shadow-sm hover:shadow-md hover:border-slate-300 transition-all flex flex-col justify-between">
-          <div className="flex items-center justify-between text-xs font-semibold text-slate-600 mb-1.5">
-            <span>KPI #25%</span>
-            <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
+        {/* Card 2: Operating Margin */}
+        <div className="p-4 rounded-xl bg-card/85 backdrop-blur-xl border border-border/80 shadow-sm hover:border-indigo-500/50 transition-all flex flex-col justify-between">
+          <div className="flex items-center justify-between text-xs font-semibold text-muted-foreground mb-1.5">
+            <span>Operating Margin</span>
+            <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20">
               OPTIMIZED
             </span>
           </div>
-          <div className="text-2xl font-black text-slate-900 tracking-tight my-1 flex items-baseline gap-1">
+          <div className="text-2xl font-black text-foreground tracking-tight my-1 flex items-baseline gap-1">
             <span>25.4%</span>
-            <span className="text-xs font-medium text-slate-500">Margin</span>
+            <span className="text-xs font-medium text-muted-foreground">EBITDA</span>
           </div>
           <div className="mt-1">
-            <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden flex">
+            <div className="h-1.5 w-full bg-muted rounded-full overflow-hidden flex">
               <div className="h-full bg-indigo-500 w-1/4 rounded-full" />
             </div>
           </div>
         </div>
 
-        {/* Card 3 (Dark Blue Accent #0F1725): Option 2 #0F1725 */}
-        <div className="p-4 rounded-xl bg-white/80 backdrop-blur-xl border border-slate-200/90 shadow-sm hover:shadow-md hover:border-slate-300 transition-all flex flex-col justify-between">
-          <div className="flex items-center justify-between text-xs font-semibold text-slate-600 mb-1.5">
-            <span>Option 2</span>
-            <span className="font-mono text-[10px] text-slate-500 font-bold">#0F1725</span>
+        {/* Card 3: Automated GL Rules */}
+        <div className="p-4 rounded-xl bg-card/85 backdrop-blur-xl border border-border/80 shadow-sm hover:border-primary/50 transition-all flex flex-col justify-between">
+          <div className="flex items-center justify-between text-xs font-semibold text-muted-foreground mb-1.5">
+            <span>Posting Rules</span>
+            <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-primary/10 text-primary border border-primary/20">
+              REAL-TIME
+            </span>
           </div>
-          <div className="text-2xl font-black text-slate-900 tracking-tight my-1">
+          <div className="text-2xl font-black text-foreground tracking-tight my-1">
             {journals.length + accounts.length * 2}
           </div>
-          <div className="text-[11px] text-slate-500 mt-1 truncate border-t border-slate-100 pt-1.5">
-            Automated GL Rules
+          <div className="text-[11px] text-muted-foreground mt-1 truncate border-t border-border/70 pt-1.5">
+            Active Sub-Ledger Postings
           </div>
         </div>
 
-        {/* Card 4 (Green Accent #DCFCE7): Success #DCFCE7 */}
-        <div className="p-4 rounded-xl bg-white/80 backdrop-blur-xl border border-emerald-200/80 shadow-sm hover:shadow-md hover:border-emerald-300 transition-all flex flex-col justify-between">
-          <div className="flex items-center justify-between text-xs font-semibold text-emerald-800 mb-1.5">
+        {/* Card 4: Reconciliation Integrity */}
+        <div className="p-4 rounded-xl bg-card/85 backdrop-blur-xl border border-emerald-500/30 shadow-sm hover:border-emerald-500/60 transition-all flex flex-col justify-between">
+          <div className="flex items-center justify-between text-xs font-semibold text-emerald-700 dark:text-emerald-400 mb-1.5">
             <span className="flex items-center gap-1">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-              <span>Success</span>
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+              <span>Reconciliation</span>
             </span>
-            <span className="font-mono text-[10px] text-emerald-700 font-bold bg-emerald-50 px-1 py-0.5 rounded border border-emerald-200">#DCFCE7</span>
+            <span className="text-[10px] text-emerald-700 dark:text-emerald-300 font-bold bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">BALANCED</span>
           </div>
-          <div className="text-2xl font-black text-emerald-900 tracking-tight my-1">
+          <div className="text-2xl font-black text-foreground tracking-tight my-1">
             100.0%
           </div>
-          <div className="text-[11px] text-emerald-700 mt-1 truncate border-t border-emerald-100 pt-1.5">
-            Reconciliation & Isolation
+          <div className="text-[11px] text-emerald-700 dark:text-emerald-400 mt-1 truncate border-t border-border/70 pt-1.5">
+            Sub-Ledger to GL Intact
           </div>
         </div>
 
-        {/* Card 5 (Yellow Accent #FEF9C3): Warning #FEF9C3 */}
-        <div className="p-4 rounded-xl bg-white/80 backdrop-blur-xl border border-amber-200/80 shadow-sm hover:shadow-md hover:border-amber-300 transition-all flex flex-col justify-between">
-          <div className="flex items-center justify-between text-xs font-semibold text-amber-800 mb-1.5">
+        {/* Card 5: Period Lock Governance */}
+        <div className="p-4 rounded-xl bg-card/85 backdrop-blur-xl border border-amber-500/30 shadow-sm hover:border-amber-500/60 transition-all flex flex-col justify-between">
+          <div className="flex items-center justify-between text-xs font-semibold text-amber-700 dark:text-amber-400 mb-1.5">
             <span className="flex items-center gap-1">
-              <AlertTriangle className="w-3.5 h-3.5 text-amber-600" />
-              <span>Warning</span>
+              <AlertTriangle className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+              <span>Governance</span>
             </span>
-            <span className="font-mono text-[10px] text-amber-700 font-bold bg-amber-50 px-1 py-0.5 rounded border border-amber-200">#FEF9C3</span>
+            <span className="text-[10px] text-amber-700 dark:text-amber-300 font-bold bg-amber-500/10 px-1.5 py-0.5 rounded border border-amber-500/20">LOCKED</span>
           </div>
-          <div className="text-2xl font-black text-amber-900 tracking-tight my-1">
+          <div className="text-2xl font-black text-foreground tracking-tight my-1">
             {periods.filter(p => p.status === 'open').length}
           </div>
-          <div className="text-[11px] text-amber-700 mt-1 truncate border-t border-amber-100 pt-1.5">
+          <div className="text-[11px] text-amber-700 dark:text-amber-400 mt-1 truncate border-t border-border/70 pt-1.5">
             Open Period(s) Protected
           </div>
         </div>
 
-        {/* Card 6 (Red Accent #FEE2E2): Danger #FEE2E2 */}
-        <div className="p-4 rounded-xl bg-white/80 backdrop-blur-xl border border-rose-200/80 shadow-sm hover:shadow-md hover:border-rose-300 transition-all flex flex-col justify-between">
-          <div className="flex items-center justify-between text-xs font-semibold text-rose-800 mb-1.5">
+        {/* Card 6: Zero Hazard Exceptions */}
+        <div className="p-4 rounded-xl bg-card/85 backdrop-blur-xl border border-border/80 shadow-sm hover:border-border transition-all flex flex-col justify-between">
+          <div className="flex items-center justify-between text-xs font-semibold text-muted-foreground mb-1.5">
             <span className="flex items-center gap-1">
-              <AlertOctagon className="w-3.5 h-3.5 text-rose-600" />
-              <span>Danger</span>
+              <AlertOctagon className="w-3.5 h-3.5 text-emerald-500" />
+              <span>Hazard Alerts</span>
             </span>
-            <span className="font-mono text-[10px] text-rose-700 font-bold bg-rose-50 px-1 py-0.5 rounded border border-rose-200">#FEE2E2</span>
+            <span className="text-[10px] text-emerald-700 dark:text-emerald-400 font-bold bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">CLEAN</span>
           </div>
-          <div className="text-2xl font-black text-rose-900 tracking-tight my-1">
+          <div className="text-2xl font-black text-foreground tracking-tight my-1">
             0
           </div>
-          <div className="text-[11px] text-rose-700 mt-1 truncate border-t border-rose-100 pt-1.5">
-            Zero Hazard Integrity Alerts
+          <div className="text-[11px] text-muted-foreground mt-1 truncate border-t border-border/70 pt-1.5">
+            Zero Isolation Violations
           </div>
         </div>
       </div>
 
-      {/* 2. MIDDLE ROW: Frosted Glass Data Table Module */}
-      <div className="rounded-xl bg-white/80 backdrop-blur-xl border border-slate-200/90 shadow-sm p-5 space-y-4">
+      {/* 2. MIDDLE ROW: Frosted Data Table Module */}
+      <div className="rounded-xl bg-card border border-border shadow-sm p-5 space-y-4">
         {/* Table Toolbar Header */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-3 border-b border-slate-200">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-3 border-b border-border">
           <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-lg bg-slate-100 border border-slate-200 text-slate-700">
+            <div className="p-2 rounded-lg bg-muted border border-border text-foreground">
               <TableIcon className="w-4 h-4" />
             </div>
             <div>
-              <h2 className="text-sm font-bold text-slate-900 tracking-tight flex items-center gap-2">
+              <h2 className="text-sm font-bold text-foreground tracking-tight flex items-center gap-2">
                 <span>Enterprise Ledger & State Master</span>
-                <span className="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-slate-100 text-slate-700 border border-slate-200">
+                <span className="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-muted text-muted-foreground border border-border">
                   {filteredRows.length} Records
                 </span>
               </h2>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-muted-foreground">
                 High-contrast multi-tenant ledger verification and security states.
               </p>
             </div>
@@ -288,13 +290,13 @@ export const DashboardView: React.FC<{ onNavigate: (viewId: string) => void }> =
           <div className="flex items-center gap-2 w-full sm:w-auto">
             {/* Search Input */}
             <div className="relative flex-1 sm:w-56">
-              <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+              <Search className="w-3.5 h-3.5 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 placeholder="Search records..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-8 pr-3 py-1.5 bg-slate-50/80 hover:bg-slate-50 focus:bg-white border border-slate-200 rounded-lg text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-300 transition-all"
+                className="w-full pl-8 pr-3 py-1.5 bg-input hover:bg-input/80 focus:bg-card border border-input rounded-lg text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring transition-all"
               />
             </div>
 
@@ -302,19 +304,19 @@ export const DashboardView: React.FC<{ onNavigate: (viewId: string) => void }> =
             <div className="relative">
               <button
                 onClick={() => setIsFilterOpen(!isFilterOpen)}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 hover:bg-slate-100 border border-slate-200 text-xs font-semibold text-slate-700 transition-all shadow-sm"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-card hover:bg-muted border border-border text-xs font-semibold text-foreground transition-all shadow-sm"
               >
-                <Filter className="w-3.5 h-3.5 text-slate-600" />
+                <Filter className="w-3.5 h-3.5 text-muted-foreground" />
                 <span>Filter</span>
-                <ChevronDown className="w-3 h-3 text-slate-500" />
+                <ChevronDown className="w-3 h-3 text-muted-foreground" />
               </button>
 
               {isFilterOpen && (
-                <div className="absolute right-0 mt-2 w-48 rounded-xl bg-white border border-slate-200 shadow-xl p-1.5 z-30 animate-scaleUp">
+                <div className="absolute right-0 mt-2 w-48 rounded-xl bg-popover border border-border shadow-xl p-1.5 z-30 animate-scaleUp">
                   <button
                     onClick={() => { setTableFilter('all'); setIsFilterOpen(false); }}
                     className={`w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                      tableFilter === 'all' ? 'bg-slate-100 text-slate-900 font-bold' : 'text-slate-700 hover:bg-slate-50'
+                      tableFilter === 'all' ? 'bg-muted text-foreground font-bold' : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                     }`}
                   >
                     All States
@@ -322,7 +324,7 @@ export const DashboardView: React.FC<{ onNavigate: (viewId: string) => void }> =
                   <button
                     onClick={() => { setTableFilter('active'); setIsFilterOpen(false); }}
                     className={`w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                      tableFilter === 'active' ? 'bg-slate-100 text-slate-900 font-bold' : 'text-slate-700 hover:bg-slate-50'
+                      tableFilter === 'active' ? 'bg-muted text-foreground font-bold' : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                     }`}
                   >
                     Active / Verified Only
@@ -330,7 +332,7 @@ export const DashboardView: React.FC<{ onNavigate: (viewId: string) => void }> =
                   <button
                     onClick={() => { setTableFilter('warnings'); setIsFilterOpen(false); }}
                     className={`w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                      tableFilter === 'warnings' ? 'bg-slate-100 text-slate-900 font-bold' : 'text-slate-700 hover:bg-slate-50'
+                      tableFilter === 'warnings' ? 'bg-muted text-foreground font-bold' : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                     }`}
                   >
                     Locked Guard Only
@@ -342,10 +344,10 @@ export const DashboardView: React.FC<{ onNavigate: (viewId: string) => void }> =
         </div>
 
         {/* Clean Responsive High-Contrast Data Table */}
-        <div className="overflow-x-auto rounded-lg border border-slate-200 bg-white">
+        <div className="overflow-x-auto rounded-lg border border-border bg-card">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-slate-50/90 border-b border-slate-200 text-[11px] uppercase font-bold text-slate-700 tracking-wider">
+              <tr className="bg-muted/60 border-b border-border text-[11px] uppercase font-bold text-muted-foreground tracking-wider">
                 <th className="py-3 px-4">Name</th>
                 <th className="py-3 px-4">Data</th>
                 <th className="py-3 px-4">Last Modified</th>
@@ -353,29 +355,29 @@ export const DashboardView: React.FC<{ onNavigate: (viewId: string) => void }> =
                 <th className="py-3 px-4 text-right">State</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 text-xs">
+            <tbody className="divide-y divide-border text-xs">
               {filteredRows.map((row, idx) => (
                 <tr
                   key={row.id}
-                  className={`transition-colors hover:bg-slate-50/80 ${
-                    idx % 2 === 0 ? 'bg-white' : 'bg-slate-50/40'
+                  className={`transition-colors hover:bg-muted/40 ${
+                    idx % 2 === 0 ? 'bg-card' : 'bg-muted/20'
                   }`}
                 >
                   <td className="py-3 px-4">
                     <div className="flex items-center gap-2.5">
-                      <div className="w-7 h-7 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center font-bold text-[10px] text-slate-700 shrink-0 shadow-sm">
+                      <div className="w-7 h-7 rounded-lg bg-muted border border-border flex items-center justify-center font-bold text-[10px] text-foreground shrink-0 shadow-sm">
                         {row.avatar}
                       </div>
-                      <span className="font-semibold text-slate-900 truncate max-w-[200px]">{row.name}</span>
+                      <span className="font-semibold text-foreground truncate max-w-[200px]">{row.name}</span>
                     </div>
                   </td>
-                  <td className="py-3 px-4 font-mono font-medium text-slate-800">
+                  <td className="py-3 px-4 font-mono font-medium text-foreground">
                     {row.data}
                   </td>
-                  <td className="py-3 px-4 text-slate-500 text-xs">
+                  <td className="py-3 px-4 text-muted-foreground text-xs">
                     {row.lastModified}
                   </td>
-                  <td className="py-3 px-4 text-slate-700 font-mono text-xs">
+                  <td className="py-3 px-4 text-foreground font-mono text-xs">
                     {row.table}
                   </td>
                   <td className="py-3 px-4 text-right">

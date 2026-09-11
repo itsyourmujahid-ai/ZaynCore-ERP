@@ -99,11 +99,11 @@ export const GroupOverviewView: React.FC = () => {
         <div>
           <div className="flex items-center gap-2">
             <span className="text-xs font-bold uppercase tracking-wider text-indigo-400">Corporate Architecture</span>
-            <span className="text-slate-600">•</span>
+            <span className="text-muted-foreground">•</span>
             <StatusBadge status={tenant.companyTier} />
           </div>
-          <h1 className="text-2xl font-bold text-slate-100 mt-1">Multi-Company & Group Overview</h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <h1 className="text-2xl font-bold text-foreground mt-1">Multi-Company & Group Overview</h1>
+          <p className="text-xs text-muted-foreground mt-1">
             Configure legal entity hierarchies, parent/subsidiary relationships, and decimal ownership structures.
           </p>
         </div>
@@ -138,14 +138,14 @@ export const GroupOverviewView: React.FC = () => {
         <Card>
           <div className="flex items-center justify-between">
             <div>
-              <span className="text-xs text-slate-400 font-medium">Corporate Groups</span>
-              <div className="text-2xl font-bold text-slate-100 mt-1">{groups.length}</div>
+              <span className="text-xs text-muted-foreground font-medium">Corporate Groups</span>
+              <div className="text-2xl font-bold text-foreground mt-1">{groups.length}</div>
             </div>
             <div className="p-3 bg-indigo-500/10 rounded-xl text-indigo-400 border border-indigo-500/20">
               <Building2 className="w-5 h-5" />
             </div>
           </div>
-          <div className="text-[11px] text-slate-500 mt-3 flex items-center gap-1">
+          <div className="text-[11px] text-muted-foreground mt-3 flex items-center gap-1">
             <span className="text-emerald-400 font-medium">100% Isolated</span> underlying company books
           </div>
         </Card>
@@ -153,14 +153,14 @@ export const GroupOverviewView: React.FC = () => {
         <Card>
           <div className="flex items-center justify-between">
             <div>
-              <span className="text-xs text-slate-400 font-medium">Configured Companies</span>
-              <div className="text-2xl font-bold text-slate-100 mt-1">{companies.length}</div>
+              <span className="text-xs text-muted-foreground font-medium">Configured Companies</span>
+              <div className="text-2xl font-bold text-foreground mt-1">{companies.length}</div>
             </div>
             <div className="p-3 bg-emerald-500/10 rounded-xl text-emerald-400 border border-emerald-500/20">
               <ShieldCheck className="w-5 h-5" />
             </div>
           </div>
-          <div className="text-[11px] text-slate-500 mt-3 flex items-center gap-1">
+          <div className="text-[11px] text-muted-foreground mt-3 flex items-center gap-1">
             <span className="text-emerald-400 font-medium">{companies.filter(c => c.status === 'active').length} Active</span> legal entities
           </div>
         </Card>
@@ -168,14 +168,14 @@ export const GroupOverviewView: React.FC = () => {
         <Card>
           <div className="flex items-center justify-between">
             <div>
-              <span className="text-xs text-slate-400 font-medium">Intercompany Relationships</span>
-              <div className="text-2xl font-bold text-slate-100 mt-1">{relationships.length}</div>
+              <span className="text-xs text-muted-foreground font-medium">Intercompany Relationships</span>
+              <div className="text-2xl font-bold text-foreground mt-1">{relationships.length}</div>
             </div>
             <div className="p-3 bg-amber-500/10 rounded-xl text-amber-400 border border-amber-500/20">
               <GitBranch className="w-5 h-5" />
             </div>
           </div>
-          <div className="text-[11px] text-slate-500 mt-3 flex items-center gap-1">
+          <div className="text-[11px] text-muted-foreground mt-3 flex items-center gap-1">
             <span className="text-amber-400 font-medium">Parent / Subsidiary</span> ownership mappings
           </div>
         </Card>
@@ -183,14 +183,14 @@ export const GroupOverviewView: React.FC = () => {
         <Card>
           <div className="flex items-center justify-between">
             <div>
-              <span className="text-xs text-slate-400 font-medium">Reporting Currency</span>
+              <span className="text-xs text-muted-foreground font-medium">Reporting Currency</span>
               <div className="text-2xl font-bold font-mono text-cyan-400 mt-1">{currentGroup?.reportingCurrency || 'USD'}</div>
             </div>
             <div className="p-3 bg-cyan-500/10 rounded-xl text-cyan-400 border border-cyan-500/20">
               <DollarSign className="w-5 h-5" />
             </div>
           </div>
-          <div className="text-[11px] text-slate-500 mt-3 flex items-center gap-1">
+          <div className="text-[11px] text-muted-foreground mt-3 flex items-center gap-1">
             <span className="text-cyan-400 font-medium">FX Rates</span> dynamically translated
           </div>
         </Card>
@@ -203,7 +203,7 @@ export const GroupOverviewView: React.FC = () => {
           <Card title="Corporate Group Register" subtitle="Select active group to view hierarchy">
             <div className="space-y-2">
               {groups.length === 0 ? (
-                <div className="p-6 text-center text-slate-500 text-xs">
+                <div className="p-6 text-center text-muted-foreground text-xs">
                   No corporate groups configured. Click 'Create Group' to get started.
                 </div>
               ) : (
@@ -213,18 +213,18 @@ export const GroupOverviewView: React.FC = () => {
                     onClick={() => setSelectedGroupId(g.id)}
                     className={`p-3.5 rounded-xl border cursor-pointer transition-all ${
                       (selectedGroupId === g.id || (!selectedGroupId && groups[0]?.id === g.id))
-                        ? 'bg-indigo-500/10 border-indigo-500/30 text-slate-100 shadow-sm'
-                        : 'bg-slate-900/40 border-slate-800/80 text-slate-400 hover:bg-slate-800/40'
+                        ? 'bg-indigo-500/10 border-indigo-500/30 text-foreground shadow-sm'
+                        : 'bg-card/40 border-border/80 text-muted-foreground hover:bg-muted/40'
                     }`}
                   >
                     <div className="flex items-center justify-between">
-                      <div className="font-semibold text-xs text-slate-200">{g.name}</div>
-                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-800 text-indigo-400">
+                      <div className="font-semibold text-xs text-foreground">{g.name}</div>
+                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-muted text-indigo-400">
                         {g.code}
                       </span>
                     </div>
-                    <div className="flex items-center justify-between mt-2 text-[11px] text-slate-500">
-                      <span>Reporting: <strong className="text-slate-300 font-mono">{g.reportingCurrency}</strong></span>
+                    <div className="flex items-center justify-between mt-2 text-[11px] text-muted-foreground">
+                      <span>Reporting: <strong className="text-foreground/90 font-mono">{g.reportingCurrency}</strong></span>
                       <StatusBadge status={g.status} size="xs" />
                     </div>
                   </div>
@@ -241,7 +241,7 @@ export const GroupOverviewView: React.FC = () => {
             subtitle={currentGroup ? `Holding Tree for ${currentGroup.name}` : 'Corporate Tree Visualizer'}
           >
             {groupHierarchy ? (
-              <div className="p-4 bg-slate-950/60 rounded-xl border border-slate-800/80 space-y-4">
+              <div className="p-4 bg-card/60 rounded-xl border border-border/80 space-y-4">
                 {/* Parent Root Node */}
                 <div className="p-4 bg-indigo-950/30 border border-indigo-500/30 rounded-xl">
                   <div className="flex items-center justify-between">
@@ -250,16 +250,16 @@ export const GroupOverviewView: React.FC = () => {
                         <Building2 className="w-5 h-5" />
                       </div>
                       <div>
-                        <div className="font-bold text-sm text-slate-100 flex items-center gap-2">
+                        <div className="font-bold text-sm text-foreground flex items-center gap-2">
                           {groupHierarchy.companyName}
                           <span className="text-[10px] px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 font-mono font-normal">
                             Parent Holding (100.00%)
                           </span>
                         </div>
-                        <div className="text-xs text-slate-400 mt-0.5 flex items-center gap-2">
+                        <div className="text-xs text-muted-foreground mt-0.5 flex items-center gap-2">
                           <span>Code: {groupHierarchy.companyCode}</span>
                           <span>•</span>
-                          <span>Currency: <strong className="text-slate-300 font-mono">{groupHierarchy.baseCurrency}</strong></span>
+                          <span>Currency: <strong className="text-foreground/90 font-mono">{groupHierarchy.baseCurrency}</strong></span>
                         </div>
                       </div>
                     </div>
@@ -269,29 +269,29 @@ export const GroupOverviewView: React.FC = () => {
 
                 {/* Subsidiary Nodes */}
                 {groupHierarchy.children.length === 0 ? (
-                  <div className="p-6 text-center text-slate-500 text-xs border border-dashed border-slate-800 rounded-xl">
+                  <div className="p-6 text-center text-muted-foreground text-xs border border-dashed border-border rounded-xl">
                     No subsidiary relationships added yet under this holding group.
                   </div>
                 ) : (
-                  <div className="pl-6 border-l-2 border-slate-800 space-y-3">
+                  <div className="pl-6 border-l-2 border-border space-y-3">
                     {groupHierarchy.children.map((sub) => (
-                      <div key={sub.companyId} className="p-3.5 bg-slate-900/60 border border-slate-800 rounded-xl">
+                      <div key={sub.companyId} className="p-3.5 bg-card/60 border border-border rounded-xl">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-3">
                             <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                               <GitBranch className="w-4 h-4" />
                             </div>
                             <div>
-                              <div className="font-semibold text-xs text-slate-200 flex items-center gap-2">
+                              <div className="font-semibold text-xs text-foreground flex items-center gap-2">
                                 {sub.companyName}
-                                <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-400 font-mono">
+                                <span className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground font-mono">
                                   {sub.relationshipType?.replace('_', ' ').toUpperCase()}
                                 </span>
                               </div>
-                              <div className="text-[11px] text-slate-400 mt-0.5 flex items-center gap-2">
+                              <div className="text-[11px] text-muted-foreground mt-0.5 flex items-center gap-2">
                                 <span>Code: {sub.companyCode}</span>
                                 <span>•</span>
-                                <span>Currency: <strong className="text-slate-300 font-mono">{sub.baseCurrency}</strong></span>
+                                <span>Currency: <strong className="text-foreground/90 font-mono">{sub.baseCurrency}</strong></span>
                               </div>
                             </div>
                           </div>
@@ -299,7 +299,7 @@ export const GroupOverviewView: React.FC = () => {
                             <div className="text-xs font-bold font-mono text-emerald-400">
                               {sub.ownershipPercentage}%
                             </div>
-                            <div className="text-[10px] text-slate-500">Ownership</div>
+                            <div className="text-[10px] text-muted-foreground">Ownership</div>
                           </div>
                         </div>
                       </div>
@@ -308,7 +308,7 @@ export const GroupOverviewView: React.FC = () => {
                 )}
               </div>
             ) : (
-              <div className="p-12 text-center text-slate-500 text-xs">
+              <div className="p-12 text-center text-muted-foreground text-xs">
                 Select or create a corporate group to view entity relationships.
               </div>
             )}
@@ -324,35 +324,35 @@ export const GroupOverviewView: React.FC = () => {
       >
         <form onSubmit={handleCreateGroup} className="space-y-4 text-xs">
           <div>
-            <label className="block text-slate-300 font-medium mb-1">Group Code</label>
+            <label className="block text-foreground/90 font-medium mb-1">Group Code</label>
             <input
               type="text"
               required
               placeholder="e.g. ABC-GRP"
               value={groupForm.code}
               onChange={(e) => setGroupForm({ ...groupForm, code: e.target.value.toUpperCase() })}
-              className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100 font-mono"
+              className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground font-mono"
             />
           </div>
 
           <div>
-            <label className="block text-slate-300 font-medium mb-1">Group Name</label>
+            <label className="block text-foreground/90 font-medium mb-1">Group Name</label>
             <input
               type="text"
               required
               placeholder="e.g. ABC International Corporate Group"
               value={groupForm.name}
               onChange={(e) => setGroupForm({ ...groupForm, name: e.target.value })}
-              className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100"
+              className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground"
             />
           </div>
 
           <div>
-            <label className="block text-slate-300 font-medium mb-1">Parent Holding Company</label>
+            <label className="block text-foreground/90 font-medium mb-1">Parent Holding Company</label>
             <select
               value={groupForm.parentCompanyId}
               onChange={(e) => setGroupForm({ ...groupForm, parentCompanyId: e.target.value })}
-              className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100"
+              className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground"
             >
               {companies.map((c) => (
                 <option key={c.id} value={c.id}>{c.name} ({c.code}) - {c.baseCurrency}</option>
@@ -361,11 +361,11 @@ export const GroupOverviewView: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-slate-300 font-medium mb-1">Group Reporting Currency</label>
+            <label className="block text-foreground/90 font-medium mb-1">Group Reporting Currency</label>
             <select
               value={groupForm.reportingCurrency}
               onChange={(e) => setGroupForm({ ...groupForm, reportingCurrency: e.target.value })}
-              className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100 font-mono"
+              className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground font-mono"
             >
               <option value="USD">USD - US Dollar</option>
               <option value="EUR">EUR - Euro</option>
@@ -376,7 +376,7 @@ export const GroupOverviewView: React.FC = () => {
             </select>
           </div>
 
-          <div className="flex justify-end gap-2 pt-3 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-3 border-t border-border">
             <Button type="button" variant="secondary" onClick={() => setIsGroupModalOpen(false)}>
               Cancel
             </Button>
@@ -395,11 +395,11 @@ export const GroupOverviewView: React.FC = () => {
       >
         <form onSubmit={handleCreateRelationship} className="space-y-4 text-xs">
           <div>
-            <label className="block text-slate-300 font-medium mb-1">Parent Holding Company</label>
+            <label className="block text-foreground/90 font-medium mb-1">Parent Holding Company</label>
             <select
               value={relForm.parentCompanyId}
               onChange={(e) => setRelForm({ ...relForm, parentCompanyId: e.target.value })}
-              className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100"
+              className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground"
             >
               {companies.map((c) => (
                 <option key={c.id} value={c.id}>{c.name} ({c.code})</option>
@@ -408,11 +408,11 @@ export const GroupOverviewView: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-slate-300 font-medium mb-1">Child / Subsidiary Company</label>
+            <label className="block text-foreground/90 font-medium mb-1">Child / Subsidiary Company</label>
             <select
               value={relForm.childCompanyId}
               onChange={(e) => setRelForm({ ...relForm, childCompanyId: e.target.value })}
-              className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100"
+              className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground"
             >
               {companies.map((c) => (
                 <option key={c.id} value={c.id}>{c.name} ({c.code})</option>
@@ -422,11 +422,11 @@ export const GroupOverviewView: React.FC = () => {
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-slate-300 font-medium mb-1">Relationship Type</label>
+              <label className="block text-foreground/90 font-medium mb-1">Relationship Type</label>
               <select
                 value={relForm.relationshipType}
                 onChange={(e) => setRelForm({ ...relForm, relationshipType: e.target.value as any })}
-                className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100"
+                className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground"
               >
                 <option value="parent_subsidiary">Subsidiary (Direct)</option>
                 <option value="sister">Sister Entity</option>
@@ -436,7 +436,7 @@ export const GroupOverviewView: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-slate-300 font-medium mb-1">Ownership Percentage (%)</label>
+              <label className="block text-foreground/90 font-medium mb-1">Ownership Percentage (%)</label>
               <input
                 type="number"
                 step="0.0001"
@@ -445,12 +445,12 @@ export const GroupOverviewView: React.FC = () => {
                 required
                 value={relForm.ownershipPercentage}
                 onChange={(e) => setRelForm({ ...relForm, ownershipPercentage: e.target.value })}
-                className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100 font-mono"
+                className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground font-mono"
               />
             </div>
           </div>
 
-          <div className="flex justify-end gap-2 pt-3 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-3 border-t border-border">
             <Button type="button" variant="secondary" onClick={() => setIsRelationshipModalOpen(false)}>
               Cancel
             </Button>

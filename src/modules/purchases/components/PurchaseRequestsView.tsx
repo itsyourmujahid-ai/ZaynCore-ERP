@@ -159,7 +159,7 @@ export const PurchaseRequestsView: React.FC<{
   return (
     <div className="space-y-4">
       {/* Top Filter Bar */}
-      <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-3">
+      <div className="p-4 rounded-xl bg-card border border-border flex flex-col md:flex-row items-center justify-between gap-3">
         <div className="flex items-center gap-1.5 w-full md:w-auto overflow-x-auto pb-1 md:pb-0">
           {[
             { id: 'all', label: 'All Requests' },
@@ -174,7 +174,7 @@ export const PurchaseRequestsView: React.FC<{
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold capitalize transition-all select-none whitespace-nowrap ${
                 statusFilter === s.id
                   ? 'bg-brand-600 text-white shadow-sm'
-                  : 'bg-slate-800 text-slate-400 hover:text-slate-200'
+                  : 'bg-muted text-muted-foreground hover:text-foreground'
               }`}
             >
               {s.label}
@@ -184,13 +184,13 @@ export const PurchaseRequestsView: React.FC<{
 
         <div className="flex items-center gap-2 w-full md:w-auto">
           <div className="relative w-full md:w-72">
-            <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-500" />
+            <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-muted-foreground" />
             <input
               type="text"
               placeholder="Search request #, requester, or memo..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-3 py-1.5 text-xs bg-slate-950/80 border border-slate-800 rounded-lg text-slate-200 placeholder-slate-500 focus:outline-none focus:border-brand-500"
+              className="w-full pl-9 pr-3 py-1.5 text-xs bg-card/80 border border-border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-brand-500"
             />
           </div>
 
@@ -214,7 +214,7 @@ export const PurchaseRequestsView: React.FC<{
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-slate-800 bg-slate-900/90 text-slate-400 font-semibold uppercase tracking-wider">
+              <tr className="border-b border-border bg-card/90 text-muted-foreground font-semibold uppercase tracking-wider">
                 <th className="px-5 py-3.5">Request #</th>
                 <th className="px-5 py-3.5">Requester & Dept</th>
                 <th className="px-5 py-3.5">Date</th>
@@ -225,28 +225,28 @@ export const PurchaseRequestsView: React.FC<{
                 <th className="px-5 py-3.5 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-slate-200">
+            <tbody className="divide-y divide-border text-foreground">
               {filteredPRs.map((pr) => {
                 const dept = departments.find((d) => d.id === pr.departmentId);
                 return (
-                  <tr key={pr.id} className="hover:bg-slate-800/40 transition-colors">
+                  <tr key={pr.id} className="hover:bg-muted/40 transition-colors">
                     <td className="px-5 py-3.5 font-mono font-bold text-sky-400">{pr.requestNumber}</td>
                     <td className="px-5 py-3.5">
-                      <div className="font-semibold text-slate-100">{pr.requesterName}</div>
-                      <div className="text-[10px] text-slate-500">{dept?.name || 'General Operations'}</div>
+                      <div className="font-semibold text-foreground">{pr.requesterName}</div>
+                      <div className="text-[10px] text-muted-foreground">{dept?.name || 'General Operations'}</div>
                     </td>
-                    <td className="px-5 py-3.5 font-mono text-slate-400">{pr.requestDate}</td>
-                    <td className="px-5 py-3.5 font-mono text-slate-300">{pr.requiredDate}</td>
+                    <td className="px-5 py-3.5 font-mono text-muted-foreground">{pr.requestDate}</td>
+                    <td className="px-5 py-3.5 font-mono text-foreground/90">{pr.requiredDate}</td>
                     <td className="px-5 py-3.5 text-center">
                       <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
                         pr.priority === 'urgent' ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' :
                         pr.priority === 'high' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30' :
-                        'bg-slate-800 text-slate-300'
+                        'bg-muted text-foreground/90'
                       }`}>
                         {pr.priority}
                       </span>
                     </td>
-                    <td className="px-5 py-3.5 text-right font-mono font-semibold text-slate-200">
+                    <td className="px-5 py-3.5 text-right font-mono font-semibold text-foreground">
                       ${parseFloat(pr.totalEstimatedCost).toFixed(2)}
                     </td>
                     <td className="px-5 py-3.5 text-center">
@@ -304,7 +304,7 @@ export const PurchaseRequestsView: React.FC<{
               })}
               {filteredPRs.length === 0 && (
                 <tr>
-                  <td colSpan={8} className="px-5 py-12 text-center text-slate-500">
+                  <td colSpan={8} className="px-5 py-12 text-center text-muted-foreground">
                     No purchase requisitions recorded. Click "+ Create Request" to submit an internal requisition.
                   </td>
                 </tr>
@@ -376,7 +376,7 @@ export const PurchaseRequestsView: React.FC<{
           {/* Line Items Editor */}
           <div className="space-y-2 pt-2">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase text-slate-300">Requisition Items</span>
+              <span className="text-xs font-bold uppercase text-foreground/90">Requisition Items</span>
               <Button size="xs" variant="outline" icon={<Plus className="w-3 h-3" />} onClick={handleAddItem}>
                 Add Item
               </Button>
@@ -384,14 +384,14 @@ export const PurchaseRequestsView: React.FC<{
 
             <div className="space-y-2">
               {form.items.map((item, idx) => (
-                <div key={item.id} className="p-3 rounded-lg bg-slate-950/60 border border-slate-800 flex items-center gap-3">
+                <div key={item.id} className="p-3 rounded-lg bg-card/60 border border-border flex items-center gap-3">
                   <div className="flex-1">
                     <input
                       type="text"
                       placeholder="Item Description / Service Details"
                       value={item.description}
                       onChange={(e) => handleItemChange(idx, 'description', e.target.value)}
-                      className="w-full px-3 py-1.5 text-xs bg-slate-900 border border-slate-700 rounded text-slate-100"
+                      className="w-full px-3 py-1.5 text-xs bg-card border border-border rounded text-foreground"
                     />
                   </div>
                   <div className="w-24">
@@ -400,7 +400,7 @@ export const PurchaseRequestsView: React.FC<{
                       placeholder="Qty"
                       value={item.quantity}
                       onChange={(e) => handleItemChange(idx, 'quantity', e.target.value)}
-                      className="w-full px-3 py-1.5 text-xs bg-slate-900 border border-slate-700 rounded text-slate-100 text-right"
+                      className="w-full px-3 py-1.5 text-xs bg-card border border-border rounded text-foreground text-right"
                     />
                   </div>
                   <div className="w-32">
@@ -409,15 +409,15 @@ export const PurchaseRequestsView: React.FC<{
                       placeholder="Est. Price"
                       value={item.estimatedUnitPrice}
                       onChange={(e) => handleItemChange(idx, 'estimatedUnitPrice', e.target.value)}
-                      className="w-full px-3 py-1.5 text-xs bg-slate-900 border border-slate-700 rounded text-slate-100 text-right"
+                      className="w-full px-3 py-1.5 text-xs bg-card border border-border rounded text-foreground text-right"
                     />
                   </div>
-                  <div className="w-28 text-right font-mono text-xs font-bold text-slate-200">
+                  <div className="w-28 text-right font-mono text-xs font-bold text-foreground">
                     ${parseFloat(item.estimatedTotal || '0').toFixed(2)}
                   </div>
                   <button
                     onClick={() => handleRemoveItem(idx)}
-                    className="p-1.5 text-slate-500 hover:text-rose-400"
+                    className="p-1.5 text-muted-foreground hover:text-rose-400"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
@@ -425,7 +425,7 @@ export const PurchaseRequestsView: React.FC<{
               ))}
             </div>
 
-            <div className="flex justify-end pt-2 text-xs font-mono font-bold text-slate-200">
+            <div className="flex justify-end pt-2 text-xs font-mono font-bold text-foreground">
               Total Estimated Requisition Cost: ${totalEstimated.toFixed(2)}
             </div>
           </div>
@@ -471,36 +471,36 @@ export const PurchaseRequestsView: React.FC<{
           }
         >
           <div className="space-y-4">
-            <div className="p-3.5 rounded-lg bg-slate-950/60 border border-slate-800 text-xs grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div className="p-3.5 rounded-lg bg-card/60 border border-border text-xs grid grid-cols-2 sm:grid-cols-4 gap-3">
               <div>
-                <span className="text-slate-500">Requester:</span>
-                <p className="font-semibold text-slate-200 mt-0.5">{selectedPR.requesterName}</p>
+                <span className="text-muted-foreground">Requester:</span>
+                <p className="font-semibold text-foreground mt-0.5">{selectedPR.requesterName}</p>
               </div>
               <div>
-                <span className="text-slate-500">Date:</span>
-                <p className="font-semibold text-slate-200 mt-0.5">{selectedPR.requestDate}</p>
+                <span className="text-muted-foreground">Date:</span>
+                <p className="font-semibold text-foreground mt-0.5">{selectedPR.requestDate}</p>
               </div>
               <div>
-                <span className="text-slate-500">Required Date:</span>
-                <p className="font-semibold text-slate-200 mt-0.5">{selectedPR.requiredDate}</p>
+                <span className="text-muted-foreground">Required Date:</span>
+                <p className="font-semibold text-foreground mt-0.5">{selectedPR.requiredDate}</p>
               </div>
               <div>
-                <span className="text-slate-500">Total Est. Cost:</span>
+                <span className="text-muted-foreground">Total Est. Cost:</span>
                 <p className="font-semibold text-brand-400 mt-0.5 font-mono">${parseFloat(selectedPR.totalEstimatedCost).toFixed(2)}</p>
               </div>
             </div>
 
-            <div className="overflow-x-auto rounded-lg border border-slate-800">
+            <div className="overflow-x-auto rounded-lg border border-border">
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="border-b border-slate-800 bg-slate-950/80 text-slate-400 font-semibold uppercase">
+                  <tr className="border-b border-border bg-card/80 text-muted-foreground font-semibold uppercase">
                     <th className="px-4 py-2.5">Item Description</th>
                     <th className="px-4 py-2.5 text-right">Quantity</th>
                     <th className="px-4 py-2.5 text-right">Est. Unit Price</th>
                     <th className="px-4 py-2.5 text-right">Total</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60 text-slate-200">
+                <tbody className="divide-y divide-border text-foreground">
                   {selectedPR.items.map((it) => (
                     <tr key={it.id}>
                       <td className="px-4 py-2.5 font-medium">{it.description}</td>

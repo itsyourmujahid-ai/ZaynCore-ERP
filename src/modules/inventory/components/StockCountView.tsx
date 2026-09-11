@@ -110,13 +110,13 @@ export const StockCountView: React.FC<{
       {/* Controls Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="relative min-w-[240px] max-w-sm">
-          <Search className="w-4 h-4 text-slate-500 absolute left-3 top-2.5" />
+          <Search className="w-4 h-4 text-muted-foreground absolute left-3 top-2.5" />
           <input
             type="text"
             placeholder="Search stock counts..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-slate-900/60 border border-slate-800 rounded-lg pl-9 pr-3 py-1.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand-500"
+            className="w-full bg-card/60 border border-border rounded-lg pl-9 pr-3 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-brand-500"
           />
         </div>
 
@@ -134,9 +134,9 @@ export const StockCountView: React.FC<{
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* Count Audits Register */}
         <div className="space-y-2">
-          <h4 className="text-xs font-bold uppercase text-slate-400">Stock Count Audits ({counts.length})</h4>
+          <h4 className="text-xs font-bold uppercase text-muted-foreground">Stock Count Audits ({counts.length})</h4>
           {counts.length === 0 ? (
-            <div className="p-8 text-center text-slate-500 text-xs bg-slate-900/40 rounded-xl border border-slate-800">
+            <div className="p-8 text-center text-muted-foreground text-xs bg-card/40 rounded-xl border border-border">
               No count snapshots created yet.
             </div>
           ) : (
@@ -151,18 +151,18 @@ export const StockCountView: React.FC<{
                     onClick={() => setSelectedCountId(c.id)}
                     className={`p-3.5 rounded-xl border transition-all cursor-pointer ${
                       isSelected
-                        ? 'bg-slate-900 border-brand-500 ring-1 ring-brand-500/30'
-                        : 'bg-slate-900/40 border-slate-800 hover:border-slate-700'
+                        ? 'bg-card border-brand-500 ring-1 ring-brand-500/30'
+                        : 'bg-card/40 border-border hover:border-border'
                     }`}
                   >
                     <div className="flex items-start justify-between">
                       <div>
                         <span className="font-mono font-bold text-xs text-brand-400">{c.countNumber}</span>
-                        <h5 className="text-xs font-semibold text-slate-200 mt-0.5">{wh?.name || c.warehouseId}</h5>
+                        <h5 className="text-xs font-semibold text-foreground mt-0.5">{wh?.name || c.warehouseId}</h5>
                       </div>
                       <StatusBadge status={c.status} />
                     </div>
-                    <div className="flex justify-between items-center text-[10px] text-slate-400 mt-2">
+                    <div className="flex justify-between items-center text-[10px] text-muted-foreground mt-2">
                       <span>Date: {c.countDate}</span>
                       <span>{c.items.length} SKUs Audited</span>
                     </div>
@@ -201,9 +201,9 @@ export const StockCountView: React.FC<{
                 ) : undefined
               }
             >
-              <div className="overflow-x-auto rounded-xl border border-slate-800">
+              <div className="overflow-x-auto rounded-xl border border-border">
                 <table className="w-full text-left text-xs">
-                  <thead className="bg-slate-950/80 text-slate-400 border-b border-slate-800">
+                  <thead className="bg-card/80 text-muted-foreground border-b border-border">
                     <tr>
                       <th className="p-3">SKU</th>
                       <th className="p-3">Item Name</th>
@@ -212,7 +212,7 @@ export const StockCountView: React.FC<{
                       <th className="p-3 text-right">Variance</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800/50 bg-slate-900/20 font-mono">
+                  <tbody className="divide-y divide-border/50 bg-card/20 font-mono">
                     {activeCount.items.map((it) => {
                       const itemObj = items.find((i) => i.id === it.itemId);
                       const currentVal = countedQuantities[it.itemId] !== undefined
@@ -221,13 +221,13 @@ export const StockCountView: React.FC<{
                       const diff = parseFloat(currentVal) - parseFloat(it.systemQuantity);
 
                       return (
-                        <tr key={it.id} className="hover:bg-slate-800/30">
+                        <tr key={it.id} className="hover:bg-muted/30">
                           <td className="p-3 font-bold text-brand-400">{itemObj?.itemCode || it.itemId}</td>
-                          <td className="p-3 font-sans text-slate-200">{itemObj?.name}</td>
-                          <td className="p-3 text-right text-slate-400">{it.systemQuantity}</td>
+                          <td className="p-3 font-sans text-foreground">{itemObj?.name}</td>
+                          <td className="p-3 text-right text-muted-foreground">{it.systemQuantity}</td>
                           <td className="p-3 text-right">
                             {activeCount.status === 'completed' ? (
-                              <span className="font-bold text-slate-100">{it.countedQuantity}</span>
+                              <span className="font-bold text-foreground">{it.countedQuantity}</span>
                             ) : (
                               <input
                                 type="number"
@@ -239,12 +239,12 @@ export const StockCountView: React.FC<{
                                     [it.itemId]: e.target.value,
                                   });
                                 }}
-                                className="w-full bg-slate-950 border border-slate-700 rounded px-2 py-1 text-right text-slate-100 font-bold"
+                                className="w-full bg-card border border-border rounded px-2 py-1 text-right text-foreground font-bold"
                               />
                             )}
                           </td>
                           <td className="p-3 text-right font-bold">
-                            <span className={diff === 0 ? 'text-slate-500' : diff > 0 ? 'text-emerald-400' : 'text-rose-400'}>
+                            <span className={diff === 0 ? 'text-muted-foreground' : diff > 0 ? 'text-emerald-400' : 'text-rose-400'}>
                               {diff > 0 ? `+${diff.toFixed(2)}` : diff.toFixed(2)}
                             </span>
                           </td>
@@ -256,7 +256,7 @@ export const StockCountView: React.FC<{
               </div>
             </Card>
           ) : (
-            <div className="p-12 text-center text-slate-500 text-xs bg-slate-900/20 rounded-xl border border-slate-800">
+            <div className="p-12 text-center text-muted-foreground text-xs bg-card/20 rounded-xl border border-border">
               Select a stock count audit to enter physical quantities or create a new snapshot.
             </div>
           )}
@@ -299,7 +299,7 @@ export const StockCountView: React.FC<{
             placeholder="e.g. Q1 Annual physical cycle audit"
           />
 
-          <div className="flex justify-end gap-2 pt-2 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-2 border-t border-border">
             <Button
               type="button"
               variant="outline"

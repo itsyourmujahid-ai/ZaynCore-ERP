@@ -49,7 +49,7 @@ export const ManagementAccountingWorkspace: React.FC<{
           {onNavigateAccounting && (
             <button
               onClick={onNavigateAccounting}
-              className="p-1.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition-colors"
+              className="p-1.5 rounded-lg bg-card border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
               title="Return to Financial Accounting"
             >
               <ArrowLeft className="w-4 h-4" />
@@ -65,7 +65,7 @@ export const ManagementAccountingWorkspace: React.FC<{
               ]}
             />
             <div className="flex items-center gap-2 mt-0.5">
-              <h1 className="text-lg font-bold text-slate-100 tracking-tight">
+              <h1 className="text-lg font-bold text-foreground tracking-tight">
                 Advanced Cost & Management Accounting
               </h1>
               <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-brand-500/10 text-brand-400 border border-brand-500/30">
@@ -77,7 +77,7 @@ export const ManagementAccountingWorkspace: React.FC<{
       </div>
 
       {/* Main Tabs Navigation */}
-      <div className="flex items-center gap-1.5 border-b border-slate-800 pb-2 overflow-x-auto">
+      <div className="flex items-center gap-1.5 border-b border-border pb-2 overflow-x-auto">
         {tabs.map((tab) => {
           const isSelected = activeTab === tab.id;
           return (
@@ -87,7 +87,7 @@ export const ManagementAccountingWorkspace: React.FC<{
               className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
                 isSelected
                   ? 'bg-brand-600 text-white shadow-sm'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
               }`}
             >
               {tab.icon}

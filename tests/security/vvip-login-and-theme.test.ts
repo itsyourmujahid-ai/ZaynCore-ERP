@@ -1,4 +1,4 @@
-﻿import { test, describe, before, after } from "node:test";
+import { test, describe, before, after } from "node:test";
 import assert from "node:assert/strict";
 import type { Server } from "node:http";
 import fs from "node:fs";
@@ -78,13 +78,14 @@ describe("SECURITY & UI/UX AUDIT — Hidden VVIP Login & Theme System", () => {
     await closeDatabasePool();
   });
 
-  test("1. Normal login page contains NO visible VVIP buttons in normal layout", () => {
+  test("1. Normal login page contains NO visible VVIP buttons and implements both discovery triggers", () => {
     const loginPagePath = path.resolve(__dirname, "../../frontend/src/modules/identity/components/LoginPage.tsx");
     assert.ok(fs.existsSync(loginPagePath), "LoginPage.tsx must exist");
     const content = fs.readFileSync(loginPagePath, "utf-8");
     assert.doesNotMatch(content, /Quick VVIP/i, "LoginPage must not have quick VVIP buttons");
     assert.match(content, /handleMouseClick/i, "LoginPage must implement mouse click handler for VVIP trigger");
     assert.match(content, /button === 0 && \(e\.ctrlKey \|\| e\.metaKey\)/, "LoginPage must detect Ctrl + Mouse Left Click");
+    assert.match(content, /handleKeyDown/i, "LoginPage must implement key down handler for CTRL + M + U + J sequence");
     assert.match(content, /isVVIPOpen/i, "LoginPage must control VVIP modal state");
   });
 

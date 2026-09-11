@@ -129,19 +129,19 @@ export const CashAccountsView: React.FC = () => {
       {/* Header Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="relative min-w-[240px] max-w-sm">
-          <Search className="w-4 h-4 text-slate-500 absolute left-3 top-2.5" />
+          <Search className="w-4 h-4 text-muted-foreground absolute left-3 top-2.5" />
           <input
             type="text"
             placeholder="Search cash drawers by name or custodian..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-slate-900/60 border border-slate-800 rounded-lg pl-9 pr-3 py-1.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand-500"
+            className="w-full bg-card/60 border border-border rounded-lg pl-9 pr-3 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-brand-500"
           />
         </div>
 
         <div className="flex items-center gap-3">
           <div className="text-right hidden sm:block">
-            <span className="text-[10px] text-slate-500 uppercase font-bold">Total Physical Vault & Petty Cash</span>
+            <span className="text-[10px] text-muted-foreground uppercase font-bold">Total Physical Vault & Petty Cash</span>
             <div className="text-sm font-bold font-mono text-amber-400">
               ${totalCashBalance.toLocaleString(undefined, { minimumFractionDigits: 2 })}
             </div>
@@ -167,7 +167,7 @@ export const CashAccountsView: React.FC = () => {
           return (
             <div
               key={c.id}
-              className="p-4 rounded-xl bg-slate-900/50 border border-slate-800 hover:border-slate-700 transition-all space-y-3"
+              className="p-4 rounded-xl bg-muted/50 border border-border hover:border-border transition-all space-y-3"
             >
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-2.5">
@@ -177,36 +177,36 @@ export const CashAccountsView: React.FC = () => {
                   <div>
                     <h4
                       onClick={() => setSelectedAccountId(c.id)}
-                      className="font-bold text-xs text-slate-100 hover:text-amber-400 transition-colors cursor-pointer"
+                      className="font-bold text-xs text-foreground hover:text-amber-400 transition-colors cursor-pointer"
                     >
                       {c.accountName}
                     </h4>
-                    <p className="text-[11px] text-slate-400 capitalize">{c.cashAccountType.replace('_', ' ')}</p>
+                    <p className="text-[11px] text-muted-foreground capitalize">{c.cashAccountType.replace('_', ' ')}</p>
                   </div>
                 </div>
                 <StatusBadge status={c.isActive ? 'active' : 'inactive'} />
               </div>
 
-              <div className="pt-2 border-t border-slate-800/60 flex items-end justify-between">
+              <div className="pt-2 border-t border-border/60 flex items-end justify-between">
                 <div>
-                  <div className="text-[10px] text-slate-500 flex items-center gap-1">
-                    <UserCheck className="w-3 h-3 text-slate-500" />
+                  <div className="text-[10px] text-muted-foreground flex items-center gap-1">
+                    <UserCheck className="w-3 h-3 text-muted-foreground" />
                     <span>Custodian: {c.custodianName || 'General Staff'}</span>
                   </div>
-                  <div className="text-[10px] text-slate-400 font-mono mt-0.5">
+                  <div className="text-[10px] text-muted-foreground font-mono mt-0.5">
                     GL: {glAcc?.code}
                   </div>
                 </div>
 
                 <div className="text-right">
-                  <div className="text-[10px] text-slate-500 uppercase">Cash Balance</div>
+                  <div className="text-[10px] text-muted-foreground uppercase">Cash Balance</div>
                   <div className="text-sm font-bold font-mono text-amber-400">
                     ${parseFloat(c.currentBalance).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                   </div>
                 </div>
               </div>
 
-              <div className="pt-2 flex justify-end gap-2 border-t border-slate-800/40">
+              <div className="pt-2 flex justify-end gap-2 border-t border-border/40">
                 <Button
                   variant="ghost"
                   size="sm"
@@ -235,13 +235,13 @@ export const CashAccountsView: React.FC = () => {
       {/* Cash Counts History Register */}
       <Card title="Recent Cash Count Audits & Reconciliations">
         {cashCounts.length === 0 ? (
-          <div className="p-8 text-center text-slate-500 text-xs">
+          <div className="p-8 text-center text-muted-foreground text-xs">
             No physical cash count audits performed yet.
           </div>
         ) : (
-          <div className="overflow-x-auto rounded-xl border border-slate-800">
+          <div className="overflow-x-auto rounded-xl border border-border">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-950 text-slate-400 border-b border-slate-800">
+              <thead className="bg-card text-muted-foreground border-b border-border">
                 <tr>
                   <th className="p-2.5">Audit #</th>
                   <th className="p-2.5">Date</th>
@@ -253,17 +253,17 @@ export const CashAccountsView: React.FC = () => {
                   <th className="p-2.5 text-center">Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800 bg-slate-900/30 font-mono text-[11px]">
+              <tbody className="divide-y divide-border bg-card/30 font-mono text-[11px]">
                 {cashCounts.map((cc) => {
                   const drawer = cashAccounts.find((a) => a.id === cc.cashAccountId);
                   const diff = parseFloat(cc.difference);
                   return (
-                    <tr key={cc.id} className="hover:bg-slate-800/30">
+                    <tr key={cc.id} className="hover:bg-muted/30">
                       <td className="p-2.5 font-bold text-brand-400">{cc.countNumber}</td>
-                      <td className="p-2.5 text-slate-400">{cc.countDate}</td>
-                      <td className="p-2.5 font-sans font-medium text-slate-200">{drawer?.accountName}</td>
-                      <td className="p-2.5 text-right text-slate-300">${cc.systemBalance}</td>
-                      <td className="p-2.5 text-right font-bold text-slate-100">${cc.physicalCount}</td>
+                      <td className="p-2.5 text-muted-foreground">{cc.countDate}</td>
+                      <td className="p-2.5 font-sans font-medium text-foreground">{drawer?.accountName}</td>
+                      <td className="p-2.5 text-right text-foreground/90">${cc.systemBalance}</td>
+                      <td className="p-2.5 text-right font-bold text-foreground">${cc.physicalCount}</td>
                       <td className={`p-2.5 text-right font-bold ${
                         Math.abs(diff) < 0.0001
                           ? 'text-emerald-400'
@@ -273,7 +273,7 @@ export const CashAccountsView: React.FC = () => {
                       }`}>
                         {diff > 0 ? `+$${diff.toFixed(2)}` : diff < 0 ? `-$${Math.abs(diff).toFixed(2)}` : '$0.00'}
                       </td>
-                      <td className="p-2.5 font-sans text-slate-400">{cc.counterName}</td>
+                      <td className="p-2.5 font-sans text-muted-foreground">{cc.counterName}</td>
                       <td className="p-2.5 text-center">
                         <StatusBadge status={cc.status} />
                       </td>
@@ -373,7 +373,7 @@ export const CashAccountsView: React.FC = () => {
             placeholder="e.g. Primary cashier safe located in Room 102"
           />
 
-          <div className="flex justify-end gap-2 pt-2 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-2 border-t border-border">
             <Button
               type="button"
               variant="outline"
@@ -408,12 +408,12 @@ export const CashAccountsView: React.FC = () => {
             </div>
           )}
 
-          <div className="p-3 rounded-lg bg-slate-950 border border-slate-800 space-y-1">
-            <div className="text-[10px] text-slate-400 uppercase font-bold">Selected Cash Drawer</div>
-            <div className="text-xs font-bold text-slate-100">
+          <div className="p-3 rounded-lg bg-card border border-border space-y-1">
+            <div className="text-[10px] text-muted-foreground uppercase font-bold">Selected Cash Drawer</div>
+            <div className="text-xs font-bold text-foreground">
               {cashAccounts.find((a) => a.id === countCashAccountId)?.accountName}
             </div>
-            <div className="text-xs font-mono text-slate-300">
+            <div className="text-xs font-mono text-foreground/90">
               Current System Balance: ${cashAccounts.find((a) => a.id === countCashAccountId)?.currentBalance}
             </div>
           </div>
@@ -449,7 +449,7 @@ export const CashAccountsView: React.FC = () => {
             onChange={(e) => setCountReason(e.target.value)}
           />
 
-          <div className="flex justify-end gap-2 pt-2 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-2 border-t border-border">
             <Button
               type="button"
               variant="outline"

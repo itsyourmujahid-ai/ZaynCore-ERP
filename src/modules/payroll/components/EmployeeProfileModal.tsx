@@ -62,10 +62,10 @@ export const EmployeeProfileModal: React.FC<EmployeeProfileModalProps> = ({
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-fadeIn">
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-4xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-card/80 backdrop-blur-sm animate-fadeIn">
+      <div className="bg-card border border-border rounded-2xl w-full max-w-4xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
         {/* Header */}
-        <div className="p-5 border-b border-slate-800 flex items-center justify-between bg-slate-900/60">
+        <div className="p-5 border-b border-border flex items-center justify-between bg-card/60">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-xl bg-purple-950/60 border border-purple-800/40 flex items-center justify-center font-bold text-lg text-purple-400">
               {employee.firstName.charAt(0)}
@@ -73,10 +73,10 @@ export const EmployeeProfileModal: React.FC<EmployeeProfileModalProps> = ({
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h2 className="text-lg font-bold text-slate-100">{employee.fullName}</h2>
+                <h2 className="text-lg font-bold text-foreground">{employee.fullName}</h2>
                 <StatusBadge status={employee.employmentStatus} />
               </div>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-muted-foreground">
                 {employee.employeeCode} • {employee.jobTitle} • Joined {employee.joiningDate}
               </p>
             </div>
@@ -87,7 +87,7 @@ export const EmployeeProfileModal: React.FC<EmployeeProfileModalProps> = ({
             </Button>
             <button
               onClick={onClose}
-              className="p-2 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-slate-800 transition-colors"
+              className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
@@ -95,7 +95,7 @@ export const EmployeeProfileModal: React.FC<EmployeeProfileModalProps> = ({
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex items-center gap-1 px-5 border-b border-slate-800 bg-slate-950/30 overflow-x-auto">
+        <div className="flex items-center gap-1 px-5 border-b border-border bg-card/30 overflow-x-auto">
           {tabs.map((t) => {
             const isActive = activeTab === t.id;
             return (
@@ -104,8 +104,8 @@ export const EmployeeProfileModal: React.FC<EmployeeProfileModalProps> = ({
                 onClick={() => setActiveTab(t.id)}
                 className={`flex items-center gap-2 px-3 py-2.5 text-xs font-medium border-b-2 transition-all select-none whitespace-nowrap ${
                   isActive
-                    ? 'border-brand-500 text-brand-400 bg-slate-900/80 font-semibold'
-                    : 'border-transparent text-slate-400 hover:text-slate-200'
+                    ? 'border-brand-500 text-brand-400 bg-card/80 font-semibold'
+                    : 'border-transparent text-muted-foreground hover:text-foreground'
                 }`}
               >
                 {t.icon}
@@ -121,66 +121,66 @@ export const EmployeeProfileModal: React.FC<EmployeeProfileModalProps> = ({
             <div className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-4">
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">Personal Information</h3>
-                  <div className="grid grid-cols-2 gap-3 text-xs bg-slate-950/40 p-4 rounded-xl border border-slate-800">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Personal Information</h3>
+                  <div className="grid grid-cols-2 gap-3 text-xs bg-card/40 p-4 rounded-xl border border-border">
                     <div>
-                      <span className="text-slate-500 block">Date of Birth</span>
-                      <span className="text-slate-200 font-medium">{employee.dateOfBirth || 'N/A'}</span>
+                      <span className="text-muted-foreground block">Date of Birth</span>
+                      <span className="text-foreground font-medium">{employee.dateOfBirth || 'N/A'}</span>
                     </div>
                     <div>
-                      <span className="text-slate-500 block">Gender</span>
-                      <span className="text-slate-200 font-medium capitalize">{employee.gender}</span>
+                      <span className="text-muted-foreground block">Gender</span>
+                      <span className="text-foreground font-medium capitalize">{employee.gender}</span>
                     </div>
                     <div>
-                      <span className="text-slate-500 block">Nationality</span>
-                      <span className="text-slate-200 font-medium">{employee.nationality || 'N/A'}</span>
+                      <span className="text-muted-foreground block">Nationality</span>
+                      <span className="text-foreground font-medium">{employee.nationality || 'N/A'}</span>
                     </div>
                     <div>
-                      <span className="text-slate-500 block">National ID / Passport</span>
-                      <span className="text-slate-200 font-medium">{employee.nationalIdOrPassport || 'N/A'}</span>
+                      <span className="text-muted-foreground block">National ID / Passport</span>
+                      <span className="text-foreground font-medium">{employee.nationalIdOrPassport || 'N/A'}</span>
                     </div>
                   </div>
                 </div>
 
                 <div className="space-y-4">
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">Contact & Emergency</h3>
-                  <div className="grid grid-cols-2 gap-3 text-xs bg-slate-950/40 p-4 rounded-xl border border-slate-800">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Contact & Emergency</h3>
+                  <div className="grid grid-cols-2 gap-3 text-xs bg-card/40 p-4 rounded-xl border border-border">
                     <div>
-                      <span className="text-slate-500 block">Email Address</span>
-                      <span className="text-slate-200 font-medium">{employee.email}</span>
+                      <span className="text-muted-foreground block">Email Address</span>
+                      <span className="text-foreground font-medium">{employee.email}</span>
                     </div>
                     <div>
-                      <span className="text-slate-500 block">Phone Number</span>
-                      <span className="text-slate-200 font-medium">{employee.phone}</span>
+                      <span className="text-muted-foreground block">Phone Number</span>
+                      <span className="text-foreground font-medium">{employee.phone}</span>
                     </div>
                     <div>
-                      <span className="text-slate-500 block">Emergency Contact</span>
-                      <span className="text-slate-200 font-medium">{employee.emergencyContactName || 'N/A'}</span>
+                      <span className="text-muted-foreground block">Emergency Contact</span>
+                      <span className="text-foreground font-medium">{employee.emergencyContactName || 'N/A'}</span>
                     </div>
                     <div>
-                      <span className="text-slate-500 block">Emergency Phone</span>
-                      <span className="text-slate-200 font-medium">{employee.emergencyContactPhone || 'N/A'}</span>
+                      <span className="text-muted-foreground block">Emergency Phone</span>
+                      <span className="text-foreground font-medium">{employee.emergencyContactPhone || 'N/A'}</span>
                     </div>
                   </div>
                 </div>
               </div>
 
               {/* ERP System Access Profile Card */}
-              <div className="p-4 rounded-xl bg-slate-950/40 border border-slate-800 flex items-center justify-between">
+              <div className="p-4 rounded-xl bg-card/40 border border-border flex items-center justify-between">
                 <div className="space-y-1">
-                  <span className="text-xs font-bold uppercase tracking-wider text-slate-400">ERP System User Account</span>
-                  <div className="text-xs text-slate-300">
+                  <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">ERP System User Account</span>
+                  <div className="text-xs text-foreground/90">
                     {employee.hasSystemAccess || employee.systemUserId ? (
                       <div className="flex items-center gap-2">
                         <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-indigo-950/80 text-indigo-300 border border-indigo-700/60">
                           Active System User
                         </span>
-                        <span className="text-slate-400">
-                          Account Email: <strong className="text-slate-200 font-mono">{employee.email}</strong>
+                        <span className="text-muted-foreground">
+                          Account Email: <strong className="text-foreground font-mono">{employee.email}</strong>
                         </span>
                       </div>
                     ) : (
-                      <span className="text-slate-500 italic">No ERP login account created (HR Master record only).</span>
+                      <span className="text-muted-foreground italic">No ERP login account created (HR Master record only).</span>
                     )}
                   </div>
                 </div>
@@ -190,30 +190,30 @@ export const EmployeeProfileModal: React.FC<EmployeeProfileModalProps> = ({
 
           {activeTab === 'employment' && (
             <div className="space-y-4">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">Organization & Employment</h3>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-xs bg-slate-950/40 p-4 rounded-xl border border-slate-800">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Organization & Employment</h3>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-xs bg-card/40 p-4 rounded-xl border border-border">
                 <div>
-                  <span className="text-slate-500 block">Designation</span>
-                  <span className="text-slate-200 font-semibold">{employee.designation || employee.jobTitle}</span>
+                  <span className="text-muted-foreground block">Designation</span>
+                  <span className="text-foreground font-semibold">{employee.designation || employee.jobTitle}</span>
                 </div>
                 <div>
-                  <span className="text-slate-500 block">Job Title</span>
-                  <span className="text-slate-200 font-medium">{employee.jobTitle}</span>
+                  <span className="text-muted-foreground block">Job Title</span>
+                  <span className="text-foreground font-medium">{employee.jobTitle}</span>
                 </div>
                 <div>
-                  <span className="text-slate-500 block">Employment Type</span>
-                  <span className="text-slate-200 font-medium capitalize">{employee.employmentType.replace('_', ' ')}</span>
+                  <span className="text-muted-foreground block">Employment Type</span>
+                  <span className="text-foreground font-medium capitalize">{employee.employmentType.replace('_', ' ')}</span>
                 </div>
                 <div>
-                  <span className="text-slate-500 block">Work Location</span>
-                  <span className="text-slate-200 font-medium">{employee.workLocation || 'HQ'}</span>
+                  <span className="text-muted-foreground block">Work Location</span>
+                  <span className="text-foreground font-medium">{employee.workLocation || 'HQ'}</span>
                 </div>
                 <div>
-                  <span className="text-slate-500 block">Joining Date</span>
-                  <span className="text-slate-200 font-medium">{employee.joiningDate}</span>
+                  <span className="text-muted-foreground block">Joining Date</span>
+                  <span className="text-foreground font-medium">{employee.joiningDate}</span>
                 </div>
                 <div>
-                  <span className="text-slate-500 block">Status</span>
+                  <span className="text-muted-foreground block">Status</span>
                   <StatusBadge status={employee.employmentStatus} />
                 </div>
               </div>
@@ -223,21 +223,21 @@ export const EmployeeProfileModal: React.FC<EmployeeProfileModalProps> = ({
           {activeTab === 'salary' && (
             <div className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800">
-                  <span className="text-xs text-slate-400">Basic Monthly Wage</span>
+                <div className="p-4 rounded-xl bg-card/60 border border-border">
+                  <span className="text-xs text-muted-foreground">Basic Monthly Wage</span>
                   <div className="text-xl font-bold text-emerald-400 mt-1">
                     ${parseFloat(employee.basicSalary).toLocaleString('en-US', { minimumFractionDigits: 2 })}
                   </div>
                 </div>
-                <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800">
-                  <span className="text-xs text-slate-400">Payment Method</span>
-                  <div className="text-sm font-semibold text-slate-200 mt-1 capitalize">
+                <div className="p-4 rounded-xl bg-card/60 border border-border">
+                  <span className="text-xs text-muted-foreground">Payment Method</span>
+                  <div className="text-sm font-semibold text-foreground mt-1 capitalize">
                     {employee.paymentMethod.replace('_', ' ')}
                   </div>
                 </div>
-                <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800">
-                  <span className="text-xs text-slate-400">Bank IBAN / Account</span>
-                  <div className="text-sm font-semibold text-slate-200 mt-1 font-mono">
+                <div className="p-4 rounded-xl bg-card/60 border border-border">
+                  <span className="text-xs text-muted-foreground">Bank IBAN / Account</span>
+                  <div className="text-sm font-semibold text-foreground mt-1 font-mono">
                     {employee.bankIban || employee.bankAccountNumber || 'N/A'}
                   </div>
                 </div>
@@ -245,11 +245,11 @@ export const EmployeeProfileModal: React.FC<EmployeeProfileModalProps> = ({
 
               {assignedStructure && (
                 <div className="space-y-2">
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
                     Assigned Structure: {assignedStructure.name}
                   </h4>
-                  <table className="w-full text-left text-xs bg-slate-950/40 rounded-xl border border-slate-800 overflow-hidden">
-                    <thead className="bg-slate-900/80 text-slate-400">
+                  <table className="w-full text-left text-xs bg-card/40 rounded-xl border border-border overflow-hidden">
+                    <thead className="bg-card/80 text-muted-foreground">
                       <tr>
                         <th className="p-2.5">Component</th>
                         <th className="p-2.5">Type</th>
@@ -257,13 +257,13 @@ export const EmployeeProfileModal: React.FC<EmployeeProfileModalProps> = ({
                         <th className="p-2.5">Rate / Amount</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-800/60">
+                    <tbody className="divide-y divide-border">
                       {assignedStructure.components.map((c, i) => (
                         <tr key={i}>
-                          <td className="p-2.5 text-slate-200 font-medium">{c.componentName}</td>
+                          <td className="p-2.5 text-foreground font-medium">{c.componentName}</td>
                           <td className="p-2.5 capitalize">{c.type}</td>
                           <td className="p-2.5 capitalize">{c.calculationMethod.replace('_', ' ')}</td>
-                          <td className="p-2.5 font-mono text-slate-200">{c.rateOrAmount}</td>
+                          <td className="p-2.5 font-mono text-foreground">{c.rateOrAmount}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -275,13 +275,13 @@ export const EmployeeProfileModal: React.FC<EmployeeProfileModalProps> = ({
 
           {activeTab === 'attendance' && (
             <div className="space-y-4">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">Recent Attendance Logs</h3>
+              <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Recent Attendance Logs</h3>
               {attendance.length === 0 ? (
-                <div className="p-8 text-center text-xs text-slate-500">No attendance records logged for this employee.</div>
+                <div className="p-8 text-center text-xs text-muted-foreground">No attendance records logged for this employee.</div>
               ) : (
                 <div className="overflow-x-auto">
-                  <table className="w-full text-left text-xs bg-slate-950/40 rounded-xl border border-slate-800">
-                    <thead className="bg-slate-900/80 text-slate-400">
+                  <table className="w-full text-left text-xs bg-card/40 rounded-xl border border-border">
+                    <thead className="bg-card/80 text-muted-foreground">
                       <tr>
                         <th className="p-2.5">Date</th>
                         <th className="p-2.5">Check In</th>
@@ -291,13 +291,13 @@ export const EmployeeProfileModal: React.FC<EmployeeProfileModalProps> = ({
                         <th className="p-2.5">Status</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-800/60">
+                    <tbody className="divide-y divide-border">
                       {attendance.slice(-10).reverse().map((a) => (
                         <tr key={a.id}>
-                          <td className="p-2.5 font-medium text-slate-200">{a.attendanceDate}</td>
-                          <td className="p-2.5 text-slate-400">{a.checkInTime || '-'}</td>
-                          <td className="p-2.5 text-slate-400">{a.checkOutTime || '-'}</td>
-                          <td className="p-2.5 text-slate-300">{a.workingHours} hrs</td>
+                          <td className="p-2.5 font-medium text-foreground">{a.attendanceDate}</td>
+                          <td className="p-2.5 text-muted-foreground">{a.checkInTime || '-'}</td>
+                          <td className="p-2.5 text-muted-foreground">{a.checkOutTime || '-'}</td>
+                          <td className="p-2.5 text-foreground/90">{a.workingHours} hrs</td>
                           <td className="p-2.5 text-amber-400 font-semibold">{a.overtimeHours} hrs</td>
                           <td className="p-2.5">
                             <StatusBadge status={a.status} />
@@ -314,15 +314,15 @@ export const EmployeeProfileModal: React.FC<EmployeeProfileModalProps> = ({
           {activeTab === 'leave' && (
             <div className="space-y-6">
               <div className="space-y-2">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">Leave Balances</h3>
+                <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Leave Balances</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
                   {leaveBalances.map((b) => {
                     const lt = leaveTypes.find((t) => t.id === b.leaveTypeId);
                     return (
-                      <div key={b.id} className="p-3 rounded-xl bg-slate-950/60 border border-slate-800 space-y-1">
-                        <span className="text-xs font-semibold text-slate-200">{lt?.name || 'Leave Type'}</span>
+                      <div key={b.id} className="p-3 rounded-xl bg-card/60 border border-border space-y-1">
+                        <span className="text-xs font-semibold text-foreground">{lt?.name || 'Leave Type'}</span>
                         <div className="text-lg font-bold text-brand-400">{b.available} Days Available</div>
-                        <div className="text-[10px] text-slate-500">
+                        <div className="text-[10px] text-muted-foreground">
                           Opening: {b.openingBalance} • Used: {b.used}
                         </div>
                       </div>
@@ -332,12 +332,12 @@ export const EmployeeProfileModal: React.FC<EmployeeProfileModalProps> = ({
               </div>
 
               <div className="space-y-2">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">Leave Requests</h3>
+                <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Leave Requests</h3>
                 {leaveRequests.length === 0 ? (
-                  <div className="p-6 text-center text-xs text-slate-500">No leave requests submitted.</div>
+                  <div className="p-6 text-center text-xs text-muted-foreground">No leave requests submitted.</div>
                 ) : (
-                  <table className="w-full text-left text-xs bg-slate-950/40 rounded-xl border border-slate-800">
-                    <thead className="bg-slate-900/80 text-slate-400">
+                  <table className="w-full text-left text-xs bg-card/40 rounded-xl border border-border">
+                    <thead className="bg-card/80 text-muted-foreground">
                       <tr>
                         <th className="p-2.5">Request #</th>
                         <th className="p-2.5">Period</th>
@@ -346,15 +346,15 @@ export const EmployeeProfileModal: React.FC<EmployeeProfileModalProps> = ({
                         <th className="p-2.5">Status</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-800/60">
+                    <tbody className="divide-y divide-border">
                       {leaveRequests.map((r) => (
                         <tr key={r.id}>
-                          <td className="p-2.5 font-medium text-slate-200">{r.requestNumber}</td>
-                          <td className="p-2.5 text-slate-400">
+                          <td className="p-2.5 font-medium text-foreground">{r.requestNumber}</td>
+                          <td className="p-2.5 text-muted-foreground">
                             {r.startDate} → {r.endDate}
                           </td>
-                          <td className="p-2.5 text-slate-300">{r.numberOfDays}</td>
-                          <td className="p-2.5 text-slate-400">{r.reason}</td>
+                          <td className="p-2.5 text-foreground/90">{r.numberOfDays}</td>
+                          <td className="p-2.5 text-muted-foreground">{r.reason}</td>
                           <td className="p-2.5">
                             <StatusBadge status={r.status} />
                           </td>
@@ -369,12 +369,12 @@ export const EmployeeProfileModal: React.FC<EmployeeProfileModalProps> = ({
 
           {activeTab === 'payroll' && (
             <div className="space-y-4">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">Payroll Payslips History</h3>
+              <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Payroll Payslips History</h3>
               {payrollEntries.length === 0 ? (
-                <div className="p-8 text-center text-xs text-slate-500">No payroll entries posted for this employee.</div>
+                <div className="p-8 text-center text-xs text-muted-foreground">No payroll entries posted for this employee.</div>
               ) : (
-                <table className="w-full text-left text-xs bg-slate-950/40 rounded-xl border border-slate-800">
-                  <thead className="bg-slate-900/80 text-slate-400">
+                <table className="w-full text-left text-xs bg-card/40 rounded-xl border border-border">
+                  <thead className="bg-card/80 text-muted-foreground">
                     <tr>
                       <th className="p-2.5">Period</th>
                       <th className="p-2.5">Basic</th>
@@ -384,12 +384,12 @@ export const EmployeeProfileModal: React.FC<EmployeeProfileModalProps> = ({
                       <th className="p-2.5">Net Pay</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800/60">
+                  <tbody className="divide-y divide-border">
                     {payrollEntries.map((pe) => (
                       <tr key={pe.id}>
-                        <td className="p-2.5 font-medium text-slate-200">{pe.periodName}</td>
-                        <td className="p-2.5 text-slate-300">${parseFloat(pe.basicSalary).toFixed(2)}</td>
-                        <td className="p-2.5 text-slate-300">${parseFloat(pe.totalAllowances).toFixed(2)}</td>
+                        <td className="p-2.5 font-medium text-foreground">{pe.periodName}</td>
+                        <td className="p-2.5 text-foreground/90">${parseFloat(pe.basicSalary).toFixed(2)}</td>
+                        <td className="p-2.5 text-foreground/90">${parseFloat(pe.totalAllowances).toFixed(2)}</td>
                         <td className="p-2.5 text-amber-400">${parseFloat(pe.totalOvertime).toFixed(2)}</td>
                         <td className="p-2.5 text-rose-400">-${parseFloat(pe.totalDeductions).toFixed(2)}</td>
                         <td className="p-2.5 font-bold text-emerald-400">${parseFloat(pe.netSalary).toFixed(2)}</td>
@@ -403,12 +403,12 @@ export const EmployeeProfileModal: React.FC<EmployeeProfileModalProps> = ({
 
           {activeTab === 'advances' && (
             <div className="space-y-4">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">Staff Loans & Advances</h3>
+              <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Staff Loans & Advances</h3>
               {advances.length === 0 ? (
-                <div className="p-8 text-center text-xs text-slate-500">No loan or advance records found.</div>
+                <div className="p-8 text-center text-xs text-muted-foreground">No loan or advance records found.</div>
               ) : (
-                <table className="w-full text-left text-xs bg-slate-950/40 rounded-xl border border-slate-800">
-                  <thead className="bg-slate-900/80 text-slate-400">
+                <table className="w-full text-left text-xs bg-card/40 rounded-xl border border-border">
+                  <thead className="bg-card/80 text-muted-foreground">
                     <tr>
                       <th className="p-2.5">Advance #</th>
                       <th className="p-2.5">Principal</th>
@@ -418,12 +418,12 @@ export const EmployeeProfileModal: React.FC<EmployeeProfileModalProps> = ({
                       <th className="p-2.5">Status</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800/60">
+                  <tbody className="divide-y divide-border">
                     {advances.map((adv) => (
                       <tr key={adv.id}>
-                        <td className="p-2.5 font-medium text-slate-200">{adv.advanceNumber}</td>
-                        <td className="p-2.5 text-slate-200 font-semibold">${parseFloat(adv.principalAmount).toFixed(2)}</td>
-                        <td className="p-2.5 text-slate-400">${parseFloat(adv.monthlyDeductionAmount).toFixed(2)}</td>
+                        <td className="p-2.5 font-medium text-foreground">{adv.advanceNumber}</td>
+                        <td className="p-2.5 text-foreground font-semibold">${parseFloat(adv.principalAmount).toFixed(2)}</td>
+                        <td className="p-2.5 text-muted-foreground">${parseFloat(adv.monthlyDeductionAmount).toFixed(2)}</td>
                         <td className="p-2.5 text-emerald-400">${parseFloat(adv.totalRepaid).toFixed(2)}</td>
                         <td className="p-2.5 text-amber-400 font-bold">${parseFloat(adv.remainingBalance).toFixed(2)}</td>
                         <td className="p-2.5">

@@ -39,14 +39,14 @@ export const FinancialAmount: React.FC<FinancialAmountProps> = ({
   const typeColors = {
     debit: 'text-emerald-400',
     credit: 'text-sky-400',
-    neutral: isNegative ? 'text-rose-400' : 'text-slate-100',
+    neutral: isNegative ? 'text-rose-400' : 'text-foreground',
   };
 
   return (
     <span className={clsx('inline-flex items-center gap-1 tabular-nums', sizeClasses[size], typeColors[type], className)}>
       <span>{formatted}</span>
       {showDebitCreditIndicator && (
-        <span className="text-[10px] font-sans uppercase font-bold text-slate-400">
+        <span className="text-[10px] font-sans uppercase font-bold text-muted-foreground">
           {type === 'debit' ? 'Dr' : type === 'credit' ? 'Cr' : ''}
         </span>
       )}

@@ -95,20 +95,20 @@ export const ChequeRegisterView: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex flex-wrap items-center gap-2 flex-1">
           <div className="relative min-w-[240px] max-w-sm">
-            <Search className="w-4 h-4 text-slate-500 absolute left-3 top-2.5" />
+            <Search className="w-4 h-4 text-muted-foreground absolute left-3 top-2.5" />
             <input
               type="text"
               placeholder="Search cheques by number, payee, bank..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-slate-900/60 border border-slate-800 rounded-lg pl-9 pr-3 py-1.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand-500"
+              className="w-full bg-card/60 border border-border rounded-lg pl-9 pr-3 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-brand-500"
             />
           </div>
 
           <select
             value={selectedType}
             onChange={(e) => setSelectedType(e.target.value)}
-            className="bg-slate-900/60 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-slate-300 focus:outline-none focus:border-brand-500"
+            className="bg-card/60 border border-border rounded-lg px-2.5 py-1.5 text-xs text-foreground/90 focus:outline-none focus:border-brand-500"
           >
             <option value="all">All Cheques (Incoming & Outgoing)</option>
             <option value="incoming">Incoming Cheques (Customer Deposits)</option>
@@ -134,9 +134,9 @@ export const ChequeRegisterView: React.FC = () => {
       <Card noPadding>
         {filteredCheques.length === 0 ? (
           <div className="p-12 text-center space-y-3">
-            <FileCheck className="w-10 h-10 text-slate-600 mx-auto" />
-            <h4 className="text-sm font-semibold text-slate-300">No Cheques Recorded</h4>
-            <p className="text-xs text-slate-500 max-w-sm mx-auto">
+            <FileCheck className="w-10 h-10 text-muted-foreground mx-auto" />
+            <h4 className="text-sm font-semibold text-foreground/90">No Cheques Recorded</h4>
+            <p className="text-xs text-muted-foreground max-w-sm mx-auto">
               Track incoming customer payment cheques and outgoing vendor corporate cheques with maturity due-date alerts.
             </p>
             <Button
@@ -151,7 +151,7 @@ export const ChequeRegisterView: React.FC = () => {
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-950/80 text-slate-400 border-b border-slate-800">
+              <thead className="bg-card/80 text-muted-foreground border-b border-border">
                 <tr>
                   <th className="p-3">Cheque #</th>
                   <th className="p-3">Type</th>
@@ -164,9 +164,9 @@ export const ChequeRegisterView: React.FC = () => {
                   <th className="p-3 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/50 bg-slate-900/20 font-mono text-[11px]">
+              <tbody className="divide-y divide-border/50 bg-card/20 font-mono text-[11px]">
                 {filteredCheques.map((c) => (
-                  <tr key={c.id} className="hover:bg-slate-800/30">
+                  <tr key={c.id} className="hover:bg-muted/30">
                     <td className="p-3 font-bold text-brand-400">{c.chequeNumber}</td>
                     <td className="p-3 font-sans">
                       <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
@@ -177,10 +177,10 @@ export const ChequeRegisterView: React.FC = () => {
                         {c.chequeType === 'incoming' ? 'Incoming (AR)' : 'Outgoing (AP)'}
                       </span>
                     </td>
-                    <td className="p-3 font-sans font-medium text-slate-200">{c.payeeName}</td>
-                    <td className="p-3 font-sans text-slate-400">{c.bankName}</td>
-                    <td className="p-3 text-slate-400">{c.issueDate}</td>
-                    <td className="p-3 text-slate-300 font-bold">{c.dueDate}</td>
+                    <td className="p-3 font-sans font-medium text-foreground">{c.payeeName}</td>
+                    <td className="p-3 font-sans text-muted-foreground">{c.bankName}</td>
+                    <td className="p-3 text-muted-foreground">{c.issueDate}</td>
+                    <td className="p-3 text-foreground/90 font-bold">{c.dueDate}</td>
                     <td className="p-3 text-right font-bold text-emerald-400">${parseFloat(c.amount).toFixed(2)}</td>
                     <td className="p-3 text-center">
                       <StatusBadge status={c.status} />
@@ -310,7 +310,7 @@ export const ChequeRegisterView: React.FC = () => {
             placeholder="e.g. Post-dated cheque for Invoice #INV-2026-101"
           />
 
-          <div className="flex justify-end gap-2 pt-2 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-2 border-t border-border">
             <Button
               type="button"
               variant="outline"

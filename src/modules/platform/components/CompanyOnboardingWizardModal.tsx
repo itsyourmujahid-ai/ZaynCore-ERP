@@ -1,5 +1,7 @@
 // ============================================================================
-// Enterprise Company Onboarding & Business Configuration Wizard (Phase 15)
+// Enterprise Company Onboarding Wizard (Simplified 8-Step Redesign)
+// Philosophy: "START SIMPLE, CONFIGURE MORE LATER"
+// High-Contrast WCAG AAA/AA, Frosted Glassmorphism & Full Mobile Responsiveness
 // ============================================================================
 
 import React, { useState, useEffect } from 'react';
@@ -8,13 +10,8 @@ import {
   Briefcase, 
   Package, 
   Ruler, 
-  Boxes, 
-  ShoppingBag, 
-  Truck, 
   BookOpen, 
-  Network, 
   Users, 
-  Layers, 
   CheckCircle2, 
   ArrowLeft, 
   ArrowRight, 
@@ -22,25 +19,25 @@ import {
   Sparkles, 
   AlertCircle, 
   Plus, 
-  Trash2, 
   Check, 
-  ShieldCheck
+  ShieldCheck,
+  Percent,
+  Clock,
+  ShoppingBag,
+  Truck,
+  Landmark,
+  Layers
 } from 'lucide-react';
 import { Modal } from '@/ui/components/Modal';
 import { Button } from '@/ui/components/Button';
 import { Input } from '@/ui/components/Input';
-import { Select } from '@/ui/components/Select';
-import { StatusBadge } from '@/ui/data-display/StatusBadge';
+import { Select, SelectOption } from '@/ui/components/Select';
 import { 
   FullCompanyOnboardingPayload, 
-  BusinessType, 
   SellingCategory, 
   BuyingCategory 
 } from '@/database/types';
 import { onboardingService } from '@/modules/onboarding/services/onboarding.service';
-import { roleRecommendationService } from '@/modules/onboarding/services/role-recommendation.service';
-import { ERP_MODULE_REGISTRY } from '@/modules/registry/registry';
-import { PLATFORM_CONFIG } from '@/core/config/platform.config';
 import { TenantContext } from '@/core/types/common';
 
 export interface CompanyOnboardingWizardModalProps {
@@ -51,97 +48,97 @@ export interface CompanyOnboardingWizardModalProps {
   resumeDraftId?: string;
 }
 
-const WIZARD_STEPS = [
-  { id: 1, label: 'Company Info', icon: Building2, desc: 'Identity & Legal Details' },
-  { id: 2, label: 'Business Type', icon: Briefcase, desc: 'Industry Model' },
-  { id: 3, label: 'Products & Services', icon: Package, desc: 'Selling & Buying Scopes' },
-  { id: 4, label: 'Units of Measure', icon: Ruler, desc: 'UOM & Conversions' },
-  { id: 5, label: 'Inventory & Warehouses', icon: Boxes, desc: 'Stock & Attributes' },
-  { id: 6, label: 'Sales Config', icon: ShoppingBag, desc: 'Workflows & Approval' },
-  { id: 7, label: 'Purchase Config', icon: Truck, desc: 'Procurement & 3-Way Match' },
-  { id: 8, label: 'Accounting & Tax', icon: BookOpen, desc: 'Ledger & VAT Setup' },
-  { id: 9, label: 'Organization', icon: Network, desc: 'Branches & Departments' },
-  { id: 10, label: 'Roles & Admin', icon: Users, desc: 'RBAC & Initial User' },
-  { id: 11, label: 'Modules & Plans', icon: Layers, desc: 'Capabilities & Entitlements' },
-  { id: 12, label: 'Review & Activate', icon: CheckCircle2, desc: 'Final Verification' },
+// 8 Streamlined Steps
+const STREAMLINED_STEPS = [
+  { id: 1, label: 'Welcome', icon: Sparkles, desc: 'Overview' },
+  { id: 2, label: 'Company', icon: Building2, desc: 'Identity & Info' },
+  { id: 3, label: 'Business', icon: Briefcase, desc: 'Products & Scope' },
+  { id: 4, label: 'Financial', icon: BookOpen, desc: 'Ledger Basics' },
+  { id: 5, label: 'Inventory', icon: Ruler, desc: 'UOM & Stock' },
+  { id: 6, label: 'Tax', icon: Percent, desc: 'VAT & Tax' },
+  { id: 7, label: 'Admin', icon: Users, desc: 'Initial Lead' },
+  { id: 8, label: 'Review', icon: CheckCircle2, desc: 'Activate' },
 ];
 
-const ALL_BUSINESS_TYPES: Array<{ key: BusinessType; label: string; desc: string }> = [
-  { key: 'trading', label: 'Trading & Commerce', desc: 'Buys and resells commercial goods' },
-  { key: 'retail', label: 'Retail Sales', desc: 'Direct-to-consumer store or boutique operations' },
-  { key: 'wholesale', label: 'Wholesale & B2B', desc: 'Bulk distribution to corporate customers' },
-  { key: 'manufacturing', label: 'Manufacturing & Assembly', desc: 'Transforms raw materials into finished merchandise' },
-  { key: 'distribution', label: 'Logistics & Distribution', desc: 'Multi-hub supply chain and freight warehousing' },
-  { key: 'services', label: 'Professional Services', desc: 'Consulting, legal, IT, and specialized client services' },
-  { key: 'construction', label: 'Construction & Contracting', desc: 'Civil works, site projects, and building infrastructure' },
-  { key: 'contracting', label: 'Subcontracting & Operations', desc: 'Project-based execution and technical labor' },
-  { key: 'import', label: 'Import & Customs', desc: 'Cross-border procurement and port handling' },
-  { key: 'export', label: 'Export Operations', desc: 'International sales and multi-currency delivery' },
-  { key: 'project_based', label: 'Project-Based Business', desc: 'Time & materials or milestone job costing' },
-  { key: 'rental', label: 'Equipment & Asset Rental', desc: 'Short-term and long-term asset leasing' },
-  { key: 'subscription', label: 'Subscription / SaaS', desc: 'Recurring billings and retainer services' },
-  { key: 'other', label: 'Other Commercial Industry', desc: 'Custom specialized enterprise operations' },
+const STANDARD_UOM_GROUPS = [
+  {
+    category: 'QUANTITY',
+    title: 'Quantity & Units',
+    units: [
+      { code: 'PCS', name: 'Piece / Unit', symbol: 'pcs' },
+      { code: 'BOX', name: 'Box', symbol: 'box' },
+      { code: 'PACK', name: 'Pack', symbol: 'pk' },
+      { code: 'SET', name: 'Set', symbol: 'set' },
+      { code: 'CARTON', name: 'Carton', symbol: 'ctn' },
+      { code: 'BOTTLE', name: 'Bottle', symbol: 'btl' },
+      { code: 'ROLL', name: 'Roll', symbol: 'roll' },
+    ]
+  },
+  {
+    category: 'LENGTH',
+    title: 'Length & Distance',
+    units: [
+      { code: 'METER', name: 'Meter', symbol: 'm' },
+      { code: 'CM', name: 'Centimeter', symbol: 'cm' },
+    ]
+  },
+  {
+    category: 'WEIGHT',
+    title: 'Weight & Mass',
+    units: [
+      { code: 'KG', name: 'Kilogram', symbol: 'kg' },
+      { code: 'GRAM', name: 'Gram', symbol: 'g' },
+      { code: 'TON', name: 'Metric Ton', symbol: 't' },
+    ]
+  },
+  {
+    category: 'VOLUME',
+    title: 'Volume & Fluid',
+    units: [
+      { code: 'LITER', name: 'Liter', symbol: 'L' },
+      { code: 'ML', name: 'Milliliter', symbol: 'mL' },
+    ]
+  },
+  {
+    category: 'AREA',
+    title: 'Area & Coverage',
+    units: [
+      { code: 'SQM', name: 'Square Meter', symbol: 'm²' },
+    ]
+  }
 ];
 
-const ALL_SELLING_CATEGORIES: Array<{ key: SellingCategory; label: string }> = [
-  { key: 'physical_products', label: 'Physical Products' },
-  { key: 'finished_goods', label: 'Finished Goods' },
-  { key: 'raw_materials', label: 'Raw Materials' },
-  { key: 'spare_parts', label: 'Spare Parts & Replacements' },
-  { key: 'consumables', label: 'Operational Consumables' },
-  { key: 'services', label: 'Professional & Labor Services' },
-  { key: 'digital_products', label: 'Digital Products & Software' },
-  { key: 'projects', label: 'Turnkey Project Delivery' },
-  { key: 'rental_items', label: 'Rental Equipment & Assets' },
+const COUNTRY_OPTIONS: SelectOption[] = [
+  { value: 'OM', label: 'Oman (Sultanate of Oman)' },
+  { value: 'AE', label: 'United Arab Emirates (UAE)' },
+  { value: 'SA', label: 'Saudi Arabia (KSA)' },
+  { value: 'QA', label: 'Qatar' },
+  { value: 'BH', label: 'Bahrain' },
+  { value: 'KW', label: 'Kuwait' },
+  { value: 'US', label: 'United States (US)' },
+  { value: 'GB', label: 'United Kingdom (UK)' },
+  { value: 'IN', label: 'India' },
 ];
 
-const ALL_BUYING_CATEGORIES: Array<{ key: BuyingCategory; label: string }> = [
-  { key: 'raw_materials', label: 'Raw Materials & Components' },
-  { key: 'finished_goods', label: 'Finished Commercial Goods' },
-  { key: 'spare_parts', label: 'Maintenance & Spare Parts' },
-  { key: 'consumables', label: 'Packaging & Office Supplies' },
-  { key: 'services', label: 'Subcontracted & Advisory Services' },
-  { key: 'equipment_capital_goods', label: 'Machinery & Capital Equipment' },
-  { key: 'digital_products', label: 'Software Licenses & IT Tools' },
+const CURRENCY_OPTIONS: SelectOption[] = [
+  { value: 'OMR', label: 'OMR — Omani Rial (ر.ع.)' },
+  { value: 'AED', label: 'AED — UAE Dirham (د.إ)' },
+  { value: 'SAR', label: 'SAR — Saudi Riyal (ر.س)' },
+  { value: 'USD', label: 'USD — US Dollar ($)' },
+  { value: 'EUR', label: 'EUR — Euro (€)' },
+  { value: 'GBP', label: 'GBP — British Pound (£)' },
+  { value: 'KWD', label: 'KWD — Kuwaiti Dinar' },
+  { value: 'BHD', label: 'BHD — Bahraini Dinar' },
+  { value: 'QAR', label: 'QAR — Qatari Riyal' },
+  { value: 'INR', label: 'INR — Indian Rupee (₹)' },
 ];
 
-const STANDARD_UOM_LIST = [
-  { code: 'PCS', name: 'Piece / Unit' },
-  { code: 'BOX', name: 'Box' },
-  { code: 'CARTON', name: 'Carton' },
-  { code: 'PACK', name: 'Pack' },
-  { code: 'SET', name: 'Set' },
-  { code: 'BOTTLE', name: 'Bottle' },
-  { code: 'ROLL', name: 'Roll' },
-  { code: 'SHEET', name: 'Sheet' },
-  { code: 'METER', name: 'Meter (m)' },
-  { code: 'SQM', name: 'Square Meter (m²)' },
-  { code: 'CBM', name: 'Cubic Meter (m³)' },
-  { code: 'KG', name: 'Kilogram (kg)' },
-  { code: 'GRAM', name: 'Gram (g)' },
-  { code: 'TON', name: 'Metric Ton (t)' },
-  { code: 'LITER', name: 'Liter (L)' },
-  { code: 'ML', name: 'Milliliter (mL)' },
-  { code: 'HOUR', name: 'Hour (hr)' },
-  { code: 'DAY', name: 'Day' },
-  { code: 'MONTH', name: 'Month' },
-  { code: 'JOB', name: 'Job / Milestone' },
-];
-
-const PRODUCT_ATTRIBUTES_LIST = [
-  { key: 'brand', label: 'Brand Name' },
-  { key: 'model', label: 'Model Number' },
-  { key: 'size', label: 'Size / Dimensions' },
-  { key: 'color', label: 'Color / Finish' },
-  { key: 'thickness', label: 'Thickness (mm)' },
-  { key: 'weight', label: 'Unit Weight (kg)' },
-  { key: 'length', label: 'Length' },
-  { key: 'width', label: 'Width' },
-  { key: 'height', label: 'Height' },
-  { key: 'batch', label: 'Batch / Lot Tracking' },
-  { key: 'serial_number', label: 'Serial Number' },
-  { key: 'expiry_date', label: 'Expiry Date' },
-  { key: 'barcode', label: 'Barcode / EAN' },
+const TAX_RATE_OPTIONS: SelectOption[] = [
+  { value: '5.00', label: '5.00% (Standard Oman / GCC VAT)' },
+  { value: '15.00', label: '15.00% (Saudi Arabia KSA VAT)' },
+  { value: '0.00', label: '0.00% (Zero-Rated / Exempt)' },
+  { value: '10.00', label: '10.00% (Standard Regional)' },
+  { value: '20.00', label: '20.00% (UK / European VAT)' },
 ];
 
 export const CompanyOnboardingWizardModal: React.FC<CompanyOnboardingWizardModalProps> = ({
@@ -152,1433 +149,1086 @@ export const CompanyOnboardingWizardModal: React.FC<CompanyOnboardingWizardModal
   resumeDraftId,
 }) => {
   const [currentStep, setCurrentStep] = useState(1);
-  const [payload, setPayload] = useState<FullCompanyOnboardingPayload>(
+  const [payload, setPayload] = useState<FullCompanyOnboardingPayload>(() => 
     onboardingService.getDefaultOnboardingPayload()
   );
-  const [draftId, setDraftId] = useState<string | undefined>(resumeDraftId);
-  const [validationErrors, setValidationErrors] = useState<string[]>([]);
+  const [activeDraftId, setActiveDraftId] = useState<string | undefined>(resumeDraftId);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [saveSuccessMsg, setSaveSuccessMsg] = useState<string | null>(null);
+  const [saveDraftFeedback, setSaveDraftFeedback] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [stepErrors, setStepErrors] = useState<Record<string, string>>({});
+  const [isCompleted, setIsCompleted] = useState(false);
 
-  // New conversion form state
-  const [newConvFrom, setNewConvFrom] = useState('BOX');
-  const [newConvTo, setNewConvTo] = useState('PCS');
-  const [newConvMultiplier, setNewConvMultiplier] = useState('12.0000');
-
-  // New warehouse form state
-  const [newWhCode, setNewWhCode] = useState('');
-  const [newWhName, setNewWhName] = useState('');
-
-  // New department form state
-  const [newDeptCode, setNewDeptCode] = useState('');
-  const [newDeptName, setNewDeptName] = useState('');
+  // Simplified UI helper states
+  const [sellingType, setSellingType] = useState<'products' | 'services' | 'both'>('both');
+  const [hasPhysicalInventory, setHasPhysicalInventory] = useState(true);
+  const [isVatRegistered, setIsVatRegistered] = useState(true);
+  const [showCustomUomModal, setShowCustomUomModal] = useState(false);
+  const [customUomForm, setCustomUomForm] = useState({ code: '', name: '', symbol: '' });
 
   // Load draft if resuming
   useEffect(() => {
-    if (resumeDraftId) {
+    if (resumeDraftId && isOpen) {
       const drafts = onboardingService.getDrafts();
-      const target = drafts.find((d) => d.id === resumeDraftId);
-      if (target) {
-        setPayload(target.payload);
-        setCurrentStep(target.currentStep || 1);
-        setDraftId(target.id);
+      const draft = drafts.find((d) => d.id === resumeDraftId);
+      if (draft) {
+        setPayload(draft.payload);
+        setCurrentStep(draft.currentStep || 1);
+        setActiveDraftId(draft.id);
+        
+        // Sync helper states
+        const hasServices = draft.payload.sellingCategories?.includes('services');
+        const hasProducts = draft.payload.sellingCategories?.some(c => c !== 'services');
+        if (hasServices && hasProducts) setSellingType('both');
+        else if (hasServices) setSellingType('services');
+        else setSellingType('products');
+
+        setHasPhysicalInventory(draft.payload.inventoryConfig?.maintainsInventory ?? true);
+        setIsVatRegistered(draft.payload.accountingDefaults?.enableTaxVat ?? true);
       }
     }
-  }, [resumeDraftId]);
+  }, [resumeDraftId, isOpen]);
 
-  const handleNext = () => {
-    const val = onboardingService.validateStep(currentStep, payload);
-    if (!val.isValid) {
-      setValidationErrors(val.errors);
-      return;
+  // Clean company name to code generator
+  const handleNameChange = (name: string) => {
+    const autoCode = name
+      .trim()
+      .toUpperCase()
+      .replace(/[^A-Z0-9\s]/g, '')
+      .replace(/\s+/g, '_')
+      .slice(0, 16);
+
+    setPayload((prev) => ({
+      ...prev,
+      name,
+      legalName: prev.legalName || name,
+      code: prev.code ? prev.code : autoCode,
+    }));
+  };
+
+  // Helper update
+  const updatePayload = (partial: Partial<FullCompanyOnboardingPayload>) => {
+    setPayload((prev) => ({ ...prev, ...partial }));
+    setStepErrors({});
+    setErrorMessage(null);
+  };
+
+  // Step Validation
+  const validateCurrentStep = (): boolean => {
+    const errors: Record<string, string> = {};
+
+    if (currentStep === 2) {
+      if (!payload.name?.trim()) errors.name = 'Company Name is required.';
+      if (!payload.code?.trim()) errors.code = 'Company Short Code is required.';
+      else if (payload.code.trim().length < 2) errors.code = 'Company Code must be at least 2 characters.';
+      if (!payload.countryCode) errors.countryCode = 'Country is required.';
+      if (!payload.baseCurrency) errors.baseCurrency = 'Currency is required.';
     }
-    setValidationErrors([]);
-    if (currentStep < 12) {
-      setCurrentStep(currentStep + 1);
+
+    if (currentStep === 7) {
+      if (!payload.initialAdmin?.fullName?.trim()) errors['admin.fullName'] = 'Admin Full Name is required.';
+      if (!payload.initialAdmin?.username?.trim()) errors['admin.username'] = 'Admin Username or Email is required.';
+      if (!payload.initialAdmin?.password?.trim()) errors['admin.password'] = 'Admin Password is required.';
+      else if (payload.initialAdmin.password.length < 6) errors['admin.password'] = 'Password must be at least 6 characters.';
+    }
+
+    setStepErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  // Step Navigation
+  const handleNext = () => {
+    if (!validateCurrentStep()) return;
+
+    if (currentStep === 3) {
+      const sellCats: SellingCategory[] = 
+        sellingType === 'products' ? ['physical_products', 'finished_goods'] :
+        sellingType === 'services' ? ['services'] : ['physical_products', 'finished_goods', 'services'];
+      
+      const buyCats: BuyingCategory[] = 
+        hasPhysicalInventory ? ['finished_goods', 'raw_materials', 'consumables', 'services'] : ['services', 'consumables'];
+
+      updatePayload({
+        sellingCategories: sellCats,
+        buyingCategories: buyCats,
+        inventoryConfig: {
+          ...payload.inventoryConfig,
+          maintainsInventory: hasPhysicalInventory,
+        }
+      });
+    }
+
+    if (currentStep < 8) {
+      if (currentStep === 4 && !hasPhysicalInventory) {
+        setCurrentStep(6);
+      } else {
+        setCurrentStep((prev) => prev + 1);
+      }
     }
   };
 
   const handleBack = () => {
-    setValidationErrors([]);
-    if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
+    if (currentStep === 6 && !hasPhysicalInventory) {
+      setCurrentStep(4);
+    } else if (currentStep > 1) {
+      setCurrentStep((prev) => prev - 1);
     }
   };
 
+  // Draft saving
   const handleSaveDraft = () => {
-    const draft = onboardingService.saveDraft(currentStep, payload, draftId, tenant.userId);
-    setDraftId(draft.id);
-    setSaveSuccessMsg('Progress saved successfully as draft.');
-    setTimeout(() => setSaveSuccessMsg(null), 3000);
-  };
-
-  const handleActivate = () => {
-    const val = onboardingService.validateStep(12, payload);
-    if (!val.isValid) {
-      setValidationErrors(val.errors);
-      return;
-    }
-
-    setIsSubmitting(true);
     try {
-      onboardingService.activateCompany(payload, tenant.userId, tenant);
-      if (draftId) {
-        onboardingService.deleteDraft(draftId);
-      }
-      setIsSubmitting(false);
-      onSuccess();
-      onClose();
+      const draft = onboardingService.saveDraft(currentStep, payload, activeDraftId, tenant.userId);
+      setActiveDraftId(draft.id);
+      setSaveDraftFeedback('Setup draft saved successfully!');
+      setTimeout(() => setSaveDraftFeedback(null), 3000);
     } catch (err: any) {
+      setErrorMessage(err.message || 'Failed to save draft');
+    }
+  };
+
+  // Final Submission
+  const handleCreateCompany = () => {
+    setErrorMessage(null);
+    setIsSubmitting(true);
+
+    try {
+      const completePayload: FullCompanyOnboardingPayload = {
+        ...payload,
+        tier: payload.tier || 'enterprise',
+        fiscalYearStartMonth: payload.fiscalYearStartMonth || 1,
+        selectedUomCodes: payload.selectedUomCodes?.length ? payload.selectedUomCodes : ['PCS', 'BOX', 'CARTON', 'KG', 'METER', 'HOUR', 'JOB'],
+        defaultStockUom: payload.defaultStockUom || 'PCS',
+        defaultSalesUom: payload.defaultSalesUom || 'PCS',
+        defaultPurchaseUom: payload.defaultPurchaseUom || 'CARTON',
+        warehouses: payload.warehouses?.length ? payload.warehouses : [
+          { code: 'WH-MAIN', name: 'Main Distribution Warehouse', address: payload.addressLine1 || 'Headquarters Logistics Hub', isDefault: true }
+        ],
+        branches: payload.branches?.length ? payload.branches : [
+          { code: 'HQ', name: `${payload.name} Corporate HQ`, city: payload.city || 'Primary Hub', isHeadquarters: true }
+        ],
+        departments: payload.departments?.length ? payload.departments : [
+          { code: 'OPS', name: 'Operations & Supply Chain', description: 'Core business operations' },
+          { code: 'FIN', name: 'Finance & Accounting', description: 'General ledger and fiscal control' },
+          { code: 'SALES', name: 'Commercial Sales', description: 'Client acquisition & sales' },
+        ],
+        costCenters: payload.costCenters?.length ? payload.costCenters : [
+          { code: 'CC-HQ', name: 'Corporate HQ Administrative Center' }
+        ],
+        selectedRoles: ['COMPANY_ADMIN', 'ACCOUNTANT', 'SALES_USER', 'PURCHASE_USER', 'WAREHOUSE_MANAGER'],
+        enabledModuleKeys: [
+          'financial_accounting',
+          'sales',
+          'accounts_payable',
+          'inventory',
+          'banking_cash',
+          'advanced_reporting',
+          'payroll_hr',
+          'fixed_assets',
+          'project_accounting',
+          'tax_compliance',
+          'cost_accounting',
+          'multi_company',
+        ],
+        accountingDefaults: {
+          ...payload.accountingDefaults,
+          enableTaxVat: isVatRegistered,
+          taxRegistrationNumber: isVatRegistered ? (payload.taxIdentifier || payload.accountingDefaults?.taxRegistrationNumber || '') : '',
+          defaultTaxRatePercent: isVatRegistered ? (payload.accountingDefaults?.defaultTaxRatePercent || '5.00') : '0.00',
+        }
+      };
+
+      onboardingService.activateCompany(completePayload, tenant.userId, tenant);
+
+      if (activeDraftId) {
+        onboardingService.deleteDraft(activeDraftId);
+      }
+
+      setIsCompleted(true);
+      onSuccess();
+    } catch (err: any) {
+      setErrorMessage(err.message || 'An error occurred while creating the company.');
+    } finally {
       setIsSubmitting(false);
-      setValidationErrors([err.message || 'Failed to activate company.']);
     }
   };
 
-  const toggleBusinessType = (bt: BusinessType) => {
-    const current = payload.businessTypes || [];
-    if (current.includes(bt)) {
-      if (current.length > 1) {
-        setPayload({ ...payload, businessTypes: current.filter((x) => x !== bt) });
-      }
+  // UOM Helpers
+  const toggleUom = (code: string) => {
+    const current = payload.selectedUomCodes || ['PCS'];
+    if (current.includes(code)) {
+      if (current.length === 1) return;
+      updatePayload({ selectedUomCodes: current.filter((c) => c !== code) });
     } else {
-      setPayload({ ...payload, businessTypes: [...current, bt] });
+      updatePayload({ selectedUomCodes: [...current, code] });
     }
   };
 
-  const toggleSellingCat = (cat: SellingCategory) => {
-    const current = payload.sellingCategories || [];
-    if (current.includes(cat)) {
-      if (current.length > 1) {
-        setPayload({ ...payload, sellingCategories: current.filter((x) => x !== cat) });
-      }
-    } else {
-      setPayload({ ...payload, sellingCategories: [...current, cat] });
-    }
-  };
+  const handleAddCustomUom = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!customUomForm.code.trim() || !customUomForm.name.trim()) return;
 
-  const toggleBuyingCat = (cat: BuyingCategory) => {
-    const current = payload.buyingCategories || [];
-    if (current.includes(cat)) {
-      if (current.length > 1) {
-        setPayload({ ...payload, buyingCategories: current.filter((x) => x !== cat) });
-      }
-    } else {
-      setPayload({ ...payload, buyingCategories: [...current, cat] });
-    }
-  };
+    const uomCode = customUomForm.code.trim().toUpperCase();
+    const newCustomUom = {
+      code: uomCode,
+      name: customUomForm.name.trim(),
+      symbol: customUomForm.symbol.trim() || uomCode.toLowerCase(),
+      category: 'quantity' as const,
+      conversionFactor: '1.0000',
+    };
 
-  const toggleUom = (uomCode: string) => {
-    const current = payload.selectedUomCodes || [];
-    if (current.includes(uomCode)) {
-      if (current.length > 1) {
-        setPayload({ ...payload, selectedUomCodes: current.filter((x) => x !== uomCode) });
-      }
-    } else {
-      setPayload({ ...payload, selectedUomCodes: [...current, uomCode] });
-    }
-  };
-
-  const handleAddConversion = () => {
-    if (!newConvFrom || !newConvTo || newConvFrom === newConvTo) return;
-    const mult = parseFloat(newConvMultiplier);
-    if (isNaN(mult) || mult <= 0) return;
-
-    const list = payload.uomConversions || [];
-    if (list.some((c) => c.fromUomCode === newConvFrom && c.toUomCode === newConvTo)) return;
-
-    setPayload({
-      ...payload,
-      uomConversions: [...list, { fromUomCode: newConvFrom, toUomCode: newConvTo, multiplier: mult.toFixed(4) }],
+    updatePayload({
+      customUoms: [...(payload.customUoms || []), newCustomUom],
+      selectedUomCodes: [...(payload.selectedUomCodes || []), uomCode],
     });
+
+    setCustomUomForm({ code: '', name: '', symbol: '' });
+    setShowCustomUomModal(false);
   };
 
-  const handleRemoveConversion = (from: string, to: string) => {
-    setPayload({
-      ...payload,
-      uomConversions: (payload.uomConversions || []).filter(
-        (c) => !(c.fromUomCode === from && c.toUomCode === to)
-      ),
-    });
-  };
-
-  const toggleProductAttribute = (attrKey: string) => {
-    const current = payload.selectedAttributes || [];
-    if (current.includes(attrKey)) {
-      setPayload({ ...payload, selectedAttributes: current.filter((x) => x !== attrKey) });
-    } else {
-      setPayload({ ...payload, selectedAttributes: [...current, attrKey] });
-    }
-  };
-
-  const handleAddWarehouse = () => {
-    if (!newWhCode || !newWhName) return;
-    const list = payload.warehouses || [];
-    if (list.some((w) => w.code.toUpperCase() === newWhCode.toUpperCase())) return;
-
-    setPayload({
-      ...payload,
-      warehouses: [
-        ...list,
-        {
-          code: newWhCode.toUpperCase(),
-          name: newWhName,
-          isDefault: list.length === 0,
-        },
-      ],
-    });
-    setNewWhCode('');
-    setNewWhName('');
-  };
-
-  const handleRemoveWarehouse = (code: string) => {
-    const list = payload.warehouses || [];
-    if (list.length <= 1) return;
-    setPayload({
-      ...payload,
-      warehouses: list.filter((w) => w.code !== code),
-    });
-  };
-
-  const handleAddDepartment = () => {
-    if (!newDeptCode || !newDeptName) return;
-    const list = payload.departments || [];
-    if (list.some((d) => d.code.toUpperCase() === newDeptCode.toUpperCase())) return;
-
-    setPayload({
-      ...payload,
-      departments: [
-        ...list,
-        { code: newDeptCode.toUpperCase(), name: newDeptName },
-      ],
-    });
-    setNewDeptCode('');
-    setNewDeptName('');
-  };
-
-  const handleRemoveDepartment = (code: string) => {
-    setPayload({
-      ...payload,
-      departments: (payload.departments || []).filter((d) => d.code !== code),
-    });
-  };
-
-  const toggleRole = (rKey: string) => {
-    if (rKey === 'COMPANY_ADMIN') return; // Mandatory core role
-    const current = payload.selectedRoles || [];
-    if (current.includes(rKey)) {
-      setPayload({ ...payload, selectedRoles: current.filter((x) => x !== rKey) });
-    } else {
-      setPayload({ ...payload, selectedRoles: [...current, rKey] });
-    }
-  };
-
-  const toggleModule = (modKey: string) => {
-    const current = payload.enabledModuleKeys || [];
-    if (modKey === 'financial_accounting') return; // Core mandatory module
-    if (current.includes(modKey)) {
-      setPayload({ ...payload, enabledModuleKeys: current.filter((x) => x !== modKey) });
-    } else {
-      setPayload({ ...payload, enabledModuleKeys: [...current, modKey] });
-    }
-  };
-
-  const recommendedRoles = roleRecommendationService.recommendRoles(payload);
+  if (!isOpen) return null;
 
   return (
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title="Company Onboarding & Business Configuration"
-      subtitle="Configure a multi-tenant customer organization customized to its industry, products, UOM conversions, and accounting workflows."
+      title="Company Setup & Onboarding"
+      subtitle="Complete 8 quick steps to initialize your enterprise company"
       size="2xl"
-      footer={
-        <div className="flex items-center justify-between w-full">
-          <div className="flex items-center gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              icon={<Save className="w-3.5 h-3.5" />}
-              onClick={handleSaveDraft}
-            >
-              Save Draft
-            </Button>
-            {saveSuccessMsg && (
-              <span className="text-xs font-semibold text-emerald-400 animate-fadeIn">
-                {saveSuccessMsg}
-              </span>
-            )}
-          </div>
-
-          <div className="flex items-center gap-2">
-            {currentStep > 1 && (
-              <Button
-                variant="outline"
-                size="sm"
-                icon={<ArrowLeft className="w-4 h-4" />}
-                onClick={handleBack}
-              >
-                Back
-              </Button>
-            )}
-
-            {currentStep < 12 ? (
-              <Button
-                variant="primary"
-                size="sm"
-                icon={<ArrowRight className="w-4 h-4" />}
-                onClick={handleNext}
-              >
-                Next Step
-              </Button>
-            ) : (
-              <Button
-                variant="primary"
-                size="sm"
-                icon={<Sparkles className="w-4 h-4" />}
-                isLoading={isSubmitting}
-                onClick={handleActivate}
-              >
-                Activate Company
-              </Button>
-            )}
-          </div>
-        </div>
-      }
     >
-      <div className="space-y-5 select-none">
-        {/* Step Indicator Progress Bar */}
-        <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-          <div className="flex items-center justify-between text-xs font-semibold text-slate-300 pb-2 border-b border-slate-800/80">
-            <span className="flex items-center gap-1.5">
-              <span className="text-purple-400 font-bold">Step {currentStep} of 12:</span>
-              <span className="text-slate-100">{WIZARD_STEPS[currentStep - 1].label}</span>
-            </span>
-            <span className="text-[11px] text-slate-500 font-mono">
-              {WIZARD_STEPS[currentStep - 1].desc}
+      <div className="flex flex-col max-h-[85vh] min-h-[520px]">
+        {/* Top Header Bar & Progress Indicator */}
+        <div className="px-4 sm:px-6 py-3 border-b border-border/80 bg-muted/30 -mx-6 -mt-6 mb-4">
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <span className="text-[11px] text-muted-foreground font-semibold">
+                Step {currentStep} of 8 • {STREAMLINED_STEPS[currentStep - 1]?.desc}
+              </span>
+            </div>
+
+            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-primary/10 text-primary border border-primary/20">
+              ~3 MIN SETUP
             </span>
           </div>
 
-          {/* Stepper Dots / Badges */}
-          <div className="flex items-center gap-1.5 mt-2.5 overflow-x-auto pb-1">
-            {WIZARD_STEPS.map((step) => {
+          {/* Stepper Navigation Bar */}
+          <div className="mt-3 flex items-center justify-between gap-1 overflow-x-auto pb-1 select-none">
+            {STREAMLINED_STEPS.map((step) => {
+              const isPast = currentStep > step.id;
+              const isCurrent = currentStep === step.id;
               const Icon = step.icon;
-              const isPassed = step.id < currentStep;
-              const isCurrent = step.id === currentStep;
 
               return (
                 <button
                   key={step.id}
-                  onClick={() => {
-                    // Allow clicking earlier steps or next step if valid
-                    if (step.id <= currentStep) {
-                      setCurrentStep(step.id);
-                    }
-                  }}
-                  title={step.label}
-                  className={`flex items-center gap-1.5 px-2 py-1 rounded-lg text-xs font-medium transition-all shrink-0 ${
+                  disabled={currentStep < step.id}
+                  onClick={() => setCurrentStep(step.id)}
+                  className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all shrink-0 ${
                     isCurrent
-                      ? 'bg-purple-600 text-white font-bold shadow-md ring-1 ring-purple-400'
-                      : isPassed
-                      ? 'bg-slate-800 text-emerald-400 hover:bg-slate-700'
-                      : 'bg-slate-900 text-slate-500 opacity-60'
+                      ? 'bg-primary text-primary-foreground shadow-sm'
+                      : isPast
+                      ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20'
+                      : 'text-muted-foreground opacity-60'
                   }`}
                 >
-                  <Icon className="w-3.5 h-3.5 shrink-0" />
-                  <span className="hidden xl:inline truncate">{step.label}</span>
+                  {isPast ? (
+                    <Check className="w-3.5 h-3.5 shrink-0" />
+                  ) : (
+                    <Icon className="w-3.5 h-3.5 shrink-0" />
+                  )}
+                  <span className="hidden sm:inline">{step.label}</span>
                 </button>
               );
             })}
           </div>
         </div>
 
-        {/* Validation Errors Box */}
-        {validationErrors.length > 0 && (
-          <div className="p-3 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs space-y-1 animate-fadeIn">
-            <div className="font-semibold flex items-center gap-1.5 text-rose-200">
-              <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
-              <span>Please resolve the following before proceeding:</span>
-            </div>
-            <ul className="list-disc list-inside space-y-0.5 text-[11px] pl-1">
-              {validationErrors.map((err, idx) => (
-                <li key={idx}>{err}</li>
-              ))}
-            </ul>
+        {/* Global Error Notice */}
+        {errorMessage && (
+          <div className="p-3 mb-3 rounded-xl bg-destructive/10 border border-destructive/20 text-destructive text-xs flex items-start gap-2 animate-fadeIn">
+            <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+            <span className="font-medium leading-relaxed">{errorMessage}</span>
           </div>
         )}
 
-        {/* Step 1: Company Information */}
-        {currentStep === 1 && (
-          <div className="space-y-4 animate-fadeIn">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <Input
-                label="Legal Company Name"
-                required
-                placeholder="e.g. Apex Global Industrial Solutions LLC"
-                value={payload.name}
-                onChange={(e) => setPayload({ ...payload, name: e.target.value })}
-              />
-              <Input
-                label="Company Short Code"
-                required
-                placeholder="e.g. APEX"
-                value={payload.code}
-                onChange={(e) => {
-                  const upper = e.target.value.toUpperCase();
-                  setPayload({ 
-                    ...payload, 
-                    code: upper,
-                    accessCode: payload.accessCode || upper 
-                  });
-                }}
-              />
-              <Input
-                label="Company Access Code (Login Code)"
-                required
-                placeholder="e.g. APEX or APEX-2026"
-                value={payload.accessCode || payload.code}
-                onChange={(e) => setPayload({ ...payload, accessCode: e.target.value.toUpperCase() })}
-              />
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Input
-                label="Display / Trade Name"
-                placeholder="e.g. Apex Global"
-                value={payload.legalName}
-                onChange={(e) => setPayload({ ...payload, legalName: e.target.value })}
-              />
-              <Input
-                label="Commercial Registration Number"
-                placeholder="e.g. CR-8839201"
-                value={payload.registrationNumber}
-                onChange={(e) => setPayload({ ...payload, registrationNumber: e.target.value })}
-              />
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <Select
-                label="Country of Incorporation"
-                required
-                options={[
-                  { value: 'US', label: 'United States (US)' },
-                  { value: 'OM', label: 'Oman (OM)' },
-                  { value: 'AE', label: 'United Arab Emirates (AE)' },
-                  { value: 'SA', label: 'Saudi Arabia (SA)' },
-                  { value: 'GB', label: 'United Kingdom (UK)' },
-                  { value: 'CA', label: 'Canada (CA)' },
-                  { value: 'DE', label: 'Germany (DE)' },
-                  { value: 'IN', label: 'India (IN)' },
-                  { value: 'SG', label: 'Singapore (SG)' },
-                ]}
-                value={payload.countryCode}
-                onChange={(e) => setPayload({ ...payload, countryCode: e.target.value })}
-              />
-
-              <Select
-                label="Base Ledger Currency"
-                required
-                options={PLATFORM_CONFIG.supportedCurrencies.map((c) => ({
-                  value: c.code,
-                  label: `${c.code} - ${c.name} (${c.symbol})`,
-                }))}
-                value={payload.baseCurrency}
-                onChange={(e) => setPayload({ ...payload, baseCurrency: e.target.value })}
-              />
-
-              <Select
-                label="Operating Tier Template"
-                options={[
-                  { value: 'small', label: 'Small Business (Standard Core)' },
-                  { value: 'medium', label: 'Medium Business (Advanced Core)' },
-                  { value: 'enterprise', label: 'Enterprise (Full ERP Spectrum)' },
-                ]}
-                value={payload.tier}
-                onChange={(e) => setPayload({ ...payload, tier: e.target.value as any })}
-              />
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <Input
-                label="City / Headquarters"
-                placeholder="e.g. New York, Muscat, Dubai"
-                value={payload.city}
-                onChange={(e) => setPayload({ ...payload, city: e.target.value })}
-              />
-              <Input
-                label="Corporate Email"
-                type="email"
-                placeholder="info@company.com"
-                value={payload.email}
-                onChange={(e) => setPayload({ ...payload, email: e.target.value })}
-              />
-              <Input
-                label="Phone Number"
-                placeholder="+1 (555) 019-2831"
-                value={payload.phone}
-                onChange={(e) => setPayload({ ...payload, phone: e.target.value })}
-              />
-            </div>
+        {/* Success Draft Feedback */}
+        {saveDraftFeedback && (
+          <div className="p-3 mb-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-400 text-xs flex items-center gap-2 animate-fadeIn">
+            <CheckCircle2 className="w-4 h-4 shrink-0" />
+            <span className="font-medium">{saveDraftFeedback}</span>
           </div>
         )}
 
-        {/* Step 2: Business Types */}
-        {currentStep === 2 && (
-          <div className="space-y-4 animate-fadeIn">
-            <p className="text-xs text-slate-400">
-              Select all industry business models that apply to this organization. The ERP will configure relevant workflows and templates accordingly.
-            </p>
+        {/* Main Step Body */}
+        <div className="flex-1 overflow-y-auto px-1 py-2 space-y-6">
+          {/* STEP 1: WELCOME */}
+          {currentStep === 1 && (
+            <div className="max-w-xl mx-auto text-center space-y-6 py-4">
+              <div className="w-16 h-16 rounded-2xl bg-primary/10 border border-primary/20 text-primary flex items-center justify-center mx-auto shadow-inner">
+                <Sparkles className="w-8 h-8" />
+              </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-h-96 overflow-y-auto pr-1">
-              {ALL_BUSINESS_TYPES.map((bt) => {
-                const isSelected = payload.businessTypes?.includes(bt.key);
-                return (
-                  <div
-                    key={bt.key}
-                    onClick={() => toggleBusinessType(bt.key)}
-                    className={`p-3 rounded-xl border cursor-pointer transition-all flex flex-col justify-between ${
-                      isSelected
-                        ? 'bg-purple-600/10 border-purple-500/50 shadow-sm ring-1 ring-purple-500/20'
-                        : 'bg-slate-900/60 border-slate-800 hover:border-slate-700'
+              <div>
+                <h1 className="text-2xl sm:text-3xl font-extrabold text-foreground tracking-tight">
+                  Let's set up your company
+                </h1>
+                <p className="text-xs sm:text-sm text-muted-foreground mt-2 leading-relaxed max-w-md mx-auto">
+                  Complete a few quick steps to get your ERP ready. You can easily configure advanced accounting, custom roles, and workflows later in Settings.
+                </p>
+              </div>
+
+              {/* Highlights Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left">
+                <div className="p-3.5 rounded-xl bg-card border border-border/80 shadow-sm flex items-start gap-2.5">
+                  <Clock className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                  <div>
+                    <span className="text-xs font-bold text-foreground block">3–5 Minute Setup</span>
+                    <span className="text-[11px] text-muted-foreground block">Only the essential details needed to begin</span>
+                  </div>
+                </div>
+
+                <div className="p-3.5 rounded-xl bg-card border border-border/80 shadow-sm flex items-start gap-2.5">
+                  <ShieldCheck className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                  <div>
+                    <span className="text-xs font-bold text-foreground block">Multi-Tenant Isolated</span>
+                    <span className="text-[11px] text-muted-foreground block">Strict cryptographic tenant data protection</span>
+                  </div>
+                </div>
+
+                <div className="p-3.5 rounded-xl bg-card border border-border/80 shadow-sm flex items-start gap-2.5">
+                  <BookOpen className="w-4 h-4 text-blue-500 shrink-0 mt-0.5" />
+                  <div>
+                    <span className="text-xs font-bold text-foreground block">Auto-Generated Ledger</span>
+                    <span className="text-[11px] text-muted-foreground block">Automated Chart of Accounts & posting rules</span>
+                  </div>
+                </div>
+
+                <div className="p-3.5 rounded-xl bg-card border border-border/80 shadow-sm flex items-start gap-2.5">
+                  <Layers className="w-4 h-4 text-purple-500 shrink-0 mt-0.5" />
+                  <div>
+                    <span className="text-xs font-bold text-foreground block">Customizable Later</span>
+                    <span className="text-[11px] text-muted-foreground block">Adjust conversions & settings anytime</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* STEP 2: COMPANY INFORMATION */}
+          {currentStep === 2 && (
+            <div className="space-y-5 max-w-2xl mx-auto">
+              <div>
+                <h3 className="text-lg font-bold text-foreground">Company Information</h3>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  Enter your company name, location, and base ledger currency.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="sm:col-span-2">
+                  <label className="text-xs font-semibold text-foreground flex items-center justify-between">
+                    <span>Company Name *</span>
+                    <span className="text-[10px] text-muted-foreground">Commercial or Trading Name</span>
+                  </label>
+                  <Input
+                    value={payload.name}
+                    onChange={(e) => handleNameChange(e.target.value)}
+                    placeholder="e.g. Al-Bahwan Trading & Contracting LLC"
+                    className="mt-1"
+                  />
+                  {stepErrors.name && <span className="text-[11px] text-destructive font-medium mt-1 block">{stepErrors.name}</span>}
+                </div>
+
+                <div>
+                  <label className="text-xs font-semibold text-foreground block">
+                    Legal / Registered Name
+                  </label>
+                  <Input
+                    value={payload.legalName}
+                    onChange={(e) => updatePayload({ legalName: e.target.value })}
+                    placeholder="Official registered entity name"
+                    className="mt-1"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-xs font-semibold text-foreground flex items-center justify-between">
+                    <span>Company Short Code *</span>
+                    <span className="text-[10px] text-primary font-mono font-bold">UPPERCASE</span>
+                  </label>
+                  <Input
+                    value={payload.code}
+                    onChange={(e) => updatePayload({ code: e.target.value.toUpperCase().replace(/[^A-Z0-9_]/g, '') })}
+                    placeholder="e.g. AL_BAHWAN"
+                    className="mt-1 font-mono uppercase"
+                  />
+                  {stepErrors.code && <span className="text-[11px] text-destructive font-medium mt-1 block">{stepErrors.code}</span>}
+                </div>
+
+                <div>
+                  <Select
+                    label="Country"
+                    options={COUNTRY_OPTIONS}
+                    value={payload.countryCode}
+                    onChange={(e) => updatePayload({ countryCode: e.target.value })}
+                    required
+                  />
+                </div>
+
+                <div>
+                  <Select
+                    label="Base Ledger Currency"
+                    options={CURRENCY_OPTIONS}
+                    value={payload.baseCurrency}
+                    onChange={(e) => updatePayload({ baseCurrency: e.target.value })}
+                    required
+                  />
+                </div>
+
+                <div className="sm:col-span-2 pt-2">
+                  <div className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">
+                    Optional Contact Details
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <Input
+                      value={payload.city || ''}
+                      onChange={(e) => updatePayload({ city: e.target.value })}
+                      placeholder="City / Region (e.g. Muscat)"
+                    />
+                    <Input
+                      value={payload.phone || ''}
+                      onChange={(e) => updatePayload({ phone: e.target.value })}
+                      placeholder="Telephone (e.g. +968 2400 0000)"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* STEP 3: BUSINESS TYPE */}
+          {currentStep === 3 && (
+            <div className="space-y-6 max-w-2xl mx-auto">
+              <div>
+                <h3 className="text-lg font-bold text-foreground">Business Scope</h3>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  Tell us what your company sells to tailor your operational modules.
+                </p>
+              </div>
+
+              {/* Question 1: Selling Type */}
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-foreground uppercase tracking-wider block">
+                  1. What does your company sell?
+                </label>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setSellingType('products')}
+                    className={`p-4 rounded-xl border text-left transition-all ${
+                      sellingType === 'products'
+                        ? 'bg-primary/10 border-primary ring-1 ring-primary text-foreground'
+                        : 'bg-card border-border/80 hover:bg-muted text-muted-foreground hover:text-foreground'
                     }`}
                   >
-                    <div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs font-bold text-slate-100">{bt.label}</span>
-                        {isSelected && <Check className="w-4 h-4 text-purple-400" />}
-                      </div>
-                      <p className="text-[11px] text-slate-400 mt-1">{bt.desc}</p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
+                    <Package className="w-5 h-5 text-primary mb-2" />
+                    <span className="text-xs font-bold block text-foreground">Physical Products</span>
+                    <span className="text-[11px] text-muted-foreground block mt-0.5">Trading, wholesale, retail merchandise</span>
+                  </button>
 
-        {/* Step 3: Products & Services */}
-        {currentStep === 3 && (
-          <div className="space-y-5 animate-fadeIn">
-            <div>
-              <h3 className="text-xs font-bold uppercase tracking-wider text-purple-400 mb-2">
-                What does this company SELL?
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-                {ALL_SELLING_CATEGORIES.map((cat) => {
-                  const isSelected = payload.sellingCategories?.includes(cat.key);
-                  return (
-                    <div
-                      key={cat.key}
-                      onClick={() => toggleSellingCat(cat.key)}
-                      className={`p-2.5 rounded-lg border cursor-pointer transition-all flex items-center justify-between text-xs ${
-                        isSelected
-                          ? 'bg-purple-600/10 border-purple-500/50 text-purple-200 font-semibold'
-                          : 'bg-slate-900 border-slate-800 text-slate-300 hover:border-slate-700'
-                      }`}
-                    >
-                      <span>{cat.label}</span>
-                      {isSelected && <Check className="w-3.5 h-3.5 text-purple-400" />}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSellingType('services');
+                      setHasPhysicalInventory(false);
+                    }}
+                    className={`p-4 rounded-xl border text-left transition-all ${
+                      sellingType === 'services'
+                        ? 'bg-primary/10 border-primary ring-1 ring-primary text-foreground'
+                        : 'bg-card border-border/80 hover:bg-muted text-muted-foreground hover:text-foreground'
+                    }`}
+                  >
+                    <Briefcase className="w-5 h-5 text-blue-500 mb-2" />
+                    <span className="text-xs font-bold block text-foreground">Services Only</span>
+                    <span className="text-[11px] text-muted-foreground block mt-0.5">Consulting, legal, IT, engineering</span>
+                  </button>
 
-            <div>
-              <h3 className="text-xs font-bold uppercase tracking-wider text-purple-400 mb-2">
-                What does this company BUY / PROCURE?
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-                {ALL_BUYING_CATEGORIES.map((cat) => {
-                  const isSelected = payload.buyingCategories?.includes(cat.key);
-                  return (
-                    <div
-                      key={cat.key}
-                      onClick={() => toggleBuyingCat(cat.key)}
-                      className={`p-2.5 rounded-lg border cursor-pointer transition-all flex items-center justify-between text-xs ${
-                        isSelected
-                          ? 'bg-blue-600/10 border-blue-500/50 text-blue-200 font-semibold'
-                          : 'bg-slate-900 border-slate-800 text-slate-300 hover:border-slate-700'
-                      }`}
-                    >
-                      <span>{cat.label}</span>
-                      {isSelected && <Check className="w-3.5 h-3.5 text-blue-400" />}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Step 4: Units of Measure & Conversions */}
-        {currentStep === 4 && (
-          <div className="space-y-5 animate-fadeIn">
-            <div>
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-bold uppercase tracking-wider text-purple-400">
-                  Select Active Units of Measure (UOM)
-                </span>
-                <span className="text-[11px] text-slate-400">
-                  {payload.selectedUomCodes?.length || 0} Units Selected
-                </span>
-              </div>
-
-              <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-2">
-                {STANDARD_UOM_LIST.map((u) => {
-                  const isSelected = payload.selectedUomCodes?.includes(u.code);
-                  return (
-                    <div
-                      key={u.code}
-                      onClick={() => toggleUom(u.code)}
-                      className={`p-2 rounded-lg border cursor-pointer transition-all flex items-center justify-between text-xs ${
-                        isSelected
-                          ? 'bg-purple-600/10 border-purple-500/50 text-purple-200 font-semibold'
-                          : 'bg-slate-900 border-slate-800 text-slate-400 hover:border-slate-700'
-                      }`}
-                    >
-                      <span>{u.code}</span>
-                      {isSelected && <Check className="w-3.5 h-3.5 text-purple-400" />}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* UOM Conversion Rules */}
-            <div className="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800 space-y-3">
-              <div className="flex items-center justify-between">
-                <div>
-                  <span className="text-xs font-bold text-slate-100">Unit Conversion Rules</span>
-                  <p className="text-[11px] text-slate-400">
-                    Define conversion multipliers between Purchase Unit, Stock Unit, and Sales Unit.
-                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setSellingType('both')}
+                    className={`p-4 rounded-xl border text-left transition-all ${
+                      sellingType === 'both'
+                        ? 'bg-primary/10 border-primary ring-1 ring-primary text-foreground'
+                        : 'bg-card border-border/80 hover:bg-muted text-muted-foreground hover:text-foreground'
+                    }`}
+                  >
+                    <Layers className="w-5 h-5 text-purple-500 mb-2" />
+                    <span className="text-xs font-bold block text-foreground">Products + Services</span>
+                    <span className="text-[11px] text-muted-foreground block mt-0.5">Supply & installation, turnkey projects</span>
+                  </button>
                 </div>
               </div>
 
-              {/* Existing Conversions List */}
-              <div className="space-y-1.5">
-                {(payload.uomConversions || []).map((conv, idx) => (
-                  <div
-                    key={idx}
-                    className="p-2 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-between text-xs"
+              {/* Question 2: Physical Inventory Tracking */}
+              <div className="space-y-2 pt-2 border-t border-border/70">
+                <label className="text-xs font-bold text-foreground uppercase tracking-wider block">
+                  2. Do you keep and track physical inventory?
+                </label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setHasPhysicalInventory(true)}
+                    className={`p-4 rounded-xl border text-left transition-all ${
+                      hasPhysicalInventory
+                        ? 'bg-emerald-500/10 border-emerald-500 ring-1 ring-emerald-500'
+                        : 'bg-card border-border/80 hover:bg-muted'
+                    }`}
                   >
-                    <span className="font-mono text-slate-200">
-                      1 <strong>{conv.fromUomCode}</strong> = <strong>{conv.multiplier}</strong> {conv.toUomCode}
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-foreground">Yes, Track Stock</span>
+                      {hasPhysicalInventory && <Check className="w-4 h-4 text-emerald-600" />}
+                    </div>
+                    <span className="text-[11px] text-muted-foreground block mt-1">
+                      Enables Perpetual FIFO inventory, stock movements, and warehouse management.
                     </span>
-                    <button
-                      onClick={() => handleRemoveConversion(conv.fromUomCode, conv.toUomCode)}
-                      className="text-slate-500 hover:text-rose-400 transition-colors p-1"
-                    >
-                      <Trash2 className="w-3.5 h-3.5" />
-                    </button>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setHasPhysicalInventory(false)}
+                    className={`p-4 rounded-xl border text-left transition-all ${
+                      !hasPhysicalInventory
+                        ? 'bg-primary/10 border-primary ring-1 ring-primary'
+                        : 'bg-card border-border/80 hover:bg-muted'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-foreground">No Physical Inventory</span>
+                      {!hasPhysicalInventory && <Check className="w-4 h-4 text-primary" />}
+                    </div>
+                    <span className="text-[11px] text-muted-foreground block mt-1">
+                      Direct pass-through or pure services. Skips warehouse and stock setup.
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* STEP 4: FINANCIAL BASICS */}
+          {currentStep === 4 && (
+            <div className="space-y-5 max-w-2xl mx-auto">
+              <div>
+                <h3 className="text-lg font-bold text-foreground">Financial & Accounting Basics</h3>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  Your double-entry general ledger is automatically configured.
+                </p>
+              </div>
+
+              <div className="p-4 rounded-xl bg-card border border-border/80 shadow-sm space-y-3">
+                <div className="flex items-center justify-between text-xs pb-2 border-b border-border/70">
+                  <span className="text-muted-foreground">Primary Operating Currency</span>
+                  <span className="font-bold font-mono text-primary">{payload.baseCurrency}</span>
+                </div>
+
+                <div className="flex items-center justify-between text-xs pb-2 border-b border-border/70">
+                  <span className="text-muted-foreground">Financial Year Cycle</span>
+                  <span className="font-semibold text-foreground">January 01 – December 31 (12 Periods)</span>
+                </div>
+
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-muted-foreground">Accounting Recognition Model</span>
+                  <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">
+                    ACCRUAL BASIS (STANDARD)
+                  </span>
+                </div>
+              </div>
+
+              {/* Automatic Chart of Accounts Notice */}
+              <div className="p-4 rounded-xl bg-muted/40 border border-border/80 space-y-3">
+                <div className="flex items-center gap-2 text-xs font-bold text-foreground">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                  <span>Automatic Double-Entry Posting Setup</span>
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  The system will automatically initialize the following standard accounts for your tenant:
+                </p>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-[11px] text-foreground font-medium">
+                  <div className="flex items-center gap-1.5">✓ Sales & Revenue</div>
+                  <div className="flex items-center gap-1.5">✓ Cost of Goods Sold</div>
+                  <div className="flex items-center gap-1.5">✓ Accounts Receivable</div>
+                  <div className="flex items-center gap-1.5">✓ Accounts Payable</div>
+                  <div className="flex items-center gap-1.5">✓ Bank & Cash Hubs</div>
+                  <div className="flex items-center gap-1.5">✓ Tax / Output VAT</div>
+                </div>
+                <div className="text-[11px] text-muted-foreground pt-1 border-t border-border/60">
+                  💡 You can add custom accounts or import an existing Chart of Accounts later in <strong>Settings &gt; Fiscal & Accounting</strong>.
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* STEP 5: INVENTORY & UNITS OF MEASURE */}
+          {currentStep === 5 && (
+            <div className="space-y-5 max-w-2xl mx-auto">
+              <div>
+                <div className="flex items-center justify-between">
+                  <h3 className="text-lg font-bold text-foreground">Units of Measure (UOM)</h3>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    icon={<Plus className="w-3.5 h-3.5" />}
+                    onClick={() => setShowCustomUomModal(true)}
+                  >
+                    Add Custom Unit
+                  </Button>
+                </div>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  Select the common measurement units you use to sell and manage products.
+                </p>
+              </div>
+
+              {/* UOM Category Groups */}
+              <div className="space-y-4 max-h-[280px] overflow-y-auto pr-1">
+                {STANDARD_UOM_GROUPS.map((group) => (
+                  <div key={group.category} className="space-y-1.5">
+                    <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider block">
+                      {group.title}
+                    </span>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+                      {group.units.map((unit) => {
+                        const isSelected = (payload.selectedUomCodes || []).includes(unit.code);
+
+                        return (
+                          <button
+                            key={unit.code}
+                            type="button"
+                            onClick={() => toggleUom(unit.code)}
+                            className={`p-2.5 rounded-xl border text-left transition-all relative flex flex-col justify-between ${
+                              isSelected
+                                ? 'bg-primary/10 border-primary text-foreground'
+                                : 'bg-card border-border/80 hover:bg-muted text-muted-foreground'
+                            }`}
+                          >
+                            <div className="flex items-center justify-between">
+                              <span className="font-mono text-xs font-bold text-foreground">{unit.code}</span>
+                              {isSelected && <Check className="w-3.5 h-3.5 text-primary" />}
+                            </div>
+                            <span className="text-[11px] text-muted-foreground truncate mt-1">{unit.name}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
                   </div>
                 ))}
               </div>
 
-              {/* Add New Conversion Form */}
-              <div className="grid grid-cols-1 sm:grid-cols-4 gap-2 pt-2 border-t border-slate-800/80 items-end">
-                <Select
-                  label="From (Source Unit)"
-                  options={(payload.selectedUomCodes || ['BOX', 'CARTON', 'KG']).map((c) => ({ value: c, label: c }))}
-                  value={newConvFrom}
-                  onChange={(e) => setNewConvFrom(e.target.value)}
-                />
-                <Select
-                  label="To (Base/Target Unit)"
-                  options={(payload.selectedUomCodes || ['PCS', 'GRAM', 'METER']).map((c) => ({ value: c, label: c }))}
-                  value={newConvTo}
-                  onChange={(e) => setNewConvTo(e.target.value)}
-                />
-                <Input
-                  label="Multiplier"
-                  placeholder="e.g. 24.0000"
-                  value={newConvMultiplier}
-                  onChange={(e) => setNewConvMultiplier(e.target.value)}
-                />
-                <Button
-                  variant="outline"
-                  size="sm"
-                  icon={<Plus className="w-3.5 h-3.5" />}
-                  onClick={handleAddConversion}
-                >
-                  Add Rule
-                </Button>
+              {/* Base Unit of Measure Selection */}
+              <div className="p-4 rounded-xl bg-card border border-border/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">
+                <div>
+                  <span className="text-xs font-bold text-foreground block">Primary Base Unit</span>
+                  <span className="text-[11px] text-muted-foreground block">Default unit for single item stock counting</span>
+                </div>
+                <div className="sm:w-48">
+                  <Select
+                    options={(payload.selectedUomCodes || ['PCS']).map((c) => ({ value: c, label: c }))}
+                    value={payload.defaultStockUom || 'PCS'}
+                    onChange={(e) => updatePayload({ defaultStockUom: e.target.value, defaultSalesUom: e.target.value })}
+                  />
+                </div>
+              </div>
+
+              {/* Contextual Examples Note */}
+              <div className="p-3.5 rounded-xl bg-muted/40 border border-border/70 text-xs text-muted-foreground">
+                <strong className="text-foreground block mb-1">Simple Multi-Pack Example:</strong>
+                <span>
+                  Sell individually in <strong>Pieces (PCS)</strong> and buy in <strong>Boxes (BOX)</strong>. Advanced conversion ratios (e.g. 1 Box = 12 Pieces) can be configured later per product in <strong>Settings</strong>.
+                </span>
               </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Step 5: Inventory & Warehouses */}
-        {currentStep === 5 && (
-          <div className="space-y-4 animate-fadeIn">
-            {/* Inventory Master Switch */}
-            <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
+          {/* STEP 6: TAX & VAT */}
+          {currentStep === 6 && (
+            <div className="space-y-5 max-w-2xl mx-auto">
               <div>
-                <span className="text-xs font-bold text-slate-100">Does this company maintain physical inventory?</span>
-                <p className="text-[11px] text-slate-400">
-                  If NO, stock tracking workflows will remain disabled and hidden from normal users.
+                <h3 className="text-lg font-bold text-foreground">Tax & VAT Registration</h3>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  Configure your sovereign VAT/Tax status and standard compliance rate.
                 </p>
               </div>
-              <button
-                onClick={() =>
-                  setPayload({
-                    ...payload,
-                    inventoryConfig: {
-                      ...payload.inventoryConfig,
-                      maintainsInventory: !payload.inventoryConfig.maintainsInventory,
-                    },
-                  })
-                }
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                  payload.inventoryConfig?.maintainsInventory
-                    ? 'bg-emerald-600 text-white shadow-sm'
-                    : 'bg-slate-800 text-slate-400 border border-slate-700'
-                }`}
-              >
-                {payload.inventoryConfig?.maintainsInventory ? 'YES (Inventory Enabled)' : 'NO (Service / Pure Billing)'}
-              </button>
-            </div>
 
-            {payload.inventoryConfig?.maintainsInventory && (
-              <>
-                {/* Product Attributes Picker */}
-                <div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-purple-400 block mb-2">
-                    Select Required Product Attributes
-                  </span>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                    {PRODUCT_ATTRIBUTES_LIST.map((attr) => {
-                      const isSelected = payload.selectedAttributes?.includes(attr.key);
-                      return (
-                        <div
-                          key={attr.key}
-                          onClick={() => toggleProductAttribute(attr.key)}
-                          className={`p-2 rounded-lg border cursor-pointer transition-all flex items-center justify-between text-xs ${
-                            isSelected
-                              ? 'bg-purple-600/10 border-purple-500/50 text-purple-200 font-semibold'
-                              : 'bg-slate-900 border-slate-800 text-slate-400 hover:border-slate-700'
-                          }`}
-                        >
-                          <span>{attr.label}</span>
-                          {isSelected && <Check className="w-3.5 h-3.5 text-purple-400" />}
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {/* Warehouses Setup */}
-                <div className="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800 space-y-3">
+              {/* VAT Registered Question */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <button
+                  type="button"
+                  onClick={() => setIsVatRegistered(true)}
+                  className={`p-4 rounded-xl border text-left transition-all ${
+                    isVatRegistered
+                      ? 'bg-emerald-500/10 border-emerald-500 ring-1 ring-emerald-500'
+                      : 'bg-card border-border/80 hover:bg-muted text-muted-foreground'
+                  }`}
+                >
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-slate-100">Initial Warehouses</span>
-                    <span className="text-[11px] text-slate-400">{payload.warehouses?.length || 0} Configured</span>
+                    <span className="text-xs font-bold text-foreground">Yes, VAT Registered</span>
+                    {isVatRegistered && <Check className="w-4 h-4 text-emerald-600" />}
                   </div>
+                  <span className="text-[11px] text-muted-foreground block mt-1">
+                    Calculate input/output VAT on sales invoices and purchases.
+                  </span>
+                </button>
 
-                  <div className="space-y-1.5">
-                    {(payload.warehouses || []).map((w) => (
-                      <div
-                        key={w.code}
-                        className="p-2 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-between text-xs"
-                      >
-                        <div className="flex items-center gap-2">
-                          <span className="font-mono font-bold text-brand-400">{w.code}</span>
-                          <span className="text-slate-200">{w.name}</span>
-                          {w.isDefault && (
-                            <span className="px-1.5 py-0.2 rounded text-[9px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold">
-                              DEFAULT
-                            </span>
-                          )}
-                        </div>
-                        {(payload.warehouses || []).length > 1 && (
-                          <button
-                            onClick={() => handleRemoveWarehouse(w.code)}
-                            className="text-slate-500 hover:text-rose-400 p-1"
-                          >
-                            <Trash2 className="w-3.5 h-3.5" />
-                          </button>
-                        )}
-                      </div>
-                    ))}
+                <button
+                  type="button"
+                  onClick={() => setIsVatRegistered(false)}
+                  className={`p-4 rounded-xl border text-left transition-all ${
+                    !isVatRegistered
+                      ? 'bg-primary/10 border-primary ring-1 ring-primary'
+                      : 'bg-card border-border/80 hover:bg-muted text-muted-foreground'
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-foreground">No VAT / Tax Exempt</span>
+                    {!isVatRegistered && <Check className="w-4 h-4 text-primary" />}
                   </div>
+                  <span className="text-[11px] text-muted-foreground block mt-1">
+                    All transactions will be posted at 0.00% tax rate.
+                  </span>
+                </button>
+              </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 border-t border-slate-800/80 items-end">
-                    <Input
-                      label="Warehouse Code"
-                      placeholder="e.g. WH-NORTH"
-                      value={newWhCode}
-                      onChange={(e) => setNewWhCode(e.target.value)}
-                    />
-                    <Input
-                      label="Warehouse Name"
-                      placeholder="e.g. Northern Regional Depot"
-                      value={newWhName}
-                      onChange={(e) => setNewWhName(e.target.value)}
-                    />
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      icon={<Plus className="w-3.5 h-3.5" />}
-                      onClick={handleAddWarehouse}
-                    >
-                      Add Warehouse
-                    </Button>
-                  </div>
-                </div>
-              </>
-            )}
-          </div>
-        )}
-
-        {/* Step 6: Sales Workflow Configuration */}
-        {currentStep === 6 && (
-          <div className="space-y-4 animate-fadeIn">
-            <p className="text-xs text-slate-400">
-              Configure which sales documents and commercial controls are enabled for this company.
-            </p>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {[
-                { key: 'enableQuotation', label: 'Quotations / Proforma Estimates', desc: 'Pre-sales quotes without GL impact' },
-                { key: 'enableSalesOrder', label: 'Sales Orders', desc: 'Confirmed orders requiring fulfillment' },
-                { key: 'enableSalesInvoice', label: 'Commercial Sales Invoices', desc: 'Posts Dr AR #1200, Cr Revenue #4010' },
-                { key: 'enableDeliveryNote', label: 'Delivery Notes & Stock Issues', desc: 'Relieves inventory and posts COGS' },
-                { key: 'enableCustomerPayment', label: 'Customer Receipts & Payments', desc: 'Settles invoices and manages advances' },
-                { key: 'enableCreditNote', label: 'Credit Notes', desc: 'Commercial sales returns and invoice credit adjustments' },
-                { key: 'enableCustomerCreditLimit', label: 'Customer Credit Limit Enforcement', desc: 'Blocks invoicing exceeding credit limit' },
-                { key: 'enablePaymentProofVerification', label: '2-Step Payment Proof Verification', desc: 'Accountant verification gate before GL mutation' },
-              ].map((item) => {
-                const isEnabled = (payload.salesWorkflow as any)[item.key];
-                return (
-                  <div
-                    key={item.key}
-                    onClick={() =>
-                      setPayload({
-                        ...payload,
-                        salesWorkflow: {
-                          ...payload.salesWorkflow,
-                          [item.key]: !isEnabled,
-                        },
-                      })
-                    }
-                    className={`p-3 rounded-xl border cursor-pointer transition-all flex items-start justify-between gap-2 ${
-                      isEnabled
-                        ? 'bg-slate-900 border-purple-500/40'
-                        : 'bg-slate-950/40 border-slate-800 opacity-60'
-                    }`}
-                  >
+              {/* VAT Details Form */}
+              {isVatRegistered && (
+                <div className="p-4 rounded-xl bg-card border border-border/80 space-y-4 shadow-sm animate-fadeIn">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <span className="text-xs font-bold text-slate-100">{item.label}</span>
-                      <p className="text-[11px] text-slate-400 mt-0.5">{item.desc}</p>
+                      <label className="text-xs font-semibold text-foreground block">
+                        VAT / Tax Registration Number
+                      </label>
+                      <Input
+                        value={payload.taxIdentifier || ''}
+                        onChange={(e) => updatePayload({ taxIdentifier: e.target.value })}
+                        placeholder="e.g. OM-VAT-100200300"
+                        className="mt-1 font-mono uppercase"
+                      />
                     </div>
-                    <span
-                      className={`px-2 py-0.5 rounded text-[10px] font-bold shrink-0 ${
-                        isEnabled ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-slate-800 text-slate-500'
-                      }`}
-                    >
-                      {isEnabled ? 'ENABLED' : 'DISABLED'}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
 
-        {/* Step 7: Purchase Workflow Configuration */}
-        {currentStep === 7 && (
-          <div className="space-y-4 animate-fadeIn">
-            <p className="text-xs text-slate-400">
-              Configure procurement controls and vendor verification gates.
-            </p>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {[
-                { key: 'enablePurchaseRequest', label: 'Purchase Requisitions (PR)', desc: 'Internal requests prior to procurement' },
-                { key: 'enableRfq', label: 'Request for Quotation (RFQ)', desc: 'Multi-vendor price comparison matrix' },
-                { key: 'enablePurchaseOrder', label: 'Purchase Orders (PO)', desc: 'Vendor orders (does NOT increase inventory)' },
-                { key: 'enableGoodsReceipt', label: 'Goods Receipt Notes (GRN)', desc: 'Official warehouse receiving increasing stock' },
-                { key: 'enableSupplierBill', label: 'Supplier Bills / Invoices', desc: 'Posts Dr Expense/COGS, Cr AP #2010' },
-                { key: 'enableThreeWayMatch', label: '3-Way Match Verification', desc: 'Asserts PO Qty == GRN Qty == Bill Qty' },
-                { key: 'enableSupplierPayment', label: 'Supplier Payments & Disbursements', desc: 'Disburses bank/cash settlement against AP' },
-                { key: 'enablePurchaseCreditNote', label: 'Purchase Credit Notes', desc: 'Vendor returns and bill credit adjustments' },
-              ].map((item) => {
-                const isEnabled = (payload.purchaseWorkflow as any)[item.key];
-                return (
-                  <div
-                    key={item.key}
-                    onClick={() =>
-                      setPayload({
-                        ...payload,
-                        purchaseWorkflow: {
-                          ...payload.purchaseWorkflow,
-                          [item.key]: !isEnabled,
-                        },
-                      })
-                    }
-                    className={`p-3 rounded-xl border cursor-pointer transition-all flex items-start justify-between gap-2 ${
-                      isEnabled
-                        ? 'bg-slate-900 border-purple-500/40'
-                        : 'bg-slate-950/40 border-slate-800 opacity-60'
-                    }`}
-                  >
                     <div>
-                      <span className="text-xs font-bold text-slate-100">{item.label}</span>
-                      <p className="text-[11px] text-slate-400 mt-0.5">{item.desc}</p>
-                    </div>
-                    <span
-                      className={`px-2 py-0.5 rounded text-[10px] font-bold shrink-0 ${
-                        isEnabled ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-slate-800 text-slate-500'
-                      }`}
-                    >
-                      {isEnabled ? 'ENABLED' : 'DISABLED'}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
-        {/* Step 8: Accounting & Tax Configuration */}
-        {currentStep === 8 && (
-          <div className="space-y-4 animate-fadeIn">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 space-y-3">
-                <span className="text-xs font-bold text-slate-100 block">Sovereign Tax / VAT Configuration</span>
-                
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-slate-300">Enable Tax & VAT Compliance Engine</span>
-                  <button
-                    onClick={() =>
-                      setPayload({
-                        ...payload,
-                        accountingDefaults: {
-                          ...payload.accountingDefaults,
-                          enableTaxVat: !payload.accountingDefaults.enableTaxVat,
-                        },
-                      })
-                    }
-                    className={`px-2.5 py-1 rounded text-xs font-bold ${
-                      payload.accountingDefaults?.enableTaxVat
-                        ? 'bg-emerald-600 text-white'
-                        : 'bg-slate-800 text-slate-400'
-                    }`}
-                  >
-                    {payload.accountingDefaults?.enableTaxVat ? 'ENABLED' : 'DISABLED'}
-                  </button>
-                </div>
-
-                {payload.accountingDefaults?.enableTaxVat && (
-                  <div className="space-y-2 pt-2 border-t border-slate-800">
-                    <Input
-                      label="Tax / VAT Registration Number"
-                      placeholder="e.g. VAT-88392019"
-                      value={payload.accountingDefaults.taxRegistrationNumber || ''}
-                      onChange={(e) =>
-                        setPayload({
-                          ...payload,
-                          accountingDefaults: {
-                            ...payload.accountingDefaults,
-                            taxRegistrationNumber: e.target.value,
-                          },
-                        })
-                      }
-                    />
-                    <Input
-                      label="Default Standard Tax Rate (%)"
-                      placeholder="5.00"
-                      value={payload.accountingDefaults.defaultTaxRatePercent || '5.00'}
-                      onChange={(e) =>
-                        setPayload({
-                          ...payload,
+                      <Select
+                        label="Standard Tax Rate (%)"
+                        options={TAX_RATE_OPTIONS}
+                        value={payload.accountingDefaults?.defaultTaxRatePercent || '5.00'}
+                        onChange={(e) => updatePayload({
                           accountingDefaults: {
                             ...payload.accountingDefaults,
                             defaultTaxRatePercent: e.target.value,
-                          },
-                        })
-                      }
-                    />
+                          }
+                        })}
+                      />
+                    </div>
                   </div>
-                )}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* STEP 7: INITIAL ADMIN USER */}
+          {currentStep === 7 && (
+            <div className="space-y-5 max-w-2xl mx-auto">
+              <div>
+                <h3 className="text-lg font-bold text-foreground">Primary Administrator Account</h3>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  Create the initial Company Admin account to manage this organization.
+                </p>
               </div>
 
-              <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 space-y-3">
-                <span className="text-xs font-bold text-slate-100 block">Ledger & Multi-Currency Policy</span>
-
-                <div className="flex items-center justify-between">
-                  <div>
-                    <span className="text-xs text-slate-300 block">Multi-Currency Transactions</span>
-                    <span className="text-[11px] text-slate-500">Allow EUR, GBP, AED, SAR conversion to base {payload.baseCurrency}</span>
-                  </div>
-                  <button
-                    onClick={() =>
-                      setPayload({
-                        ...payload,
-                        accountingDefaults: {
-                          ...payload.accountingDefaults,
-                          enableMultiCurrency: !payload.accountingDefaults.enableMultiCurrency,
-                        },
-                      })
-                    }
-                    className={`px-2.5 py-1 rounded text-xs font-bold ${
-                      payload.accountingDefaults?.enableMultiCurrency
-                        ? 'bg-emerald-600 text-white'
-                        : 'bg-slate-800 text-slate-400'
-                    }`}
-                  >
-                    {payload.accountingDefaults?.enableMultiCurrency ? 'ENABLED' : 'DISABLED'}
-                  </button>
+              <div className="p-4 sm:p-6 rounded-xl bg-card border border-border/80 space-y-4 shadow-sm">
+                <div>
+                  <label className="text-xs font-semibold text-foreground block">Administrator Full Name *</label>
+                  <Input
+                    value={payload.initialAdmin?.fullName || ''}
+                    onChange={(e) => updatePayload({
+                      initialAdmin: { ...payload.initialAdmin, fullName: e.target.value }
+                    })}
+                    placeholder="e.g. Salim Al-Harthy"
+                    className="mt-1"
+                  />
+                  {stepErrors['admin.fullName'] && (
+                    <span className="text-[11px] text-destructive font-medium mt-1 block">{stepErrors['admin.fullName']}</span>
+                  )}
                 </div>
 
-                <div className="pt-2 border-t border-slate-800 text-[11px] text-slate-400 space-y-1">
-                  <div>• Automatic Chart of Accounts generation (Assets, Liabilities, Equity, Revenue, COGS, Expenses).</div>
-                  <div>• 12 Monthly Accounting Periods with Period Lock enforcement.</div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-xs font-semibold text-foreground block">Username / Email *</label>
+                    <Input
+                      value={payload.initialAdmin?.username || ''}
+                      onChange={(e) => updatePayload({
+                        initialAdmin: { 
+                          ...payload.initialAdmin, 
+                          username: e.target.value,
+                          email: e.target.value.includes('@') ? e.target.value : `${e.target.value}@${payload.code.toLowerCase()}.om`
+                        }
+                      })}
+                      placeholder="e.g. admin@albahwan.om"
+                      className="mt-1 font-mono"
+                    />
+                    {stepErrors['admin.username'] && (
+                      <span className="text-[11px] text-destructive font-medium mt-1 block">{stepErrors['admin.username']}</span>
+                    )}
+                  </div>
+
+                  <div>
+                    <label className="text-xs font-semibold text-foreground block">Password *</label>
+                    <Input
+                      type="password"
+                      value={payload.initialAdmin?.password || ''}
+                      onChange={(e) => updatePayload({
+                        initialAdmin: { ...payload.initialAdmin, password: e.target.value }
+                      })}
+                      placeholder="Minimum 6 characters"
+                      className="mt-1 font-mono"
+                    />
+                    {stepErrors['admin.password'] && (
+                      <span className="text-[11px] text-destructive font-medium mt-1 block">{stepErrors['admin.password']}</span>
+                    )}
+                  </div>
+                </div>
+
+                <div className="p-3 rounded-xl bg-primary/10 border border-primary/20 text-xs text-primary flex items-center gap-2">
+                  <ShieldCheck className="w-4 h-4 shrink-0" />
+                  <span>This user will be assigned the <strong>Company Admin</strong> role with complete governance permissions.</span>
                 </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Step 9: Organizational Structure */}
-        {currentStep === 9 && (
-          <div className="space-y-4 animate-fadeIn">
-            {/* Departments Setup */}
-            <div className="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800 space-y-3">
-              <div className="flex items-center justify-between">
-                <div>
-                  <span className="text-xs font-bold text-slate-100">Company Departments</span>
-                  <p className="text-[11px] text-slate-400">
-                    Organizational departments used for expense allocation and management dimensions.
-                  </p>
-                </div>
-                <span className="text-[11px] text-slate-400">{payload.departments?.length || 0} Configured</span>
+          {/* STEP 8: REVIEW & CREATE COMPANY */}
+          {currentStep === 8 && !isCompleted && (
+            <div className="space-y-5 max-w-2xl mx-auto">
+              <div>
+                <h3 className="text-lg font-bold text-foreground">Review & Activate Company</h3>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  Confirm your settings before provisioning the new enterprise tenant.
+                </p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                {(payload.departments || []).map((d) => (
-                  <div
-                    key={d.code}
-                    className="p-2 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-between text-xs"
-                  >
-                    <div>
-                      <span className="font-mono font-bold text-brand-400">{d.code}</span>
-                      <span className="text-slate-200 ml-2">{d.name}</span>
+              {/* Summary Sections */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                {/* 1. Company */}
+                <div className="p-3.5 rounded-xl bg-card border border-border/80 flex flex-col justify-between shadow-sm">
+                  <div>
+                    <div className="flex items-center justify-between pb-1 border-b border-border/60">
+                      <span className="font-bold text-foreground uppercase text-[10px] tracking-wider">Company</span>
+                      <button onClick={() => setCurrentStep(2)} className="text-[10px] text-primary hover:underline font-bold">Edit</button>
                     </div>
-                    <button
-                      onClick={() => handleRemoveDepartment(d.code)}
-                      className="text-slate-500 hover:text-rose-400 p-1"
-                    >
-                      <Trash2 className="w-3.5 h-3.5" />
-                    </button>
+                    <div className="font-bold text-foreground text-sm mt-1.5">{payload.name}</div>
+                    <div className="text-muted-foreground text-[11px] mt-0.5">Code: <span className="font-mono font-bold text-foreground">{payload.code}</span></div>
+                    <div className="text-muted-foreground text-[11px]">Country: {payload.countryCode} • {payload.baseCurrency}</div>
                   </div>
-                ))}
+                </div>
+
+                {/* 2. Business */}
+                <div className="p-3.5 rounded-xl bg-card border border-border/80 flex flex-col justify-between shadow-sm">
+                  <div>
+                    <div className="flex items-center justify-between pb-1 border-b border-border/60">
+                      <span className="font-bold text-foreground uppercase text-[10px] tracking-wider">Business Model</span>
+                      <button onClick={() => setCurrentStep(3)} className="text-[10px] text-primary hover:underline font-bold">Edit</button>
+                    </div>
+                    <div className="font-semibold text-foreground capitalize mt-1.5">Selling: {sellingType}</div>
+                    <div className="text-muted-foreground text-[11px] mt-0.5">
+                      Inventory: <strong className={hasPhysicalInventory ? 'text-emerald-600' : 'text-muted-foreground'}>{hasPhysicalInventory ? 'Enabled (FIFO)' : 'Disabled'}</strong>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 3. Financial & Tax */}
+                <div className="p-3.5 rounded-xl bg-card border border-border/80 flex flex-col justify-between shadow-sm">
+                  <div>
+                    <div className="flex items-center justify-between pb-1 border-b border-border/60">
+                      <span className="font-bold text-foreground uppercase text-[10px] tracking-wider">Financial & Tax</span>
+                      <button onClick={() => setCurrentStep(6)} className="text-[10px] text-primary hover:underline font-bold">Edit</button>
+                    </div>
+                    <div className="font-semibold text-foreground mt-1.5">Currency: {payload.baseCurrency} (Accrual)</div>
+                    <div className="text-muted-foreground text-[11px] mt-0.5">
+                      VAT: {isVatRegistered ? `Registered (${payload.accountingDefaults?.defaultTaxRatePercent || '5.00'}%)` : 'Not Registered'}
+                    </div>
+                  </div>
+                </div>
+
+                {/* 4. Admin User */}
+                <div className="p-3.5 rounded-xl bg-card border border-border/80 flex flex-col justify-between shadow-sm">
+                  <div>
+                    <div className="flex items-center justify-between pb-1 border-b border-border/60">
+                      <span className="font-bold text-foreground uppercase text-[10px] tracking-wider">Administrator</span>
+                      <button onClick={() => setCurrentStep(7)} className="text-[10px] text-primary hover:underline font-bold">Edit</button>
+                    </div>
+                    <div className="font-semibold text-foreground mt-1.5">{payload.initialAdmin?.fullName}</div>
+                    <div className="text-muted-foreground text-[11px] font-mono mt-0.5">{payload.initialAdmin?.username}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* POST-ONBOARDING SUCCESS SCREEN */}
+          {isCompleted && (
+            <div className="max-w-xl mx-auto text-center space-y-6 py-6 animate-fadeIn">
+              <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto shadow-inner">
+                <CheckCircle2 className="w-8 h-8" />
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 border-t border-slate-800/80 items-end">
-                <Input
-                  label="Department Code"
-                  placeholder="e.g. MKTG"
-                  value={newDeptCode}
-                  onChange={(e) => setNewDeptCode(e.target.value)}
-                />
-                <Input
-                  label="Department Name"
-                  placeholder="e.g. Marketing & Communications"
-                  value={newDeptName}
-                  onChange={(e) => setNewDeptName(e.target.value)}
-                />
+              <div>
+                <h1 className="text-2xl sm:text-3xl font-extrabold text-foreground">
+                  Your Company is Ready!
+                </h1>
+                <p className="text-xs sm:text-sm text-muted-foreground mt-1.5 max-w-md mx-auto">
+                  <strong className="text-foreground">{payload.name}</strong> has been successfully initialized with double-entry accounting, tenant isolation, and administrative governance.
+                </p>
+              </div>
+
+              {/* Quick Setup Recommendations */}
+              <div className="p-4 rounded-xl bg-card border border-border/80 text-left space-y-3">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground block">
+                  Recommended Next Steps
+                </span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                  <div className="p-2.5 rounded-lg bg-muted/40 border border-border/60 flex items-center gap-2">
+                    <ShoppingBag className="w-4 h-4 text-primary" />
+                    <span>Create first Sales Quotation</span>
+                  </div>
+                  <div className="p-2.5 rounded-lg bg-muted/40 border border-border/60 flex items-center gap-2">
+                    <Truck className="w-4 h-4 text-emerald-500" />
+                    <span>Add Suppliers & POs</span>
+                  </div>
+                  <div className="p-2.5 rounded-lg bg-muted/40 border border-border/60 flex items-center gap-2">
+                    <Landmark className="w-4 h-4 text-blue-500" />
+                    <span>Connect Operating Bank</span>
+                  </div>
+                  <div className="p-2.5 rounded-lg bg-muted/40 border border-border/60 flex items-center gap-2">
+                    <Users className="w-4 h-4 text-purple-500" />
+                    <span>Invite Team Members</span>
+                  </div>
+                </div>
+              </div>
+
+              <Button
+                variant="primary"
+                size="lg"
+                icon={<ArrowRight className="w-4 h-4" />}
+                onClick={onClose}
+                className="w-full sm:w-auto px-8"
+              >
+                Go to ERP Dashboard
+              </Button>
+            </div>
+          )}
+        </div>
+
+        {/* Bottom Actions Footer */}
+        {!isCompleted && (
+          <div className="px-6 py-4 border-t border-border/80 bg-muted/20 flex items-center justify-between gap-3 -mx-6 -mb-6 mt-4">
+            <div>
+              {currentStep > 1 && (
                 <Button
                   variant="outline"
                   size="sm"
-                  icon={<Plus className="w-3.5 h-3.5" />}
-                  onClick={handleAddDepartment}
+                  icon={<ArrowLeft className="w-4 h-4" />}
+                  onClick={handleBack}
                 >
-                  Add Department
+                  Back
                 </Button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Step 10: Roles & Initial Admin */}
-        {currentStep === 10 && (
-          <div className="space-y-4 animate-fadeIn">
-            {/* Initial Company Admin User Details */}
-            <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 space-y-3">
-              <div className="flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-purple-400" />
-                <span className="text-xs font-bold text-slate-100">
-                  Initial Company Administrator Credentials
-                </span>
-              </div>
-              <p className="text-[11px] text-slate-400">
-                This administrator will have primary ownership of the company ERP workspace without platform super admin privileges.
-              </p>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                <Input
-                  label="Administrator Full Name"
-                  required
-                  placeholder="e.g. Johnathan Vance"
-                  value={payload.initialAdmin.fullName}
-                  onChange={(e) =>
-                    setPayload({
-                      ...payload,
-                      initialAdmin: { ...payload.initialAdmin, fullName: e.target.value },
-                    })
-                  }
-                />
-                <Input
-                  label="Login Username"
-                  required
-                  placeholder="e.g. jvance"
-                  value={payload.initialAdmin.username}
-                  onChange={(e) =>
-                    setPayload({
-                      ...payload,
-                      initialAdmin: { ...payload.initialAdmin, username: e.target.value },
-                    })
-                  }
-                />
-                <Input
-                  label="Admin Email"
-                  type="email"
-                  placeholder="admin@company.com"
-                  value={payload.initialAdmin.email || ''}
-                  onChange={(e) =>
-                    setPayload({
-                      ...payload,
-                      initialAdmin: { ...payload.initialAdmin, email: e.target.value },
-                    })
-                  }
-                />
-                <Input
-                  label="Initial Password"
-                  type="password"
-                  placeholder="••••••••"
-                  value={payload.initialAdmin.password || ''}
-                  onChange={(e) =>
-                    setPayload({
-                      ...payload,
-                      initialAdmin: { ...payload.initialAdmin, password: e.target.value },
-                    })
-                  }
-                />
-                <Input
-                  label="Designation / Job Title"
-                  placeholder="e.g. Managing Director / General Manager"
-                  value={payload.initialAdmin.designation || ''}
-                  onChange={(e) =>
-                    setPayload({
-                      ...payload,
-                      initialAdmin: { ...payload.initialAdmin, designation: e.target.value },
-                    })
-                  }
-                />
-              </div>
+              )}
             </div>
 
-            {/* Recommended Roles Checklist */}
-            <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-purple-400 block mb-2">
-                Recommended Organizational Roles (Based on Selected Business Model)
-              </span>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="ghost"
+                size="sm"
+                icon={<Save className="w-3.5 h-3.5" />}
+                onClick={handleSaveDraft}
+                title="Save Draft & Continue Later"
+              >
+                Save Draft
+              </Button>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-72 overflow-y-auto pr-1">
-                {recommendedRoles.map((role) => {
-                  const isSelected = payload.selectedRoles?.includes(role.key);
-                  return (
-                    <div
-                      key={role.key}
-                      onClick={() => toggleRole(role.key)}
-                      className={`p-3 rounded-xl border cursor-pointer transition-all flex items-start justify-between gap-2 ${
-                        isSelected
-                          ? 'bg-slate-900 border-purple-500/50'
-                          : 'bg-slate-950/40 border-slate-800 opacity-60'
-                      }`}
-                    >
-                      <div>
-                        <div className="flex items-center gap-2">
-                          <span className="text-xs font-bold text-slate-100">{role.name}</span>
-                          {role.isCore && (
-                            <span className="px-1.5 py-0.2 rounded text-[9px] font-bold bg-purple-500/10 text-purple-400 border border-purple-500/20">
-                              CORE
-                            </span>
-                          )}
-                        </div>
-                        <p className="text-[11px] text-slate-400 mt-1">{role.description}</p>
-                        <p className="text-[10px] text-slate-500 mt-1 italic">{role.reason}</p>
-                      </div>
-                      <span
-                        className={`px-2 py-0.5 rounded text-[10px] font-bold shrink-0 ${
-                          isSelected
-                            ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
-                            : 'bg-slate-800 text-slate-500'
-                        }`}
-                      >
-                        {isSelected ? 'ACTIVE' : 'EXCLUDED'}
-                      </span>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Step 11: Modules & Features Entitlements */}
-        {currentStep === 11 && (
-          <div className="space-y-4 animate-fadeIn">
-            <p className="text-xs text-slate-400">
-              Fine-tune the enabled ERP modules for this company. Core modules (Accounting, Banking, Reporting) are always active.
-            </p>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-96 overflow-y-auto pr-1">
-              {ERP_MODULE_REGISTRY.map((mod) => {
-                const isEnabled = payload.enabledModuleKeys?.includes(mod.key);
-                return (
-                  <div
-                    key={mod.key}
-                    onClick={() => toggleModule(mod.key)}
-                    className={`p-3 rounded-xl border transition-all flex items-start justify-between gap-2 ${
-                      mod.isCore ? 'cursor-default' : 'cursor-pointer'
-                    } ${
-                      isEnabled
-                        ? 'bg-slate-900 border-purple-500/40'
-                        : 'bg-slate-950/40 border-slate-800 opacity-60'
-                    }`}
-                  >
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs font-bold text-slate-100">{mod.name}</span>
-                        {mod.isCore && (
-                          <span className="px-1.5 py-0.2 rounded text-[9px] font-bold bg-brand-500/10 text-brand-400 border border-brand-500/20">
-                            CORE
-                          </span>
-                        )}
-                      </div>
-                      <p className="text-[11px] text-slate-400 mt-1">{mod.description}</p>
-                    </div>
-
-                    {!mod.isCore ? (
-                      <span
-                        className={`px-2.5 py-1 rounded text-xs font-bold shrink-0 ${
-                          isEnabled
-                            ? 'bg-emerald-600 text-white shadow-sm'
-                            : 'bg-slate-800 text-slate-400 border border-slate-700'
-                        }`}
-                      >
-                        {isEnabled ? 'Enabled' : 'Disabled'}
-                      </span>
-                    ) : (
-                      <span className="px-2.5 py-1 rounded text-xs font-bold bg-slate-800 text-brand-400 shrink-0">
-                        Always On
-                      </span>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
-        {/* Step 12: Review & Activate */}
-        {currentStep === 12 && (
-          <div className="space-y-4 animate-fadeIn">
-            <div className="p-4 rounded-xl bg-purple-950/20 border border-purple-500/30 flex items-center justify-between">
-              <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-purple-400 block">
-                  Configuration Ready for Activation
-                </span>
-                <h2 className="text-lg font-bold text-slate-100 mt-0.5">
-                  {payload.name} [{payload.code}]
-                </h2>
-                <p className="text-xs text-slate-400 mt-0.5">
-                  Operating Plan: <strong className="text-slate-200 uppercase">{payload.tier}</strong> • Base Currency: <strong className="font-mono text-slate-200">{payload.baseCurrency}</strong> • Country: <strong className="font-mono text-slate-200">{payload.countryCode}</strong> • Portal Access Code: <strong className="font-mono text-purple-300 font-bold">{(payload.accessCode || payload.code).toUpperCase()}</strong>
-                </p>
-              </div>
-              <StatusBadge status={payload.tier} />
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
-              {/* Card 1: Company Identity */}
-              <div className="p-3 rounded-lg bg-slate-900 border border-slate-800 space-y-1 relative">
-                <div className="flex items-center justify-between">
-                  <span className="font-bold text-slate-300">1. Company Identity</span>
-                  <button
-                    type="button"
-                    onClick={() => setCurrentStep(1)}
-                    className="text-[11px] text-purple-400 hover:text-purple-300 font-medium underline"
-                  >
-                    Edit
-                  </button>
-                </div>
-                <div className="text-slate-200 font-semibold truncate">
-                  {payload.legalName || payload.name}
-                </div>
-                <div className="text-[11px] text-slate-400">
-                  {payload.city ? `${payload.city}, ` : ''}{payload.countryCode} • Fiscal Start Month: {payload.fiscalYearStartMonth}
-                </div>
-              </div>
-
-              {/* Card 2: Business Model */}
-              <div className="p-3 rounded-lg bg-slate-900 border border-slate-800 space-y-1 relative">
-                <div className="flex items-center justify-between">
-                  <span className="font-bold text-slate-300">2. Business Model</span>
-                  <button
-                    type="button"
-                    onClick={() => setCurrentStep(2)}
-                    className="text-[11px] text-purple-400 hover:text-purple-300 font-medium underline"
-                  >
-                    Edit
-                  </button>
-                </div>
-                <div className="text-purple-300 font-semibold truncate">
-                  {payload.businessTypes.join(', ')}
-                </div>
-                <div className="text-[11px] text-slate-400">
-                  {payload.sellingCategories.length} Selling • {payload.buyingCategories.length} Buying Categories
-                </div>
-              </div>
-
-              {/* Card 3: UOM & Conversions */}
-              <div className="p-3 rounded-lg bg-slate-900 border border-slate-800 space-y-1 relative">
-                <div className="flex items-center justify-between">
-                  <span className="font-bold text-slate-300">3. UOM & Conversions</span>
-                  <button
-                    type="button"
-                    onClick={() => setCurrentStep(4)}
-                    className="text-[11px] text-purple-400 hover:text-purple-300 font-medium underline"
-                  >
-                    Edit
-                  </button>
-                </div>
-                <div className="text-emerald-300 font-semibold">
-                  {payload.selectedUomCodes.length} Active UOMs
-                </div>
-                <div className="text-[11px] text-slate-400">
-                  {payload.uomConversions?.length || 0} Conversion Rules (Stock: {payload.defaultStockUom || 'PCS'})
-                </div>
-              </div>
-
-              {/* Card 4: Inventory & Warehouses */}
-              <div className="p-3 rounded-lg bg-slate-900 border border-slate-800 space-y-1 relative">
-                <div className="flex items-center justify-between">
-                  <span className="font-bold text-slate-300">4. Inventory & Stock</span>
-                  <button
-                    type="button"
-                    onClick={() => setCurrentStep(5)}
-                    className="text-[11px] text-purple-400 hover:text-purple-300 font-medium underline"
-                  >
-                    Edit
-                  </button>
-                </div>
-                <div className="text-slate-200 font-semibold">
-                  {payload.inventoryConfig.maintainsInventory ? `${payload.warehouses?.length || 1} Warehouse(s)` : 'Inventory Tracking Disabled'}
-                </div>
-                <div className="text-[11px] text-slate-400">
-                  Costing: {payload.inventoryConfig.defaultCostingMethod || 'WEIGHTED_AVG'} • Neg Stock: {payload.inventoryConfig.allowNegativeStock ? 'Allowed' : 'Blocked'}
-                </div>
-              </div>
-
-              {/* Card 5: Workflows & Approvals */}
-              <div className="p-3 rounded-lg bg-slate-900 border border-slate-800 space-y-1 relative">
-                <div className="flex items-center justify-between">
-                  <span className="font-bold text-slate-300">5. Sales & Procurement</span>
-                  <button
-                    type="button"
-                    onClick={() => setCurrentStep(6)}
-                    className="text-[11px] text-purple-400 hover:text-purple-300 font-medium underline"
-                  >
-                    Edit
-                  </button>
-                </div>
-                <div className="text-slate-200 font-semibold">
-                  2-Step Verification: {payload.salesWorkflow.enablePaymentProofVerification ? 'Enabled' : 'Disabled'}
-                </div>
-                <div className="text-[11px] text-slate-400">
-                  3-Way Match: {payload.purchaseWorkflow.enableThreeWayMatch ? 'Active' : 'Off'} • Credit Limits: {payload.salesWorkflow.enableCustomerCreditLimit ? 'Enforced' : 'Off'}
-                </div>
-              </div>
-
-              {/* Card 6: Accounting & Organization */}
-              <div className="p-3 rounded-lg bg-slate-900 border border-slate-800 space-y-1 relative">
-                <div className="flex items-center justify-between">
-                  <span className="font-bold text-slate-300">6. Organization & Tax</span>
-                  <button
-                    type="button"
-                    onClick={() => setCurrentStep(8)}
-                    className="text-[11px] text-purple-400 hover:text-purple-300 font-medium underline"
-                  >
-                    Edit
-                  </button>
-                </div>
-                <div className="text-slate-200 font-semibold">
-                  {payload.branches?.length || 1} Branch(es) • {payload.departments?.length || 3} Dept(s)
-                </div>
-                <div className="text-[11px] text-slate-400">
-                  VAT/Tax: {payload.accountingDefaults.enableTaxVat ? `Enabled (${payload.accountingDefaults.defaultTaxRatePercent || 5}%)` : 'Exempt'}
-                </div>
-              </div>
-
-              {/* Card 7: Admin & Roles */}
-              <div className="p-3 rounded-lg bg-slate-900 border border-slate-800 space-y-1 relative">
-                <div className="flex items-center justify-between">
-                  <span className="font-bold text-slate-300">7. Initial Admin</span>
-                  <button
-                    type="button"
-                    onClick={() => setCurrentStep(10)}
-                    className="text-[11px] text-purple-400 hover:text-purple-300 font-medium underline"
-                  >
-                    Edit
-                  </button>
-                </div>
-                <div className="text-slate-200 font-semibold truncate">
-                  {payload.initialAdmin.fullName || 'Admin User'}
-                </div>
-                <div className="text-[11px] text-slate-400 font-mono truncate">
-                  Username: @{payload.initialAdmin.username}
-                </div>
-              </div>
-
-              {/* Card 8: Enabled Modules */}
-              <div className="p-3 rounded-lg bg-slate-900 border border-slate-800 space-y-1 relative md:col-span-2">
-                <div className="flex items-center justify-between">
-                  <span className="font-bold text-slate-300">8. Module Entitlements</span>
-                  <button
-                    type="button"
-                    onClick={() => setCurrentStep(11)}
-                    className="text-[11px] text-purple-400 hover:text-purple-300 font-medium underline"
-                  >
-                    Edit
-                  </button>
-                </div>
-                <div className="text-purple-300 font-semibold">
-                  {payload.enabledModuleKeys.length} Enterprise Modules Activated
-                </div>
-                <div className="text-[11px] text-slate-400 truncate">
-                  {payload.enabledModuleKeys.join(', ')}
-                </div>
-              </div>
-            </div>
-
-            <div className="p-3 rounded-lg bg-slate-950/60 border border-slate-800 text-xs space-y-1">
-              <span className="font-semibold text-slate-200 flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-purple-400" />
-                <span>Automated Activation Sequence:</span>
-              </span>
-              <ul className="list-disc list-inside text-[11px] text-slate-400 space-y-0.5 pl-1">
-                <li>Allocates tenant data partition and initializes chart of accounts for {payload.baseCurrency}.</li>
-                <li>Generates 12 fiscal periods starting Month {payload.fiscalYearStartMonth}.</li>
-                <li>Registers UOM presets and cross-unit conversion rules.</li>
-                <li>Creates {payload.warehouses?.length || 1} warehouse(s) and storage staging bays.</li>
-                <li>Assigns {payload.enabledModuleKeys.length} enabled modules to {payload.name}.</li>
-                <li>Provisions initial Company Admin ({payload.initialAdmin.username}) with isolated company scope.</li>
-              </ul>
+              {currentStep < 8 ? (
+                <Button
+                  variant="primary"
+                  size="sm"
+                  icon={<ArrowRight className="w-4 h-4" />}
+                  onClick={handleNext}
+                >
+                  {currentStep === 1 ? 'Get Started' : 'Next Step'}
+                </Button>
+              ) : (
+                <Button
+                  variant="primary"
+                  size="sm"
+                  icon={<CheckCircle2 className="w-4 h-4" />}
+                  onClick={handleCreateCompany}
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? 'Creating Company...' : 'Create Company'}
+                </Button>
+              )}
             </div>
           </div>
         )}
       </div>
+
+      {/* Custom UOM Modal */}
+      {showCustomUomModal && (
+        <Modal
+          isOpen={showCustomUomModal}
+          onClose={() => setShowCustomUomModal(false)}
+          title="Add Custom Unit of Measure"
+          size="sm"
+        >
+          <form onSubmit={handleAddCustomUom} className="space-y-4">
+            <div>
+              <label className="text-xs font-semibold text-foreground block">Unit Code (e.g. BUNDLE) *</label>
+              <Input
+                value={customUomForm.code}
+                onChange={(e) => setCustomUomForm({ ...customUomForm, code: e.target.value.toUpperCase() })}
+                placeholder="e.g. BDL"
+                className="mt-1 font-mono uppercase"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="text-xs font-semibold text-foreground block">Display Name *</label>
+              <Input
+                value={customUomForm.name}
+                onChange={(e) => setCustomUomForm({ ...customUomForm, name: e.target.value })}
+                placeholder="e.g. Bundle / Bale"
+                className="mt-1"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="text-xs font-semibold text-foreground block">Short Symbol</label>
+              <Input
+                value={customUomForm.symbol}
+                onChange={(e) => setCustomUomForm({ ...customUomForm, symbol: e.target.value })}
+                placeholder="e.g. bdl"
+                className="mt-1 font-mono"
+              />
+            </div>
+
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-border">
+              <Button variant="ghost" size="sm" onClick={() => setShowCustomUomModal(false)}>
+                Cancel
+              </Button>
+              <Button variant="primary" size="sm" type="submit">
+                Add Unit
+              </Button>
+            </div>
+          </form>
+        </Modal>
+      )}
     </Modal>
   );
 };

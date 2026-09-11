@@ -209,7 +209,7 @@ export const PaymentsView: React.FC<{
   return (
     <div className="space-y-4">
       {/* Header Banner & Filter Bar */}
-      <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-3">
+      <div className="p-4 rounded-xl bg-card border border-border flex flex-col md:flex-row items-center justify-between gap-3">
         <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto">
           {[
             { id: 'all', label: `All Receipts (${payments.length})` },
@@ -225,7 +225,7 @@ export const PaymentsView: React.FC<{
                   ? 'bg-brand-600 text-white'
                   : tab.highlight
                   ? 'bg-amber-500/10 text-amber-300 border border-amber-500/30'
-                  : 'bg-slate-800/80 text-slate-300 hover:text-slate-100'
+                  : 'bg-muted/80 text-foreground/90 hover:text-foreground'
               }`}
             >
               {tab.label}
@@ -235,13 +235,13 @@ export const PaymentsView: React.FC<{
 
         <div className="flex items-center gap-2 w-full md:w-auto justify-end">
           <div className="relative w-full md:w-64">
-            <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-500" />
+            <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-muted-foreground" />
             <input
               type="text"
               placeholder="Search receipt #, customer..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-3 py-1.5 text-xs bg-slate-950/80 border border-slate-800 rounded-lg text-slate-200 placeholder-slate-500 focus:outline-none focus:border-brand-500"
+              className="w-full pl-9 pr-3 py-1.5 text-xs bg-card/80 border border-border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-brand-500"
             />
           </div>
 
@@ -265,7 +265,7 @@ export const PaymentsView: React.FC<{
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-slate-800 bg-slate-900/90 text-slate-400 font-semibold uppercase tracking-wider">
+              <tr className="border-b border-border bg-card/90 text-muted-foreground font-semibold uppercase tracking-wider">
                 <th className="px-5 py-3.5">Receipt #</th>
                 <th className="px-5 py-3.5">Customer Name</th>
                 <th className="px-5 py-3.5">Payment Date</th>
@@ -276,17 +276,17 @@ export const PaymentsView: React.FC<{
                 <th className="px-5 py-3.5 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-slate-200">
+            <tbody className="divide-y divide-border text-foreground">
               {filteredPayments.map((p) => {
                 const customer = customers.find((c) => c.id === p.customerId);
                 return (
-                  <tr key={p.id} className="hover:bg-slate-800/40 transition-colors">
+                  <tr key={p.id} className="hover:bg-muted/40 transition-colors">
                     <td className="px-5 py-3.5 font-mono font-bold text-brand-400">{p.receiptNumber}</td>
-                    <td className="px-5 py-3.5 font-medium text-slate-100">{customer?.name || 'Unknown Customer'}</td>
-                    <td className="px-5 py-3.5 font-mono text-slate-300">{p.paymentDate}</td>
+                    <td className="px-5 py-3.5 font-medium text-foreground">{customer?.name || 'Unknown Customer'}</td>
+                    <td className="px-5 py-3.5 font-mono text-foreground/90">{p.paymentDate}</td>
                     <td className="px-5 py-3.5">
                       <div className="flex items-center gap-1.5">
-                        <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-slate-800 border border-slate-700 capitalize">
+                        <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-muted border border-border capitalize">
                           {p.paymentMethod.replace('_', ' ')}
                         </span>
                         {p.proofDocumentName && (
@@ -299,7 +299,7 @@ export const PaymentsView: React.FC<{
                     <td className="px-5 py-3.5 text-right font-mono font-bold text-emerald-400">
                       ${parseFloat(p.amount).toFixed(2)} {p.currency}
                     </td>
-                    <td className="px-5 py-3.5 text-right font-mono text-slate-400">
+                    <td className="px-5 py-3.5 text-right font-mono text-muted-foreground">
                       {parseFloat(p.unallocatedAmount) > 0 ? (
                         <span className="text-amber-400 font-bold">${parseFloat(p.unallocatedAmount).toFixed(2)}</span>
                       ) : (
@@ -349,7 +349,7 @@ export const PaymentsView: React.FC<{
               })}
               {filteredPayments.length === 0 && (
                 <tr>
-                  <td colSpan={8} className="px-5 py-12 text-center text-slate-500">
+                  <td colSpan={8} className="px-5 py-12 text-center text-muted-foreground">
                     No customer receipts matching the current criteria.
                   </td>
                 </tr>
@@ -369,7 +369,7 @@ export const PaymentsView: React.FC<{
           size="lg"
           footer={
             <div className="flex items-center justify-between w-full">
-              <div className="text-xs text-slate-400">
+              <div className="text-xs text-muted-foreground">
                 {selectedPayment.status === 'posted' ? (
                   <span className="text-emerald-400 flex items-center gap-1 font-semibold">
                     <ShieldCheck className="w-4 h-4" /> Posted to GL (Journal #{selectedPayment.journalEntryId || 'AUTO'})
@@ -413,34 +413,34 @@ export const PaymentsView: React.FC<{
           }
         >
           <div className="space-y-4 text-xs">
-            <div className="p-3.5 rounded-lg bg-slate-950/70 border border-slate-800 grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div className="p-3.5 rounded-lg bg-card/70 border border-border grid grid-cols-2 sm:grid-cols-4 gap-3">
               <div>
-                <span className="text-slate-500 text-[10px] uppercase font-bold block">Payment Date</span>
-                <span className="text-slate-200 font-mono mt-0.5">{selectedPayment.paymentDate}</span>
+                <span className="text-muted-foreground text-[10px] uppercase font-bold block">Payment Date</span>
+                <span className="text-foreground font-mono mt-0.5">{selectedPayment.paymentDate}</span>
               </div>
               <div>
-                <span className="text-slate-500 text-[10px] uppercase font-bold block">Method</span>
-                <span className="text-slate-200 capitalize mt-0.5">{selectedPayment.paymentMethod.replace('_', ' ')}</span>
+                <span className="text-muted-foreground text-[10px] uppercase font-bold block">Method</span>
+                <span className="text-foreground capitalize mt-0.5">{selectedPayment.paymentMethod.replace('_', ' ')}</span>
               </div>
               <div>
-                <span className="text-slate-500 text-[10px] uppercase font-bold block">Total Amount</span>
+                <span className="text-muted-foreground text-[10px] uppercase font-bold block">Total Amount</span>
                 <span className="text-emerald-400 font-mono font-bold mt-0.5">${parseFloat(selectedPayment.amount).toFixed(2)} {selectedPayment.currency}</span>
               </div>
               <div>
-                <span className="text-slate-500 text-[10px] uppercase font-bold block">Status</span>
+                <span className="text-muted-foreground text-[10px] uppercase font-bold block">Status</span>
                 <div className="mt-0.5"><StatusBadge status={selectedPayment.status} size="xs" /></div>
               </div>
             </div>
 
             {/* Proof Attachment Card */}
-            <div className="p-3 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-between">
+            <div className="p-3 rounded-lg bg-card border border-border flex items-center justify-between">
               <div className="flex items-center gap-2.5">
-                <div className="p-2 rounded-lg bg-slate-800 text-brand-400">
+                <div className="p-2 rounded-lg bg-muted text-brand-400">
                   <FileText className="w-4 h-4" />
                 </div>
                 <div>
-                  <div className="font-semibold text-slate-200">{selectedPayment.proofDocumentName || 'Payment_Proof_Slip.pdf'}</div>
-                  <div className="text-[10px] text-slate-400">Bank Transfer Slip / Customer Deposit Confirmation</div>
+                  <div className="font-semibold text-foreground">{selectedPayment.proofDocumentName || 'Payment_Proof_Slip.pdf'}</div>
+                  <div className="text-[10px] text-muted-foreground">Bank Transfer Slip / Customer Deposit Confirmation</div>
                 </div>
               </div>
               <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
@@ -457,27 +457,27 @@ export const PaymentsView: React.FC<{
 
             {/* Allocations Table */}
             <div>
-              <span className="text-[10px] uppercase font-bold text-slate-400 block pb-1 border-b border-slate-800 mb-2">
+              <span className="text-[10px] uppercase font-bold text-muted-foreground block pb-1 border-b border-border mb-2">
                 Settled Invoice Allocations
               </span>
-              <div className="overflow-hidden rounded-lg border border-slate-800">
+              <div className="overflow-hidden rounded-lg border border-border">
                 <table className="w-full text-left text-xs">
                   <thead>
-                    <tr className="border-b border-slate-800 bg-slate-900/90 text-slate-400 font-semibold uppercase tracking-wider">
+                    <tr className="border-b border-border bg-card/90 text-muted-foreground font-semibold uppercase tracking-wider">
                       <th className="px-4 py-2.5">Invoice #</th>
                       <th className="px-4 py-2.5 text-right">Allocated Settlement</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800/60 text-slate-200">
+                  <tbody className="divide-y divide-border text-foreground">
                     {selectedPayment.allocations.map((alloc: any, idx: number) => (
-                      <tr key={idx} className="hover:bg-slate-800/30">
+                      <tr key={idx} className="hover:bg-muted/30">
                         <td className="px-4 py-2.5 font-mono font-bold text-brand-400">{alloc.invoiceNumber}</td>
                         <td className="px-4 py-2.5 text-right font-mono font-bold text-emerald-400">${parseFloat(alloc.allocatedAmount).toFixed(2)}</td>
                       </tr>
                     ))}
                     {selectedPayment.allocations.length === 0 && (
                       <tr>
-                        <td colSpan={2} className="px-4 py-4 text-center text-slate-500">
+                        <td colSpan={2} className="px-4 py-4 text-center text-muted-foreground">
                           Full amount recorded as Unallocated Customer Advance.
                         </td>
                       </tr>
@@ -498,7 +498,7 @@ export const PaymentsView: React.FC<{
         size="sm"
       >
         <div className="space-y-3 text-xs">
-          <p className="text-slate-400">
+          <p className="text-muted-foreground">
             Enter the reason for rejection (e.g. proof slip illegible, incorrect amount, wrong bank account):
           </p>
           <textarea
@@ -506,9 +506,9 @@ export const PaymentsView: React.FC<{
             onChange={(e) => setRejectionReason(e.target.value)}
             rows={3}
             placeholder="e.g. Uploaded bank wire confirmation shows mismatched amount. Please provide official swift slip."
-            className="w-full p-2.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-rose-500 text-xs"
+            className="w-full p-2.5 rounded-lg bg-card border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-rose-500 text-xs"
           />
-          <div className="flex justify-end gap-2 pt-2 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-2 border-t border-border">
             <Button variant="outline" size="sm" onClick={() => setIsRejectModalOpen(false)}>
               Cancel
             </Button>
@@ -528,7 +528,7 @@ export const PaymentsView: React.FC<{
         size="2xl"
         footer={
           <div className="flex items-center justify-between w-full">
-            <div className="text-xs text-slate-300 font-mono">
+            <div className="text-xs text-foreground/90 font-mono">
               Total: <strong className="text-emerald-400 text-sm">${totalAmountNum.toFixed(2)}</strong> | Allocated: <strong>${totalAllocated.toFixed(2)}</strong> | Advance: <strong className="text-amber-400">${unallocatedAdvance.toFixed(2)}</strong>
             </div>
             <div className="flex items-center gap-2">
@@ -610,7 +610,7 @@ export const PaymentsView: React.FC<{
             />
 
             <div className="space-y-1">
-              <label className="text-[11px] font-semibold text-slate-300 block">
+              <label className="text-[11px] font-semibold text-foreground/90 block">
                 Proof of Payment Attachment *
               </label>
               <div className="flex items-center gap-2">
@@ -619,7 +619,7 @@ export const PaymentsView: React.FC<{
                   value={form.proofDocumentName}
                   onChange={(e) => setForm({ ...form, proofDocumentName: e.target.value })}
                   placeholder="e.g. Bank_Deposit_Proof.pdf"
-                  className="w-full px-3 py-1.5 text-xs bg-slate-950/80 border border-slate-800 rounded-lg text-slate-200 placeholder-slate-500 focus:outline-none focus:border-brand-500"
+                  className="w-full px-3 py-1.5 text-xs bg-card/80 border border-border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-brand-500"
                 />
                 <Button variant="outline" size="sm" icon={<UploadCloud className="w-3.5 h-3.5" />} type="button">
                   Browse
@@ -629,27 +629,27 @@ export const PaymentsView: React.FC<{
           </div>
 
           {/* Allocation Grid */}
-          <div className="p-3.5 bg-slate-950/70 border border-slate-800 rounded-xl space-y-2">
-            <div className="flex items-center justify-between pb-1 border-b border-slate-800">
-              <span className="text-xs font-bold text-slate-300">Invoice Allocation Grid</span>
-              <span className="text-[11px] text-slate-500">Select invoices to settle</span>
+          <div className="p-3.5 bg-card/70 border border-border rounded-xl space-y-2">
+            <div className="flex items-center justify-between pb-1 border-b border-border">
+              <span className="text-xs font-bold text-foreground/90">Invoice Allocation Grid</span>
+              <span className="text-[11px] text-muted-foreground">Select invoices to settle</span>
             </div>
 
-            <div className="overflow-hidden rounded-lg border border-slate-800">
+            <div className="overflow-hidden rounded-lg border border-border">
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="border-b border-slate-800 bg-slate-900/90 text-slate-400 font-semibold uppercase tracking-wider">
+                  <tr className="border-b border-border bg-card/90 text-muted-foreground font-semibold uppercase tracking-wider">
                     <th className="px-3 py-2">Invoice #</th>
                     <th className="px-3 py-2">Date</th>
                     <th className="px-3 py-2 text-right">Balance Due</th>
                     <th className="px-3 py-2 text-right">Allocate Amount</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60 text-slate-200">
+                <tbody className="divide-y divide-border text-foreground">
                   {customerUnpaidInvoices.map((inv) => (
-                    <tr key={inv.id} className="hover:bg-slate-800/30">
+                    <tr key={inv.id} className="hover:bg-muted/30">
                       <td className="px-3 py-2 font-mono font-bold text-brand-400">{inv.invoiceNumber}</td>
-                      <td className="px-3 py-2 text-slate-400 font-mono">{inv.invoiceDate}</td>
+                      <td className="px-3 py-2 text-muted-foreground font-mono">{inv.invoiceDate}</td>
                       <td className="px-3 py-2 text-right font-mono font-bold text-amber-400">${parseFloat(inv.balanceDue).toFixed(2)}</td>
                       <td className="px-3 py-2 text-right">
                         <div className="flex items-center justify-end gap-2">
@@ -664,7 +664,7 @@ export const PaymentsView: React.FC<{
                                 },
                               });
                             }}
-                            className="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-brand-400 hover:bg-slate-700"
+                            className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-brand-400 hover:bg-muted"
                           >
                             Full
                           </button>
@@ -681,7 +681,7 @@ export const PaymentsView: React.FC<{
                                 },
                               });
                             }}
-                            className="w-24 px-2 py-1 text-xs bg-slate-900 border border-slate-700 rounded text-right font-mono text-emerald-400 focus:outline-none focus:border-brand-500"
+                            className="w-24 px-2 py-1 text-xs bg-card border border-border rounded text-right font-mono text-emerald-400 focus:outline-none focus:border-brand-500"
                             placeholder="0.00"
                           />
                         </div>
@@ -690,7 +690,7 @@ export const PaymentsView: React.FC<{
                   ))}
                   {customerUnpaidInvoices.length === 0 && (
                     <tr>
-                      <td colSpan={4} className="px-3 py-6 text-center text-slate-500">
+                      <td colSpan={4} className="px-3 py-6 text-center text-muted-foreground">
                         No outstanding invoices for this customer. Any payment will be tracked as an unallocated Customer Advance.
                       </td>
                     </tr>

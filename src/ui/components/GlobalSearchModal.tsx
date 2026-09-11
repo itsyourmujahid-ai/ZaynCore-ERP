@@ -55,21 +55,21 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
 
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 p-4">
-      <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm" onClick={onClose} />
+      <div className="fixed inset-0 bg-card/80 backdrop-blur-sm" onClick={onClose} />
 
-      <div className="relative w-full max-w-2xl bg-slate-900 border border-slate-700 rounded-xl shadow-2xl overflow-hidden flex flex-col z-10 animate-scaleUp">
+      <div className="relative w-full max-w-2xl bg-card border border-border rounded-xl shadow-2xl overflow-hidden flex flex-col z-10 animate-scaleUp">
         {/* Search Input */}
-        <div className="flex items-center px-4 py-3.5 border-b border-slate-800 gap-3">
-          <Search className="w-5 h-5 text-slate-400" />
+        <div className="flex items-center px-4 py-3.5 border-b border-border gap-3">
+          <Search className="w-5 h-5 text-muted-foreground" />
           <input
             autoFocus
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder={`Search accounts, journals, modules in ${tenant.companyName}...`}
-            className="flex-1 bg-transparent text-sm text-slate-100 placeholder:text-slate-500 focus:outline-none"
+            className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
           />
-          <button onClick={onClose} className="p-1 text-slate-400 hover:text-slate-200">
+          <button onClick={onClose} className="p-1 text-muted-foreground hover:text-foreground">
             <X className="w-4 h-4" />
           </button>
         </div>
@@ -78,7 +78,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
         <div className="max-h-96 overflow-y-auto p-3 space-y-4">
           {/* Navigation / Modules */}
           <div>
-            <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 px-2 mb-1.5">
+            <div className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground px-2 mb-1.5">
               ERP Capability Modules
             </div>
             <div className="space-y-1">
@@ -86,20 +86,20 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
                 <div
                   key={m.key}
                   onClick={() => handleSelect('registry')}
-                  className="flex items-center justify-between p-2 rounded-lg hover:bg-slate-800/70 cursor-pointer group"
+                  className="flex items-center justify-between p-2 rounded-lg hover:bg-muted/70 cursor-pointer group"
                 >
                   <div className="flex items-center gap-2.5">
                     <div className="p-1.5 rounded bg-brand-500/10 text-brand-400">
                       <BookOpen className="w-3.5 h-3.5" />
                     </div>
                     <div>
-                      <span className="text-xs font-semibold text-slate-200 group-hover:text-brand-300">
+                      <span className="text-xs font-semibold text-foreground group-hover:text-brand-300">
                         {m.name}
                       </span>
-                      <p className="text-[10px] text-slate-400 truncate max-w-md">{m.description}</p>
+                      <p className="text-[10px] text-muted-foreground truncate max-w-md">{m.description}</p>
                     </div>
                   </div>
-                  <ArrowRight className="w-3.5 h-3.5 text-slate-500 group-hover:text-brand-400" />
+                  <ArrowRight className="w-3.5 h-3.5 text-muted-foreground group-hover:text-brand-400" />
                 </div>
               ))}
             </div>
@@ -108,7 +108,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
           {/* Accounts */}
           {filteredAccounts.length > 0 && (
             <div>
-              <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 px-2 mb-1.5">
+              <div className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground px-2 mb-1.5">
                 Chart of Accounts ({tenant.companyName})
               </div>
               <div className="space-y-1">
@@ -116,13 +116,13 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
                   <div
                     key={a.id}
                     onClick={() => handleSelect('coa')}
-                    className="flex items-center justify-between p-2 rounded-lg hover:bg-slate-800/70 cursor-pointer group"
+                    className="flex items-center justify-between p-2 rounded-lg hover:bg-muted/70 cursor-pointer group"
                   >
                     <div className="flex items-center gap-2.5">
                       <span className="font-mono text-xs font-bold text-brand-400">{a.code}</span>
-                      <span className="text-xs text-slate-200">{a.name}</span>
+                      <span className="text-xs text-foreground">{a.name}</span>
                     </div>
-                    <span className="text-[10px] text-slate-400 capitalize">{a.classification}</span>
+                    <span className="text-[10px] text-muted-foreground capitalize">{a.classification}</span>
                   </div>
                 ))}
               </div>
@@ -132,7 +132,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
           {/* Journals */}
           {filteredJournals.length > 0 && (
             <div>
-              <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 px-2 mb-1.5">
+              <div className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground px-2 mb-1.5">
                 General Journal Entries
               </div>
               <div className="space-y-1">
@@ -140,11 +140,11 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
                   <div
                     key={j.id}
                     onClick={() => handleSelect('journals')}
-                    className="flex items-center justify-between p-2 rounded-lg hover:bg-slate-800/70 cursor-pointer group"
+                    className="flex items-center justify-between p-2 rounded-lg hover:bg-muted/70 cursor-pointer group"
                   >
                     <div className="flex items-center gap-2.5">
-                      <span className="font-mono text-xs font-semibold text-slate-300">{j.entryNumber}</span>
-                      <span className="text-xs text-slate-400 truncate max-w-sm">{j.memo}</span>
+                      <span className="font-mono text-xs font-semibold text-foreground/90">{j.entryNumber}</span>
+                      <span className="text-xs text-muted-foreground truncate max-w-sm">{j.memo}</span>
                     </div>
                     <span className="font-mono text-xs text-emerald-400">${parseFloat(j.totalDebit).toLocaleString()}</span>
                   </div>
@@ -155,9 +155,9 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
         </div>
 
         {/* Footer */}
-        <div className="px-4 py-2 bg-slate-950/80 border-t border-slate-800 text-[10px] text-slate-500 flex items-center justify-between">
+        <div className="px-4 py-2 bg-card/80 border-t border-border text-[10px] text-muted-foreground flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span>Tenant Guard: <strong className="text-slate-300">{tenant.companyName}</strong></span>
+            <span>Tenant Guard: <strong className="text-foreground/90">{tenant.companyName}</strong></span>
           </div>
           <span>Press ESC to exit</span>
         </div>

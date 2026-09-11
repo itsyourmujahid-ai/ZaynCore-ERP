@@ -40,11 +40,11 @@ export const FiscalPeriodsView: React.FC = () => {
         <div>
           <div className="flex items-center gap-2">
             <span className="text-xs font-bold uppercase tracking-wider text-amber-400">Financial Governance</span>
-            <span className="text-slate-600">•</span>
-            <span className="text-xs text-slate-400">Tenant: {tenant.companyName}</span>
+            <span className="text-muted-foreground">•</span>
+            <span className="text-xs text-muted-foreground">Tenant: {tenant.companyName}</span>
           </div>
-          <h1 className="text-2xl font-bold text-slate-100 mt-1">Fiscal Periods & Period Locks</h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <h1 className="text-2xl font-bold text-foreground mt-1">Fiscal Periods & Period Locks</h1>
+          <p className="text-xs text-muted-foreground mt-1">
             Enforce period locks and month-end closes. Posted transactions are strictly prohibited in locked or closed periods.
           </p>
         </div>
@@ -57,7 +57,7 @@ export const FiscalPeriodsView: React.FC = () => {
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                 selectedFyId === fy.id
                   ? 'bg-brand-600 text-white shadow-sm'
-                  : 'bg-slate-800 text-slate-400 hover:text-slate-200'
+                  : 'bg-muted text-muted-foreground hover:text-foreground'
               }`}
             >
               {fy.name} ({fy.startDate} to {fy.endDate})
@@ -88,17 +88,17 @@ export const FiscalPeriodsView: React.FC = () => {
             <Card
               key={period.id}
               className={`transition-all ${
-                isOpen ? 'border-emerald-500/30' : isLocked ? 'border-amber-500/30' : 'border-slate-800'
+                isOpen ? 'border-emerald-500/30' : isLocked ? 'border-amber-500/30' : 'border-border'
               }`}
             >
               <div className="flex items-start justify-between">
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="font-bold text-sm text-slate-100">{period.name}</span>
+                    <span className="font-bold text-sm text-foreground">{period.name}</span>
                     <StatusBadge status={period.status} size="xs" />
                   </div>
-                  <div className="text-xs text-slate-400 mt-1 flex items-center gap-1.5 font-mono">
-                    <Calendar className="w-3.5 h-3.5 text-slate-500" />
+                  <div className="text-xs text-muted-foreground mt-1 flex items-center gap-1.5 font-mono">
+                    <Calendar className="w-3.5 h-3.5 text-muted-foreground" />
                     <span>{period.startDate}</span>
                     <span>→</span>
                     <span>{period.endDate}</span>
@@ -113,15 +113,15 @@ export const FiscalPeriodsView: React.FC = () => {
               </div>
 
               {period.lockedAt && (
-                <div className="mt-3 pt-2.5 border-t border-slate-800/80 text-[11px] text-slate-400 flex items-center gap-1">
-                  <Clock className="w-3 h-3 text-slate-500" />
+                <div className="mt-3 pt-2.5 border-t border-border/80 text-[11px] text-muted-foreground flex items-center gap-1">
+                  <Clock className="w-3 h-3 text-muted-foreground" />
                   <span>Locked on: {new Date(period.lockedAt).toLocaleDateString()}</span>
                 </div>
               )}
 
               {/* Action Controls */}
-              <div className="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between gap-2">
-                <Can permission="accounting.lock_period" fallback={<span className="text-[10px] text-slate-500">Requires 'accounting.lock_period'</span>}>
+              <div className="mt-4 pt-3 border-t border-border flex items-center justify-between gap-2">
+                <Can permission="accounting.lock_period" fallback={<span className="text-[10px] text-muted-foreground">Requires 'accounting.lock_period'</span>}>
                   <div className="flex items-center gap-1.5 w-full">
                     <Button
                       variant={isOpen ? 'primary' : 'outline'}

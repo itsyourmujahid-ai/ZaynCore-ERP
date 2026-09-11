@@ -141,11 +141,11 @@ export const ConsolidationWorkbenchView: React.FC = () => {
         <div>
           <div className="flex items-center gap-2">
             <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">Financial Consolidation</span>
-            <span className="text-slate-600">•</span>
+            <span className="text-muted-foreground">•</span>
             <StatusBadge status="Reporting Layer" />
           </div>
-          <h1 className="text-2xl font-bold text-slate-100 mt-1">Consolidation Financial Statements</h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <h1 className="text-2xl font-bold text-foreground mt-1">Consolidation Financial Statements</h1>
+          <p className="text-xs text-muted-foreground mt-1">
             Produce non-mutating Consolidated Trial Balances, P&L, Balance Sheets, and Cash Flows with automated intercompany eliminations.
           </p>
         </div>
@@ -177,14 +177,14 @@ export const ConsolidationWorkbenchView: React.FC = () => {
       )}
 
       {/* Control Bar: Set & Run Switcher */}
-      <div className="p-4 bg-slate-900/60 border border-slate-800 rounded-xl flex flex-wrap items-center justify-between gap-4 text-xs">
+      <div className="p-4 bg-card/60 border border-border rounded-xl flex flex-wrap items-center justify-between gap-4 text-xs">
         <div className="flex items-center gap-4">
           <div>
-            <label className="text-slate-400 font-medium block mb-1">Consolidation Scope / Set</label>
+            <label className="text-muted-foreground font-medium block mb-1">Consolidation Scope / Set</label>
             <select
               value={selectedSetId}
               onChange={(e) => setSelectedSetId(e.target.value)}
-              className="px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-slate-200"
+              className="px-3 py-1.5 rounded-lg bg-card border border-border text-foreground"
             >
               {sets.length === 0 ? (
                 <option value="">No consolidation sets created</option>
@@ -197,11 +197,11 @@ export const ConsolidationWorkbenchView: React.FC = () => {
           </div>
 
           <div>
-            <label className="text-slate-400 font-medium block mb-1">Financial Period Run</label>
+            <label className="text-muted-foreground font-medium block mb-1">Financial Period Run</label>
             <select
               value={selectedRunId}
               onChange={(e) => setSelectedRunId(e.target.value)}
-              className="px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-slate-200 font-mono"
+              className="px-3 py-1.5 rounded-lg bg-card border border-border text-foreground font-mono"
             >
               {runs.length === 0 ? (
                 <option value="">No runs computed</option>
@@ -216,7 +216,7 @@ export const ConsolidationWorkbenchView: React.FC = () => {
 
         {currentRun && (
           <div className="flex items-center gap-2">
-            <span className="text-slate-400 text-xs font-mono">
+            <span className="text-muted-foreground text-xs font-mono">
               Currency: <strong className="text-cyan-400 font-bold">{currentRun.reportingCurrency}</strong>
             </span>
             <StatusBadge status={currentRun.status} size="sm" />
@@ -247,7 +247,7 @@ export const ConsolidationWorkbenchView: React.FC = () => {
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr className="border-b border-slate-800 text-slate-400">
+                  <tr className="border-b border-border text-muted-foreground">
                     <th className="py-2.5 px-3 font-semibold">Group Code</th>
                     <th className="py-2.5 px-3 font-semibold">Standard Account Name</th>
                     {tbReport.participatingCompanies.map((c) => (
@@ -259,13 +259,13 @@ export const ConsolidationWorkbenchView: React.FC = () => {
                     <th className="py-2.5 px-3 font-semibold text-right text-emerald-400">Consolidated Net ({tbReport.reportingCurrency})</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60 text-slate-300">
+                <tbody className="divide-y divide-border text-foreground/90">
                   {tbReport.rows.map((r) => (
-                    <tr key={r.groupAccountId} className="hover:bg-slate-800/40 transition-colors">
+                    <tr key={r.groupAccountId} className="hover:bg-muted/40 transition-colors">
                       <td className="py-2.5 px-3 font-mono font-bold text-indigo-400">{r.groupAccountCode}</td>
-                      <td className="py-2.5 px-3 font-medium text-slate-200">{r.groupAccountName}</td>
+                      <td className="py-2.5 px-3 font-medium text-foreground">{r.groupAccountName}</td>
                       {tbReport.participatingCompanies.map((c) => (
-                        <td key={c.id} className="py-2.5 px-3 text-right font-mono text-slate-300">
+                        <td key={c.id} className="py-2.5 px-3 text-right font-mono text-foreground/90">
                           {r.companyBalances[c.id]?.net || '0.00'}
                         </td>
                       ))}
@@ -277,8 +277,8 @@ export const ConsolidationWorkbenchView: React.FC = () => {
                       </td>
                     </tr>
                   ))}
-                  <tr className="border-t-2 border-slate-700 font-bold bg-slate-950/60">
-                    <td colSpan={2} className="py-3 px-3 text-slate-200 uppercase tracking-wider">Total Consolidated Balance</td>
+                  <tr className="border-t-2 border-border font-bold bg-card/60">
+                    <td colSpan={2} className="py-3 px-3 text-foreground uppercase tracking-wider">Total Consolidated Balance</td>
                     <td colSpan={tbReport.participatingCompanies.length} className="py-3 px-3"></td>
                     <td className="py-3 px-3 text-right font-mono text-amber-400">Balanced</td>
                     <td className="py-3 px-3 text-right font-mono text-emerald-400 text-sm">
@@ -289,7 +289,7 @@ export const ConsolidationWorkbenchView: React.FC = () => {
               </table>
             </div>
           ) : (
-            <div className="p-12 text-center text-slate-500 text-xs">
+            <div className="p-12 text-center text-muted-foreground text-xs">
               No consolidation run selected. Click 'Generate Run' to compute consolidated trial balance.
             </div>
           )}
@@ -301,32 +301,32 @@ export const ConsolidationWorkbenchView: React.FC = () => {
         <div className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <Card>
-              <span className="text-xs text-slate-400 font-medium">Consolidated Revenue</span>
+              <span className="text-xs text-muted-foreground font-medium">Consolidated Revenue</span>
               <div className="text-2xl font-bold font-mono text-emerald-400 mt-1">${pnlReport.consolidatedRevenue}</div>
-              <div className="text-[10px] text-slate-500 mt-2">Eliminated: -${pnlReport.intercompanyRevenueElimination}</div>
+              <div className="text-[10px] text-muted-foreground mt-2">Eliminated: -${pnlReport.intercompanyRevenueElimination}</div>
             </Card>
             <Card>
-              <span className="text-xs text-slate-400 font-medium">Gross Profit</span>
+              <span className="text-xs text-muted-foreground font-medium">Gross Profit</span>
               <div className="text-2xl font-bold font-mono text-cyan-400 mt-1">${pnlReport.grossProfit}</div>
-              <div className="text-[10px] text-slate-500 mt-2">Margin: {pnlReport.grossMarginPercent}</div>
+              <div className="text-[10px] text-muted-foreground mt-2">Margin: {pnlReport.grossMarginPercent}</div>
             </Card>
             <Card>
-              <span className="text-xs text-slate-400 font-medium">Consolidated Operating Profit</span>
+              <span className="text-xs text-muted-foreground font-medium">Consolidated Operating Profit</span>
               <div className="text-2xl font-bold font-mono text-indigo-400 mt-1">${pnlReport.operatingProfit}</div>
-              <div className="text-[10px] text-slate-500 mt-2">EBIT equivalent</div>
+              <div className="text-[10px] text-muted-foreground mt-2">EBIT equivalent</div>
             </Card>
             <Card>
-              <span className="text-xs text-slate-400 font-medium">Net Group Profit</span>
+              <span className="text-xs text-muted-foreground font-medium">Net Group Profit</span>
               <div className="text-2xl font-bold font-mono text-emerald-400 mt-1">${pnlReport.netGroupProfit}</div>
-              <div className="text-[10px] text-slate-500 mt-2">Parent Share: ${pnlReport.parentShareProfit}</div>
+              <div className="text-[10px] text-muted-foreground mt-2">Parent Share: ${pnlReport.parentShareProfit}</div>
             </Card>
           </div>
 
           <Card title="Corporate Group Statement of Profit & Loss" subtitle={`Consolidated Period: ${pnlReport.period}`}>
             <div className="space-y-3 text-xs">
-              <div className="p-3 bg-slate-900/60 rounded-lg flex items-center justify-between font-medium">
-                <span className="text-slate-200">1. Gross Operating Revenue</span>
-                <span className="font-mono text-slate-100 font-bold">${pnlReport.operatingRevenue}</span>
+              <div className="p-3 bg-card/60 rounded-lg flex items-center justify-between font-medium">
+                <span className="text-foreground">1. Gross Operating Revenue</span>
+                <span className="font-mono text-foreground font-bold">${pnlReport.operatingRevenue}</span>
               </div>
               <div className="p-3 bg-amber-500/10 border border-amber-500/20 rounded-lg flex items-center justify-between text-amber-400">
                 <span>Less: Intercompany Sales Elimination</span>
@@ -337,9 +337,9 @@ export const ConsolidationWorkbenchView: React.FC = () => {
                 <span className="font-mono text-sm">${pnlReport.consolidatedRevenue}</span>
               </div>
 
-              <div className="p-3 bg-slate-900/60 rounded-lg flex items-center justify-between font-medium">
-                <span className="text-slate-200">2. Cost of Sales & Direct Overheads</span>
-                <span className="font-mono text-slate-100 font-bold">${pnlReport.costOfSales}</span>
+              <div className="p-3 bg-card/60 rounded-lg flex items-center justify-between font-medium">
+                <span className="text-foreground">2. Cost of Sales & Direct Overheads</span>
+                <span className="font-mono text-foreground font-bold">${pnlReport.costOfSales}</span>
               </div>
               <div className="p-3 bg-amber-500/10 border border-amber-500/20 rounded-lg flex items-center justify-between text-amber-400">
                 <span>Less: Intercompany COGS Elimination</span>
@@ -350,9 +350,9 @@ export const ConsolidationWorkbenchView: React.FC = () => {
                 <span className="font-mono text-sm">${pnlReport.grossProfit} ({pnlReport.grossMarginPercent})</span>
               </div>
 
-              <div className="p-3 bg-slate-900/60 rounded-lg flex items-center justify-between font-medium">
-                <span className="text-slate-200">3. Operating Expenses (Salaries, Rent, IT, Admin)</span>
-                <span className="font-mono text-slate-100 font-bold">${pnlReport.consolidatedOperatingExpenses}</span>
+              <div className="p-3 bg-card/60 rounded-lg flex items-center justify-between font-medium">
+                <span className="text-foreground">3. Operating Expenses (Salaries, Rent, IT, Admin)</span>
+                <span className="font-mono text-foreground font-bold">${pnlReport.consolidatedOperatingExpenses}</span>
               </div>
 
               <div className="p-4 bg-emerald-900/30 border border-emerald-500/40 rounded-xl flex items-center justify-between text-emerald-300 font-bold text-sm">
@@ -361,12 +361,12 @@ export const ConsolidationWorkbenchView: React.FC = () => {
               </div>
 
               <div className="grid grid-cols-2 gap-3 pt-2 text-[11px]">
-                <div className="p-3 bg-slate-950/60 border border-slate-800 rounded-lg flex items-center justify-between">
-                  <span className="text-slate-400">Parent Shareholders' Equity Share:</span>
-                  <span className="font-mono font-bold text-slate-200">${pnlReport.parentShareProfit}</span>
+                <div className="p-3 bg-card/60 border border-border rounded-lg flex items-center justify-between">
+                  <span className="text-muted-foreground">Parent Shareholders' Equity Share:</span>
+                  <span className="font-mono font-bold text-foreground">${pnlReport.parentShareProfit}</span>
                 </div>
-                <div className="p-3 bg-slate-950/60 border border-slate-800 rounded-lg flex items-center justify-between">
-                  <span className="text-slate-400">Non-Controlling / Minority Interest Share:</span>
+                <div className="p-3 bg-card/60 border border-border rounded-lg flex items-center justify-between">
+                  <span className="text-muted-foreground">Non-Controlling / Minority Interest Share:</span>
                   <span className="font-mono font-bold text-amber-400">${pnlReport.nonControllingInterestShare}</span>
                 </div>
               </div>
@@ -381,14 +381,14 @@ export const ConsolidationWorkbenchView: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
             {/* Assets */}
             <div className="space-y-3">
-              <div className="font-bold text-sm text-slate-200 pb-2 border-b border-slate-800">ASSETS</div>
-              <div className="p-3 bg-slate-900/60 rounded-lg flex items-center justify-between">
-                <span className="text-slate-300">Current Assets (Cash, Receivables, Inventory)</span>
-                <span className="font-mono font-bold text-slate-100">${bsReport.currentAssets}</span>
+              <div className="font-bold text-sm text-foreground pb-2 border-b border-border">ASSETS</div>
+              <div className="p-3 bg-card/60 rounded-lg flex items-center justify-between">
+                <span className="text-foreground/90">Current Assets (Cash, Receivables, Inventory)</span>
+                <span className="font-mono font-bold text-foreground">${bsReport.currentAssets}</span>
               </div>
-              <div className="p-3 bg-slate-900/60 rounded-lg flex items-center justify-between">
-                <span className="text-slate-300">Non-Current Assets (Equipment, Buildings, WIP)</span>
-                <span className="font-mono font-bold text-slate-100">${bsReport.nonCurrentAssets}</span>
+              <div className="p-3 bg-card/60 rounded-lg flex items-center justify-between">
+                <span className="text-foreground/90">Non-Current Assets (Equipment, Buildings, WIP)</span>
+                <span className="font-mono font-bold text-foreground">${bsReport.nonCurrentAssets}</span>
               </div>
               <div className="p-4 bg-emerald-950/40 border border-emerald-500/40 rounded-xl flex items-center justify-between font-bold text-emerald-400">
                 <span>TOTAL ASSETS</span>
@@ -398,18 +398,18 @@ export const ConsolidationWorkbenchView: React.FC = () => {
 
             {/* Liabilities & Equity */}
             <div className="space-y-3">
-              <div className="font-bold text-sm text-slate-200 pb-2 border-b border-slate-800">LIABILITIES & EQUITY</div>
-              <div className="p-3 bg-slate-900/60 rounded-lg flex items-center justify-between">
-                <span className="text-slate-300">Current Liabilities (Trade Payables, Accrued Taxes)</span>
-                <span className="font-mono font-bold text-slate-100">${bsReport.currentLiabilities}</span>
+              <div className="font-bold text-sm text-foreground pb-2 border-b border-border">LIABILITIES & EQUITY</div>
+              <div className="p-3 bg-card/60 rounded-lg flex items-center justify-between">
+                <span className="text-foreground/90">Current Liabilities (Trade Payables, Accrued Taxes)</span>
+                <span className="font-mono font-bold text-foreground">${bsReport.currentLiabilities}</span>
               </div>
-              <div className="p-3 bg-slate-900/60 rounded-lg flex items-center justify-between">
-                <span className="text-slate-300">Non-Current Liabilities (Term Loans)</span>
-                <span className="font-mono font-bold text-slate-100">${bsReport.nonCurrentLiabilities}</span>
+              <div className="p-3 bg-card/60 rounded-lg flex items-center justify-between">
+                <span className="text-foreground/90">Non-Current Liabilities (Term Loans)</span>
+                <span className="font-mono font-bold text-foreground">${bsReport.nonCurrentLiabilities}</span>
               </div>
-              <div className="p-3 bg-slate-950/60 border border-slate-800 rounded-lg flex items-center justify-between">
-                <span className="text-slate-300">Parent Shareholders' Equity & Retained Earnings</span>
-                <span className="font-mono font-bold text-slate-100">${bsReport.parentEquity}</span>
+              <div className="p-3 bg-card/60 border border-border rounded-lg flex items-center justify-between">
+                <span className="text-foreground/90">Parent Shareholders' Equity & Retained Earnings</span>
+                <span className="font-mono font-bold text-foreground">${bsReport.parentEquity}</span>
               </div>
               <div className="p-3 bg-amber-500/10 border border-amber-500/20 rounded-lg flex items-center justify-between text-amber-400">
                 <span>Non-Controlling / Minority Interest</span>
@@ -428,23 +428,23 @@ export const ConsolidationWorkbenchView: React.FC = () => {
       {activeTab === 'cf' && cfReport && (
         <Card title="Consolidated Statement of Cash Flows" subtitle={`Period: ${cfReport.period}`}>
           <div className="space-y-3 text-xs max-w-2xl">
-            <div className="p-3.5 bg-slate-900/60 rounded-lg flex items-center justify-between">
-              <span className="text-slate-200 font-medium">1. Net Cash from Operating Activities</span>
+            <div className="p-3.5 bg-card/60 rounded-lg flex items-center justify-between">
+              <span className="text-foreground font-medium">1. Net Cash from Operating Activities</span>
               <span className="font-mono font-bold text-emerald-400">${cfReport.operatingCashFlow}</span>
             </div>
-            <div className="p-3.5 bg-slate-900/60 rounded-lg flex items-center justify-between">
-              <span className="text-slate-200 font-medium">2. Net Cash used in Investing Activities (CapEx)</span>
+            <div className="p-3.5 bg-card/60 rounded-lg flex items-center justify-between">
+              <span className="text-foreground font-medium">2. Net Cash used in Investing Activities (CapEx)</span>
               <span className="font-mono font-bold text-rose-400">${cfReport.investingCashFlow}</span>
             </div>
-            <div className="p-3.5 bg-slate-900/60 rounded-lg flex items-center justify-between">
-              <span className="text-slate-200 font-medium">3. Net Cash from Financing Activities</span>
+            <div className="p-3.5 bg-card/60 rounded-lg flex items-center justify-between">
+              <span className="text-foreground font-medium">3. Net Cash from Financing Activities</span>
               <span className="font-mono font-bold text-indigo-400">${cfReport.financingCashFlow}</span>
             </div>
             <div className="p-4 bg-emerald-950/40 border border-emerald-500/40 rounded-xl flex items-center justify-between font-bold text-emerald-400">
               <span>Net Increase / (Decrease) in Cash & Cash Equivalents</span>
               <span className="font-mono text-sm">${cfReport.netCashIncrease}</span>
             </div>
-            <div className="p-3.5 bg-slate-950/80 border border-slate-800 rounded-lg flex items-center justify-between font-bold text-slate-100">
+            <div className="p-3.5 bg-card/80 border border-border rounded-lg flex items-center justify-between font-bold text-foreground">
               <span>Ending Cash & Liquid Bank Position</span>
               <span className="font-mono text-cyan-400">${cfReport.endingCash}</span>
             </div>
@@ -470,7 +470,7 @@ export const ConsolidationWorkbenchView: React.FC = () => {
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr className="border-b border-slate-800 text-slate-400">
+                  <tr className="border-b border-border text-muted-foreground">
                     <th className="py-2.5 px-3 font-semibold">Adjustment #</th>
                     <th className="py-2.5 px-3 font-semibold">Type</th>
                     <th className="py-2.5 px-3 font-semibold">Reason</th>
@@ -479,20 +479,20 @@ export const ConsolidationWorkbenchView: React.FC = () => {
                     <th className="py-2.5 px-3 font-semibold text-right">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60 text-slate-300">
+                <tbody className="divide-y divide-border text-foreground/90">
                   {adjustments.length === 0 ? (
                     <tr>
-                      <td colSpan={6} className="py-8 text-center text-slate-500 text-xs">
+                      <td colSpan={6} className="py-8 text-center text-muted-foreground text-xs">
                         No elimination adjustments recorded for this consolidation run.
                       </td>
                     </tr>
                   ) : (
                     adjustments.map((adj) => (
-                      <tr key={adj.id} className="hover:bg-slate-800/40 transition-colors">
+                      <tr key={adj.id} className="hover:bg-muted/40 transition-colors">
                         <td className="py-3 px-3 font-mono font-medium text-amber-400">{adj.adjustmentNumber}</td>
-                        <td className="py-3 px-3 capitalize text-slate-300">{adj.adjustmentType}</td>
-                        <td className="py-3 px-3 text-slate-200">{adj.reason}</td>
-                        <td className="py-3 px-3 text-right font-mono font-bold text-slate-100">
+                        <td className="py-3 px-3 capitalize text-foreground/90">{adj.adjustmentType}</td>
+                        <td className="py-3 px-3 text-foreground">{adj.reason}</td>
+                        <td className="py-3 px-3 text-right font-mono font-bold text-foreground">
                           {adj.totalAmount} {adj.currency}
                         </td>
                         <td className="py-3 px-3 text-center">
@@ -528,35 +528,35 @@ export const ConsolidationWorkbenchView: React.FC = () => {
       >
         <form onSubmit={handleCreateSet} className="space-y-4 text-xs">
           <div>
-            <label className="block text-slate-300 font-medium mb-1">Set Code</label>
+            <label className="block text-foreground/90 font-medium mb-1">Set Code</label>
             <input
               type="text"
               required
               placeholder="e.g. CSET-FULL-GRP"
               value={setForm.code}
               onChange={(e) => setSetForm({ ...setForm, code: e.target.value.toUpperCase() })}
-              className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100 font-mono"
+              className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground font-mono"
             />
           </div>
 
           <div>
-            <label className="block text-slate-300 font-medium mb-1">Set Description Name</label>
+            <label className="block text-foreground/90 font-medium mb-1">Set Description Name</label>
             <input
               type="text"
               required
               placeholder="e.g. Full Group Consolidated Financials"
               value={setForm.name}
               onChange={(e) => setSetForm({ ...setForm, name: e.target.value })}
-              className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100"
+              className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground"
             />
           </div>
 
           <div>
-            <label className="block text-slate-300 font-medium mb-1">Parent Holding Entity</label>
+            <label className="block text-foreground/90 font-medium mb-1">Parent Holding Entity</label>
             <select
               value={setForm.parentCompanyId}
               onChange={(e) => setSetForm({ ...setForm, parentCompanyId: e.target.value })}
-              className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100"
+              className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground"
             >
               {companies.map((c) => (
                 <option key={c.id} value={c.id}>{c.name} ({c.code})</option>
@@ -565,11 +565,11 @@ export const ConsolidationWorkbenchView: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-slate-300 font-medium mb-1">Consolidation Reporting Currency</label>
+            <label className="block text-foreground/90 font-medium mb-1">Consolidation Reporting Currency</label>
             <select
               value={setForm.reportingCurrency}
               onChange={(e) => setSetForm({ ...setForm, reportingCurrency: e.target.value })}
-              className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100 font-mono"
+              className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground font-mono"
             >
               <option value="USD">USD</option>
               <option value="EUR">EUR</option>
@@ -580,7 +580,7 @@ export const ConsolidationWorkbenchView: React.FC = () => {
             </select>
           </div>
 
-          <div className="flex justify-end gap-2 pt-3 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-3 border-t border-border">
             <Button type="button" variant="secondary" onClick={() => setIsSetModalOpen(false)}>
               Cancel
             </Button>
@@ -600,28 +600,28 @@ export const ConsolidationWorkbenchView: React.FC = () => {
         <form onSubmit={handleCreateRun} className="space-y-4 text-xs">
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-slate-300 font-medium mb-1">Period Start Date</label>
+              <label className="block text-foreground/90 font-medium mb-1">Period Start Date</label>
               <input
                 type="date"
                 required
                 value={runForm.startDate}
                 onChange={(e) => setRunForm({ ...runForm, startDate: e.target.value })}
-                className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100 font-mono"
+                className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground font-mono"
               />
             </div>
             <div>
-              <label className="block text-slate-300 font-medium mb-1">Period End Date</label>
+              <label className="block text-foreground/90 font-medium mb-1">Period End Date</label>
               <input
                 type="date"
                 required
                 value={runForm.endDate}
                 onChange={(e) => setRunForm({ ...runForm, endDate: e.target.value })}
-                className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100 font-mono"
+                className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground font-mono"
               />
             </div>
           </div>
 
-          <div className="flex justify-end gap-2 pt-3 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-3 border-t border-border">
             <Button type="button" variant="secondary" onClick={() => setIsRunModalOpen(false)}>
               Cancel
             </Button>
@@ -640,19 +640,19 @@ export const ConsolidationWorkbenchView: React.FC = () => {
       >
         <form onSubmit={handleCreateElimination} className="space-y-4 text-xs">
           <div>
-            <label className="block text-slate-300 font-medium mb-1">Elimination Reason / Purpose</label>
+            <label className="block text-foreground/90 font-medium mb-1">Elimination Reason / Purpose</label>
             <input
               type="text"
               required
               placeholder="e.g. Eliminate Intercompany Management Fee Inflow & Outflow"
               value={elimForm.reason}
               onChange={(e) => setElimForm({ ...elimForm, reason: e.target.value })}
-              className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100"
+              className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground"
             />
           </div>
 
           <div>
-            <label className="block text-slate-300 font-medium mb-1">Balanced Elimination Amount</label>
+            <label className="block text-foreground/90 font-medium mb-1">Balanced Elimination Amount</label>
             <input
               type="number"
               step="0.01"
@@ -660,17 +660,17 @@ export const ConsolidationWorkbenchView: React.FC = () => {
               required
               value={elimForm.totalAmount}
               onChange={(e) => setElimForm({ ...elimForm, totalAmount: e.target.value })}
-              className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100 font-mono font-bold"
+              className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground font-mono font-bold"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-slate-300 font-medium mb-1">Debit Entity</label>
+              <label className="block text-foreground/90 font-medium mb-1">Debit Entity</label>
               <select
                 value={elimForm.company1Id}
                 onChange={(e) => setElimForm({ ...elimForm, company1Id: e.target.value })}
-                className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100"
+                className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground"
               >
                 {companies.map((c) => (
                   <option key={c.id} value={c.id}>{c.name} ({c.code})</option>
@@ -679,11 +679,11 @@ export const ConsolidationWorkbenchView: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-slate-300 font-medium mb-1">Credit Entity</label>
+              <label className="block text-foreground/90 font-medium mb-1">Credit Entity</label>
               <select
                 value={elimForm.company2Id}
                 onChange={(e) => setElimForm({ ...elimForm, company2Id: e.target.value })}
-                className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100"
+                className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground"
               >
                 {companies.map((c) => (
                   <option key={c.id} value={c.id}>{c.name} ({c.code})</option>
@@ -692,7 +692,7 @@ export const ConsolidationWorkbenchView: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex justify-end gap-2 pt-3 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-3 border-t border-border">
             <Button type="button" variant="secondary" onClick={() => setIsElimModalOpen(false)}>
               Cancel
             </Button>

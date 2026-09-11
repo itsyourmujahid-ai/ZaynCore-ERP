@@ -135,19 +135,19 @@ export const DesignationsView: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-center gap-3 flex-1 max-w-md">
           <div className="relative flex-1">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               placeholder="Search by designation title, code..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 bg-slate-900 border border-slate-800 rounded-lg text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-brand-500"
+              className="w-full pl-9 pr-4 py-2 bg-card border border-border rounded-lg text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-brand-500"
             />
           </div>
           <select
             value={selectedDeptFilter}
             onChange={(e) => setSelectedDeptFilter(e.target.value)}
-            className="px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-xs text-slate-300 focus:outline-none focus:border-brand-500"
+            className="px-3 py-2 bg-card border border-border rounded-lg text-xs text-foreground/90 focus:outline-none focus:border-brand-500"
           >
             <option value="all">All Departments</option>
             {departments.map((dept) => (
@@ -170,14 +170,14 @@ export const DesignationsView: React.FC = () => {
         subtitle="Manage official HR titles, organizational hierarchy levels, and department associations"
       >
         {filteredDesignations.length === 0 ? (
-          <div className="py-12 text-center text-slate-400 text-xs">
-            <Briefcase className="w-8 h-8 text-slate-600 mx-auto mb-2" />
+          <div className="py-12 text-center text-muted-foreground text-xs">
+            <Briefcase className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
             No designations found. Click &quot;Add Designation&quot; to configure job roles.
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-900/50 text-slate-400 border-b border-slate-800">
+              <thead className="bg-muted/50 text-muted-foreground border-b border-border">
                 <tr>
                   <th className="p-3">Designation Title</th>
                   <th className="p-3">Code</th>
@@ -187,7 +187,7 @@ export const DesignationsView: React.FC = () => {
                   <th className="p-3 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60">
+              <tbody className="divide-y divide-border">
                 {filteredDesignations.map((desg) => {
                   const dept = departments.find((d) => d.id === desg.departmentId);
                   const staffCount = employees.filter(
@@ -195,34 +195,34 @@ export const DesignationsView: React.FC = () => {
                   ).length;
 
                   return (
-                    <tr key={desg.id} className="hover:bg-slate-800/30 transition-colors">
+                    <tr key={desg.id} className="hover:bg-muted/30 transition-colors">
                       <td className="p-3">
                         <div className="flex items-center gap-2.5">
                           <div className="w-8 h-8 rounded-lg bg-cyan-950/60 border border-cyan-800/40 flex items-center justify-center font-bold text-xs text-cyan-400">
                             <Tag className="w-4 h-4" />
                           </div>
                           <div>
-                            <div className="font-semibold text-slate-200">{desg.name}</div>
+                            <div className="font-semibold text-foreground">{desg.name}</div>
                             {desg.description && (
-                              <div className="text-[11px] text-slate-400 line-clamp-1">{desg.description}</div>
+                              <div className="text-[11px] text-muted-foreground line-clamp-1">{desg.description}</div>
                             )}
                           </div>
                         </div>
                       </td>
-                      <td className="p-3 font-mono text-slate-300 font-semibold">{desg.code}</td>
+                      <td className="p-3 font-mono text-foreground/90 font-semibold">{desg.code}</td>
                       <td className="p-3">
                         {dept ? (
-                          <div className="flex items-center gap-1.5 text-slate-300">
-                            <Building2 className="w-3.5 h-3.5 text-slate-500" />
+                          <div className="flex items-center gap-1.5 text-foreground/90">
+                            <Building2 className="w-3.5 h-3.5 text-muted-foreground" />
                             <span>{dept.name}</span>
-                            <span className="text-[10px] text-slate-500 font-mono">({dept.code})</span>
+                            <span className="text-[10px] text-muted-foreground font-mono">({dept.code})</span>
                           </div>
                         ) : (
-                          <span className="text-slate-500 italic">General / All Departments</span>
+                          <span className="text-muted-foreground italic">General / All Departments</span>
                         )}
                       </td>
                       <td className="p-3">
-                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium bg-slate-800 text-slate-300 border border-slate-700">
+                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium bg-muted text-foreground/90 border border-border">
                           {staffCount} {staffCount === 1 ? 'employee' : 'employees'}
                         </span>
                       </td>
@@ -241,14 +241,14 @@ export const DesignationsView: React.FC = () => {
                         <div className="flex items-center justify-end gap-1.5">
                           <button
                             onClick={() => handleOpenEdit(desg)}
-                            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition-colors"
+                            className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
                             title="Edit Designation"
                           >
                             <Edit2 className="w-4 h-4" />
                           </button>
                           <button
                             onClick={() => handleDelete(desg.id, desg.name)}
-                            className="p-1.5 rounded-lg text-slate-400 hover:text-rose-400 hover:bg-rose-950/30 transition-colors"
+                            className="p-1.5 rounded-lg text-muted-foreground hover:text-rose-400 hover:bg-rose-950/30 transition-colors"
                             title="Delete Designation"
                           >
                             <Trash2 className="w-4 h-4" />
@@ -266,16 +266,16 @@ export const DesignationsView: React.FC = () => {
 
       {/* Add / Edit Designation Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-fadeIn">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-lg flex flex-col shadow-2xl overflow-hidden">
-            <div className="p-5 border-b border-slate-800 flex items-center justify-between">
-              <h2 className="text-base font-bold text-slate-100 flex items-center gap-2">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-card/80 backdrop-blur-sm animate-fadeIn">
+          <div className="bg-card border border-border rounded-2xl w-full max-w-lg flex flex-col shadow-2xl overflow-hidden">
+            <div className="p-5 border-b border-border flex items-center justify-between">
+              <h2 className="text-base font-bold text-foreground flex items-center gap-2">
                 <Briefcase className="w-5 h-5 text-cyan-400" />
                 {editingDesignation ? `Edit Designation: ${editingDesignation.name}` : 'Create New Designation'}
               </h2>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="text-slate-400 hover:text-slate-100 text-lg leading-none"
+                className="text-muted-foreground hover:text-foreground text-lg leading-none"
               >
                 ✕
               </button>
@@ -283,35 +283,35 @@ export const DesignationsView: React.FC = () => {
 
             <form onSubmit={handleSave} className="p-6 space-y-4 text-xs">
               <div>
-                <label className="block text-slate-400 mb-1">Designation Title / Role Name *</label>
+                <label className="block text-muted-foreground mb-1">Designation Title / Role Name *</label>
                 <input
                   type="text"
                   required
                   placeholder="e.g. Senior Financial Accountant, Sales Executive, Site Manager"
                   value={formName}
                   onChange={(e) => setFormName(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 focus:outline-none focus:border-cyan-500"
+                  className="w-full px-3 py-2 bg-card border border-border rounded-lg text-foreground focus:outline-none focus:border-cyan-500"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-slate-400 mb-1">Designation Code *</label>
+                  <label className="block text-muted-foreground mb-1">Designation Code *</label>
                   <input
                     type="text"
                     required
                     placeholder="e.g. DESG-ACC-01"
                     value={formCode}
                     onChange={(e) => setFormCode(e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 font-mono focus:outline-none focus:border-cyan-500"
+                    className="w-full px-3 py-2 bg-card border border-border rounded-lg text-foreground font-mono focus:outline-none focus:border-cyan-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-400 mb-1">Department</label>
+                  <label className="block text-muted-foreground mb-1">Department</label>
                   <select
                     value={formDepartmentId}
                     onChange={(e) => setFormDepartmentId(e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 focus:outline-none focus:border-cyan-500"
+                    className="w-full px-3 py-2 bg-card border border-border rounded-lg text-foreground focus:outline-none focus:border-cyan-500"
                   >
                     <option value="">General / All Departments</option>
                     {departments.map((d) => (
@@ -324,22 +324,22 @@ export const DesignationsView: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-slate-400 mb-1">Description / Key Responsibilities</label>
+                <label className="block text-muted-foreground mb-1">Description / Key Responsibilities</label>
                 <textarea
                   rows={3}
                   placeholder="Brief description of duties, qualifications or role scope..."
                   value={formDescription}
                   onChange={(e) => setFormDescription(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 focus:outline-none focus:border-cyan-500"
+                  className="w-full px-3 py-2 bg-card border border-border rounded-lg text-foreground focus:outline-none focus:border-cyan-500"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-400 mb-1">Status</label>
+                <label className="block text-muted-foreground mb-1">Status</label>
                 <select
                   value={formStatus}
                   onChange={(e) => setFormStatus(e.target.value as EntityStatus)}
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 focus:outline-none focus:border-cyan-500"
+                  className="w-full px-3 py-2 bg-card border border-border rounded-lg text-foreground focus:outline-none focus:border-cyan-500"
                 >
                   <option value="active">Active</option>
                   <option value="inactive">Inactive</option>
@@ -347,7 +347,7 @@ export const DesignationsView: React.FC = () => {
                 </select>
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-800">
+              <div className="flex items-center justify-end gap-3 pt-4 border-t border-border">
                 <Button variant="secondary" size="sm" type="button" onClick={() => setIsModalOpen(false)}>
                   Cancel
                 </Button>

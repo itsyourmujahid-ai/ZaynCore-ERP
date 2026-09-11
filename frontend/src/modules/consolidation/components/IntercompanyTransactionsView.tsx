@@ -88,11 +88,11 @@ export const IntercompanyTransactionsView: React.FC = () => {
         <div>
           <div className="flex items-center gap-2">
             <span className="text-xs font-bold uppercase tracking-wider text-cyan-400">Intercompany Engine</span>
-            <span className="text-slate-600">•</span>
+            <span className="text-muted-foreground">•</span>
             <StatusBadge status="Synchronized GL" />
           </div>
-          <h1 className="text-2xl font-bold text-slate-100 mt-1">Intercompany Transactions</h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <h1 className="text-2xl font-bold text-foreground mt-1">Intercompany Transactions</h1>
+          <p className="text-xs text-muted-foreground mt-1">
             Execute cross-company transactions with synchronized bidirectional double-entry General Ledger postings.
           </p>
         </div>
@@ -119,13 +119,13 @@ export const IntercompanyTransactionsView: React.FC = () => {
         subtitle={`${filteredTx.length} synchronized transactions recorded`}
         action={
           <div className="relative w-64">
-            <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
             <input
               type="text"
               placeholder="Search transactions..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-8 pr-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-slate-200 placeholder-slate-500"
+              className="w-full pl-8 pr-3 py-1.5 rounded-lg bg-card border border-border text-xs text-foreground placeholder:text-muted-foreground"
             />
           </div>
         }
@@ -133,7 +133,7 @@ export const IntercompanyTransactionsView: React.FC = () => {
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="border-b border-slate-800 text-slate-400">
+              <tr className="border-b border-border text-muted-foreground">
                 <th className="py-2.5 px-3 font-semibold">Tx Number</th>
                 <th className="py-2.5 px-3 font-semibold">Date</th>
                 <th className="py-2.5 px-3 font-semibold">Source Entity</th>
@@ -144,10 +144,10 @@ export const IntercompanyTransactionsView: React.FC = () => {
                 <th className="py-2.5 px-3 font-semibold text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-slate-300">
+            <tbody className="divide-y divide-border text-foreground/90">
               {filteredTx.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="py-8 text-center text-slate-500 text-xs">
+                  <td colSpan={8} className="py-8 text-center text-muted-foreground text-xs">
                     No intercompany transactions found. Click 'New Intercompany Transaction' to record cross-company flows.
                   </td>
                 </tr>
@@ -157,24 +157,24 @@ export const IntercompanyTransactionsView: React.FC = () => {
                   const targetComp = companies.find((c) => c.id === tx.targetCompanyId);
 
                   return (
-                    <tr key={tx.id} className="hover:bg-slate-800/40 transition-colors">
+                    <tr key={tx.id} className="hover:bg-muted/40 transition-colors">
                       <td className="py-3 px-3 font-mono font-medium text-cyan-400">
                         {tx.transactionNumber}
                       </td>
-                      <td className="py-3 px-3 text-slate-400">{tx.transactionDate}</td>
+                      <td className="py-3 px-3 text-muted-foreground">{tx.transactionDate}</td>
                       <td className="py-3 px-3">
-                        <div className="font-medium text-slate-200">{sourceComp?.name || tx.sourceCompanyId}</div>
-                        <div className="text-[10px] text-slate-500 font-mono">{sourceComp?.code}</div>
+                        <div className="font-medium text-foreground">{sourceComp?.name || tx.sourceCompanyId}</div>
+                        <div className="text-[10px] text-muted-foreground font-mono">{sourceComp?.code}</div>
                       </td>
                       <td className="py-3 px-3">
-                        <div className="font-medium text-slate-200">{targetComp?.name || tx.targetCompanyId}</div>
-                        <div className="text-[10px] text-slate-500 font-mono">{targetComp?.code}</div>
+                        <div className="font-medium text-foreground">{targetComp?.name || tx.targetCompanyId}</div>
+                        <div className="text-[10px] text-muted-foreground font-mono">{targetComp?.code}</div>
                       </td>
                       <td className="py-3 px-3">
-                        <span className="capitalize text-slate-300">{tx.transactionType.replace('_', ' ')}</span>
+                        <span className="capitalize text-foreground/90">{tx.transactionType.replace('_', ' ')}</span>
                       </td>
-                      <td className="py-3 px-3 text-right font-mono font-bold text-slate-100">
-                        {tx.amount} <span className="text-[10px] text-slate-500">{tx.currency}</span>
+                      <td className="py-3 px-3 text-right font-mono font-bold text-foreground">
+                        {tx.amount} <span className="text-[10px] text-muted-foreground">{tx.currency}</span>
                       </td>
                       <td className="py-3 px-3 text-center">
                         <StatusBadge status={tx.status} size="xs" />
@@ -212,11 +212,11 @@ export const IntercompanyTransactionsView: React.FC = () => {
         <form onSubmit={handleCreate} className="space-y-4 text-xs">
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-slate-300 font-medium mb-1">Source Entity (Originator)</label>
+              <label className="block text-foreground/90 font-medium mb-1">Source Entity (Originator)</label>
               <select
                 value={form.sourceCompanyId}
                 onChange={(e) => setForm({ ...form, sourceCompanyId: e.target.value })}
-                className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100"
+                className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground"
               >
                 {companies.map((c) => (
                   <option key={c.id} value={c.id}>{c.name} ({c.code})</option>
@@ -225,11 +225,11 @@ export const IntercompanyTransactionsView: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-slate-300 font-medium mb-1">Target Entity (Counterparty)</label>
+              <label className="block text-foreground/90 font-medium mb-1">Target Entity (Counterparty)</label>
               <select
                 value={form.targetCompanyId}
                 onChange={(e) => setForm({ ...form, targetCompanyId: e.target.value })}
-                className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100"
+                className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground"
               >
                 {companies.map((c) => (
                   <option key={c.id} value={c.id}>{c.name} ({c.code})</option>
@@ -240,11 +240,11 @@ export const IntercompanyTransactionsView: React.FC = () => {
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-slate-300 font-medium mb-1">Transaction Category</label>
+              <label className="block text-foreground/90 font-medium mb-1">Transaction Category</label>
               <select
                 value={form.transactionType}
                 onChange={(e) => setForm({ ...form, transactionType: e.target.value as any })}
-                className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100"
+                className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground"
               >
                 <option value="sales_purchase">Sales & Purchase of Goods/Services</option>
                 <option value="management_fee">Corporate Management Fee</option>
@@ -255,20 +255,20 @@ export const IntercompanyTransactionsView: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-slate-300 font-medium mb-1">Transaction Date</label>
+              <label className="block text-foreground/90 font-medium mb-1">Transaction Date</label>
               <input
                 type="date"
                 required
                 value={form.transactionDate}
                 onChange={(e) => setForm({ ...form, transactionDate: e.target.value })}
-                className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100 font-mono"
+                className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground font-mono"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-3 gap-3">
             <div className="col-span-2">
-              <label className="block text-slate-300 font-medium mb-1">Transaction Amount</label>
+              <label className="block text-foreground/90 font-medium mb-1">Transaction Amount</label>
               <input
                 type="number"
                 step="0.01"
@@ -276,16 +276,16 @@ export const IntercompanyTransactionsView: React.FC = () => {
                 required
                 value={form.amount}
                 onChange={(e) => setForm({ ...form, amount: e.target.value })}
-                className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100 font-mono font-bold"
+                className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground font-mono font-bold"
               />
             </div>
 
             <div>
-              <label className="block text-slate-300 font-medium mb-1">Currency</label>
+              <label className="block text-foreground/90 font-medium mb-1">Currency</label>
               <select
                 value={form.currency}
                 onChange={(e) => setForm({ ...form, currency: e.target.value })}
-                className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100 font-mono"
+                className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground font-mono"
               >
                 <option value="USD">USD</option>
                 <option value="EUR">EUR</option>
@@ -298,17 +298,17 @@ export const IntercompanyTransactionsView: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-slate-300 font-medium mb-1">Memo / Business Purpose</label>
+            <label className="block text-foreground/90 font-medium mb-1">Memo / Business Purpose</label>
             <input
               type="text"
               placeholder="e.g. Q1 Shared IT Infrastructure Support Services"
               value={form.memo}
               onChange={(e) => setForm({ ...form, memo: e.target.value })}
-              className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100"
+              className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground"
             />
           </div>
 
-          <div className="flex justify-end gap-2 pt-3 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-3 border-t border-border">
             <Button type="button" variant="secondary" onClick={() => setIsModalOpen(false)}>
               Cancel
             </Button>
@@ -327,30 +327,30 @@ export const IntercompanyTransactionsView: React.FC = () => {
           title={`Intercompany Voucher: ${selectedTx.transactionNumber}`}
         >
           <div className="space-y-4 text-xs">
-            <div className="grid grid-cols-2 gap-4 p-3.5 bg-slate-950/60 border border-slate-800 rounded-xl">
+            <div className="grid grid-cols-2 gap-4 p-3.5 bg-card/60 border border-border rounded-xl">
               <div>
-                <span className="text-[10px] text-slate-500 uppercase font-bold block">Status</span>
+                <span className="text-[10px] text-muted-foreground uppercase font-bold block">Status</span>
                 <StatusBadge status={selectedTx.status} size="sm" />
               </div>
               <div>
-                <span className="text-[10px] text-slate-500 uppercase font-bold block">Amount</span>
+                <span className="text-[10px] text-muted-foreground uppercase font-bold block">Amount</span>
                 <span className="font-bold text-sm font-mono text-cyan-400">{selectedTx.amount} {selectedTx.currency}</span>
               </div>
             </div>
 
             <div className="space-y-2">
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Synchronized GL Journals</span>
-              <div className="p-3 bg-slate-900/60 border border-slate-800 rounded-lg flex items-center justify-between">
+              <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider block">Synchronized GL Journals</span>
+              <div className="p-3 bg-card/60 border border-border rounded-lg flex items-center justify-between">
                 <span>Source Entity Journal</span>
                 <span className="font-mono text-emerald-400">{selectedTx.sourceJournalId || 'Pending Posting'}</span>
               </div>
-              <div className="p-3 bg-slate-900/60 border border-slate-800 rounded-lg flex items-center justify-between">
+              <div className="p-3 bg-card/60 border border-border rounded-lg flex items-center justify-between">
                 <span>Target Counterparty Journal</span>
                 <span className="font-mono text-emerald-400">{selectedTx.targetJournalId || 'Pending Posting'}</span>
               </div>
             </div>
 
-            <div className="flex justify-end pt-3 border-t border-slate-800">
+            <div className="flex justify-end pt-3 border-t border-border">
               <Button variant="secondary" onClick={() => setSelectedTx(null)}>
                 Close
               </Button>

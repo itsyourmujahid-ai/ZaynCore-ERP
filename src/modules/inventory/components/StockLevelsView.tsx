@@ -52,20 +52,20 @@ export const StockLevelsView: React.FC<{
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex flex-wrap items-center gap-2 flex-1">
           <div className="relative min-w-[240px] max-w-sm">
-            <Search className="w-4 h-4 text-slate-500 absolute left-3 top-2.5" />
+            <Search className="w-4 h-4 text-muted-foreground absolute left-3 top-2.5" />
             <input
               type="text"
               placeholder="Search stock by SKU, name..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-slate-900/60 border border-slate-800 rounded-lg pl-9 pr-3 py-1.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand-500"
+              className="w-full bg-card/60 border border-border rounded-lg pl-9 pr-3 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-brand-500"
             />
           </div>
 
           <select
             value={selectedWarehouseId}
             onChange={(e) => setSelectedWarehouseId(e.target.value)}
-            className="bg-slate-900/60 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-slate-300 focus:outline-none focus:border-brand-500"
+            className="bg-card/60 border border-border rounded-lg px-2.5 py-1.5 text-xs text-foreground/90 focus:outline-none focus:border-brand-500"
           >
             <option value="all">All Warehouses ({warehouses.length})</option>
             {warehouses.map((w) => (
@@ -78,7 +78,7 @@ export const StockLevelsView: React.FC<{
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all ${
               showLowStockOnly
                 ? 'bg-amber-500/10 text-amber-400 border-amber-500/30'
-                : 'bg-slate-900/60 text-slate-400 border-slate-800 hover:text-slate-200'
+                : 'bg-card/60 text-muted-foreground border-border hover:text-foreground'
             }`}
           >
             <AlertTriangle className="w-3.5 h-3.5" />
@@ -101,13 +101,13 @@ export const StockLevelsView: React.FC<{
       {/* Stock Matrix Table */}
       <Card noPadding>
         {filteredRows.length === 0 ? (
-          <div className="p-10 text-center text-slate-500 text-xs">
+          <div className="p-10 text-center text-muted-foreground text-xs">
             No stock levels match current filter criteria.
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-950/80 text-slate-400 border-b border-slate-800">
+              <thead className="bg-card/80 text-muted-foreground border-b border-border">
                 <tr>
                   <th className="p-3">SKU</th>
                   <th className="p-3">Item Description</th>
@@ -119,26 +119,26 @@ export const StockLevelsView: React.FC<{
                   <th className="p-3 text-center">Details</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/50 bg-slate-900/20">
+              <tbody className="divide-y divide-border/50 bg-card/20">
                 {filteredRows.map(({ item, summary, uomSymbol }) => (
-                  <tr key={item.id} className="hover:bg-slate-800/30">
+                  <tr key={item.id} className="hover:bg-muted/30">
                     <td className="p-3 font-mono font-bold text-brand-400">{item.itemCode}</td>
                     <td className="p-3">
-                      <div className="font-semibold text-slate-100">{item.name}</div>
-                      <div className="text-[10px] text-slate-500">{summary.categoryName}</div>
+                      <div className="font-semibold text-foreground">{item.name}</div>
+                      <div className="text-[10px] text-muted-foreground">{summary.categoryName}</div>
                     </td>
                     <td className="p-3 text-right font-mono font-bold">
-                      <span className={summary.isLowStock ? 'text-amber-400' : 'text-slate-100'}>
+                      <span className={summary.isLowStock ? 'text-amber-400' : 'text-foreground'}>
                         {summary.totalQuantity} {uomSymbol}
                       </span>
                       {summary.isLowStock && (
                         <span className="block text-[10px] text-amber-400 font-semibold uppercase">Reorder Needed</span>
                       )}
                     </td>
-                    <td className="p-3 text-right font-mono text-slate-400">
+                    <td className="p-3 text-right font-mono text-muted-foreground">
                       {summary.reorderLevel} {uomSymbol}
                     </td>
-                    <td className="p-3 text-right font-mono text-slate-200">
+                    <td className="p-3 text-right font-mono text-foreground">
                       ${summary.averageUnitCost}
                     </td>
                     <td className="p-3 text-right font-mono font-bold text-emerald-400">
@@ -149,9 +149,9 @@ export const StockLevelsView: React.FC<{
                         {summary.warehouseBreakdown.map((wh) => (
                           <span
                             key={wh.warehouseId}
-                            className="px-2 py-0.5 rounded bg-slate-950 border border-slate-800 text-[10px] font-mono text-slate-300"
+                            className="px-2 py-0.5 rounded bg-card border border-border text-[10px] font-mono text-foreground/90"
                           >
-                            <span className="text-slate-500">{wh.warehouseCode}:</span> {wh.quantity}
+                            <span className="text-muted-foreground">{wh.warehouseCode}:</span> {wh.quantity}
                           </span>
                         ))}
                       </div>

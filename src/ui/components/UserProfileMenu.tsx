@@ -36,7 +36,7 @@ export const UserProfileMenu: React.FC = () => {
       <button
         onClick={() => setIsOpen(!isOpen)}
         title={`User: ${displayName} (${displayRole})`}
-        className="flex items-center gap-2 px-2.5 py-1.5 rounded-xl bg-slate-800/80 border border-slate-700/80 hover:border-slate-600 text-left transition-all group max-w-[150px] sm:max-w-[200px] min-w-0 shadow-sm"
+        className="flex items-center gap-2 px-2.5 py-1.5 rounded-xl bg-muted/80 border border-border/80 hover:border-slate-600 text-left transition-all group max-w-[150px] sm:max-w-[200px] min-w-0 shadow-sm"
       >
         <div className={`w-7 h-7 rounded-lg flex items-center justify-center text-white text-xs font-bold shrink-0 shadow-inner ${
           tenant.isPlatformAdmin
@@ -50,21 +50,21 @@ export const UserProfileMenu: React.FC = () => {
           )}
         </div>
         <div className="hidden sm:block text-left min-w-0 flex-1 overflow-hidden">
-          <div className="text-xs font-bold text-slate-200 group-hover:text-white truncate">
+          <div className="text-xs font-bold text-foreground group-hover:text-white truncate">
             {displayName.split(' ')[0]}
           </div>
-          <div className="text-[10px] text-slate-400 font-medium truncate flex items-center gap-1">
+          <div className="text-[10px] text-muted-foreground font-medium truncate flex items-center gap-1">
             <ShieldCheck className="w-3 h-3 text-brand-400 shrink-0" />
             <span className="truncate">{displayRole}</span>
           </div>
         </div>
-        <ChevronDown className={`w-3.5 h-3.5 text-slate-400 group-hover:text-slate-200 shrink-0 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+        <ChevronDown className={`w-3.5 h-3.5 text-muted-foreground group-hover:text-foreground shrink-0 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-72 sm:w-80 max-w-[calc(100vw-2rem)] rounded-2xl bg-slate-900 border border-slate-700 shadow-2xl z-50 p-3 animate-scaleUp">
+        <div className="absolute right-0 mt-2 w-72 sm:w-80 max-w-[calc(100vw-2rem)] rounded-2xl bg-card border border-border shadow-2xl z-50 p-3 animate-scaleUp">
           {/* User Profile Summary */}
-          <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800/80 space-y-2">
+          <div className="p-3 rounded-xl bg-card/80 border border-border/80 space-y-2">
             <div className="flex items-center gap-3">
               <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-white font-bold text-sm shrink-0 shadow-md ${
                 tenant.isPlatformAdmin
@@ -79,7 +79,7 @@ export const UserProfileMenu: React.FC = () => {
               </div>
               <div className="min-w-0 flex-1">
                 <div className="text-xs font-bold text-white truncate">{displayName}</div>
-                <div className="text-[11px] text-slate-400 truncate font-mono">{displayEmail}</div>
+                <div className="text-[11px] text-muted-foreground truncate font-mono">{displayEmail}</div>
               </div>
             </div>
 
@@ -104,23 +104,23 @@ export const UserProfileMenu: React.FC = () => {
           </div>
 
           {/* Access Info */}
-          <div className="mt-2 px-3 py-2 text-[11px] text-slate-400 space-y-1">
+          <div className="mt-2 px-3 py-2 text-[11px] text-muted-foreground space-y-1">
             <div className="flex items-center justify-between">
-              <span className="text-slate-500">Security Scope:</span>
-              <span className="text-slate-300 font-medium">
+              <span className="text-muted-foreground">Security Scope:</span>
+              <span className="text-foreground/90 font-medium">
                 {tenant.isPlatformAdmin ? 'Cross-Tenant Sovereign' : 'Tenant Isolated'}
               </span>
             </div>
             {!tenant.isPlatformAdmin && tenant.branchName && (
               <div className="flex items-center justify-between">
-                <span className="text-slate-500">Active Branch:</span>
-                <span className="text-slate-300 font-medium">{tenant.branchName}</span>
+                <span className="text-muted-foreground">Active Branch:</span>
+                <span className="text-foreground/90 font-medium">{tenant.branchName}</span>
               </div>
             )}
           </div>
 
           {/* Sign Out Button */}
-          <div className="mt-2 pt-2 border-t border-slate-800">
+          <div className="mt-2 pt-2 border-t border-border">
             <button
               onClick={() => {
                 setIsOpen(false);

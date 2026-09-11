@@ -90,13 +90,13 @@ export const CostCentersView: React.FC = () => {
       {/* Header Actions */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="relative flex-1 max-w-md">
-          <Search className="w-4 h-4 absolute left-3 top-2.5 text-slate-500" />
+          <Search className="w-4 h-4 absolute left-3 top-2.5 text-muted-foreground" />
           <input
             type="text"
             placeholder="Search cost centers by code or name..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-9 pr-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-brand-500"
+            className="w-full pl-9 pr-3 py-1.5 rounded-lg bg-card border border-border text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-brand-500"
           />
         </div>
 
@@ -119,14 +119,14 @@ export const CostCentersView: React.FC = () => {
             subtitle="Operational divisions and project cost tracking dimensions"
           >
             {summaries.length === 0 ? (
-              <div className="p-8 text-center text-slate-500 text-xs">
+              <div className="p-8 text-center text-muted-foreground text-xs">
                 No cost centers found. Click 'Add Cost Center' to create your first operational dimension.
               </div>
             ) : (
               <div className="overflow-x-auto -mx-4 -my-3 sm:mx-0 sm:my-0">
                 <table className="w-full text-left text-xs">
                   <thead>
-                    <tr className="border-b border-slate-800 text-slate-400 font-semibold bg-slate-950/40">
+                    <tr className="border-b border-border text-muted-foreground font-semibold bg-card/40">
                       <th className="px-4 py-2.5">Cost Center</th>
                       <th className="px-4 py-2.5">Department</th>
                       <th className="px-4 py-2.5 text-right">Budget</th>
@@ -135,27 +135,27 @@ export const CostCentersView: React.FC = () => {
                       <th className="px-4 py-2.5 text-center">Action</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800/60">
+                  <tbody className="divide-y divide-border">
                     {summaries.map((cc) => {
                       const isSelected = selectedCostCenterId === cc.costCenterId;
                       return (
                         <tr 
                           key={cc.costCenterId}
                           onClick={() => setSelectedCostCenterId(isSelected ? null : cc.costCenterId)}
-                          className={`hover:bg-slate-800/40 cursor-pointer transition-colors ${
+                          className={`hover:bg-muted/40 cursor-pointer transition-colors ${
                             isSelected ? 'bg-brand-500/10' : ''
                           }`}
                         >
                           <td className="px-4 py-3">
-                            <div className="font-mono font-bold text-slate-200">{cc.costCenterCode}</div>
-                            <div className="text-[11px] text-slate-400">{cc.costCenterName}</div>
+                            <div className="font-mono font-bold text-foreground">{cc.costCenterCode}</div>
+                            <div className="text-[11px] text-muted-foreground">{cc.costCenterName}</div>
                           </td>
 
-                          <td className="px-4 py-3 text-slate-300">
-                            {cc.departmentName || <span className="text-slate-500">Unassigned</span>}
+                          <td className="px-4 py-3 text-foreground/90">
+                            {cc.departmentName || <span className="text-muted-foreground">Unassigned</span>}
                           </td>
 
-                          <td className="px-4 py-3 text-right font-mono text-slate-300">
+                          <td className="px-4 py-3 text-right font-mono text-foreground/90">
                             ${parseFloat(cc.budgetAmount).toFixed(2)}
                           </td>
 
@@ -174,7 +174,7 @@ export const CostCentersView: React.FC = () => {
 
                           <td className="px-4 py-3 text-center">
                             <button
-                              className="px-2 py-1 rounded text-[10px] font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white"
+                              className="px-2 py-1 rounded text-[10px] font-semibold bg-muted hover:bg-muted text-foreground/90 hover:text-white"
                             >
                               {isSelected ? 'Close' : 'Inspect'}
                             </button>
@@ -198,7 +198,7 @@ export const CostCentersView: React.FC = () => {
               action={
                 <button
                   onClick={() => setSelectedCostCenterId(null)}
-                  className="p-1 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800"
+                  className="p-1 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -207,31 +207,31 @@ export const CostCentersView: React.FC = () => {
               <div className="space-y-4 text-xs">
                 {/* Financial Summary */}
                 <div className="grid grid-cols-2 gap-2">
-                  <div className="p-3 rounded-lg bg-slate-950/60 border border-slate-800">
-                    <span className="text-[10px] text-slate-500 uppercase block">Total Cost</span>
+                  <div className="p-3 rounded-lg bg-card/60 border border-border">
+                    <span className="text-[10px] text-muted-foreground uppercase block">Total Cost</span>
                     <span className="font-mono text-sm font-bold text-rose-400">
                       ${parseFloat(selectedSummary.totalCost).toFixed(2)}
                     </span>
                   </div>
 
-                  <div className="p-3 rounded-lg bg-slate-950/60 border border-slate-800">
-                    <span className="text-[10px] text-slate-500 uppercase block">Revenue</span>
+                  <div className="p-3 rounded-lg bg-card/60 border border-border">
+                    <span className="text-[10px] text-muted-foreground uppercase block">Revenue</span>
                     <span className="font-mono text-sm font-bold text-emerald-400">
                       ${parseFloat(selectedSummary.actualRevenue).toFixed(2)}
                     </span>
                   </div>
                 </div>
 
-                <div className="p-3 rounded-lg bg-slate-950/40 border border-slate-800/80 space-y-1.5">
-                  <div className="flex justify-between text-slate-400">
+                <div className="p-3 rounded-lg bg-card/40 border border-border/80 space-y-1.5">
+                  <div className="flex justify-between text-muted-foreground">
                     <span>Direct Incurred:</span>
-                    <span className="font-mono text-slate-200">${parseFloat(selectedSummary.actualCost).toFixed(2)}</span>
+                    <span className="font-mono text-foreground">${parseFloat(selectedSummary.actualCost).toFixed(2)}</span>
                   </div>
-                  <div className="flex justify-between text-slate-400">
+                  <div className="flex justify-between text-muted-foreground">
                     <span>Allocated Overhead:</span>
                     <span className="font-mono text-amber-400">${parseFloat(selectedSummary.allocatedOverhead).toFixed(2)}</span>
                   </div>
-                  <div className="flex justify-between text-slate-400 pt-1 border-t border-slate-800">
+                  <div className="flex justify-between text-muted-foreground pt-1 border-t border-border">
                     <span>Net Margin:</span>
                     <span className={`font-mono font-bold ${parseFloat(selectedSummary.netProfit) >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
                       ${parseFloat(selectedSummary.netProfit).toFixed(2)} ({selectedSummary.marginPercentage}%)
@@ -241,22 +241,22 @@ export const CostCentersView: React.FC = () => {
 
                 {/* Attributed Transactions */}
                 <div>
-                  <div className="text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-2">
+                  <div className="text-[11px] font-bold text-foreground/90 uppercase tracking-wider mb-2">
                     Attributed Postings ({selectedTransactions.length})
                   </div>
                   {selectedTransactions.length === 0 ? (
-                    <div className="p-4 rounded-lg bg-slate-950/40 text-center text-slate-500 text-[11px]">
+                    <div className="p-4 rounded-lg bg-card/40 text-center text-muted-foreground text-[11px]">
                       No journal lines tagged to this cost center yet.
                     </div>
                   ) : (
                     <div className="space-y-2 max-h-64 overflow-y-auto pr-1">
                       {selectedTransactions.map((tx, idx) => (
-                        <div key={idx} className="p-2.5 rounded-lg bg-slate-950/40 border border-slate-800/60 text-[11px] space-y-1">
-                          <div className="flex justify-between text-slate-300">
-                            <span className="font-mono font-bold text-slate-200">{tx.entryNumber}</span>
-                            <span className="text-slate-500">{tx.postingDate}</span>
+                        <div key={idx} className="p-2.5 rounded-lg bg-card/40 border border-border/60 text-[11px] space-y-1">
+                          <div className="flex justify-between text-foreground/90">
+                            <span className="font-mono font-bold text-foreground">{tx.entryNumber}</span>
+                            <span className="text-muted-foreground">{tx.postingDate}</span>
                           </div>
-                          <div className="flex justify-between text-slate-400">
+                          <div className="flex justify-between text-muted-foreground">
                             <span className="truncate max-w-[140px]">{tx.accountCode} - {tx.accountName}</span>
                             <span className="font-mono font-semibold text-rose-400">${parseFloat(tx.amount).toFixed(2)}</span>
                           </div>
@@ -289,37 +289,37 @@ export const CostCentersView: React.FC = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-slate-300 font-medium mb-1">Cost Center Code *</label>
+              <label className="block text-foreground/90 font-medium mb-1">Cost Center Code *</label>
               <input
                 type="text"
                 required
                 placeholder="e.g. CC-SALES-EXP"
                 value={formCode}
                 onChange={(e) => setFormCode(e.target.value)}
-                className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100 uppercase"
+                className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground uppercase"
               />
             </div>
 
             <div>
-              <label className="block text-slate-300 font-medium mb-1">Cost Center Name *</label>
+              <label className="block text-foreground/90 font-medium mb-1">Cost Center Name *</label>
               <input
                 type="text"
                 required
                 placeholder="e.g. Commercial Sales Operations"
                 value={formName}
                 onChange={(e) => setFormName(e.target.value)}
-                className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100"
+                className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-slate-300 font-medium mb-1">Parent Department</label>
+              <label className="block text-foreground/90 font-medium mb-1">Parent Department</label>
               <select
                 value={formDepartmentId}
                 onChange={(e) => setFormDepartmentId(e.target.value)}
-                className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100"
+                className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground"
               >
                 <option value="">Unassigned</option>
                 {departments.map((d) => (
@@ -329,11 +329,11 @@ export const CostCentersView: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-slate-300 font-medium mb-1">Operating Branch</label>
+              <label className="block text-foreground/90 font-medium mb-1">Operating Branch</label>
               <select
                 value={formBranchId}
                 onChange={(e) => setFormBranchId(e.target.value)}
-                className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100"
+                className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground"
               >
                 <option value="">All Branches / HQ</option>
                 {branches.map((b) => (
@@ -345,40 +345,40 @@ export const CostCentersView: React.FC = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-slate-300 font-medium mb-1">Assigned Manager</label>
+              <label className="block text-foreground/90 font-medium mb-1">Assigned Manager</label>
               <input
                 type="text"
                 placeholder="e.g. Regional Sales Manager"
                 value={formManagerName}
                 onChange={(e) => setFormManagerName(e.target.value)}
-                className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100"
+                className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground"
               />
             </div>
 
             <div>
-              <label className="block text-slate-300 font-medium mb-1">Annual Budget Target ($)</label>
+              <label className="block text-foreground/90 font-medium mb-1">Annual Budget Target ($)</label>
               <input
                 type="number"
                 step="0.01"
                 value={formBudgetAmount}
                 onChange={(e) => setFormBudgetAmount(e.target.value)}
-                className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100 font-mono"
+                className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground font-mono"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-slate-300 font-medium mb-1">Description & Scope</label>
+            <label className="block text-foreground/90 font-medium mb-1">Description & Scope</label>
             <textarea
               rows={2}
               placeholder="Operational scope, expense categories, and division responsibility..."
               value={formDescription}
               onChange={(e) => setFormDescription(e.target.value)}
-              className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-100"
+              className="w-full px-3 py-1.5 rounded-lg bg-card border border-border text-foreground"
             />
           </div>
 
-          <div className="flex justify-end gap-2 pt-3 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-3 border-t border-border">
             <Button variant="secondary" size="sm" type="button" onClick={() => setIsCreateModalOpen(false)}>
               Cancel
             </Button>

@@ -77,8 +77,8 @@ export const TaxAdjustmentsView: React.FC = () => {
       {/* Header Actions */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h2 className="text-lg font-bold text-slate-100">Tax Adjustments & Prior Period Corrections</h2>
-          <p className="text-xs text-slate-400">
+          <h2 className="text-lg font-bold text-foreground">Tax Adjustments & Prior Period Corrections</h2>
+          <p className="text-xs text-muted-foreground">
             Record authorized adjustments, bad debt tax relief, and rounding corrections with immutable double-entry audit journals.
           </p>
         </div>
@@ -98,7 +98,7 @@ export const TaxAdjustmentsView: React.FC = () => {
         {adjustments.length > 0 ? (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-950/60 text-slate-400 border-b border-slate-800">
+              <thead className="bg-card/60 text-muted-foreground border-b border-border">
                 <tr>
                   <th className="py-2.5 px-3">Adjustment #</th>
                   <th className="py-2.5 px-3">Date</th>
@@ -110,12 +110,12 @@ export const TaxAdjustmentsView: React.FC = () => {
                   <th className="py-2.5 px-3 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60 text-slate-300">
+              <tbody className="divide-y divide-border text-foreground/90">
                 {adjustments.map((adj) => (
-                  <tr key={adj.id} className="hover:bg-slate-800/30 transition-colors">
+                  <tr key={adj.id} className="hover:bg-muted/30 transition-colors">
                     <td className="py-2.5 px-3 font-mono font-bold text-brand-400">{adj.adjustmentNumber}</td>
-                    <td className="py-2.5 px-3 font-mono text-slate-400">{adj.adjustmentDate}</td>
-                    <td className="py-2.5 px-3 font-mono text-[11px] uppercase text-slate-300">
+                    <td className="py-2.5 px-3 font-mono text-muted-foreground">{adj.adjustmentDate}</td>
+                    <td className="py-2.5 px-3 font-mono text-[11px] uppercase text-foreground/90">
                       {adj.adjustmentType.replace('_', ' ')}
                     </td>
                     <td className="py-2.5 px-3">
@@ -125,8 +125,8 @@ export const TaxAdjustmentsView: React.FC = () => {
                         {adj.direction.replace('_', ' ')}
                       </span>
                     </td>
-                    <td className="py-2.5 px-3 text-slate-300 max-w-xs truncate">{adj.reason}</td>
-                    <td className="py-2.5 px-3 text-right font-mono font-bold text-slate-100">
+                    <td className="py-2.5 px-3 text-foreground/90 max-w-xs truncate">{adj.reason}</td>
+                    <td className="py-2.5 px-3 text-right font-mono font-bold text-foreground">
                       ${parseFloat(adj.amount).toFixed(2)}
                     </td>
                     <td className="py-2.5 px-3">
@@ -163,7 +163,7 @@ export const TaxAdjustmentsView: React.FC = () => {
             </table>
           </div>
         ) : (
-          <div className="py-10 text-center text-slate-500 text-xs">
+          <div className="py-10 text-center text-muted-foreground text-xs">
             No tax adjustments recorded.
           </div>
         )}
@@ -178,11 +178,11 @@ export const TaxAdjustmentsView: React.FC = () => {
       >
         <form onSubmit={handleCreateAdjustment} className="space-y-4">
           <div>
-            <label className="text-xs font-medium text-slate-300 mb-1 block">Tax Jurisdiction *</label>
+            <label className="text-xs font-medium text-foreground/90 mb-1 block">Tax Jurisdiction *</label>
             <select
               value={form.jurisdictionId}
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setForm({ ...form, jurisdictionId: e.target.value })}
-              className="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-brand-500"
+              className="w-full px-3 py-1.5 bg-card border border-border rounded-lg text-xs text-foreground focus:outline-none focus:border-brand-500"
               required
             >
               <option value="">Select Jurisdiction...</option>
@@ -196,11 +196,11 @@ export const TaxAdjustmentsView: React.FC = () => {
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-medium text-slate-300 mb-1 block">Adjustment Type *</label>
+              <label className="text-xs font-medium text-foreground/90 mb-1 block">Adjustment Type *</label>
               <select
                 value={form.adjustmentType}
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setForm({ ...form, adjustmentType: e.target.value as any })}
-                className="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-brand-500"
+                className="w-full px-3 py-1.5 bg-card border border-border rounded-lg text-xs text-foreground focus:outline-none focus:border-brand-500"
                 required
               >
                 <option value="prior_period">Prior Period Correction</option>
@@ -212,11 +212,11 @@ export const TaxAdjustmentsView: React.FC = () => {
             </div>
 
             <div>
-              <label className="text-xs font-medium text-slate-300 mb-1 block">Direction *</label>
+              <label className="text-xs font-medium text-foreground/90 mb-1 block">Direction *</label>
               <select
                 value={form.direction}
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setForm({ ...form, direction: e.target.value as any })}
-                className="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-brand-500"
+                className="w-full px-3 py-1.5 bg-card border border-border rounded-lg text-xs text-foreground focus:outline-none focus:border-brand-500"
                 required
               >
                 <option value="increase_liability">Increase Tax Liability (Dr Exp, Cr Output Tax)</option>
@@ -229,7 +229,7 @@ export const TaxAdjustmentsView: React.FC = () => {
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-medium text-slate-300 mb-1 block">Adjustment Amount *</label>
+              <label className="text-xs font-medium text-foreground/90 mb-1 block">Adjustment Amount *</label>
               <input
                 type="number"
                 step="0.01"
@@ -237,34 +237,34 @@ export const TaxAdjustmentsView: React.FC = () => {
                 value={form.amount}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, amount: e.target.value })}
                 placeholder="0.00"
-                className="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-brand-500"
+                className="w-full px-3 py-1.5 bg-card border border-border rounded-lg text-xs text-foreground focus:outline-none focus:border-brand-500"
                 required
               />
             </div>
             <div>
-              <label className="text-xs font-medium text-slate-300 mb-1 block">Adjustment Date *</label>
+              <label className="text-xs font-medium text-foreground/90 mb-1 block">Adjustment Date *</label>
               <input
                 type="date"
                 value={form.adjustmentDate}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, adjustmentDate: e.target.value })}
-                className="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-brand-500"
+                className="w-full px-3 py-1.5 bg-card border border-border rounded-lg text-xs text-foreground focus:outline-none focus:border-brand-500"
                 required
               />
             </div>
           </div>
 
           <div>
-            <label className="text-xs font-medium text-slate-300 mb-1 block">Reason / Legal Authorization *</label>
+            <label className="text-xs font-medium text-foreground/90 mb-1 block">Reason / Legal Authorization *</label>
             <input
               value={form.reason}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, reason: e.target.value })}
               placeholder="e.g. Disallowed entertainment input tax correction"
-              className="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand-500"
+              className="w-full px-3 py-1.5 bg-card border border-border rounded-lg text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-brand-500"
               required
             />
           </div>
 
-          <div className="flex justify-end gap-2 pt-2 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-2 border-t border-border">
             <Button variant="ghost" size="sm" type="button" onClick={() => setIsModalOpen(false)}>
               Cancel
             </Button>

@@ -54,7 +54,7 @@ export const AccountLedgerDetailView: React.FC = () => {
   return (
     <div className="space-y-4">
       {/* Account Selector & Filters Bar */}
-      <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-3">
+      <div className="p-4 rounded-xl bg-card border border-border space-y-3">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           <Select
             label="General Ledger Account"
@@ -91,15 +91,15 @@ export const AccountLedgerDetailView: React.FC = () => {
           />
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-1 border-t border-slate-800/80">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-1 border-t border-border/80">
           <div className="relative w-full sm:w-72">
-            <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-500" />
+            <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-muted-foreground" />
             <input
               type="text"
               placeholder="Search transactions..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-3 py-1.5 text-xs bg-slate-950/80 border border-slate-800 rounded-lg text-slate-200 placeholder-slate-500 focus:outline-none focus:border-brand-500"
+              className="w-full pl-9 pr-3 py-1.5 text-xs bg-card/80 border border-border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-brand-500"
             />
           </div>
 
@@ -127,40 +127,40 @@ export const AccountLedgerDetailView: React.FC = () => {
       {/* Account Balance Summary Cards */}
       {ledgerData && (
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
-          <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
-            <span className="text-[10px] uppercase font-bold text-slate-400">Opening Balance</span>
-            <div className="text-base font-mono font-bold text-slate-100 mt-1">
+          <div className="p-3.5 rounded-xl bg-card border border-border">
+            <span className="text-[10px] uppercase font-bold text-muted-foreground">Opening Balance</span>
+            <div className="text-base font-mono font-bold text-foreground mt-1">
               ${parseFloat(ledgerData.openingBalance).toFixed(2)} {ledgerData.currency}
             </div>
-            <span className="text-[10px] text-slate-500">Prior Period Cumulative</span>
+            <span className="text-[10px] text-muted-foreground">Prior Period Cumulative</span>
           </div>
 
-          <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
+          <div className="p-3.5 rounded-xl bg-card border border-border">
             <span className="text-[10px] uppercase font-bold text-emerald-400 flex items-center gap-1">
               <ArrowDownLeft className="w-3 h-3" /> Period Total Debits
             </span>
             <div className="text-base font-mono font-bold text-emerald-400 mt-1">
               ${parseFloat(ledgerData.periodDebit).toFixed(2)} {ledgerData.currency}
             </div>
-            <span className="text-[10px] text-slate-500">Inflow Transactions</span>
+            <span className="text-[10px] text-muted-foreground">Inflow Transactions</span>
           </div>
 
-          <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
+          <div className="p-3.5 rounded-xl bg-card border border-border">
             <span className="text-[10px] uppercase font-bold text-sky-400 flex items-center gap-1">
               <ArrowUpRight className="w-3 h-3" /> Period Total Credits
             </span>
             <div className="text-base font-mono font-bold text-sky-400 mt-1">
               ${parseFloat(ledgerData.periodCredit).toFixed(2)} {ledgerData.currency}
             </div>
-            <span className="text-[10px] text-slate-500">Outflow Transactions</span>
+            <span className="text-[10px] text-muted-foreground">Outflow Transactions</span>
           </div>
 
-          <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
+          <div className="p-3.5 rounded-xl bg-card border border-border">
             <span className="text-[10px] uppercase font-bold text-brand-400">Closing Balance</span>
             <div className="text-base font-mono font-bold text-brand-300 mt-1">
               ${parseFloat(ledgerData.closingBalance).toFixed(2)} {ledgerData.currency}
             </div>
-            <span className="text-[10px] text-slate-500">Normal Balance: {ledgerData.account.normalBalance.toUpperCase()}</span>
+            <span className="text-[10px] text-muted-foreground">Normal Balance: {ledgerData.account.normalBalance.toUpperCase()}</span>
           </div>
         </div>
       )}
@@ -174,7 +174,7 @@ export const AccountLedgerDetailView: React.FC = () => {
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-slate-800 bg-slate-900/90 text-slate-400 font-semibold uppercase tracking-wider">
+              <tr className="border-b border-border bg-card/90 text-muted-foreground font-semibold uppercase tracking-wider">
                 <th className="px-4 py-3">Posting Date</th>
                 <th className="px-4 py-3">Voucher #</th>
                 <th className="px-4 py-3">Source</th>
@@ -184,19 +184,19 @@ export const AccountLedgerDetailView: React.FC = () => {
                 <th className="px-4 py-3 text-right">Running Balance</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-slate-200">
+            <tbody className="divide-y divide-border text-foreground">
               {filteredTransactions.map((tx, idx) => (
-                <tr key={`${tx.journalEntryId}-${idx}`} className="hover:bg-slate-800/30 transition-colors">
-                  <td className="px-4 py-2.5 font-mono text-slate-300">{tx.postingDate}</td>
+                <tr key={`${tx.journalEntryId}-${idx}`} className="hover:bg-muted/30 transition-colors">
+                  <td className="px-4 py-2.5 font-mono text-foreground/90">{tx.postingDate}</td>
                   <td className="px-4 py-2.5 font-mono font-bold text-brand-400">{tx.entryNumber}</td>
                   <td className="px-4 py-2.5">
-                    <span className="px-1.5 py-0.2 rounded text-[10px] font-mono bg-slate-800 text-slate-300">
+                    <span className="px-1.5 py-0.2 rounded text-[10px] font-mono bg-muted text-foreground/90">
                       {tx.sourceModule}
                     </span>
                   </td>
                   <td className="px-4 py-2.5">
-                    <div className="font-medium text-slate-200">{tx.memo}</div>
-                    <div className="text-[11px] text-slate-400">{tx.lineDescription}</div>
+                    <div className="font-medium text-foreground">{tx.memo}</div>
+                    <div className="text-[11px] text-muted-foreground">{tx.lineDescription}</div>
                   </td>
                   <td className="px-4 py-2.5 text-right font-mono text-emerald-400">
                     {parseFloat(tx.debitAmount) > 0 ? `$${parseFloat(tx.debitAmount).toFixed(2)}` : '-'}
@@ -204,14 +204,14 @@ export const AccountLedgerDetailView: React.FC = () => {
                   <td className="px-4 py-2.5 text-right font-mono text-sky-400">
                     {parseFloat(tx.creditAmount) > 0 ? `$${parseFloat(tx.creditAmount).toFixed(2)}` : '-'}
                   </td>
-                  <td className="px-4 py-2.5 text-right font-mono font-bold text-slate-100">
+                  <td className="px-4 py-2.5 text-right font-mono font-bold text-foreground">
                     ${parseFloat(tx.runningBalance).toFixed(2)}
                   </td>
                 </tr>
               ))}
               {filteredTransactions.length === 0 && (
                 <tr>
-                  <td colSpan={7} className="px-4 py-12 text-center text-slate-500">
+                  <td colSpan={7} className="px-4 py-12 text-center text-muted-foreground">
                     No transactions recorded for this account in the selected date range.
                   </td>
                 </tr>

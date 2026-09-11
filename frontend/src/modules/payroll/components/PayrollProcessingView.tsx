@@ -171,8 +171,8 @@ export const PayrollProcessingView: React.FC<PayrollProcessingViewProps> = ({
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-base font-bold text-slate-100">Payroll Calculation & GL Processing</h2>
-          <p className="text-xs text-slate-400">
+          <h2 className="text-base font-bold text-foreground">Payroll Calculation & GL Processing</h2>
+          <p className="text-xs text-muted-foreground">
             Execute decimal-precise gross-to-net calculations, post accruals to GL #2300, and disburse bank payments.
           </p>
         </div>
@@ -188,14 +188,14 @@ export const PayrollProcessingView: React.FC<PayrollProcessingViewProps> = ({
         subtitle="End-to-end processing pipeline from calculation to bank settlement"
       >
         {periods.length === 0 ? (
-          <div className="py-12 text-center text-slate-400 text-xs">
-            <FileSpreadsheet className="w-8 h-8 text-slate-600 mx-auto mb-2" />
+          <div className="py-12 text-center text-muted-foreground text-xs">
+            <FileSpreadsheet className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
             No payroll batches found. Click 'New Payroll Period' to start.
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-900/50 text-slate-400 border-b border-slate-800">
+              <thead className="bg-muted/50 text-muted-foreground border-b border-border">
                 <tr>
                   <th className="p-3">Period Batch</th>
                   <th className="p-3">Coverage Dates</th>
@@ -208,18 +208,18 @@ export const PayrollProcessingView: React.FC<PayrollProcessingViewProps> = ({
                   <th className="p-3 text-right">Pipeline Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60">
+              <tbody className="divide-y divide-border">
                 {periods.map((p) => (
-                  <tr key={p.id} className="hover:bg-slate-800/20 transition-colors">
-                    <td className="p-3 font-semibold text-slate-200">
+                  <tr key={p.id} className="hover:bg-muted/20 transition-colors">
+                    <td className="p-3 font-semibold text-foreground">
                       {p.periodName}
-                      <span className="block text-[10px] text-slate-500 font-mono font-normal">{p.periodCode}</span>
+                      <span className="block text-[10px] text-muted-foreground font-mono font-normal">{p.periodCode}</span>
                     </td>
-                    <td className="p-3 text-slate-400">
+                    <td className="p-3 text-muted-foreground">
                       {p.startDate} → {p.endDate}
                     </td>
-                    <td className="p-3 text-slate-300 font-semibold">{p.employeeCount}</td>
-                    <td className="p-3 text-slate-200 font-mono">
+                    <td className="p-3 text-foreground/90 font-semibold">{p.employeeCount}</td>
+                    <td className="p-3 text-foreground font-mono">
                       ${parseFloat(p.totalGrossSalary).toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </td>
                     <td className="p-3 text-rose-400 font-mono">
@@ -236,7 +236,7 @@ export const PayrollProcessingView: React.FC<PayrollProcessingViewProps> = ({
                         className={`px-2 py-0.5 rounded text-[10px] font-semibold ${
                           p.paymentStatus === 'paid'
                             ? 'bg-emerald-950/60 text-emerald-400 border border-emerald-800/50'
-                            : 'bg-slate-800 text-slate-400'
+                            : 'bg-muted text-muted-foreground'
                         }`}
                       >
                         {p.paymentStatus.toUpperCase()}
@@ -259,7 +259,7 @@ export const PayrollProcessingView: React.FC<PayrollProcessingViewProps> = ({
                           <>
                             <button
                               onClick={() => handleViewEntries(p)}
-                              className="p-1.5 rounded-lg text-slate-300 hover:text-brand-400 hover:bg-slate-800 transition-colors"
+                              className="p-1.5 rounded-lg text-foreground/90 hover:text-brand-400 hover:bg-muted transition-colors"
                               title="Review Entries"
                             >
                               <Eye className="w-3.5 h-3.5" />
@@ -279,7 +279,7 @@ export const PayrollProcessingView: React.FC<PayrollProcessingViewProps> = ({
                           <>
                             <button
                               onClick={() => handleViewEntries(p)}
-                              className="p-1.5 rounded-lg text-slate-300 hover:text-brand-400 hover:bg-slate-800 transition-colors"
+                              className="p-1.5 rounded-lg text-foreground/90 hover:text-brand-400 hover:bg-muted transition-colors"
                               title="Review Entries"
                             >
                               <Eye className="w-3.5 h-3.5" />
@@ -299,7 +299,7 @@ export const PayrollProcessingView: React.FC<PayrollProcessingViewProps> = ({
                           <>
                             <button
                               onClick={() => handleViewEntries(p)}
-                              className="p-1.5 rounded-lg text-slate-300 hover:text-brand-400 hover:bg-slate-800 transition-colors"
+                              className="p-1.5 rounded-lg text-foreground/90 hover:text-brand-400 hover:bg-muted transition-colors"
                               title="Review Entries"
                             >
                               <Eye className="w-3.5 h-3.5" />
@@ -318,7 +318,7 @@ export const PayrollProcessingView: React.FC<PayrollProcessingViewProps> = ({
                         {(p.status === 'paid' || p.status === 'closed') && (
                           <button
                             onClick={() => handleViewEntries(p)}
-                            className="p-1.5 rounded-lg text-slate-300 hover:text-brand-400 hover:bg-slate-800 transition-colors"
+                            className="p-1.5 rounded-lg text-foreground/90 hover:text-brand-400 hover:bg-muted transition-colors"
                             title="View Payslips"
                           >
                             <Eye className="w-3.5 h-3.5" />
@@ -336,25 +336,25 @@ export const PayrollProcessingView: React.FC<PayrollProcessingViewProps> = ({
 
       {/* Review Entries Modal */}
       {isEntriesModalOpen && selectedPeriod && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-fadeIn">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-5xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
-            <div className="p-5 border-b border-slate-800 flex items-center justify-between">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-card/80 backdrop-blur-sm animate-fadeIn">
+          <div className="bg-card border border-border rounded-2xl w-full max-w-5xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+            <div className="p-5 border-b border-border flex items-center justify-between">
               <div>
-                <h2 className="text-base font-bold text-slate-100">
+                <h2 className="text-base font-bold text-foreground">
                   Payroll Review: {selectedPeriod.periodName}
                 </h2>
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-muted-foreground">
                   {periodEntries.length} Employee Pay Slips • Net Total: ${parseFloat(selectedPeriod.totalNetSalary).toLocaleString('en-US', { minimumFractionDigits: 2 })}
                 </p>
               </div>
-              <button onClick={() => setIsEntriesModalOpen(false)} className="text-slate-400 hover:text-slate-100">
+              <button onClick={() => setIsEntriesModalOpen(false)} className="text-muted-foreground hover:text-foreground">
                 ✕
               </button>
             </div>
 
             <div className="p-6 overflow-y-auto flex-1">
-              <table className="w-full text-left text-xs bg-slate-950/40 rounded-xl border border-slate-800">
-                <thead className="bg-slate-900/80 text-slate-400">
+              <table className="w-full text-left text-xs bg-card/40 rounded-xl border border-border">
+                <thead className="bg-card/80 text-muted-foreground">
                   <tr>
                     <th className="p-2.5">Employee</th>
                     <th className="p-2.5">Basic</th>
@@ -366,17 +366,17 @@ export const PayrollProcessingView: React.FC<PayrollProcessingViewProps> = ({
                     <th className="p-2.5 font-bold text-emerald-400">Net Salary</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60">
+                <tbody className="divide-y divide-border">
                   {periodEntries.map((pe) => (
                     <tr key={pe.id}>
                       <td className="p-2.5">
-                        <div className="font-semibold text-slate-200">{pe.employeeName}</div>
-                        <div className="text-[10px] text-slate-500">{pe.employeeCode}</div>
+                        <div className="font-semibold text-foreground">{pe.employeeName}</div>
+                        <div className="text-[10px] text-muted-foreground">{pe.employeeCode}</div>
                       </td>
-                      <td className="p-2.5 text-slate-300 font-mono">${parseFloat(pe.basicSalary).toFixed(2)}</td>
-                      <td className="p-2.5 text-slate-300 font-mono">${parseFloat(pe.totalAllowances).toFixed(2)}</td>
+                      <td className="p-2.5 text-foreground/90 font-mono">${parseFloat(pe.basicSalary).toFixed(2)}</td>
+                      <td className="p-2.5 text-foreground/90 font-mono">${parseFloat(pe.totalAllowances).toFixed(2)}</td>
                       <td className="p-2.5 text-amber-400 font-mono">${parseFloat(pe.totalOvertime).toFixed(2)}</td>
-                      <td className="p-2.5 text-slate-100 font-semibold font-mono">${parseFloat(pe.grossSalary).toFixed(2)}</td>
+                      <td className="p-2.5 text-foreground font-semibold font-mono">${parseFloat(pe.grossSalary).toFixed(2)}</td>
                       <td className="p-2.5 text-rose-400 font-mono">${parseFloat(pe.advanceDeductions).toFixed(2)}</td>
                       <td className="p-2.5 text-rose-400 font-mono">${parseFloat(pe.absenceDeductions).toFixed(2)}</td>
                       <td className="p-2.5 font-bold text-emerald-400 font-mono">${parseFloat(pe.netSalary).toFixed(2)}</td>
@@ -386,7 +386,7 @@ export const PayrollProcessingView: React.FC<PayrollProcessingViewProps> = ({
               </table>
             </div>
 
-            <div className="p-4 border-t border-slate-800 flex items-center justify-end">
+            <div className="p-4 border-t border-border flex items-center justify-end">
               <Button variant="secondary" size="sm" onClick={() => setIsEntriesModalOpen(false)}>
                 Close
               </Button>
@@ -397,33 +397,33 @@ export const PayrollProcessingView: React.FC<PayrollProcessingViewProps> = ({
 
       {/* Disburse Bank Salary Payment Modal */}
       {isDisburseModalOpen && disbursingPeriod && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-fadeIn">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md shadow-2xl overflow-hidden">
-            <div className="p-5 border-b border-slate-800 flex items-center justify-between">
-              <h2 className="text-base font-bold text-slate-100">Disburse Salary Payments</h2>
-              <button onClick={() => setIsDisburseModalOpen(false)} className="text-slate-400 hover:text-slate-100">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-card/80 backdrop-blur-sm animate-fadeIn">
+          <div className="bg-card border border-border rounded-2xl w-full max-w-md shadow-2xl overflow-hidden">
+            <div className="p-5 border-b border-border flex items-center justify-between">
+              <h2 className="text-base font-bold text-foreground">Disburse Salary Payments</h2>
+              <button onClick={() => setIsDisburseModalOpen(false)} className="text-muted-foreground hover:text-foreground">
                 ✕
               </button>
             </div>
 
             <form onSubmit={handleExecuteDisbursement} className="p-6 space-y-4 text-xs">
-              <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
-                <span className="text-slate-500 block">Total Net Disbursement</span>
+              <div className="p-4 rounded-xl bg-card border border-border space-y-1">
+                <span className="text-muted-foreground block">Total Net Disbursement</span>
                 <div className="text-xl font-bold text-emerald-400 font-mono">
                   ${parseFloat(disbursingPeriod.totalNetSalary).toLocaleString('en-US', { minimumFractionDigits: 2 })}
                 </div>
-                <p className="text-[10px] text-slate-400">
+                <p className="text-[10px] text-muted-foreground">
                   Discharges GL Liability #2300 via Banking Outflow.
                 </p>
               </div>
 
               <div>
-                <label className="block text-slate-400 mb-1">Source Bank Account *</label>
+                <label className="block text-muted-foreground mb-1">Source Bank Account *</label>
                 <select
                   required
                   value={disburseBankId}
                   onChange={(e) => setDisburseBankId(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 focus:outline-none focus:border-brand-500"
+                  className="w-full px-3 py-2 bg-card border border-border rounded-lg text-foreground focus:outline-none focus:border-brand-500"
                 >
                   {bankAccounts.map((b) => (
                     <option key={b.id} value={b.id}>
@@ -434,17 +434,17 @@ export const PayrollProcessingView: React.FC<PayrollProcessingViewProps> = ({
               </div>
 
               <div>
-                <label className="block text-slate-400 mb-1">Disbursement Date *</label>
+                <label className="block text-muted-foreground mb-1">Disbursement Date *</label>
                 <input
                   type="date"
                   required
                   value={disburseDate}
                   onChange={(e) => setDisburseDate(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 focus:outline-none focus:border-brand-500"
+                  className="w-full px-3 py-2 bg-card border border-border rounded-lg text-foreground focus:outline-none focus:border-brand-500"
                 />
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-800">
+              <div className="flex items-center justify-end gap-3 pt-4 border-t border-border">
                 <Button variant="secondary" size="sm" type="button" onClick={() => setIsDisburseModalOpen(false)}>
                   Cancel
                 </Button>
@@ -459,16 +459,16 @@ export const PayrollProcessingView: React.FC<PayrollProcessingViewProps> = ({
 
       {/* Create Period Modal */}
       {isCreateModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-fadeIn">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden">
-            <div className="p-5 border-b border-slate-800 flex items-center justify-between">
-              <h2 className="text-base font-bold text-slate-100">Initialize Payroll Period</h2>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-card/80 backdrop-blur-sm animate-fadeIn">
+          <div className="bg-card border border-border rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden">
+            <div className="p-5 border-b border-border flex items-center justify-between">
+              <h2 className="text-base font-bold text-foreground">Initialize Payroll Period</h2>
               <button
                 onClick={() => {
                   setIsCreateModalOpen(false);
                   if (onCloseCreate) onCloseCreate();
                 }}
-                className="text-slate-400 hover:text-slate-100"
+                className="text-muted-foreground hover:text-foreground"
               >
                 ✕
               </button>
@@ -476,61 +476,61 @@ export const PayrollProcessingView: React.FC<PayrollProcessingViewProps> = ({
 
             <form onSubmit={handleCreatePeriod} className="p-6 space-y-4 text-xs">
               <div>
-                <label className="block text-slate-400 mb-1">Period Batch Name *</label>
+                <label className="block text-muted-foreground mb-1">Period Batch Name *</label>
                 <input
                   type="text"
                   required
                   value={formPeriodName}
                   onChange={(e) => setFormPeriodName(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 focus:outline-none focus:border-brand-500"
+                  className="w-full px-3 py-2 bg-card border border-border rounded-lg text-foreground focus:outline-none focus:border-brand-500"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-slate-400 mb-1">Start Date *</label>
+                  <label className="block text-muted-foreground mb-1">Start Date *</label>
                   <input
                     type="date"
                     required
                     value={formStartDate}
                     onChange={(e) => setFormStartDate(e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 focus:outline-none focus:border-brand-500"
+                    className="w-full px-3 py-2 bg-card border border-border rounded-lg text-foreground focus:outline-none focus:border-brand-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-400 mb-1">End Date *</label>
+                  <label className="block text-muted-foreground mb-1">End Date *</label>
                   <input
                     type="date"
                     required
                     value={formEndDate}
                     onChange={(e) => setFormEndDate(e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 focus:outline-none focus:border-brand-500"
+                    className="w-full px-3 py-2 bg-card border border-border rounded-lg text-foreground focus:outline-none focus:border-brand-500"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-slate-400 mb-1">Target Payment Date *</label>
+                <label className="block text-muted-foreground mb-1">Target Payment Date *</label>
                 <input
                   type="date"
                   required
                   value={formPaymentDate}
                   onChange={(e) => setFormPaymentDate(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 focus:outline-none focus:border-brand-500"
+                  className="w-full px-3 py-2 bg-card border border-border rounded-lg text-foreground focus:outline-none focus:border-brand-500"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-400 mb-1">Batch Notes</label>
+                <label className="block text-muted-foreground mb-1">Batch Notes</label>
                 <textarea
                   rows={2}
                   value={formNotes}
                   onChange={(e) => setFormNotes(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 focus:outline-none focus:border-brand-500"
+                  className="w-full px-3 py-2 bg-card border border-border rounded-lg text-foreground focus:outline-none focus:border-brand-500"
                 />
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-800">
+              <div className="flex items-center justify-end gap-3 pt-4 border-t border-border">
                 <Button
                   variant="secondary"
                   size="sm"

@@ -391,7 +391,7 @@ export const SuperAdminPortal: React.FC = () => {
             </div>
           }
         >
-          <div className="space-y-4 text-xs text-slate-300">
+          <div className="space-y-4 text-xs text-foreground/90">
             <div className="p-3 rounded-lg bg-rose-950/20 border border-rose-500/30 flex items-start gap-2.5 text-rose-300">
               <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5 text-rose-400" />
               <div>
@@ -403,7 +403,7 @@ export const SuperAdminPortal: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-[11px] font-semibold text-slate-300 mb-1.5">
+              <label className="block text-[11px] font-semibold text-foreground/90 mb-1.5">
                 Type the company short code <strong className="font-mono text-rose-400 font-bold">[{companyToDelete.code}]</strong> to confirm:
               </label>
               <input
@@ -411,7 +411,7 @@ export const SuperAdminPortal: React.FC = () => {
                 value={confirmCodeInput}
                 onChange={(e) => setConfirmCodeInput(e.target.value)}
                 placeholder={`Type ${companyToDelete.code}`}
-                className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-slate-100 font-mono text-xs focus:border-rose-500 focus:outline-none"
+                className="w-full px-3 py-2 rounded-lg bg-card border border-border text-foreground font-mono text-xs focus:border-rose-500 focus:outline-none"
               />
             </div>
           </div>
@@ -450,9 +450,9 @@ export const SuperAdminPortal: React.FC = () => {
           }
         >
           <div className="space-y-3">
-            <div className="p-3 rounded-lg bg-slate-950/60 border border-slate-800 flex items-center justify-between text-xs">
-              <span className="text-slate-400">Company Tier Template: <strong className="text-slate-100">{selectedCompany.tier.toUpperCase()}</strong></span>
-              <span className="text-slate-400">Base Currency: <strong className="font-mono text-slate-100">{selectedCompany.baseCurrency}</strong></span>
+            <div className="p-3 rounded-lg bg-card/60 border border-border flex items-center justify-between text-xs">
+              <span className="text-muted-foreground">Company Tier Template: <strong className="text-foreground">{selectedCompany.tier.toUpperCase()}</strong></span>
+              <span className="text-muted-foreground">Base Currency: <strong className="font-mono text-foreground">{selectedCompany.baseCurrency}</strong></span>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-96 overflow-y-auto pr-1">
@@ -465,16 +465,16 @@ export const SuperAdminPortal: React.FC = () => {
                   <div
                     key={mod.key}
                     className={`p-3 rounded-lg border transition-all flex items-start justify-between gap-3 ${
-                      isEnabled ? 'bg-slate-900 border-slate-700' : 'bg-slate-950/40 border-slate-800/80 opacity-60'
+                      isEnabled ? 'bg-card border-border' : 'bg-card/40 border-border/80 opacity-60'
                     }`}
                   >
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="text-xs font-bold text-slate-100">{mod.name}</span>
+                        <span className="text-xs font-bold text-foreground">{mod.name}</span>
                         {mod.isCore && <span className="text-[9px] font-bold px-1.5 py-0.2 rounded bg-brand-500/10 text-brand-400 border border-brand-500/20">CORE</span>}
                       </div>
-                      <p className="text-[11px] text-slate-400 mt-1">{mod.description}</p>
-                      <div className="text-[10px] text-slate-500 mt-1">Min Tier: {mod.minTier.toUpperCase()}</div>
+                      <p className="text-[11px] text-muted-foreground mt-1">{mod.description}</p>
+                      <div className="text-[10px] text-muted-foreground mt-1">Min Tier: {mod.minTier.toUpperCase()}</div>
                     </div>
 
                     {!mod.isCore && (
@@ -483,7 +483,7 @@ export const SuperAdminPortal: React.FC = () => {
                         className={`px-2.5 py-1 text-xs font-semibold rounded-md transition-colors shrink-0 ${
                           isEnabled
                             ? 'bg-emerald-600/20 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-600/30'
-                            : 'bg-slate-800 text-slate-400 border border-slate-700 hover:text-slate-200'
+                            : 'bg-muted text-muted-foreground border border-border hover:text-foreground'
                         }`}
                       >
                         {isEnabled ? 'Enabled' : 'Disabled'}

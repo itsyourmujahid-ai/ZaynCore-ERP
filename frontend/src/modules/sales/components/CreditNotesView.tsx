@@ -90,15 +90,15 @@ export const CreditNotesView: React.FC = () => {
   return (
     <div className="space-y-4">
       {/* Search & Actions */}
-      <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-3">
+      <div className="p-4 rounded-xl bg-card border border-border flex flex-col md:flex-row items-center justify-between gap-3">
         <div className="relative w-full md:w-80">
-          <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-500" />
+          <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-muted-foreground" />
           <input
             type="text"
             placeholder="Search credit note # or reason..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-1.5 text-xs bg-slate-950/80 border border-slate-800 rounded-lg text-slate-200 placeholder-slate-500 focus:outline-none focus:border-brand-500"
+            className="w-full pl-9 pr-3 py-1.5 text-xs bg-card/80 border border-border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-brand-500"
           />
         </div>
 
@@ -121,7 +121,7 @@ export const CreditNotesView: React.FC = () => {
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-slate-800 bg-slate-900/90 text-slate-400 font-semibold uppercase tracking-wider">
+              <tr className="border-b border-border bg-card/90 text-muted-foreground font-semibold uppercase tracking-wider">
                 <th className="px-5 py-3.5">Credit Note #</th>
                 <th className="px-5 py-3.5">Customer Name</th>
                 <th className="px-5 py-3.5">Date</th>
@@ -131,15 +131,15 @@ export const CreditNotesView: React.FC = () => {
                 <th className="px-5 py-3.5 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-slate-200">
+            <tbody className="divide-y divide-border text-foreground">
               {filteredCNs.map((cn) => {
                 const customer = customers.find((c) => c.id === cn.customerId);
                 return (
-                  <tr key={cn.id} className="hover:bg-slate-800/40 transition-colors">
+                  <tr key={cn.id} className="hover:bg-muted/40 transition-colors">
                     <td className="px-5 py-3.5 font-mono font-bold text-rose-400">{cn.creditNoteNumber}</td>
-                    <td className="px-5 py-3.5 font-medium text-slate-100">{customer?.name || 'Unknown Customer'}</td>
-                    <td className="px-5 py-3.5 font-mono text-slate-300">{cn.date}</td>
-                    <td className="px-5 py-3.5 text-slate-300">{cn.reason}</td>
+                    <td className="px-5 py-3.5 font-medium text-foreground">{customer?.name || 'Unknown Customer'}</td>
+                    <td className="px-5 py-3.5 font-mono text-foreground/90">{cn.date}</td>
+                    <td className="px-5 py-3.5 text-foreground/90">{cn.reason}</td>
                     <td className="px-5 py-3.5 text-right font-mono font-bold text-rose-400">
                       -${parseFloat(cn.total).toFixed(2)} {cn.currency}
                     </td>
@@ -162,7 +162,7 @@ export const CreditNotesView: React.FC = () => {
               })}
               {filteredCNs.length === 0 && (
                 <tr>
-                  <td colSpan={7} className="px-5 py-12 text-center text-slate-500">
+                  <td colSpan={7} className="px-5 py-12 text-center text-muted-foreground">
                     No sales credit notes recorded. Click "Issue Credit Note" to apply legitimate price reductions or returns.
                   </td>
                 </tr>
@@ -182,7 +182,7 @@ export const CreditNotesView: React.FC = () => {
           size="md"
           footer={
             <div className="flex items-center justify-between w-full">
-              <span className="text-xs text-slate-400">
+              <span className="text-xs text-muted-foreground">
                 GL Post: <strong>Dr #4010 Revenue / Cr #1200 AR</strong>
               </span>
               <Button variant="secondary" size="sm" onClick={() => setIsDetailModalOpen(false)}>
@@ -192,26 +192,26 @@ export const CreditNotesView: React.FC = () => {
           }
         >
           <div className="space-y-3 text-xs">
-            <div className="p-3.5 rounded-lg bg-slate-950/70 border border-slate-800 space-y-2">
+            <div className="p-3.5 rounded-lg bg-card/70 border border-border space-y-2">
               <div className="flex justify-between">
-                <span className="text-slate-400">Adjustment Total:</span>
+                <span className="text-muted-foreground">Adjustment Total:</span>
                 <span className="font-mono font-bold text-rose-400 text-sm">
                   -${parseFloat(selectedCreditNote.total).toFixed(2)} {selectedCreditNote.currency}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-400">Tax Component:</span>
-                <span className="font-mono text-slate-300">
+                <span className="text-muted-foreground">Tax Component:</span>
+                <span className="font-mono text-foreground/90">
                   -${parseFloat(selectedCreditNote.taxAmount).toFixed(2)}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-400">Reason:</span>
-                <span className="text-slate-200">{selectedCreditNote.reason}</span>
+                <span className="text-muted-foreground">Reason:</span>
+                <span className="text-foreground">{selectedCreditNote.reason}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-400">Date:</span>
-                <span className="font-mono text-slate-300">{selectedCreditNote.date}</span>
+                <span className="text-muted-foreground">Date:</span>
+                <span className="font-mono text-foreground/90">{selectedCreditNote.date}</span>
               </div>
             </div>
           </div>
@@ -227,7 +227,7 @@ export const CreditNotesView: React.FC = () => {
         size="lg"
         footer={
           <div className="flex items-center justify-between w-full">
-            <div className="text-xs text-slate-300 font-mono">
+            <div className="text-xs text-foreground/90 font-mono">
               Total Credit: <strong className="text-rose-400 text-sm">-${parseFloat(form.amount || '0').toFixed(2)} {form.currency}</strong>
             </div>
             <div className="flex items-center gap-2">
